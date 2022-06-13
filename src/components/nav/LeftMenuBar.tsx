@@ -1,5 +1,4 @@
 import { Divider, IconButton, List, styled } from "@mui/material";
-import { useState } from "react";
 import IconMenuItem from "../../modules/menu/IconMenuItem";
 import {
 	aerospace,
@@ -27,6 +26,10 @@ import AerospaceIcon from "../../assets/icons/AerospaceIcon";
 import SunnyWeatherIcon from "../../assets/icons/SunnyWeatherIcon";
 import BaseButton from "../button/BaseButton";
 import KoreaAirForceLetterLogo from "../../assets/logos/KoreaAirForceLetterLogo";
+import useMenuBarStore from "../../stores/useMenuBarStore";
+import { useLocation } from "react-router-dom";
+import { theme } from "../../styles/theme";
+import useThemeStore from "../../stores/useThemeStore";
 
 const Root = styled("div")(({ theme }) => ({
 	borderRight: `1px solid ${theme.palette.divider}`,
@@ -50,19 +53,28 @@ const ShrinkBtn = styled(IconButton)(({ isshrinked }: { isshrinked: string }) =>
 }));
 
 const LeftMenuBar = () => {
-	const [open, setOpen] = useState(false);
+	const { isBarOpen, setIsBarOpen } = useMenuBarStore();
+	const { isDark } = useThemeStore();
+	const location = useLocation();
+	const rootRoute = location.pathname.split("/")[1];
+	const mainColor = theme(isDark).palette.primary.main;
+
+	const highlightIcon = (routeName: string): string => {
+		// 현재 route의 부모 path가 매칭하는 경우 아이콘 색을 primary색으로 바꿈
+		return rootRoute === routeName ? mainColor : "";
+	};
 
 	return (
 		<Root>
-			<Paper width={open ? 210 : 90}>
+			<Paper width={isBarOpen ? 210 : 90}>
 				<div style={{ marginTop: "2%", textAlign: "right" }}>
 					<ShrinkBtn
-						isshrinked={String(open)}
+						isshrinked={String(isBarOpen)}
 						size="small"
 						aria-label="expand-menu"
-						onClick={() => setOpen(!open)}
+						onClick={() => setIsBarOpen()}
 					>
-						{open ? (
+						{isBarOpen ? (
 							<ArrowBackIosIcon fontSize="small" color="secondary" />
 						) : (
 							<ArrowForwardIosIcon fontSize="small" color="secondary" />
@@ -72,86 +84,110 @@ const LeftMenuBar = () => {
 				<List component="nav" aria-labelledby="affcss-cop-main-menu">
 					{/* 상황공유체계 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<OperationSharingIcon />}
-						title={operationSharingSystem.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						iconComponent={
+							<OperationSharingIcon color={highlightIcon(operationSharingSystem.title)} />
+						}
+						color={highlightIcon(operationSharingSystem.title)}
+						name={operationSharingSystem.name}
+						title={operationSharingSystem.title}
 						subMenu={operationSharingSystem.subMenu}
 					/>
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<MapIcon />}
-						title={COPTotalState.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						iconComponent={<MapIcon color={highlightIcon(COPTotalState.title)} />}
+						color={highlightIcon(COPTotalState.title)}
+						name={COPTotalState.name}
+						title={COPTotalState.title}
 						subMenu={COPTotalState.subMenu}
 					/>
 					{/* 기지방어/헌병 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<DefenseIcon />}
-						title={baseDefenseAndSecurityPolice.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(baseDefenseAndSecurityPolice.title)}
+						iconComponent={
+							<DefenseIcon color={highlightIcon(baseDefenseAndSecurityPolice.title)} />
+						}
+						name={baseDefenseAndSecurityPolice.name}
+						title={baseDefenseAndSecurityPolice.title}
 						subMenu={baseDefenseAndSecurityPolice.subMenu}
 					/>
 					{/* 정보통신 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<InternetIcon />}
-						title={infoCommunication.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(infoCommunication.title)}
+						iconComponent={<InternetIcon color={highlightIcon(infoCommunication.title)} />}
+						name={infoCommunication.name}
+						title={infoCommunication.title}
 						subMenu={infoCommunication.subMenu}
 					/>
 					{/* 동원 */}
 					<IconMenuItem
-						closeOpenedMenu={!open}
-						open={open}
-						iconComponent={<MilitaryBagIcon />}
-						title={mobilization.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(mobilization.title)}
+						iconComponent={<MilitaryBagIcon color={highlightIcon(mobilization.title)} />}
+						name={mobilization.name}
+						title={mobilization.title}
 						subMenu={mobilization.subMenu}
 					/>
 					{/* 인사 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<HumanIcon />}
-						title={humanAffairs.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(humanAffairs.title)}
+						iconComponent={<HumanIcon color={highlightIcon(humanAffairs.title)} />}
+						name={humanAffairs.name}
+						title={humanAffairs.title}
 						subMenu={humanAffairs.subMenu}
 					/>
 					{/* 군수 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<WarehouseIcon />}
-						title={munitions.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(munitions.title)}
+						iconComponent={<WarehouseIcon color={highlightIcon(munitions.title)} />}
+						name={munitions.name}
+						title={munitions.title}
 						subMenu={munitions.subMenu}
 					/>
 					{/* 시설종합 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<RunwayIcon />}
-						title={facilities.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(facilities.title)}
+						iconComponent={<RunwayIcon color={highlightIcon(facilities.title)} />}
+						name={facilities.name}
+						title={facilities.title}
 						subMenu={facilities.subMenu}
 					/>
 					{/* 우주 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<AerospaceIcon />}
-						title={aerospace.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(aerospace.title)}
+						iconComponent={<AerospaceIcon color={highlightIcon(aerospace.title)} />}
+						name={aerospace.name}
+						title={aerospace.title}
 						subMenu={aerospace.subMenu}
 					/>
 					{/* 작전기상 */}
 					<IconMenuItem
-						open={open}
-						closeOpenedMenu={!open}
-						iconComponent={<SunnyWeatherIcon />}
-						title={operationWeather.name}
+						open={isBarOpen}
+						closeOpenedMenu={!isBarOpen}
+						color={highlightIcon(operationWeather.title)}
+						iconComponent={<SunnyWeatherIcon color={highlightIcon(operationWeather.title)} />}
+						name={operationWeather.name}
+						title={operationWeather.title}
 						subMenu={operationWeather.subMenu}
 					/>
 				</List>
 				<Divider />
-				{open && (
+				{isBarOpen && (
 					<div
 						style={{
 							marginTop: 30,

@@ -22,7 +22,7 @@ const baseTheme = {
 		h1: {
 			fontSize: "3rem",
 			lineHeight: 1.167,
-			fontWeight: 500,
+			fontWeight: 600,
 		},
 		h4: {
 			fontSize: "1.7rem",

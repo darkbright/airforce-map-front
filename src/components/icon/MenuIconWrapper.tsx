@@ -2,15 +2,21 @@ import { Typography } from "@mui/material";
 
 interface MenuIconWrapperProps {
 	open: boolean;
+	setOpen: () => void;
 	iconComponent: React.ReactNode;
 	title: string;
+	color: string | undefined;
 }
 
-const MenuIconWrapper = ({ open, title, iconComponent }: MenuIconWrapperProps) => {
+const MenuIconWrapper = ({ open, setOpen, title, iconComponent, color }: MenuIconWrapperProps) => {
 	return (
-		<div style={{ textAlign: "center" }}>
+		<div style={{ textAlign: "center" }} onClick={setOpen}>
 			{iconComponent}
-			{!open && <Typography variant="subtitle2">{title}</Typography>}
+			{!open && (
+				<Typography color={color} variant="subtitle2">
+					{title}
+				</Typography>
+			)}
 		</div>
 	);
 };

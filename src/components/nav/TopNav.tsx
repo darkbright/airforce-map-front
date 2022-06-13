@@ -4,6 +4,7 @@ import ToggleDarkMode from "../mode/ToggleDarkMode";
 import { useAuth } from "../../stores/useAuth";
 import TopNavProfile from "../../modules/menu/TopNavProfile";
 import ModeCodeToggle from "../../modules/menu/ModeCodeToggle";
+import { Link } from "react-router-dom";
 
 const TopNav = () => {
 	const { authUser } = useAuth();
@@ -20,7 +21,9 @@ const TopNav = () => {
 				// color="transparent"
 			>
 				<Toolbar>
-					<COPTextLogo />
+					<Link to="/index">
+						<COPTextLogo />
+					</Link>
 					<Box sx={{ flexGrow: 1 }} />
 					<TopNavProfile title={`${authUser?.name} ${authUser?.position}님`} />
 					<ModeCodeToggle />

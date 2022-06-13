@@ -1,4 +1,3 @@
-import BaseLayout from "../components/layout/BaseLayout";
 import Grid from "@toast-ui/react-grid";
 
 const SampleTable = () => {
@@ -52,18 +51,16 @@ const SampleTable = () => {
 	];
 
 	return (
-		<BaseLayout>
-			<div style={{ width: "100%", padding: "3%" }}>
-				<Grid
-					data={data}
-					columns={columns}
-					rowHeight={30}
-					bodyHeight={200}
-					heightResizable={true}
-					rowHeaders={["rowNum", "checkbox"]}
-				/>
-			</div>
-		</BaseLayout>
+		<div style={{ width: "100%", padding: "3%" }}>
+			<Grid
+				data={data}
+				columns={columns}
+				rowHeight={30}
+				bodyHeight={200}
+				heightResizable={true}
+				rowHeaders={["rowNum", "checkbox"]}
+			/>
+		</div>
 	);
 };
 

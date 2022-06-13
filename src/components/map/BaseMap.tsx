@@ -10,16 +10,15 @@ const BaseMap = () => {
 		// initializing d2 map module
 		setLoading(true);
 		mapSettings();
-		console.log("mapSettings");
 		setLoading(false);
 	}, []);
 
 	return (
 		<>
 			{loading && <Loading />}
-			<div style={{ width: "100%", overflow: "scroll" }}>
+			<div style={{ width: "100%" }}>
 				<MapToolbar />
-				<div id="map" className="map" style={{ width: "100%", height: "80%" }} />
+				<div id="map" className="map" style={{ width: "100%", height: "700px" }} />
 				<div id="d2map-coord-bottom" className="d2map-coord-bottom" />
 			</div>
 		</>

@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router-dom";
+import BaseLayout from "../components/layout/BaseLayout";
 import LandingLayout from "../components/layout/LandingLayout";
+import { operationSharingSystem } from "../data/constants/menu";
 import Login from "../pages/auth/Login";
 import Landing from "../pages/Landing";
 import Main from "../pages/Main";
@@ -18,8 +20,17 @@ const Router = () => {
 			</Route>
 			{/* protected route - require auth and specific pageIds */}
 			<Route element={<RequireAuth allowedGroups={["test1"]} />}>
-				<Route path="/index" element={<Main />} />
-				<Route path="/sampletable" element={<SampleTable />} />
+				<Route element={<BaseLayout />}>
+					<Route path="/index" element={<Main />} />
+					{/* 운영시스템  */}
+					{operationSharingSystem.subMenu.map((route) => (
+						<Route
+							key={route.id}
+							path={`/operationSharingSystem/${route.id}`}
+							element={<SampleTable />}
+						/>
+					))}
+				</Route>
 			</Route>
 		</Routes>
 	);
