@@ -1,0 +1,18 @@
+# Ignore artifacts:
+build
+coverage
+config
+
+
+# Ignore d2
+public/lib/
+src/lib/d2/
+
+# Ignore all HTML files:
+*.html
+
+# default 
+**/.git
+**/.svn
+**/.hg
+**/node_modules

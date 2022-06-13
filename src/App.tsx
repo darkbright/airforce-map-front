@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes/Router";
+import useThemeStore from "./stores/useThemeStore";
+import { theme } from "./styles/theme";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { isDark } = useThemeStore();
+
+	return (
+		<ThemeProvider theme={theme(isDark!)}>
+			<CssBaseline enableColorScheme />
+			<BrowserRouter>
+				<Router />
+			</BrowserRouter>
+		</ThemeProvider>
+	);
 }
 
 export default App;
