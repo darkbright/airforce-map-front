@@ -1,4 +1,4 @@
-import { Divider, IconButton, List, styled } from "@mui/material";
+import { Divider, IconButton, List, styled, Tab, Tabs } from "@mui/material";
 import IconMenuItem from "../../modules/menu/IconMenuItem";
 import { menu } from "../../data/constants/menu";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -19,6 +19,9 @@ import useMenuBarStore from "../../stores/useMenuBarStore";
 import { useLocation } from "react-router-dom";
 import { theme } from "../../styles/theme";
 import useThemeStore from "../../stores/useThemeStore";
+import { useState } from "react";
+import TabPanel from "../tab/TabPanel";
+import FavoritePagesBar from "./FavoritePagesBar";
 
 const Root = styled("div")(({ theme }) => ({
 	borderRight: `1px solid ${theme.palette.divider}`,
@@ -40,6 +43,23 @@ const ShrinkBtn = styled(IconButton)(({ isshrinked }: { isshrinked: string }) =>
 		transition: "all .2s ease-in-out",
 	},
 }));
+
+const StyledTabs = styled(Tabs)(({ theme }) => ({
+	borderBottom: theme.palette.divider,
+	"& .MuiTabs-indicator": {
+		backgroundColor: "#1890ff",
+	},
+}));
+
+interface StyledTabProps {
+	label: string;
+}
+
+const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
+	({ theme }) => ({
+		color: theme.palette.text.secondary,
+	}),
+);
 
 const LeftMenuBar = () => {
 	const { isBarOpen, setIsBarOpen } = useMenuBarStore();
@@ -103,6 +123,10 @@ const LeftMenuBar = () => {
 		},
 	];
 
+	// handling tabs
+
+	const [tabValue, setTabValue] = useState(0);
+
 	return (
 		<Root>
 			<Paper width={isBarOpen ? 210 : 90}>
@@ -120,20 +144,35 @@ const LeftMenuBar = () => {
 						)}
 					</ShrinkBtn>
 				</div>
-				<List component="nav" aria-labelledby="affcss-cop-main-menu">
-					{menu.map((m) => (
-						<IconMenuItem
-							key={m.title}
-							color={highlightIcon(m.title)}
-							open={isBarOpen}
-							closeOpenedMenu={!isBarOpen}
-							iconComponent={menuIcons.find((icon) => icon.title === m.title)?.icon}
-							name={m.name}
-							title={m.title}
-							subMenu={m.subMenu}
-						/>
-					))}
-				</List>
+				<div>
+					{isBarOpen && (
+						<StyledTabs value={tabValue} onChange={(e, v) => setTabValue(v)} aria-label="menu-tabs">
+							<StyledTab label="메뉴" />
+							<StyledTab label="즐겨찾기" />
+						</StyledTabs>
+					)}
+
+					<TabPanel value={tabValue} index={0}>
+						<List component="nav" aria-labelledby="affcss-cop-main-menu">
+							{menu.map((m) => (
+								<IconMenuItem
+									key={m.title}
+									color={highlightIcon(m.title)}
+									open={isBarOpen}
+									closeOpenedMenu={!isBarOpen}
+									iconComponent={menuIcons.find((icon) => icon.title === m.title)?.icon}
+									name={m.name}
+									title={m.title}
+									subMenu={m.subMenu}
+								/>
+							))}
+						</List>
+					</TabPanel>
+					<TabPanel value={tabValue} index={1}>
+						<FavoritePagesBar />
+					</TabPanel>
+				</div>
+
 				<Divider />
 				{isBarOpen && (
 					<div

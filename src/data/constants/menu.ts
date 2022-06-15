@@ -491,6 +491,14 @@ export const flattenedMenu = () => {
 					path: sub.id,
 					korean: sub.name,
 				});
+				if (sub.subMenu !== undefined) {
+					sub.subMenu.map((subsub) => {
+						result.push({
+							path: subsub.id,
+							korean: sub.name,
+						});
+					});
+				}
 			});
 		}
 	});

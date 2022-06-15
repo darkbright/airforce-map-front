@@ -5,6 +5,7 @@ import { menu } from "../data/constants/menu";
 import Login from "../pages/auth/Login";
 import Landing from "../pages/Landing";
 import Main from "../pages/Main";
+import NotFound from "../pages/NotFound";
 import SampleTable from "../pages/SampleTable";
 import Unauthroized from "../pages/Unauthorized";
 import RequireAuth from "./RequireAuth";
@@ -23,16 +24,19 @@ const Router = () => {
 				<Route element={<BaseLayout />}>
 					<Route path="/index" element={<Main />} />
 					{menu.map((route) =>
-						route.subMenu.map((subRoute) => (
-							<Route
-								key={subRoute.id}
-								path={`/${route.title}/${subRoute.id}`}
-								element={<SampleTable />}
-							/>
-						)),
+						route.subMenu.map((subRoute) => {
+							return (
+								<Route
+									key={subRoute.id}
+									path={`/${route.title}/${subRoute.id}`}
+									element={<SampleTable />}
+								/>
+							);
+						}),
 					)}
 				</Route>
 			</Route>
+			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
 };
