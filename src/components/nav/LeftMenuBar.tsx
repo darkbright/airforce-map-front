@@ -23,43 +23,9 @@ import { useState } from "react";
 import TabPanel from "../tab/TabPanel";
 import FavoritePagesBar from "./FavoritePagesBar";
 
-const Root = styled("div")(({ theme }) => ({
-	borderRight: `1px solid ${theme.palette.divider}`,
-	height: "99%",
-	background: theme.palette.background.paper,
-}));
-
-const Paper = styled("div")(({ width }: { width: number }) => ({
-	width,
-	height: "97vh",
-	overflowY: "scroll",
-	transition: "width ease-out 0.1s",
-	paddingBottom: "80px",
-}));
-
-const ShrinkBtn = styled(IconButton)(({ isshrinked }: { isshrinked: string }) => ({
-	"&:hover": {
-		transform: isshrinked === "false" ? "translateX(+.3rem)" : "translateX(-.3rem)",
-		transition: "all .2s ease-in-out",
-	},
-}));
-
-const StyledTabs = styled(Tabs)(({ theme }) => ({
-	borderBottom: theme.palette.divider,
-	"& .MuiTabs-indicator": {
-		backgroundColor: "#1890ff",
-	},
-}));
-
 interface StyledTabProps {
 	label: string;
 }
-
-const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
-	({ theme }) => ({
-		color: theme.palette.text.secondary,
-	}),
-);
 
 const LeftMenuBar = () => {
 	const { isBarOpen, setIsBarOpen } = useMenuBarStore();
@@ -149,10 +115,15 @@ const LeftMenuBar = () => {
 				</div>
 				<div>
 					{isBarOpen && (
-						<StyledTabs value={tabValue} onChange={(e, v) => setTabValue(v)} aria-label="menu-tabs">
+						<Tabs
+							sx={{ borderBottom: 1, borderColor: "divider" }}
+							value={tabValue}
+							onChange={(e, v) => setTabValue(v)}
+							aria-label="menu-tabs"
+						>
 							<StyledTab label="메뉴" />
 							<StyledTab label="즐겨찾기" />
-						</StyledTabs>
+						</Tabs>
 					)}
 
 					<TabPanel value={tabValue} index={0}>
@@ -198,3 +169,33 @@ const LeftMenuBar = () => {
 };
 
 export default LeftMenuBar;
+
+//styles
+
+const Root = styled("div")(({ theme }) => ({
+	borderRight: `1px solid ${theme.palette.divider}`,
+	height: "99%",
+	background: theme.palette.background.paper,
+}));
+
+const Paper = styled("div")(({ width }: { width: number }) => ({
+	width,
+	height: "97vh",
+	overflowY: "scroll",
+	transition: "width ease-out 0.1s",
+	paddingBottom: "80px",
+}));
+
+const ShrinkBtn = styled(IconButton)(({ isshrinked }: { isshrinked: string }) => ({
+	"&:hover": {
+		transform: isshrinked === "false" ? "translateX(+.3rem)" : "translateX(-.3rem)",
+		transition: "all .2s ease-in-out",
+	},
+}));
+
+const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
+	({ theme }) => ({
+		color: theme.palette.text.secondary,
+		borderBottom: "1px soild white",
+	}),
+);

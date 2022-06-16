@@ -7,11 +7,6 @@ interface BaseModalProps {
 	children: ReactNode;
 }
 
-const Root = styled("div")(() => ({
-	minWidth: 600,
-	padding: "4%",
-}));
-
 const BaseModal = ({ open, setOpen, children }: BaseModalProps) => {
 	return (
 		<Dialog onClose={setOpen} open={open}>
@@ -21,3 +16,8 @@ const BaseModal = ({ open, setOpen, children }: BaseModalProps) => {
 };
 
 export default BaseModal;
+
+const Root = styled("div")(() => ({
+	minWidth: 600,
+	padding: "4%",
+}));

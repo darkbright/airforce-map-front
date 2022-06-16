@@ -1,6 +1,12 @@
 import { styled } from "@mui/material";
 import { ReactNode } from "react";
 
+const CenteredDiv = ({ children }: { children: ReactNode }) => {
+	return <Root>{children}</Root>;
+};
+
+export default CenteredDiv;
+
 const Root = styled("div")(() => ({
 	position: "absolute",
 	top: "50%",
@@ -8,9 +14,3 @@ const Root = styled("div")(() => ({
 	transform: "translate(-50%, -50%)",
 	textAlign: "center",
 }));
-
-const CenteredDiv = ({ children }: { children: ReactNode }) => {
-	return <Root>{children}</Root>;
-};
-
-export default CenteredDiv;

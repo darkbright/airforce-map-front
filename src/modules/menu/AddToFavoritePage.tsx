@@ -9,10 +9,6 @@ interface AddToFavoritePageProps {
 	isNotMainPage: boolean;
 }
 
-const Root = styled("div")(() => ({
-	padding: "0px 10px 2px 10px",
-}));
-
 const AddToFavoritePage = ({ location, koreanName, isNotMainPage }: AddToFavoritePageProps) => {
 	const { favoritePages, addToFavoritePages, removeFavoritePage } = useFavoritePageStore();
 	const isFavoritePage = favoritePages.some((p) => p.fullPath === location);
@@ -44,3 +40,7 @@ const AddToFavoritePage = ({ location, koreanName, isNotMainPage }: AddToFavorit
 };
 
 export default AddToFavoritePage;
+
+const Root = styled("div")(() => ({
+	padding: "0px 10px 2px 10px",
+}));

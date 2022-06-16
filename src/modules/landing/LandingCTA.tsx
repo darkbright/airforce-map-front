@@ -5,22 +5,6 @@ import ShortAlert from "../../components/alert/ShortAlert";
 import DefaultBox from "../../components/box/DefaultBox";
 import BaseButton from "../../components/button/BaseButton";
 
-const Root = styled("div")(({ theme }) => ({
-	paddingTop: "10%",
-	display: "flex",
-	flexDirection: "row",
-	alignItems: "center",
-	justifyContent: "space-around",
-	[theme.breakpoints.down("sm")]: {
-		display: "flex",
-		flexDirection: "column",
-	},
-}));
-
-const TitleWrapper = styled("div")(() => ({
-	margin: "5% 0px",
-}));
-
 const MainHeader = () => {
 	const navigate = useNavigate();
 
@@ -55,3 +39,19 @@ const MainHeader = () => {
 };
 
 export default MainHeader;
+
+const Root = styled("div")(({ theme }) => ({
+	paddingTop: "10%",
+	display: "flex",
+	flexDirection: "row",
+	alignItems: "center",
+	justifyContent: "space-around",
+	[theme.breakpoints.down("sm")]: {
+		display: "flex",
+		flexDirection: "column",
+	},
+}));
+
+const TitleWrapper = styled("div")(() => ({
+	margin: "5% 0px",
+}));

@@ -1,6 +1,21 @@
 import { LinearProgress, styled } from "@mui/material";
 import F15Icon from "../../assets/icons/F15Icon";
 
+const Loading = () => {
+	return (
+		<Root>
+			<Center>
+				<IconWrapper>
+					<F15Icon />
+				</IconWrapper>
+				<LinearProgress color="primary" />
+			</Center>
+		</Root>
+	);
+};
+
+export default Loading;
+
 const Root = styled("div")(() => ({
 	width: "100%",
 	height: "100%",
@@ -27,18 +42,3 @@ const IconWrapper = styled("div")(() => ({
 	marginBottom: "10%",
 	textAlign: "center",
 }));
-
-const Loading = () => {
-	return (
-		<Root>
-			<Center>
-				<IconWrapper>
-					<F15Icon />
-				</IconWrapper>
-				<LinearProgress color="primary" />
-			</Center>
-		</Root>
-	);
-};
-
-export default Loading;

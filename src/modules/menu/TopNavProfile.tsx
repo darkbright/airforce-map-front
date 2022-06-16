@@ -4,19 +4,11 @@ import React, { useState } from "react";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-const Root = styled("button")(() => ({
-	display: "flex",
-	width: "110px",
-	flexDirection: "row",
-	background: "none",
-	border: "none",
-	justifyContent: "space-between",
-	cursor: "pointer",
-}));
-
 interface TapNavProfileProps {
 	title: string;
 }
+
+// 최상단 NavBar 내 유저 프로필을 확인할 수 있는 모듈
 
 const TopNavProfile = ({ title }: TapNavProfileProps) => {
 	const [anchorOpen, setAnchorOpen] = useState<null | HTMLElement>(null);
@@ -63,3 +55,13 @@ const TopNavProfile = ({ title }: TapNavProfileProps) => {
 };
 
 export default TopNavProfile;
+
+const Root = styled("button")(() => ({
+	display: "flex",
+	width: "110px",
+	flexDirection: "row",
+	background: "none",
+	border: "none",
+	justifyContent: "space-between",
+	cursor: "pointer",
+}));

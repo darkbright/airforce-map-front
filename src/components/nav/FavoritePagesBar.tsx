@@ -13,6 +13,15 @@ const FavoritePagesBar = () => {
 	return (
 		<>
 			<List component="nav" aria-labelledby="afccs-my-favorite-page" sx={{ p: 1 }}>
+				<div style={{ marginTop: 10, textAlign: "right" }}>
+					<BaseButton
+						title="즐겨찾기 설정"
+						variant="text"
+						color="secondary"
+						type="button"
+						onClick={() => setOpenPageHandler(true)}
+					/>
+				</div>
 				{favoritePages.length === 0 ? (
 					<div>
 						<Typography gutterBottom variant="body2">
@@ -29,15 +38,6 @@ const FavoritePagesBar = () => {
 						</RouteStyleHandler>
 					))
 				)}
-				<div style={{ marginTop: 20, textAlign: "center" }}>
-					<BaseButton
-						title="즐겨찾기 설정"
-						variant="outlined"
-						color="secondary"
-						type="button"
-						onClick={() => setOpenPageHandler(true)}
-					/>
-				</div>
 			</List>
 			<FavoritePagesModal open={openPageHandler} setOpen={() => setOpenPageHandler(false)} />
 		</>

@@ -13,21 +13,6 @@ interface FavoritePagesModalProps {
 	open: boolean;
 }
 
-const Root = styled("div")(() => ({
-	display: "flex",
-	flexDirection: "row",
-	justifyContent: "space-between",
-	paddingTop: 20,
-	minHeight: 400,
-}));
-
-const PageStructureWrapper = styled("div")(({ theme }) => ({
-	minWidth: 240,
-	padding: 20,
-	background: theme.palette.background.default,
-	borderRadius: 6,
-}));
-
 // 좌측 즐겨찾기 메뉴의 즐겨찾기 설정을 눌렀을 때 나오는 모달로 즐겨찾기 페이지를 추가/삭제, 정렬할 수 있음
 
 const FavoritePagesModal = ({ open, setOpen }: FavoritePagesModalProps) => {
@@ -66,3 +51,18 @@ const FavoritePagesModal = ({ open, setOpen }: FavoritePagesModalProps) => {
 };
 
 export default FavoritePagesModal;
+
+const Root = styled("div")(() => ({
+	display: "flex",
+	flexDirection: "row",
+	justifyContent: "space-between",
+	paddingTop: 20,
+	minHeight: 400,
+}));
+
+const PageStructureWrapper = styled("div")(({ theme }) => ({
+	minWidth: 240,
+	padding: 20,
+	background: theme.palette.background.default,
+	borderRadius: 6,
+}));

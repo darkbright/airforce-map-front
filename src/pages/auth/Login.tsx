@@ -12,10 +12,6 @@ import Container from "../../components/layout/Container";
 import Loading from "../../components/loading/Loading";
 import { useAuth } from "../../stores/useAuth";
 
-const Root = styled("div")(() => ({
-	margin: "15% 20%",
-}));
-
 const loginSchema = yup.object({
 	id: yup.string().defined("아이디를 입력해주세요"),
 	password: yup.string().defined("비밀번호를 입력해주세요"),
@@ -121,3 +117,7 @@ const Login = () => {
 };
 
 export default Login;
+
+const Root = styled("div")(() => ({
+	margin: "15% 20%",
+}));

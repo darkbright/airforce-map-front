@@ -4,20 +4,6 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { flattenedMenu } from "../../data/constants/menu";
 import AddToFavoritePage from "../../modules/menu/AddToFavoritePage";
 
-const Root = styled("div")(({ theme }) => ({
-	padding: "4px 20px",
-	background: theme.palette.background.paper,
-	display: "flex",
-	flexDirection: "row",
-	justifyContent: "space-between",
-}));
-
-const RightWrapper = styled("div")(() => ({
-	display: "flex",
-	flexDirection: "row",
-	alignItems: "center",
-}));
-
 interface LinkRouterProps extends LinkProps {
 	to: string;
 	replace?: boolean;
@@ -62,3 +48,19 @@ const BreadCrumbBar = () => {
 };
 
 export default BreadCrumbBar;
+
+// styles
+
+const Root = styled("div")(({ theme }) => ({
+	padding: "4px 20px",
+	background: theme.palette.background.paper,
+	display: "flex",
+	flexDirection: "row",
+	justifyContent: "space-between",
+}));
+
+const RightWrapper = styled("div")(() => ({
+	display: "flex",
+	flexDirection: "row",
+	alignItems: "center",
+}));

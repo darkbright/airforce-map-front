@@ -10,32 +10,7 @@ interface PageStructureTreeProps {
 	menu: MenuProps;
 }
 
-const Root = styled("div")(() => ({
-	display: "flex",
-	flexDirection: "row",
-	alignItems: "center",
-	cursor: "pointer",
-}));
-
-const DirName = styled("div")(({ theme }) => ({
-	fontWeight: 600,
-	paddingLeft: 5,
-	"&:hover": {
-		color: theme.palette.secondary.main,
-	},
-}));
-
-const PageItem = styled("div")(({ theme }) => ({
-	display: "flex",
-	flexDirection: "row",
-	alignItems: "center",
-	cursor: "pointer",
-	paddingLeft: 20,
-	"&:hover": {
-		color: theme.palette.secondary.main,
-		fontWeight: 600,
-	},
-}));
+// 즐겨찾기 설정 선택 시 로드되는 모달 좌측의 전체 메뉴 구조 트리
 
 const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 	const { favoritePages, addToFavoritePages } = useFavoritePageStore();
@@ -88,3 +63,30 @@ const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 };
 
 export default PageStructureTree;
+
+const Root = styled("div")(() => ({
+	display: "flex",
+	flexDirection: "row",
+	alignItems: "center",
+	cursor: "pointer",
+}));
+
+const DirName = styled("div")(({ theme }) => ({
+	fontWeight: 600,
+	paddingLeft: 5,
+	"&:hover": {
+		color: theme.palette.secondary.main,
+	},
+}));
+
+const PageItem = styled("div")(({ theme }) => ({
+	display: "flex",
+	flexDirection: "row",
+	alignItems: "center",
+	cursor: "pointer",
+	paddingLeft: 20,
+	"&:hover": {
+		color: theme.palette.secondary.main,
+		fontWeight: 600,
+	},
+}));

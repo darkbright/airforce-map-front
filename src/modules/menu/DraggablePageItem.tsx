@@ -10,22 +10,6 @@ interface DraggablePageItemProps {
 	index: number;
 }
 
-const Root = styled("div")(({ theme }) => ({
-	width: "100%",
-	padding: "5px",
-	border: `1px solid ${theme.palette.divider}`,
-	borderRadius: 6,
-	display: "flex",
-	flexDirection: "row",
-	justifyContent: "space-between",
-	marginBottom: "8px",
-}));
-
-const GrabBox = styled("div")(() => ({
-	cursor: "grab",
-	display: "flex",
-}));
-
 const DraggablePageItem = ({ id, name, deleteItem, index }: DraggablePageItemProps) => {
 	return (
 		<Draggable draggableId={id} index={index}>
@@ -47,3 +31,19 @@ const DraggablePageItem = ({ id, name, deleteItem, index }: DraggablePageItemPro
 };
 
 export default DraggablePageItem;
+
+const Root = styled("div")(({ theme }) => ({
+	width: "100%",
+	padding: "5px",
+	border: `1px solid ${theme.palette.divider}`,
+	borderRadius: 6,
+	display: "flex",
+	flexDirection: "row",
+	justifyContent: "space-between",
+	marginBottom: "8px",
+}));
+
+const GrabBox = styled("div")(() => ({
+	cursor: "grab",
+	display: "flex",
+}));
