@@ -51,7 +51,11 @@ const BreadCrumbBar = () => {
 							</Typography>
 						))}
 				</Breadcrumbs>
-				<AddToFavoritePage location={location.pathname} koreanName={finalRouteInKorean} />
+				<AddToFavoritePage
+					location={location.pathname}
+					koreanName={finalRouteInKorean}
+					isNotMainPage={isNotMainPage}
+				/>
 			</RightWrapper>
 		</Root>
 	);

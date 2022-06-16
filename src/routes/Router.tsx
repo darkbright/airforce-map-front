@@ -24,11 +24,11 @@ const Router = () => {
 				<Route element={<BaseLayout />}>
 					<Route path="/index" element={<Main />} />
 					{menu.map((route) =>
-						route.subMenu.map((subRoute) => {
+						route.subMenu?.map((subRoute) => {
 							return (
 								<Route
 									key={subRoute.id}
-									path={`/${route.title}/${subRoute.id}`}
+									path={`/${route.id}/${subRoute.id}`}
 									element={<SampleTable />}
 								/>
 							);

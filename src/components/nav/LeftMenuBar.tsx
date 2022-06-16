@@ -135,7 +135,10 @@ const LeftMenuBar = () => {
 						isshrinked={String(isBarOpen)}
 						size="small"
 						aria-label="expand-menu"
-						onClick={() => setIsBarOpen()}
+						onClick={() => {
+							setIsBarOpen();
+							setTabValue(0);
+						}}
 					>
 						{isBarOpen ? (
 							<ArrowBackIosIcon fontSize="small" color="secondary" />
@@ -153,17 +156,17 @@ const LeftMenuBar = () => {
 					)}
 
 					<TabPanel value={tabValue} index={0}>
-						<List component="nav" aria-labelledby="affcss-cop-main-menu">
+						<List component="nav" aria-labelledby="afcss-cop-main-menu">
 							{menu.map((m) => (
 								<IconMenuItem
-									key={m.title}
-									color={highlightIcon(m.title)}
+									key={m.id}
+									color={highlightIcon(m.id)}
 									open={isBarOpen}
 									closeOpenedMenu={!isBarOpen}
-									iconComponent={menuIcons.find((icon) => icon.title === m.title)?.icon}
+									iconComponent={menuIcons.find((icon) => icon.title === m.id)?.icon}
 									name={m.name}
-									title={m.title}
-									subMenu={m.subMenu}
+									id={m.id}
+									subMenu={m.subMenu!}
 								/>
 							))}
 						</List>
