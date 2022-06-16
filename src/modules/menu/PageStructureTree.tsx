@@ -38,7 +38,7 @@ const PageItem = styled("div")(({ theme }) => ({
 }));
 
 const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
-	const { addToFavoritePages } = useFavoritePageStore();
+	const { favoritePages, addToFavoritePages } = useFavoritePageStore();
 	const [isExpanded, toggleExpanded] = useState(false);
 
 	if (menu.type === "dir") {
@@ -72,9 +72,14 @@ const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 			<Typography
 				variant="subtitle1"
 				style={{ paddingLeft: 4 }}
-				onClick={() =>
-					addToFavoritePages({ fullPath: `/${menu.parentUrl}/${menu.id}`, koreanName: menu.name })
-				}
+				onClick={() => {
+					const fullPath = `/${menu.parentUrl}/${menu.id}`;
+					if (favoritePages.some((f) => f.fullPath === fullPath)) {
+						console.log("no");
+						return;
+					}
+					addToFavoritePages({ fullPath, koreanName: menu.name });
+				}}
 			>
 				{menu.name}
 			</Typography>

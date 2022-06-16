@@ -91,7 +91,7 @@ const lightTheme = {
 		main: "#19857b",
 	},
 	background: {
-		default: blueGrey[50],
+		default: lightBlue[50],
 	},
 	text: {
 		secondary: "rgba(0, 0, 0, 0.8)",

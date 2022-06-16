@@ -9,7 +9,6 @@ interface BaseModalProps {
 
 const Root = styled("div")(() => ({
 	minWidth: 600,
-	minHeight: 600,
 	padding: "4%",
 }));
 

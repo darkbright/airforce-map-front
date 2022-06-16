@@ -4,9 +4,10 @@ interface FavoritePagesState {
 	favoritePages: FavoritePageState[];
 	addToFavoritePages: (favoritePage: FavoritePageState) => void;
 	removeFavoritePage: (fullPath: string) => void;
+	changePageOrder: (favoritePages: FavoritePageState[]) => void;
 }
 
-interface FavoritePageState {
+export interface FavoritePageState {
 	fullPath: string;
 	koreanName: string;
 }
@@ -29,6 +30,15 @@ const useFavoritePageStore = create<FavoritePagesState>((set) => ({
 
 			return {
 				favoritePages: filteredPages,
+			};
+		});
+	},
+	changePageOrder: (pages: FavoritePageState[]) => {
+		set(() => {
+			localStorage.setItem("favePages", JSON.stringify(pages));
+
+			return {
+				favoritePages: pages,
 			};
 		});
 	},
