@@ -15,6 +15,10 @@ interface PageStructureTreeProps {
 const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 	const { favoritePages, addToFavoritePages } = useFavoritePageStore();
 	const [isExpanded, toggleExpanded] = useState(false);
+	const fullPath = `/${menu.parentUrl}/${menu.id}`;
+	const isAlreadyChecked = () => {
+		return favoritePages.some((f) => f.fullPath === fullPath);
+	};
 
 	if (menu.type === "dir") {
 		return (
@@ -46,14 +50,13 @@ const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 			<WebAssetIcon fontSize="small" color="disabled" />
 			<Typography
 				variant="subtitle1"
-				style={{ paddingLeft: 4 }}
+				style={{
+					paddingLeft: 4,
+					cursor: isAlreadyChecked() ? "not-allowed" : "pointer",
+					color: isAlreadyChecked() ? "#8e9091" : "",
+				}}
 				onClick={() => {
-					const fullPath = `/${menu.parentUrl}/${menu.id}`;
-					if (favoritePages.some((f) => f.fullPath === fullPath)) {
-						console.log("no");
-						return;
-					}
-					addToFavoritePages({ fullPath, koreanName: menu.name });
+					isAlreadyChecked() ? null : addToFavoritePages({ fullPath, koreanName: menu.name });
 				}}
 			>
 				{menu.name}
@@ -83,7 +86,6 @@ const PageItem = styled("div")(({ theme }) => ({
 	display: "flex",
 	flexDirection: "row",
 	alignItems: "center",
-	cursor: "pointer",
 	paddingLeft: 20,
 	"&:hover": {
 		color: theme.palette.secondary.main,
