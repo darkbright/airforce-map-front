@@ -39,6 +39,9 @@ const baseTheme = {
 			lineHeight: 1,
 			fontWeight: 600,
 		},
+		body1: {
+			lineHeight: 1,
+		},
 		subtitle2: {
 			fontSize: ".5rem",
 			fontWeight: 400,

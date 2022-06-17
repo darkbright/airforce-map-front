@@ -1,0 +1,11 @@
+.tui-grid-header-area .tui-grid-table {
+	border-top-style: hidden;
+}
+
+.tui-grid-show-lside-area .tui-grid-lside-area .tui-grid-header-area .tui-grid-table {
+	border-top-style: hidden;
+}
+
+.blue {
+	color: red;
+}

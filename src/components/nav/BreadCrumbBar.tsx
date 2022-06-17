@@ -24,7 +24,9 @@ const BreadCrumbBar = () => {
 
 	return (
 		<Root>
-			<div> {finalRouteInKorean}</div>
+			<Typography variant="body1" sx={{ fontWeight: 600 }}>
+				{finalRouteInKorean}
+			</Typography>
 			<RightWrapper>
 				<Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
 					<LinkRouter underline="hover" color="inherit" to="/index">
@@ -52,11 +54,12 @@ export default BreadCrumbBar;
 // styles
 
 const Root = styled("div")(({ theme }) => ({
-	padding: "4px 20px",
+	padding: "8px 20px",
 	background: theme.palette.background.paper,
 	display: "flex",
 	flexDirection: "row",
 	justifyContent: "space-between",
+	borderBottom: `1px solid ${theme.palette.divider}`,
 }));
 
 const RightWrapper = styled("div")(() => ({

@@ -9,8 +9,6 @@ import "./styles/d2/d2map.ui.ms.popup.css";
 import "./styles/d2/ol.css";
 import "./styles/d2/sub.dark.css";
 import "./styles/d2/zTreeStyle.css";
-// tui grid
-import "tui-grid/dist/tui-grid.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(<App />);

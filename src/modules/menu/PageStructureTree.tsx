@@ -16,9 +16,7 @@ const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 	const { favoritePages, addToFavoritePages } = useFavoritePageStore();
 	const [isExpanded, toggleExpanded] = useState(false);
 	const fullPath = `/${menu.parentUrl}/${menu.id}`;
-	const isAlreadyChecked = () => {
-		return favoritePages.some((f) => f.fullPath === fullPath);
-	};
+	const isAlreadyChecked = favoritePages.some((f) => f.fullPath === fullPath);
 
 	if (menu.type === "dir") {
 		return (
@@ -52,11 +50,11 @@ const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 				variant="subtitle1"
 				style={{
 					paddingLeft: 4,
-					cursor: isAlreadyChecked() ? "not-allowed" : "pointer",
-					color: isAlreadyChecked() ? "#8e9091" : "",
+					cursor: isAlreadyChecked ? "not-allowed" : "pointer",
+					color: isAlreadyChecked ? "#8e9091" : "",
 				}}
 				onClick={() => {
-					isAlreadyChecked() ? null : addToFavoritePages({ fullPath, koreanName: menu.name });
+					isAlreadyChecked ? null : addToFavoritePages({ fullPath, koreanName: menu.name });
 				}}
 			>
 				{menu.name}
