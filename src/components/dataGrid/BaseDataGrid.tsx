@@ -2,9 +2,13 @@ import Grid from "@toast-ui/react-grid";
 import TuiGrid from "tui-grid";
 import "tui-grid/dist/tui-grid.css";
 import "../../styles/dataGrid/index.css";
+import { useEffect, useState } from "react";
 
 import useThemeStore from "../../stores/useThemeStore";
 import { theme } from "../../styles/theme";
+import DataGridToolbar from "./DataGridToolbar";
+import { useLocation } from "react-router-dom";
+import YesNoSelectionModal from "../../modules/modal/YesNoSelectionModal";
 
 const BaseDataGrid = () => {
 	TuiGrid.setLanguage("ko");
@@ -113,7 +117,7 @@ const BaseDataGrid = () => {
 
 	TuiGrid.applyTheme("default", styles);
 
-	const data = [
+	const initialData = [
 		{
 			type: "F-15K",
 			second: 100,
@@ -165,12 +169,14 @@ const BaseDataGrid = () => {
 				},
 			},
 		},
+		{},
 	];
 
 	const columns = [
 		{
 			name: "type",
 			header: "기종",
+			sortable: true,
 		},
 		{ name: "second", header: "초도" },
 		{ name: "loss", header: "손실" },
@@ -196,15 +202,47 @@ const BaseDataGrid = () => {
 		{ name: "editedBy", header: "수정자" },
 	];
 
+	const [data, setData] = useState(initialData);
+
+	const appendRow = () => {
+		setData((data) => [...data, {}]);
+	};
+
+	const location = useLocation();
+	const [checkToSaveOpen, setCheckToSaveOpen] = useState(false);
+
+	// Page 전환 시, data 내용이 변경된 경우 저장할 것인지 묻는 Hook 만들기
+	useEffect(() => {
+		console.log("location changed");
+		// 길이가 같은지 확인
+		if (data.length !== initialData.length) {
+			setCheckToSaveOpen(true);
+		}
+
+		// 데이터 내용이 바뀐게 있는지 확인
+	}, [location]);
+
 	return (
-		<Grid
-			data={data}
-			columns={columns}
-			rowHeight={30}
-			bodyHeight={200}
-			heightResizable={true}
-			rowHeaders={["rowNum", "checkbox"]}
-		/>
+		<>
+			<DataGridToolbar addNewRow={appendRow} refresh={() => setData(initialData)} />
+			<Grid
+				data={data}
+				columns={columns}
+				rowHeight={30}
+				bodyHeight={200}
+				heightResizable={true}
+				width={1200}
+				rowHeaders={["rowNum", "checkbox"]}
+				draggable={true}
+			/>
+			<YesNoSelectionModal
+				open={checkToSaveOpen}
+				setOpen={setCheckToSaveOpen}
+				title="바뀐 내용 저장"
+				onYes={() => console.log("저장")}
+				question="바뀐 내용이 있네요. 저장하실?"
+			/>
+		</>
 	);
 };
 

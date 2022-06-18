@@ -54,7 +54,13 @@ const MapToolbar = () => {
 							<CenterFocusWeakIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
-					<ToggleButton value="selectMap" onClick={() => setMapSelectOpen(true)}>
+					<ToggleButton
+						value="selectMap"
+						onClick={() => {
+							setMapSelectOpen(true);
+							return setAlignment("select");
+						}}
+					>
 						<Tooltip title="지도 선택">
 							<div
 								style={{
