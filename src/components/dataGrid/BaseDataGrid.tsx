@@ -1,4 +1,5 @@
 import Grid from "@toast-ui/react-grid";
+import { OptPreset } from "tui-grid/types/options";
 import TuiGrid from "tui-grid";
 import "tui-grid/dist/tui-grid.css";
 import "../../styles/dataGrid/index.css";
@@ -9,13 +10,14 @@ import { theme } from "../../styles/theme";
 import DataGridToolbar from "./DataGridToolbar";
 import { useLocation } from "react-router-dom";
 import YesNoSelectionModal from "../../modules/modal/YesNoSelectionModal";
+import TableHelperText from "./TableHelperText";
 
 const BaseDataGrid = () => {
 	TuiGrid.setLanguage("ko");
 
 	const { isDark } = useThemeStore();
 	const { background, text, divider, action, primary } = theme(isDark).palette;
-	const styles = {
+	const styles: OptPreset = {
 		selection: {
 			background: background.paper,
 		},
@@ -84,37 +86,6 @@ const BaseDataGrid = () => {
 		},
 	};
 
-	// export interface OptTableCellStyle {
-	//     normal?: OptCellStyle;
-	//     header?: OptCellStyle;
-	//     selectedHeader?: OptBasicCellStyle;
-	//     rowHeader?: OptCellStyle;
-	//     selectedRowHeader?: OptBasicCellStyle;
-	//     summary?: OptCellStyle;
-	//     focused?: OptCellFocusedStyle;
-	//     focusedInactive?: OptCellFocusedStyle;
-	//     required?: OptBasicCellStyle;
-	//     editable?: OptBasicCellStyle;
-	//     disabled?: OptBasicCellStyle;
-	//     invalid?: OptBasicCellStyle;
-	//     // deprecated
-	//     currentRow?: OptBasicCellStyle;
-	//     evenRow?: OptBasicCellStyle;
-	//     oddRow?: OptBasicCellStyle;
-	//     dummy?: OptCellDummyStyle;
-	//   }
-
-	//   export interface OptPreset {
-	//     outline?: OptTableOutlineStyle;
-	//     selection?: OptSelectionLayerStyle;
-	//     scrollbar?: OptScrollbarStyle;
-	//     frozenBorder?: OptFrozenBorderStyle;
-	//     area?: OptTableAreaStyle;
-	//     cell?: OptTableCellStyle;
-	//     heightResizeHandle?: OptHeightResizeHandleStyle;
-	//     pagination?: OptPaginationStyle;
-	//   }
-
 	TuiGrid.applyTheme("default", styles);
 
 	const initialData = [
@@ -181,8 +152,23 @@ const BaseDataGrid = () => {
 		{ name: "second", header: "초도" },
 		{ name: "loss", header: "손실" },
 		{ name: "hold", header: "보유" },
-		{ name: "notWorking", header: "불가동" },
-		{ name: "working", header: "가동" },
+		{
+			name: "notWorking",
+			header: "불가동",
+			// renderer: {
+			// 	styles: {
+			// 		backgroundColor: "yellow",
+			// 		margin: "0",
+			// 	},
+			// },
+		},
+		{
+			name: "working",
+			header: "가동",
+			editor: {
+				type: "text",
+			},
+		},
 		{
 			name: "workingRate",
 			header: "가동률",
@@ -224,12 +210,13 @@ const BaseDataGrid = () => {
 
 	return (
 		<>
+			<TableHelperText type="percentage" />
 			<DataGridToolbar addNewRow={appendRow} refresh={() => setData(initialData)} />
 			<Grid
 				data={data}
 				columns={columns}
 				rowHeight={30}
-				bodyHeight={200}
+				bodyHeight={400}
 				heightResizable={true}
 				width={1200}
 				rowHeaders={["rowNum", "checkbox"]}
@@ -240,6 +227,7 @@ const BaseDataGrid = () => {
 				setOpen={setCheckToSaveOpen}
 				title="바뀐 내용 저장"
 				onYes={() => console.log("저장")}
+				onNo={() => setData(initialData)}
 				question="바뀐 내용이 있네요. 저장하실?"
 			/>
 		</>

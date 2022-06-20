@@ -8,9 +8,17 @@ interface YesNoSelectionModal {
 	title: string;
 	question: string;
 	onYes: () => void;
+	onNo: () => void;
 }
 
-const YesNoSelectionModal = ({ open, setOpen, title, question, onYes }: YesNoSelectionModal) => {
+const YesNoSelectionModal = ({
+	open,
+	setOpen,
+	title,
+	question,
+	onYes,
+	onNo,
+}: YesNoSelectionModal) => {
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
 			<Typography gutterBottom variant="h5">
@@ -19,7 +27,15 @@ const YesNoSelectionModal = ({ open, setOpen, title, question, onYes }: YesNoSel
 			<Typography variant="body1">{question}</Typography>
 			<div style={{ marginTop: 20, textAlign: "right" }}>
 				<BaseButton title="네" onClick={onYes} />
-				<BaseButton title="아니요" color="inherit" sx={{ ml: 1 }} onClick={() => setOpen(!open)} />
+				<BaseButton
+					title="아니요"
+					color="inherit"
+					sx={{ ml: 1 }}
+					onClick={() => {
+						setOpen(!open);
+						onNo();
+					}}
+				/>
 			</div>
 		</BaseModal>
 	);

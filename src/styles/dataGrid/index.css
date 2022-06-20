@@ -6,6 +6,9 @@
 	border-top-style: hidden;
 }
 
-.blue {
-	color: red;
+.tui-grid-cell.blue {
+	background-color: blue;
 }
+/* .blue {
+	background-color: blue;
+} */

@@ -7,13 +7,15 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import SaveIcon from "@mui/icons-material/Save";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 interface DataGridToolBarProps {
 	addNewRow: () => void;
 	refresh: () => void;
+	onFilter?: () => void;
 }
 
-const DataGridToolbar = ({ addNewRow, refresh }: DataGridToolBarProps) => {
+const DataGridToolbar = ({ addNewRow, refresh, onFilter }: DataGridToolBarProps) => {
 	const ToolBarOptions = [
 		{
 			id: 0,
@@ -83,19 +85,30 @@ const DataGridToolbar = ({ addNewRow, refresh }: DataGridToolBarProps) => {
 
 	return (
 		<Root>
-			{ToolBarOptions.map((group) => (
-				<BtnGroupWrapper key={group.id}>
-					<ButtonGroup size="small" variant="text" aria-label="datagrid-toolbar">
-						{group.btns.map((btn) => (
-							<Tooltip key={btn.id} title={btn.title}>
-								<IconButton onClick={btn.onClick} key={btn.key}>
-									{btn.icon}
-								</IconButton>
-							</Tooltip>
-						))}
-					</ButtonGroup>
-				</BtnGroupWrapper>
-			))}
+			<LeftBar>
+				{ToolBarOptions.map((group) => (
+					<BtnGroupWrapper key={group.id}>
+						<ButtonGroup size="small" variant="text" aria-label="datagrid-toolbar">
+							{group.btns.map((btn) => (
+								<Tooltip key={btn.id} title={btn.title}>
+									<IconButton onClick={btn.onClick} key={btn.key}>
+										{btn.icon}
+									</IconButton>
+								</Tooltip>
+							))}
+						</ButtonGroup>
+					</BtnGroupWrapper>
+				))}
+			</LeftBar>
+			<BtnGroupWrapper>
+				<ButtonGroup size="small" variant="text" aria-label="datagrid-toolbar">
+					<Tooltip title="필터">
+						<IconButton onClick={onFilter}>
+							<FilterAltIcon fontSize="small" />
+						</IconButton>
+					</Tooltip>
+				</ButtonGroup>
+			</BtnGroupWrapper>
 		</Root>
 	);
 };
@@ -105,7 +118,13 @@ export default DataGridToolbar;
 const Root = styled("div")(() => ({
 	display: "flex",
 	flexDirection: "row",
+	justifyContent: "space-between",
 	marginBottom: "1%",
+}));
+
+const LeftBar = styled("div")(() => ({
+	display: "flex",
+	flexDirection: "row",
 }));
 
 const BtnGroupWrapper = styled(Box)(({ theme }) => ({
