@@ -13,9 +13,15 @@ interface DataGridToolBarProps {
 	addNewRow: () => void;
 	refresh: () => void;
 	onFilter?: () => void;
+	openTableSetting?: () => void;
 }
 
-const DataGridToolbar = ({ addNewRow, refresh, onFilter }: DataGridToolBarProps) => {
+const DataGridToolbar = ({
+	addNewRow,
+	refresh,
+	onFilter,
+	openTableSetting,
+}: DataGridToolBarProps) => {
 	const ToolBarOptions = [
 		{
 			id: 0,
@@ -32,7 +38,7 @@ const DataGridToolbar = ({ addNewRow, refresh, onFilter }: DataGridToolBarProps)
 					title: "테이블 설정",
 					key: "table-setting",
 					icon: <AspectRatioIcon fontSize="small" />,
-					onClick: () => null,
+					onClick: openTableSetting,
 				},
 				{
 					id: 2,

@@ -120,7 +120,7 @@ const lightTheme = {
 		main: "#19857b",
 	},
 	background: {
-		default: lightBlue[50],
+		default: "#eef6fa",
 	},
 	text: {
 		secondary: "rgba(0, 0, 0, 0.8)",

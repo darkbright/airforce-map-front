@@ -2,15 +2,15 @@ import Grid from "@toast-ui/react-grid";
 import { OptPreset } from "tui-grid/types/options";
 import TuiGrid from "tui-grid";
 import "tui-grid/dist/tui-grid.css";
-import "../../styles/dataGrid/index.css";
-import { useEffect, useState } from "react";
-
+import { createRef, useEffect, useState } from "react";
 import useThemeStore from "../../stores/useThemeStore";
 import { theme } from "../../styles/theme";
 import DataGridToolbar from "./DataGridToolbar";
 import { useLocation } from "react-router-dom";
 import YesNoSelectionModal from "../../modules/modal/YesNoSelectionModal";
 import TableHelperText from "./TableHelperText";
+import TableSettingModal from "./TableSettingModal";
+import "../../styles/dataGrid/index.css";
 
 const BaseDataGrid = () => {
 	TuiGrid.setLanguage("ko");
@@ -59,6 +59,12 @@ const BaseDataGrid = () => {
 				text: text.primary,
 				showVerticalBorder: true,
 				showHorizontalBorder: true,
+			},
+			selectedHeader: {
+				background: background.default,
+			},
+			selectedRowHeader: {
+				background: background.default,
 			},
 			rowHeader: {
 				background: background.paper,
@@ -196,6 +202,7 @@ const BaseDataGrid = () => {
 
 	const location = useLocation();
 	const [checkToSaveOpen, setCheckToSaveOpen] = useState(false);
+	const [tableSettingOpen, setTableSettingOpen] = useState(false);
 
 	// Page 전환 시, data 내용이 변경된 경우 저장할 것인지 묻는 Hook 만들기
 	useEffect(() => {
@@ -208,19 +215,32 @@ const BaseDataGrid = () => {
 		// 데이터 내용이 바뀐게 있는지 확인
 	}, [location]);
 
+	const ref = createRef<Grid>();
+	useEffect(() => {
+		console.log(ref.current?.props);
+	}, []);
+
 	return (
 		<>
 			<TableHelperText type="percentage" />
-			<DataGridToolbar addNewRow={appendRow} refresh={() => setData(initialData)} />
+			<DataGridToolbar
+				addNewRow={appendRow}
+				refresh={() => setData(initialData)}
+				openTableSetting={() => setTableSettingOpen(true)}
+			/>
 			<Grid
+				ref={ref}
 				data={data}
 				columns={columns}
+				columnOptions={{ resizable: true }}
 				rowHeight={30}
 				bodyHeight={400}
 				heightResizable={true}
 				width={1200}
 				rowHeaders={["rowNum", "checkbox"]}
 				draggable={true}
+				scrollX={true}
+				scrollY={true}
 			/>
 			<YesNoSelectionModal
 				open={checkToSaveOpen}
@@ -230,6 +250,27 @@ const BaseDataGrid = () => {
 				onNo={() => setData(initialData)}
 				question="바뀐 내용이 있네요. 저장하실?"
 			/>
+			<TableSettingModal
+				open={tableSettingOpen}
+				setOpen={setTableSettingOpen}
+				setTableWidth={(value) => ref.current?.getInstance().setWidth(value)}
+				setTableHeight={(value) => ref.current?.getInstance().setHeight(value)}
+				setTableFontSize={(value) => {
+					data.map((d, i) => {
+						// fontSize를 className으로 밖에 접근할 수 밖에 없는데, 제시된 함수가 기존 className에 추가하는 형식이라 우선적으로 이렇게 조치함.
+						ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value - 1}`);
+						ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value + 1}`);
+						ref.current?.getInstance().addRowClassName(i, `tui-grid-container-${value}`);
+					});
+				}}
+			/>
+			<button
+				onClick={() => {
+					data.map((d, i) => ref.current?.getInstance().addRowClassName(i, "tui-grid-container1"));
+				}}
+			>
+				click
+			</button>
 		</>
 	);
 };

@@ -9,6 +9,39 @@
 .tui-grid-cell.blue {
 	background-color: blue;
 }
-/* .blue {
-	background-color: blue;
+
+.tui-grid-container-13 {
+	font-size: 13px;
+}
+
+.tui-grid-container-14 {
+	font-size: 14px;
+}
+
+.tui-grid-container-15 {
+	font-size: 15px;
+}
+
+.tui-grid-container-16 {
+	font-size: 16px;
+}
+
+.tui-grid-container-17 {
+	font-size: 17px;
+}
+
+.tui-grid-container-18 {
+	font-size: 18px;
+}
+
+.tui-grid-container-19 {
+	font-size: 19px;
+}
+
+.tui-grid-container-20 {
+	font-size: 20px;
+}
+/* header가 안커지는 부분 추후 체크 */
+/* .tui-grid-cell-header-13 {
+	font-size: 13px;
 } */
