@@ -176,6 +176,9 @@ const Root = styled("div")(({ theme }) => ({
 	borderRight: `1px solid ${theme.palette.divider}`,
 	height: "99%",
 	background: theme.palette.background.paper,
+	"*::-webkit-scrollbar": {
+		display: "none",
+	},
 }));
 
 const Paper = styled("div")(({ width }: { width: number }) => ({

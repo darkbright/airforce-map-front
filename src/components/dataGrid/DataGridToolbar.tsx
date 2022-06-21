@@ -13,7 +13,8 @@ interface DataGridToolBarProps {
 	addNewRow: () => void;
 	refresh: () => void;
 	onFilter?: () => void;
-	openTableSetting?: () => void;
+	openTableSetting: () => void;
+	openHeaderSetting: () => void;
 }
 
 const DataGridToolbar = ({
@@ -21,6 +22,7 @@ const DataGridToolbar = ({
 	refresh,
 	onFilter,
 	openTableSetting,
+	openHeaderSetting,
 }: DataGridToolBarProps) => {
 	const ToolBarOptions = [
 		{
@@ -45,7 +47,7 @@ const DataGridToolbar = ({
 					title: "헤더 설정",
 					key: "header-setting",
 					icon: <TopicIcon fontSize="small" />,
-					onClick: () => null,
+					onClick: openHeaderSetting,
 				},
 			],
 		},
@@ -147,6 +149,10 @@ const BtnGroupWrapper = styled(Box)(({ theme }) => ({
 	},
 }));
 
-const IconButton = styled(Button)(() => ({
+const IconButton = styled(Button)(({ theme }) => ({
 	padding: 0,
+	"&:hover": {
+		backgroundColor: "transparent",
+		color: theme.palette.secondary.light,
+	},
 }));

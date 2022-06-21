@@ -1,4 +1,5 @@
-import { Slider, Typography } from "@mui/material";
+import { Slider } from "@mui/material";
+import BaseBlockTitleBox from "../box/textBox/BaseBlockTitleBox";
 import BaseModal from "../modal/BaseModal";
 
 interface TableSettingModalProps {
@@ -42,30 +43,20 @@ const TableSettingModal = ({
 	return (
 		<BaseModal open={open} setOpen={() => setOpen(!open)}>
 			<div>
-				<Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-					테이블 너비 설정
-				</Typography>
-				<Typography variant="body2" gutterBottom>
-					테이블의 너비를 설정해주세요.
-				</Typography>
+				<BaseBlockTitleBox title="테이블 너비 설정" subtitle="테이블의 너비를 설정해주세요." />
 				<Slider
 					aria-label="table-width-setting"
 					defaultValue={currentWidth}
 					valueLabelDisplay="auto"
 					step={100}
 					marks
-					min={700}
+					min={400}
 					max={1400}
 					onChange={changeWidth}
 				/>
 			</div>
 			<div>
-				<Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-					테이블 높이 설정
-				</Typography>
-				<Typography variant="body2" gutterBottom>
-					테이블의 높이를 설정해주세요.
-				</Typography>
+				<BaseBlockTitleBox title="테이블 높이 설정" subtitle="테이블의 높이를 설정해주세요." />
 				<Slider
 					color="secondary"
 					aria-label="table-height-setting"
@@ -79,12 +70,7 @@ const TableSettingModal = ({
 				/>
 			</div>
 			<div>
-				<Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-					글씨 크기 설정
-				</Typography>
-				<Typography variant="body2" gutterBottom>
-					테이블의 글씨크기를 설정해주세요
-				</Typography>
+				<BaseBlockTitleBox title="글씨 크기 설정" subtitle="테이블의 글씨크기를 설정해주세요" />
 				<Slider
 					color="primary"
 					aria-label="table-fontSize-setting"

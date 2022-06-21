@@ -11,6 +11,7 @@ import YesNoSelectionModal from "../../modules/modal/YesNoSelectionModal";
 import TableHelperText from "./TableHelperText";
 import TableSettingModal from "./TableSettingModal";
 import "../../styles/dataGrid/index.css";
+import HeaderSettingModal from "./HeaderSettingModal";
 
 const BaseDataGrid = () => {
 	TuiGrid.setLanguage("ko");
@@ -25,8 +26,8 @@ const BaseDataGrid = () => {
 			background: background.paper,
 			border: divider,
 			emptySpace: background.paper,
-			// thumb?: string;
-			// active?: string;
+			thumb: divider,
+			active: divider,
 		},
 		row: {
 			hover: {
@@ -93,6 +94,7 @@ const BaseDataGrid = () => {
 	};
 
 	TuiGrid.applyTheme("default", styles);
+	const ref = createRef<Grid>();
 
 	const initialData = [
 		{
@@ -194,6 +196,7 @@ const BaseDataGrid = () => {
 		{ name: "editedBy", header: "수정자" },
 	];
 
+	const [containerWidth, setContainerWidth] = useState(1200 + 10);
 	const [data, setData] = useState(initialData);
 
 	const appendRow = () => {
@@ -203,6 +206,8 @@ const BaseDataGrid = () => {
 	const location = useLocation();
 	const [checkToSaveOpen, setCheckToSaveOpen] = useState(false);
 	const [tableSettingOpen, setTableSettingOpen] = useState(false);
+	const [headerSettingOpen, setHeaderSettingOpen] = useState(false);
+	const [frozenCount, setFrozenCount] = useState(1);
 
 	// Page 전환 시, data 내용이 변경된 경우 저장할 것인지 묻는 Hook 만들기
 	useEffect(() => {
@@ -215,24 +220,24 @@ const BaseDataGrid = () => {
 		// 데이터 내용이 바뀐게 있는지 확인
 	}, [location]);
 
-	const ref = createRef<Grid>();
-	useEffect(() => {
-		console.log(ref.current?.props);
-	}, []);
+	// useEffect(() => {
+	// 	console.log(ref.current?.props);
+	// }, []);
 
 	return (
-		<>
+		<div style={{ width: containerWidth }}>
 			<TableHelperText type="percentage" />
 			<DataGridToolbar
 				addNewRow={appendRow}
 				refresh={() => setData(initialData)}
 				openTableSetting={() => setTableSettingOpen(true)}
+				openHeaderSetting={() => setHeaderSettingOpen(true)}
 			/>
 			<Grid
 				ref={ref}
 				data={data}
 				columns={columns}
-				columnOptions={{ resizable: true }}
+				columnOptions={{ resizable: true, frozenCount }}
 				rowHeight={30}
 				bodyHeight={400}
 				heightResizable={true}
@@ -253,10 +258,13 @@ const BaseDataGrid = () => {
 			<TableSettingModal
 				open={tableSettingOpen}
 				setOpen={setTableSettingOpen}
-				setTableWidth={(value) => ref.current?.getInstance().setWidth(value)}
+				setTableWidth={(value) => {
+					setContainerWidth(value + 10);
+					ref.current?.getInstance().setWidth(value);
+				}}
 				setTableHeight={(value) => ref.current?.getInstance().setHeight(value)}
 				setTableFontSize={(value) => {
-					data.map((d, i) => {
+					data.map((_, i) => {
 						// fontSize를 className으로 밖에 접근할 수 밖에 없는데, 제시된 함수가 기존 className에 추가하는 형식이라 우선적으로 이렇게 조치함.
 						ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value - 1}`);
 						ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value + 1}`);
@@ -264,14 +272,22 @@ const BaseDataGrid = () => {
 					});
 				}}
 			/>
+			<HeaderSettingModal
+				open={headerSettingOpen}
+				setOpen={setHeaderSettingOpen}
+				headerData={columns}
+				tableRef={ref}
+				frozenCount={frozenCount}
+				setFrozenCount={(value) => setFrozenCount(value)}
+			/>
 			<button
 				onClick={() => {
-					data.map((d, i) => ref.current?.getInstance().addRowClassName(i, "tui-grid-container1"));
+					ref.current?.getInstance().setColumnHeaders({ type: "title", columnName2: "222" });
 				}}
 			>
 				click
 			</button>
-		</>
+		</div>
 	);
 };
 
