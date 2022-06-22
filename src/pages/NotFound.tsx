@@ -17,6 +17,7 @@ const NotFound = () => {
 		<>
 			<CenteredDiv>
 				<img src={HanulSec} alt="character" width={130} />
+
 				<Typography gutterBottom variant="h1">
 					404
 				</Typography>
