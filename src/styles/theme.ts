@@ -111,7 +111,7 @@ const darkTheme = {
 		high: green[600],
 	},
 	error: {
-		main: red[100],
+		main: red[700],
 	},
 };
 

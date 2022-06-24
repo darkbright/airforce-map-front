@@ -1,5 +1,4 @@
 import Grid from "@toast-ui/react-grid";
-import { OptPreset } from "tui-grid/types/options";
 import TuiGrid from "tui-grid";
 import "tui-grid/dist/tui-grid.css";
 import { createRef, useEffect, useState } from "react";
@@ -12,198 +11,41 @@ import TableHelperText from "./TableHelperText";
 import TableSettingModal from "./TableSettingModal";
 import "../../styles/dataGrid/index.css";
 import HeaderSettingModal from "./HeaderSettingModal";
+import { DataGridKeyProps, dataGridKeys } from "../../data/constants/dataGridKeys";
+import { dummyAirplaneStatus } from "../../data/constants/dummyData";
+import { gridStyles } from "./grigStyle";
 
 const BaseDataGrid = () => {
+	// grid styles
+	const { isDark } = useThemeStore();
+	const { palette } = theme(isDark);
+	TuiGrid.applyTheme("default", gridStyles(palette));
+
+	// grid language
 	TuiGrid.setLanguage("ko");
 
-	const { isDark } = useThemeStore();
-	const { background, text, divider, action, primary } = theme(isDark).palette;
-	const styles: OptPreset = {
-		selection: {
-			background: background.paper,
-		},
-		scrollbar: {
-			background: background.paper,
-			border: divider,
-			emptySpace: background.paper,
-			thumb: divider,
-			active: divider,
-		},
-		row: {
-			hover: {
-				background: background.default,
-			},
-		},
-		area: {
-			header: {
-				border: divider,
-				background: background.paper,
-			},
-			body: {
-				background: background.paper,
-			},
-			// summary: {},
-		},
-		cell: {
-			normal: {
-				background: background.paper,
-				text: text.primary,
-				border: divider,
-				showVerticalBorder: true,
-			},
-			disabled: {
-				background: action.disabledBackground,
-			},
-			header: {
-				background: background.paper,
-				border: divider,
-				text: text.primary,
-				showVerticalBorder: true,
-				showHorizontalBorder: true,
-			},
-			selectedHeader: {
-				background: background.default,
-			},
-			selectedRowHeader: {
-				background: background.default,
-			},
-			rowHeader: {
-				background: background.paper,
-				border: divider,
-				text: text.primary,
-			},
-			editable: {
-				background: background.paper,
-			},
-			focused: {
-				background: primary.main,
-			},
-		},
-		frozenBorder: {
-			border: divider,
-		},
-		heightResizeHandle: {
-			background: background.paper,
-			border: divider,
-		},
-		pagination: {},
-		outline: {
-			border: divider,
-			showVerticalBorder: false,
-		},
-	};
-
-	TuiGrid.applyTheme("default", styles);
 	const ref = createRef<Grid>();
 
-	const initialData = [
-		{
-			type: "F-15K",
-			second: 100,
-			loss: 4,
-			hold: 10,
-			notWorking: 5,
-			working: 10,
-			workingRate: "2",
-			editedDate: "2020-01-03",
-			editedBy: "19-000223",
-			_attributes: {
-				disabled: true,
-			},
-		},
-		{
-			type: "F-19K",
-			second: 200,
-			loss: 4,
-			hold: 10,
-			notWorking: 5,
-			working: 10,
-			workingRate: "1",
-			editedDate: "2020-01-03",
-			editedBy: "19-000223",
-			_attributes: {
-				checked: false,
-				className: {
-					row: ["red"],
-				},
-			},
-		},
-		{
-			type: "F-16K",
-			second: 100,
-			loss: 4,
-			hold: 10,
-			notWorking: 5,
-			working: 10,
-			workingRate: "2",
-			editedDate: "2020-01-03",
-			editedBy: "19-000223",
-			_attributes: {
-				checked: true,
-				className: {
-					column: {
-						type: ["blue"],
-						genre: ["blue"],
-					},
-				},
-			},
-		},
-		{},
-	];
+	// 처음에 띄울 데이터. 추후 API에서 받아올 것
+	const initialData = dummyAirplaneStatus;
 
-	const columns = [
-		{
-			name: "type",
-			header: "기종",
-			sortable: true,
-		},
-		{ name: "second", header: "초도" },
-		{ name: "loss", header: "손실" },
-		{ name: "hold", header: "보유" },
-		{
-			name: "notWorking",
-			header: "불가동",
-			// renderer: {
-			// 	styles: {
-			// 		backgroundColor: "yellow",
-			// 		margin: "0",
-			// 	},
-			// },
-		},
-		{
-			name: "working",
-			header: "가동",
-			editor: {
-				type: "text",
-			},
-		},
-		{
-			name: "workingRate",
-			header: "가동률",
-			formatter: "listItemText",
-			editor: {
-				type: "select",
-				options: {
-					listItems: [
-						{ text: "Deluxe", value: "1" },
-						{ text: "EP", value: "2" },
-						{ text: "Single", value: "3" },
-					],
-				},
-			},
-		},
-		{ name: "editedDate", header: "수정일시" },
-		{ name: "editedBy", header: "수정자" },
-	];
-
-	const [containerWidth, setContainerWidth] = useState(1200 + 10);
-	const [data, setData] = useState(initialData);
-
-	const appendRow = () => {
-		setData((data) => [...data, {}]);
+	// Column Setting
+	// API에서 받아온 값들의 키를 찾아서 한글화 해주고, 해당 설정에 따라 column값을 제작하는 모듈.
+	// TO_BE_CHECKED
+	// 1. 만약 새로운 열을 추가하거나 수정하는 것을 가능하게 하려면 최초에 받아온 값들의 키값이 required인지 무엇인지 등의 값들이 추가적으로 들어와야 함. 백엔드와 협의
+	const filteredColumns = () => {
+		const dataKeys = Object.keys(initialData[0]);
+		// -7은 기본 값들에 추가적으로 붙는 ['rowKey', 'sortKey', 'uniqueKey', '_attributes', '_disabledPriority', 'rowSpanMap', '_relationListItemMap']값을 제외한 값임.
+		const filteredKeys = dataKeys.slice(0, dataKeys.length - 7);
+		const columns: DataGridKeyProps[] = [];
+		const matchedKeys = () =>
+			filteredKeys.map((fKey) => columns.push(dataGridKeys.find((gkey) => gkey.name === fKey)!));
+		matchedKeys();
+		return columns;
 	};
 
 	const location = useLocation();
+	const [containerWidth, setContainerWidth] = useState(1200 + 10);
 	const [checkToSaveOpen, setCheckToSaveOpen] = useState(false);
 	const [tableSettingOpen, setTableSettingOpen] = useState(false);
 	const [headerSettingOpen, setHeaderSettingOpen] = useState(false);
@@ -212,31 +54,32 @@ const BaseDataGrid = () => {
 	// Page 전환 시, data 내용이 변경된 경우 저장할 것인지 묻는 Hook 만들기
 	useEffect(() => {
 		console.log("location changed");
-		// 길이가 같은지 확인
-		if (data.length !== initialData.length) {
-			setCheckToSaveOpen(true);
-		}
-
-		// 데이터 내용이 바뀐게 있는지 확인
+		// isModified 참조
 	}, [location]);
 
 	// useEffect(() => {
-	// 	console.log(ref.current?.props);
+	// 	console.log(ref.current?.getInstance().getModifiedRows());
 	// }, []);
+
+	// 행 추가
+	const appendRow = () => {
+		ref.current?.getInstance().appendRow({});
+	};
 
 	return (
 		<div style={{ width: containerWidth }}>
 			<TableHelperText type="percentage" />
 			<DataGridToolbar
 				addNewRow={appendRow}
-				refresh={() => setData(initialData)}
+				refresh={() => console.log("refresh")}
+				// refresh={() => ref.current?.getInstance().resetData(initialData)}
 				openTableSetting={() => setTableSettingOpen(true)}
 				openHeaderSetting={() => setHeaderSettingOpen(true)}
 			/>
 			<Grid
 				ref={ref}
-				data={data}
-				columns={columns}
+				data={initialData}
+				columns={filteredColumns()}
 				columnOptions={{ resizable: true, frozenCount }}
 				rowHeight={30}
 				bodyHeight={400}
@@ -252,7 +95,8 @@ const BaseDataGrid = () => {
 				setOpen={setCheckToSaveOpen}
 				title="바뀐 내용 저장"
 				onYes={() => console.log("저장")}
-				onNo={() => setData(initialData)}
+				onNo={() => console.log("no")}
+				// onNo={() => ref.current?.getInstance().resetData(initialData)}
 				question="바뀐 내용이 있네요. 저장하실?"
 			/>
 			<TableSettingModal
@@ -263,26 +107,26 @@ const BaseDataGrid = () => {
 					ref.current?.getInstance().setWidth(value);
 				}}
 				setTableHeight={(value) => ref.current?.getInstance().setHeight(value)}
-				setTableFontSize={(value) => {
-					data.map((_, i) => {
-						// fontSize를 className으로 밖에 접근할 수 밖에 없는데, 제시된 함수가 기존 className에 추가하는 형식이라 우선적으로 이렇게 조치함.
-						ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value - 1}`);
-						ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value + 1}`);
-						ref.current?.getInstance().addRowClassName(i, `tui-grid-container-${value}`);
-					});
-				}}
+				// setTableFontSize={(value) => {
+				// 	initialData.map((_, i) => {
+				// 		// fontSize를 className으로 밖에 접근할 수 밖에 없는데, 제시된 함수가 기존 className에 추가하는 형식이라 우선적으로 이렇게 조치함.
+				// 		ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value - 1}`);
+				// 		ref.current?.getInstance().removeRowClassName(i, `tui-grid-container-${value + 1}`);
+				// 		ref.current?.getInstance().addRowClassName(i, `tui-grid-container-${value}`);
+				// 	});
+				// }}
 			/>
 			<HeaderSettingModal
 				open={headerSettingOpen}
 				setOpen={setHeaderSettingOpen}
-				headerData={columns}
+				headerData={filteredColumns()}
 				tableRef={ref}
 				frozenCount={frozenCount}
 				setFrozenCount={(value) => setFrozenCount(value)}
 			/>
 			<button
 				onClick={() => {
-					ref.current?.getInstance().setColumnHeaders({ type: "title", columnName2: "222" });
+					console.log(ref.current?.getInstance().getModifiedRows());
 				}}
 			>
 				click
