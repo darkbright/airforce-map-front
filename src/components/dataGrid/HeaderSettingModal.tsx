@@ -36,7 +36,7 @@ interface HeaderSettingModalProps {
 const HeaderSettingModal = ({
 	open,
 	setOpen,
-	headerData,
+	// headerData,
 	tableRef,
 	frozenCount,
 	setFrozenCount,

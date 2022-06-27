@@ -19,9 +19,12 @@ export default async () => {
 	const olCenter = ol.proj.fromLonLat([KOREA_CENTER_LON, KOREA_CENTER_LAT]);
 
 	window.map = new ol.Map({
-		controls: ol.control.defaults({
-			zoom: false,
-		}),
+		controls: ol.control
+			.defaults({
+				// 좌측상단 zoom용 plus minus 버튼 보이게 할 것인지 여부
+				zoom: true,
+			})
+			.extend([new ol.control.FullScreen()]),
 		target: "map", // 지도 id
 		layers: [
 			new ol.layer.Tile({

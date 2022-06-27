@@ -16,6 +16,8 @@ import { dummyAirplaneStatus } from "../../data/constants/dummyData";
 import { gridStyles } from "./grigStyle";
 
 const BaseDataGrid = () => {
+	const location = useLocation();
+
 	// grid styles
 	const { isDark } = useThemeStore();
 	const { palette } = theme(isDark);
@@ -34,17 +36,19 @@ const BaseDataGrid = () => {
 	// TO_BE_CHECKED
 	// 1. 만약 새로운 열을 추가하거나 수정하는 것을 가능하게 하려면 최초에 받아온 값들의 키값이 required인지 무엇인지 등의 값들이 추가적으로 들어와야 함. 백엔드와 협의
 	const filteredColumns = () => {
+		const columns: DataGridKeyProps[] = [];
 		const dataKeys = Object.keys(initialData[0]);
 		// -7은 기본 값들에 추가적으로 붙는 ['rowKey', 'sortKey', 'uniqueKey', '_attributes', '_disabledPriority', 'rowSpanMap', '_relationListItemMap']값을 제외한 값임.
-		const filteredKeys = dataKeys.slice(0, dataKeys.length - 7);
-		const columns: DataGridKeyProps[] = [];
+		const filteredKeys = dataKeys.some((k) => k === "rowKey")
+			? dataKeys.slice(0, dataKeys.length - 7)
+			: dataKeys;
 		const matchedKeys = () =>
 			filteredKeys.map((fKey) => columns.push(dataGridKeys.find((gkey) => gkey.name === fKey)!));
 		matchedKeys();
 		return columns;
 	};
 
-	const location = useLocation();
+	// width는 상위 Layout에서 지도 모듈과 나란히 할지 말지 등을 고려하여 재구축
 	const [containerWidth, setContainerWidth] = useState(1200 + 10);
 	const [checkToSaveOpen, setCheckToSaveOpen] = useState(false);
 	const [tableSettingOpen, setTableSettingOpen] = useState(false);
@@ -57,10 +61,6 @@ const BaseDataGrid = () => {
 		// isModified 참조
 	}, [location]);
 
-	// useEffect(() => {
-	// 	console.log(ref.current?.getInstance().getModifiedRows());
-	// }, []);
-
 	// 행 추가
 	const appendRow = () => {
 		ref.current?.getInstance().appendRow({});
@@ -71,8 +71,7 @@ const BaseDataGrid = () => {
 			<TableHelperText type="percentage" />
 			<DataGridToolbar
 				addNewRow={appendRow}
-				refresh={() => console.log("refresh")}
-				// refresh={() => ref.current?.getInstance().resetData(initialData)}
+				refresh={() => ref.current?.getInstance().resetData(initialData)}
 				openTableSetting={() => setTableSettingOpen(true)}
 				openHeaderSetting={() => setHeaderSettingOpen(true)}
 			/>
@@ -95,8 +94,7 @@ const BaseDataGrid = () => {
 				setOpen={setCheckToSaveOpen}
 				title="바뀐 내용 저장"
 				onYes={() => console.log("저장")}
-				onNo={() => console.log("no")}
-				// onNo={() => ref.current?.getInstance().resetData(initialData)}
+				onNo={() => ref.current?.getInstance().resetData(initialData)}
 				question="바뀐 내용이 있네요. 저장하실?"
 			/>
 			<TableSettingModal
