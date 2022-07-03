@@ -12,7 +12,7 @@ export interface DummyAirplaneStatusProps {
 
 export const dummyAirplaneStatus = [
 	{
-		type: "F-15K",
+		type: "달러",
 		second: 100,
 		loss: 4,
 		hold: 10,
@@ -23,7 +23,7 @@ export const dummyAirplaneStatus = [
 		editedBy: "19-000223",
 	},
 	{
-		type: "F-19K",
+		type: "원",
 		second: 200,
 		loss: 4,
 		hold: 10,
@@ -34,7 +34,7 @@ export const dummyAirplaneStatus = [
 		editedBy: "19-000223",
 	},
 	{
-		type: "F-16K",
+		type: "원",
 		second: 100,
 		loss: 4,
 		hold: 10,

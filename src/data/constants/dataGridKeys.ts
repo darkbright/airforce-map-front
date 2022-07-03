@@ -23,7 +23,7 @@ export interface DataGridKeyProps {
 export const dataGridKeys: DataGridKeyProps[] = [
 	{
 		name: "type",
-		header: "기종",
+		header: "종류",
 		sortable: true,
 		editor: {
 			type: "text",
@@ -35,7 +35,7 @@ export const dataGridKeys: DataGridKeyProps[] = [
 	},
 	{
 		name: "loss",
-		header: "손실",
+		header: "손실률",
 		sortable: true,
 		editor: {
 			type: "text",
@@ -43,7 +43,7 @@ export const dataGridKeys: DataGridKeyProps[] = [
 	},
 	{
 		name: "hold",
-		header: "보유",
+		header: "보유량",
 		sortable: true,
 		editor: {
 			type: "text",
@@ -51,7 +51,7 @@ export const dataGridKeys: DataGridKeyProps[] = [
 	},
 	{
 		name: "second",
-		header: "초도",
+		header: "초당거래량",
 		sortable: true,
 		editor: {
 			type: "text",
@@ -59,7 +59,7 @@ export const dataGridKeys: DataGridKeyProps[] = [
 	},
 	{
 		name: "notWorking",
-		header: "불가동",
+		header: "활동여부",
 		sortable: true,
 		editor: {
 			type: "text",
@@ -67,7 +67,7 @@ export const dataGridKeys: DataGridKeyProps[] = [
 	},
 	{
 		name: "working",
-		header: "가동",
+		header: "거래여부",
 		sortable: true,
 		editor: {
 			type: "text",
@@ -87,7 +87,7 @@ export const dataGridKeys: DataGridKeyProps[] = [
 	},
 	{
 		name: "editedBy",
-		header: "수정자",
+		header: "거래아이디",
 		sortable: true,
 	},
 ];

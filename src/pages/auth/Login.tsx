@@ -40,7 +40,7 @@ const Login = () => {
 						<div style={{ marginBottom: "5%" }}>
 							<F15Icon width={35} />
 							<Typography gutterBottom variant="subtitle1">
-								AFCCS COP 시스템에 오신 것을 환영합니다
+								크립토커런시의 세계에 오신 것을 환영함
 							</Typography>
 							<Typography gutterBottom variant="h4">
 								시스템 로그인

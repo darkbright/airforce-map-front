@@ -18,13 +18,27 @@ export default async () => {
 	// 초기 로딩 시 중심좌표를 어디로 잡을 것인지 설정. 현재는 대한민국 중심좌표로 설정되어 있음.
 	const olCenter = ol.proj.fromLonLat([KOREA_CENTER_LON, KOREA_CENTER_LAT]);
 
+	// fullScreen Button Load
+	const fullScreen = new ol.control.FullScreen();
+	// 현재 마우스의 위치를 위경도로 표시
+	const mousePosition = new ol.control.MousePosition({
+		// createStringXY(number): 위경도의 소수점 자리 수
+		coordinateFormat: ol.coordinate.createStringXY(4),
+		projection: "EPSG:4326",
+	});
+	// 화면의 현재의 축적을 보여줌
+	const scaleLine = new ol.control.ScaleLine({
+		units: "metric",
+		bar: false,
+	});
+
 	window.map = new ol.Map({
 		controls: ol.control
 			.defaults({
 				// 좌측상단 zoom용 plus minus 버튼 보이게 할 것인지 여부
 				zoom: true,
 			})
-			.extend([new ol.control.FullScreen()]),
+			.extend([fullScreen, mousePosition, scaleLine]),
 		target: "map", // 지도 id
 		layers: [
 			new ol.layer.Tile({

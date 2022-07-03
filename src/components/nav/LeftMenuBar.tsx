@@ -44,39 +44,39 @@ const LeftMenuBar = () => {
 	// 대 메뉴가 추가될 경우 icon 설정이 필요함.
 	const menuIcons = [
 		{
-			title: "operationSharingSystem",
+			title: "bitcoin",
 			icon: <OperationSharingIcon color={highlightIcon("operationSharingSystem")} />,
 		},
 		{
-			title: "COPTotalState",
+			title: "UNUSSEDLEO",
 			icon: <MapIcon color={highlightIcon("COPTotalState")} />,
 		},
 		{
-			title: "baseDefenseAndSecurityPolice",
+			title: "FTXToken",
 			icon: <DefenseIcon color={highlightIcon("baseDefenseAndSecurityPolice")} />,
 		},
 		{
-			title: "infoCommunication",
+			title: "Cosmos",
 			icon: <InternetIcon color={highlightIcon("infoCommunication")} />,
 		},
 		{
-			title: "mobilization",
+			title: "VeChain",
 			icon: <MilitaryBagIcon color={highlightIcon("mobilization")} />,
 		},
 		{
-			title: "humanAffairs",
+			title: "Decentraland",
 			icon: <HumanIcon color={highlightIcon("humanAffairs")} />,
 		},
 		{
-			title: "munitions",
+			title: "Tezos",
 			icon: <WarehouseIcon color={highlightIcon("munitions")} />,
 		},
 		{
-			title: "baseDefenseAndSecurityPolice",
+			title: "EOS",
 			icon: <DefenseIcon color={highlightIcon("baseDefenseAndSecurityPolice")} />,
 		},
 		{
-			title: "facilities",
+			title: "Zcash",
 			icon: <RunwayIcon color={highlightIcon("facilities")} />,
 		},
 		{
@@ -84,7 +84,7 @@ const LeftMenuBar = () => {
 			icon: <AerospaceIcon color={highlightIcon("aerospace")} />,
 		},
 		{
-			title: "operationWeather",
+			title: "eCash",
 			icon: <SunnyWeatherIcon color={highlightIcon("operationWeather")} />,
 		},
 	];

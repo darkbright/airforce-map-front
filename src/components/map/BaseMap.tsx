@@ -11,6 +11,8 @@ const BaseMap = () => {
 		setLoading(true);
 		mapSettings();
 		setLoading(false);
+		
+		return () => window.map.setTarget(undefined)
 	}, []);
 
 	return (

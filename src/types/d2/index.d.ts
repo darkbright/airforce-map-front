@@ -5,6 +5,8 @@ export {};
 
 export type Color = number[];
 
+// declare type View = import("@types/ol").View;
+
 declare global {
 	interface Window {
 		// tslint:disable-next-line
@@ -90,6 +92,7 @@ declare global {
 				MilSymbol: any;
 				SpatialOperator: any;
 				Tracker: any;
+				// ol: ol;
 				ol: {
 					AssertionError: any;
 					Collection: any;
@@ -305,6 +308,7 @@ declare global {
 						Translate: any;
 						defaults: any;
 					};
+
 					layer: {
 						Graticule: any;
 						Group: any;

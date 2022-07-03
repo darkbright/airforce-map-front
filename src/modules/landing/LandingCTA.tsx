@@ -17,9 +17,9 @@ const MainHeader = () => {
 			<DefaultBox>
 				<TitleWrapper>
 					<Typography variant="h6" color="primary">
-						대한민국 공군 C4I 체계
+						이무거나 골라잡아
 					</Typography>
-					<Typography variant="h1">공통 작전 상황도 시스템</Typography>
+					<Typography variant="h1">포켓몬 고 시스템</Typography>
 				</TitleWrapper>
 
 				<BaseButton
@@ -29,7 +29,7 @@ const MainHeader = () => {
 					onClick={navigateToLogin}
 					sx={{ margin: "10% 0px" }}
 				/>
-				<ShortAlert title="군사 II급 비밀" severity="error" />
+				<ShortAlert title="비밀임" severity="error" />
 			</DefaultBox>
 			<div>
 				<KF16Image width={500} />

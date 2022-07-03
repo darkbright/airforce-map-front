@@ -16,6 +16,7 @@ export default async () => {
 	// overView용 지도
 
 	const overViewWorldLayer = new ol.layer.Tile({
+		name: "overViewWorld",
 		source: new ol.source.XYZ({
 			url: urlInfo.map.baseLayer,
 			crossOrigin: "Anonymous",
@@ -31,6 +32,9 @@ export default async () => {
 	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", `${URL_HEADER}/MVTCONF/GSSSymbol/`);
 	window.mapLayerManager.addLayer("layer-sub-world", true, overViewWorldLayer);
 
+	console.log(window.map.getLayers());
+	// window.map.getLayers().forEach((element, index, array) => console.log(element.getProperties().name))
+
 	// 기본 배경 레이어 COP 추가
 	addBackgroundLayer({ visible: true });
 
@@ -45,6 +49,16 @@ export default async () => {
 		layerClassName: G25K.btnName,
 		url: G25K.url,
 	});
+
+	const openStreetMapLayer = new ol.layer.Tile({
+		name: "openStreet",
+		source: new ol.source.OSM({
+			attributions: "test",
+		}),
+		visible: true,
+	});
+
+	window.map.addLayer(openStreetMapLayer);
 
 	// 오버뷰 생성 (작은 화면으로 전체 보이기 모드)
 	window.mapLayerManager.createOverview();
