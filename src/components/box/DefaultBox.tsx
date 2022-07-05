@@ -2,16 +2,19 @@ import { styled } from "@mui/material";
 
 interface DefaultBoxProps {
 	children: React.ReactNode;
+	isBackgroundPaper?: boolean;
 }
 
-const DefaultBox = ({ children }: DefaultBoxProps) => {
-	return <BoxWrapper>{children}</BoxWrapper>;
+const DefaultBox = ({ children, isBackgroundPaper = true }: DefaultBoxProps) => {
+	return <BoxWrapper isBackgroundPaper={isBackgroundPaper}>{children}</BoxWrapper>;
 };
 
 export default DefaultBox;
 
-const BoxWrapper = styled("div")(({ theme }) => ({
+const BoxWrapper = styled("div", {
+	shouldForwardProp: (prop) => prop !== "isBackgroundPaper",
+})<{ isBackgroundPaper?: boolean }>(({ theme, isBackgroundPaper }) => ({
 	padding: "5%",
-	background: theme.palette.background.paper,
+	background: isBackgroundPaper ? theme.palette.background.paper : theme.palette.background.default,
 	borderRadius: 8,
 }));

@@ -1951,6 +1951,11 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
+"@types/arcgis-rest-api@*":
+  version "10.4.5"
+  resolved "https://registry.yarnpkg.com/@types/arcgis-rest-api/-/arcgis-rest-api-10.4.5.tgz#35a1d6b1b39bb530b36799d679576cbc1f35cc2e"
+  integrity sha512-MhpTj3aaURIFhK6pBRF50yCHW5TpbeuC1E81juovfNesSOshsQnCzludhpBhIr2pNzplTBlfzrT7RKiLZ5F3Tw==
+
 "@types/aria-query@^4.2.0":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.2.tgz#ed4e0ad92306a704f9fb132a0cfcf77486dbe2bc"
@@ -2072,6 +2077,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/geojson@*":
+  version "7946.0.8"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
+  integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
+
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
@@ -2163,6 +2173,15 @@
   version "16.11.38"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.38.tgz#be0edd097b23eace6c471c525a74b3f98803017f"
   integrity sha512-hjO/0K140An3GWDw2HJfq7gko3wWeznbjXgg+rzPdVzhe198hp4x2i1dgveAOEiFKd8sOilAxzoSJiVv5P/CUg==
+
+"@types/ol@6.4.2":
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/@types/ol/-/ol-6.4.2.tgz#3992e2f06fb3c224cda28e6727bc283febd5f8ff"
+  integrity sha512-lSms1n5obkacAosby0U3HtnDkjhEXNCYNj0BYjQXyAZHz7+QkA3SuvUHiQ91DBUaAPptCrps3E2mtaPTGw74UA==
+  dependencies:
+    "@types/arcgis-rest-api" "*"
+    "@types/geojson" "*"
+    "@types/topojson-specification" "*"
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2291,6 +2310,13 @@
   integrity sha512-oKZe+Mf4ioWlMuzVBaXQ9WDnEm1+umLx0InILg+yvZVBBDmzV5KfZyLrCvadtWcx8+916jLmHafcmqqffl+iIw==
   dependencies:
     "@types/jest" "*"
+
+"@types/topojson-specification@*":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/topojson-specification/-/topojson-specification-1.0.2.tgz#e20df2c5a611e31f51d606473dbaccc1d90461c8"
+  integrity sha512-SGc1NdX9g3UGDp6S+p+uyG+Z8CehS51sUJ9bejA25Xgn2kkAguILk6J9nxXK+0M/mbTBN7ypMA7+4HVLNMJ8ag==
+  dependencies:
+    "@types/geojson" "*"
 
 "@types/trusted-types@^2.0.2":
   version "2.0.2"
