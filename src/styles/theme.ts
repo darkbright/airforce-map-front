@@ -86,6 +86,13 @@ const baseTheme = {
 				},
 			},
 		},
+		MuiTab: {
+			styleOverrides: {
+				root: {
+					minWidth: 30,
+				},
+			},
+		},
 	},
 };
 
@@ -100,7 +107,6 @@ const darkTheme = {
 		default: blueGrey[900],
 		paper: blueGrey[800],
 	},
-
 	text: {
 		secondary: "rgba(255, 255, 255, 0.8)",
 	},

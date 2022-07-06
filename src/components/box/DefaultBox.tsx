@@ -16,5 +16,5 @@ const BoxWrapper = styled("div", {
 })<{ isBackgroundPaper?: boolean }>(({ theme, isBackgroundPaper }) => ({
 	padding: "5%",
 	background: isBackgroundPaper ? theme.palette.background.paper : theme.palette.background.default,
-	borderRadius: 8,
+	borderRadius: 6,
 }));

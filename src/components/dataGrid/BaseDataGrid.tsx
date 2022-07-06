@@ -1,11 +1,10 @@
 import Grid from "@toast-ui/react-grid";
 import TuiGrid from "tui-grid";
 import "tui-grid/dist/tui-grid.css";
-import { createRef, useEffect, useState } from "react";
+import { createRef, useState } from "react";
 import useThemeStore from "../../stores/useThemeStore";
 import { theme } from "../../styles/theme";
 import DataGridToolbar from "./DataGridToolbar";
-import { useLocation } from "react-router-dom";
 import YesNoSelectionModal from "../../modules/modal/YesNoSelectionModal";
 import TableHelperText from "./TableHelperText";
 import TableSettingModal from "./TableSettingModal";
@@ -15,9 +14,11 @@ import { DataGridKeyProps, dataGridKeys } from "../../data/constants/dataGridKey
 import { dummyAirplaneStatus } from "../../data/constants/dummyData";
 import { gridStyles } from "./grigStyle";
 
-const BaseDataGrid = () => {
-	const location = useLocation();
+interface BaseDataGridProps {
+	showToolbar?: boolean;
+}
 
+const BaseDataGrid = ({ showToolbar = true }: BaseDataGridProps) => {
 	// grid styles
 	const { isDark } = useThemeStore();
 	const { palette } = theme(isDark);
@@ -49,17 +50,11 @@ const BaseDataGrid = () => {
 	};
 
 	// width는 상위 Layout에서 지도 모듈과 나란히 할지 말지 등을 고려하여 재구축
-	const [containerWidth, setContainerWidth] = useState(1200 + 10);
+	const [containerWidth, setContainerWidth] = useState(1100 + 10);
 	const [checkToSaveOpen, setCheckToSaveOpen] = useState(false);
 	const [tableSettingOpen, setTableSettingOpen] = useState(false);
 	const [headerSettingOpen, setHeaderSettingOpen] = useState(false);
 	const [frozenCount, setFrozenCount] = useState(1);
-
-	// Page 전환 시, data 내용이 변경된 경우 저장할 것인지 묻는 Hook 만들기
-	useEffect(() => {
-		console.log("location changed");
-		// isModified 참조
-	}, [location]);
 
 	// 행 추가
 	const appendRow = () => {
@@ -68,13 +63,17 @@ const BaseDataGrid = () => {
 
 	return (
 		<div style={{ width: containerWidth }}>
-			<TableHelperText type="percentage" />
-			<DataGridToolbar
-				addNewRow={appendRow}
-				refresh={() => ref.current?.getInstance().resetData(initialData)}
-				openTableSetting={() => setTableSettingOpen(true)}
-				openHeaderSetting={() => setHeaderSettingOpen(true)}
-			/>
+			{showToolbar && (
+				<>
+					<TableHelperText type="percentage" />
+					<DataGridToolbar
+						addNewRow={appendRow}
+						refresh={() => ref.current?.getInstance().resetData(initialData)}
+						openTableSetting={() => setTableSettingOpen(true)}
+						openHeaderSetting={() => setHeaderSettingOpen(true)}
+					/>
+				</>
+			)}
 			<Grid
 				ref={ref}
 				data={initialData}
@@ -83,7 +82,7 @@ const BaseDataGrid = () => {
 				rowHeight={30}
 				bodyHeight={400}
 				heightResizable={true}
-				width={1200}
+				width={1100}
 				rowHeaders={["rowNum", "checkbox"]}
 				draggable={true}
 				scrollX={true}

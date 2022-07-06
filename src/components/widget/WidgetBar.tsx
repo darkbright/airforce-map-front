@@ -7,6 +7,7 @@ import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import WarningTab from "./WarningTab";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import DataTab from "./DataTab";
 
 function a11yProps(index: number) {
 	return {
@@ -58,10 +59,10 @@ const WidgetBar = () => {
 					<TabPanel value={selectedTab} index={0}>
 						<WarningTab />
 					</TabPanel>
-					<TabPanel value={selectedTab!} index={1}>
-						dsfdddd
+					<TabPanel value={selectedTab} index={1}>
+						<DataTab />
 					</TabPanel>
-					<TabPanel value={selectedTab!} index={2}>
+					<TabPanel value={selectedTab} index={2}>
 						sdfdsg
 					</TabPanel>
 				</TabContentArea>
