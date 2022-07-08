@@ -121,13 +121,6 @@ const BaseDataGrid = ({ showToolbar = true }: BaseDataGridProps) => {
 				frozenCount={frozenCount}
 				setFrozenCount={(value) => setFrozenCount(value)}
 			/>
-			<button
-				onClick={() => {
-					console.log(ref.current?.getInstance().getModifiedRows());
-				}}
-			>
-				click
-			</button>
 		</div>
 	);
 };

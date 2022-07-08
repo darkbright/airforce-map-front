@@ -16,6 +16,10 @@ declare global {
 		MilSymbol: any;
 		mapLayerManager: any;
 		graphic: any;
+		spatialMath: {
+			getMapScale: any;
+		};
+		CoordManager: any;
 
 		// d2Map.min.js 에서 추출된 값
 		D2: {

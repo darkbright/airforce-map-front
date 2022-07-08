@@ -6,7 +6,10 @@ import SaveIcon from "@mui/icons-material/Save";
 import GridOnIcon from "@mui/icons-material/GridOn";
 import CenterFocusWeakIcon from "@mui/icons-material/CenterFocusWeak";
 import PublicIcon from "@mui/icons-material/Public";
+import CallToActionIcon from "@mui/icons-material/CallToAction";
+
 import MapTypeDrawer from "../../modules/map/MapTypeDrawer";
+import MapScaleBarOptionModal from "../../modules/map/MapScaleBarOptionModal";
 
 const MapToolbar = () => {
 	const [alignment, setAlignment] = useState("select");
@@ -22,6 +25,8 @@ const MapToolbar = () => {
 
 	// 지도 종류 선택하기 Drawer
 	const [mapSelectOpen, setMapSelectOpen] = useState(false);
+	// 지도 스케일 옵션 선택하기
+	const [mapScaleOpen, setMapScaleOpen] = useState(false);
 
 	return (
 		<>
@@ -54,6 +59,11 @@ const MapToolbar = () => {
 							<CenterFocusWeakIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
+					<ToggleButton value="center" onClick={() => setMapScaleOpen(true)}>
+						<Tooltip title="좌표표시옵션">
+							<CallToActionIcon fontSize="small" />
+						</Tooltip>
+					</ToggleButton>
 					<ToggleButton
 						value="selectMap"
 						onClick={() => {
@@ -80,6 +90,8 @@ const MapToolbar = () => {
 			</div>
 			{/* 지도종류선택 Drawer */}
 			<MapTypeDrawer open={mapSelectOpen} setOpen={() => setMapSelectOpen(false)} />
+			{/* 지도아래쪽스케일핸들링 모달 */}
+			<MapScaleBarOptionModal open={mapScaleOpen} setOpen={() => setMapScaleOpen(false)} />
 		</>
 	);
 };

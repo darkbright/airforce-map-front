@@ -28,8 +28,9 @@ const BaseMap = ({ children }: BaseMapProps) => {
 				{loading && <Loading />}
 				<div style={{ width: "100%" }}>
 					<MapToolbar />
-					<div id="map" className="map" style={{ width: "100%", height: "700px" }} />
+					<div id="map" className="map" style={{ width: "100%", height: "800px" }} />
 					<div id="d2map-coord-bottom" className="d2map-coord-bottom" />
+					<div id="whatever" className="whatever" />
 					{children}
 				</div>
 			</div>

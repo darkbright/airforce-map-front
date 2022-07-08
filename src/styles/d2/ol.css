@@ -5,8 +5,10 @@
 }
 
 .ol-mouse-position {
-	top: 8px;
-	right: 8px;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 6px;
+	bottom: 0px;
+	left: 0px;
 	position: absolute;
 }
 
@@ -129,17 +131,17 @@
 
 .ol-control button {
 	display: block;
-	margin: 10px;
-	padding: 14px;
+	margin: 4px;
+	padding: 10px;
 	color: white;
-	font-size: 1.6em;
+	font-size: 1.2em;
 	font-weight: bold;
 	text-decoration: none;
 	text-align: center;
 	/* height: 1.375em;
 	width: 1.375em; */
 	line-height: 0.4em;
-	background-color: rgba(32, 74, 88, 0.7);
+	background-color: rgba(0, 0, 0, 0.6);
 	border: none;
 	border-radius: 4px;
 }

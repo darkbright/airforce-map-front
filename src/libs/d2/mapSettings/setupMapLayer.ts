@@ -32,7 +32,7 @@ export default async () => {
 	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", `${URL_HEADER}/MVTCONF/GSSSymbol/`);
 	window.mapLayerManager.addLayer("layer-sub-world", true, overViewWorldLayer);
 
-	console.log(window.map.getLayers());
+	// console.log(window.map.getLayers());
 	// window.map.getLayers().forEach((element, index, array) => console.log(element.getProperties().name))
 
 	// 기본 배경 레이어 COP 추가
