@@ -1,4 +1,4 @@
-import { styled, Typography } from "@mui/material";
+import { Divider, styled, Typography } from "@mui/material";
 
 interface BaseBlockTitleBoxProps {
 	title: string;
@@ -15,6 +15,7 @@ const BaseBlockTitleBox = ({ title, subtitle }: BaseBlockTitleBoxProps) => {
 			<Typography variant="body2" gutterBottom>
 				{subtitle}
 			</Typography>
+			<Divider />
 		</Root>
 	);
 };

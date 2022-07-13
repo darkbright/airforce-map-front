@@ -7,7 +7,7 @@ import {
 	marker,
 	trackerRotate,
 } from "../../../assets/d2/embeddedImages";
-import { mousePosition } from "./controls/mousePosition";
+import { setMousePosition } from "./controls/mousePosition";
 
 // 대한민국 중심좌표
 const KOREA_CENTER_LON = 127.027583;
@@ -28,7 +28,7 @@ export default async () => {
 				// 좌측상단 zoom용 plus minus 버튼 보이게 할 것인지 여부
 				zoom: true,
 			})
-			.extend([fullScreen, mousePosition]),
+			.extend([fullScreen, setMousePosition({})]),
 		target: "map", // 지도 id
 		layers: [
 			new ol.layer.Tile({

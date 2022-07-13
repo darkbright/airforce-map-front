@@ -7,9 +7,11 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import CenterFocusWeakIcon from "@mui/icons-material/CenterFocusWeak";
 import PublicIcon from "@mui/icons-material/Public";
 import CallToActionIcon from "@mui/icons-material/CallToAction";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import MapTypeDrawer from "../../modules/map/MapTypeDrawer";
 import MapScaleBarOptionModal from "../../modules/map/MapScaleBarOptionModal";
+import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
 
 const MapToolbar = () => {
 	const [alignment, setAlignment] = useState("select");
@@ -25,6 +27,9 @@ const MapToolbar = () => {
 
 	// 지도 종류 선택하기 Drawer
 	const [mapSelectOpen, setMapSelectOpen] = useState(false);
+	// 지도 컨트롤 설정 모달 선택하기
+	const [mapControlsOpen, setMapControlsOpen] = useState(false);
+
 	// 지도 스케일 옵션 선택하기
 	const [mapScaleOpen, setMapScaleOpen] = useState(false);
 
@@ -86,10 +91,17 @@ const MapToolbar = () => {
 							</div>
 						</Tooltip>
 					</ToggleButton>
+					<ToggleButton value="center" onClick={() => setMapControlsOpen(true)}>
+						<Tooltip title="지도설정">
+							<SettingsIcon fontSize="small" />
+						</Tooltip>
+					</ToggleButton>
 				</ToggleButtonGroup>
 			</div>
 			{/* 지도종류선택 Drawer */}
 			<MapTypeDrawer open={mapSelectOpen} setOpen={() => setMapSelectOpen(false)} />
+			{/* 지도 컨트롤 설정 모달*/}
+			<MapControlsSettingModal open={mapControlsOpen} setOpen={() => setMapControlsOpen(false)} />
 			{/* 지도아래쪽스케일핸들링 모달 */}
 			<MapScaleBarOptionModal open={mapScaleOpen} setOpen={() => setMapScaleOpen(false)} />
 		</>

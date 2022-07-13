@@ -7,6 +7,7 @@ interface WidgetTitleBoxProps {
 	handleShowMore?: () => void;
 }
 
+// 우측 위젯용 타이틀 설정 박스
 const WidgetTitleBox = ({ title, showMoreMenu = true, handleShowMore }: WidgetTitleBoxProps) => {
 	return (
 		<Root>
