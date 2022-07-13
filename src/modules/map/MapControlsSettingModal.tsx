@@ -9,6 +9,11 @@ import {
 	setMousePosition,
 	showDefaultMousePosition,
 } from "../../libs/d2/mapSettings/controls/mousePosition";
+import {
+	isZoomControlOn,
+	removeZoomInControls,
+	showZoomControl,
+} from "../../libs/d2/mapSettings/controls/zoom";
 
 interface MapControlsSettingModal {
 	open: boolean;
@@ -16,6 +21,9 @@ interface MapControlsSettingModal {
 }
 
 const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => {
+	/*
+     Mouse Controls - 좌측하단 마우스 커서 위치에 따른 좌표 표시 설정 
+     */
 	const [mouseControlChecked, setMouseControlChecked] = useState(isMouseControlOn() || true);
 	const [controlEl, setControlEl] = useState({
 		geo: true,
@@ -27,6 +35,7 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 
 	const { geo, mgrs, utm, geoRef, gars } = controlEl;
 
+	// mouseControl 화면 토글
 	const handleMouseControl = (event: ChangeEvent<HTMLInputElement>) => {
 		setMouseControlChecked(event.target.checked);
 		if (isMouseControlOn()) {
@@ -36,6 +45,7 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 		}
 	};
 
+	// state 업데이트
 	const handleMouseElChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setControlEl({
 			...controlEl,
@@ -43,6 +53,7 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 		});
 	};
 
+	// map.control의 기존 mouseControl을 날리고 새로운 상태로 업데이트해줌.
 	const handleSetMouseEl = () => {
 		removeMousePositionInControls();
 		window.map.addControl(
@@ -54,6 +65,21 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 				showGARS: gars,
 			}),
 		);
+	};
+
+	/*
+     Zoom Controls - 좌측 상단 줌 버튼 관련 설정
+     */
+	const [showZoom, setShowZoom] = useState(isZoomControlOn() || true);
+
+	// mouseControl 화면 토글
+	const handleZoomControl = (event: ChangeEvent<HTMLInputElement>) => {
+		setShowZoom(event.target.checked);
+		if (isZoomControlOn()) {
+			removeZoomInControls();
+		} else {
+			showZoomControl();
+		}
 	};
 
 	return (
@@ -76,7 +102,7 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 			</FormGroup>
 			{mouseControlChecked && (
 				<FormControl>
-					<FormGroup sx={{ display: "flex", flexDirection: "row" }}>
+					<FormGroup sx={{ display: "flex", flexDirection: "row", mb: 4 }}>
 						<FormControlLabel
 							control={<Checkbox checked={geo} name="geo" onChange={handleMouseElChange} />}
 							label="위경도 좌표(GEO)"
@@ -97,10 +123,26 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 							control={<Checkbox checked={gars} name="gars" onChange={handleMouseElChange} />}
 							label="GARS"
 						/>
-						<BaseButton title="확인" type="button" onClick={handleSetMouseEl} />
+						<BaseButton color="secondary" title="확인" type="button" onClick={handleSetMouseEl} />
 					</FormGroup>
 				</FormControl>
 			)}
+			<BaseBlockTitleBox
+				title="화면 줌 버튼 설정"
+				subtitle="화면 좌측 상단의 줌 버튼 표시 여부를 설정합니다"
+			/>
+			<FormGroup>
+				<FormControlLabel
+					control={
+						<Switch
+							checked={showZoom}
+							onChange={handleZoomControl}
+							inputProps={{ "aria-label": "mouse-control" }}
+						/>
+					}
+					label={showZoom ? "표시" : "숨김"}
+				/>
+			</FormGroup>
 		</BaseModal>
 	);
 };
