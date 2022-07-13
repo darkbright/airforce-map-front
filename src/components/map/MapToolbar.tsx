@@ -99,9 +99,21 @@ const MapToolbar = () => {
 				</ToggleButtonGroup>
 			</div>
 			{/* 지도종류선택 Drawer */}
-			<MapTypeDrawer open={mapSelectOpen} setOpen={() => setMapSelectOpen(false)} />
+			<MapTypeDrawer
+				open={mapSelectOpen}
+				setOpen={() => {
+					setMapSelectOpen(false);
+					setAlignment("");
+				}}
+			/>
 			{/* 지도 컨트롤 설정 모달*/}
-			<MapControlsSettingModal open={mapControlsOpen} setOpen={() => setMapControlsOpen(false)} />
+			<MapControlsSettingModal
+				open={mapControlsOpen}
+				setOpen={() => {
+					setMapControlsOpen(false);
+					setAlignment("");
+				}}
+			/>
 			{/* 지도아래쪽스케일핸들링 모달 */}
 			<MapScaleBarOptionModal open={mapScaleOpen} setOpen={() => setMapScaleOpen(false)} />
 		</>

@@ -10,6 +10,11 @@ import {
 	showDefaultMousePosition,
 } from "../../libs/d2/mapSettings/controls/mousePosition";
 import {
+	isScaleControlOn,
+	removeScaleInControls,
+	showScaleControl,
+} from "../../libs/d2/mapSettings/controls/scale";
+import {
 	isZoomControlOn,
 	removeZoomInControls,
 	showZoomControl,
@@ -72,13 +77,28 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
      */
 	const [showZoom, setShowZoom] = useState(isZoomControlOn() || true);
 
-	// mouseControl 화면 토글
+	// zoom Control 화면 토글
 	const handleZoomControl = (event: ChangeEvent<HTMLInputElement>) => {
 		setShowZoom(event.target.checked);
 		if (isZoomControlOn()) {
 			removeZoomInControls();
 		} else {
 			showZoomControl();
+		}
+	};
+
+	/*
+     Scale Controls - 좌측 우측 하단 중 축적 설정
+     */
+	const [showScale, setShowScale] = useState(isScaleControlOn() || true);
+
+	// scale 화면 토글
+	const handleScaleControl = (event: ChangeEvent<HTMLInputElement>) => {
+		setShowScale(event.target.checked);
+		if (isScaleControlOn()) {
+			removeScaleInControls();
+		} else {
+			showScaleControl();
 		}
 	};
 
@@ -127,11 +147,12 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 					</FormGroup>
 				</FormControl>
 			)}
+
 			<BaseBlockTitleBox
 				title="화면 줌 버튼 설정"
 				subtitle="화면 좌측 상단의 줌 버튼 표시 여부를 설정합니다"
 			/>
-			<FormGroup>
+			<FormGroup sx={{ mb: 4 }}>
 				<FormControlLabel
 					control={
 						<Switch
@@ -141,6 +162,14 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => 
 						/>
 					}
 					label={showZoom ? "표시" : "숨김"}
+				/>
+			</FormGroup>
+
+			<BaseBlockTitleBox title="축적(스케일) 설정" subtitle="축적 표시 여부를 설정합니다" />
+			<FormGroup sx={{ mb: 4 }}>
+				<FormControlLabel
+					control={<Switch checked={showScale} onChange={handleScaleControl} />}
+					label={showScale ? "표시" : "숨김"}
 				/>
 			</FormGroup>
 		</BaseModal>

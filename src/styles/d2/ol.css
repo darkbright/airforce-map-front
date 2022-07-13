@@ -6,6 +6,8 @@
 
 .ol-mouse-position {
 	background-color: rgba(0, 0, 0, 0.5);
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
 	padding: 6px;
 	bottom: 0px;
 	left: 0px;
@@ -16,7 +18,7 @@
 	background: rgba(0, 60, 136, 0.3);
 	border-radius: 4px;
 	bottom: 8px;
-	left: 8px;
+	right: 50px;
 	padding: 2px;
 	position: absolute;
 }
@@ -41,8 +43,10 @@
 	background-color: #000000;
 	float: right;
 	z-index: 10;
+	display: none;
 }
 .ol-scale-step-text {
+	display: none;
 	position: absolute;
 	bottom: -5px;
 	font-size: 12px;
@@ -52,13 +56,17 @@
 }
 .ol-scale-text {
 	position: absolute;
-	font-size: 14px;
+	font-size: 12px;
 	text-align: center;
-	bottom: 25px;
-	color: #000000;
-	text-shadow: -2px 0 #ffffff, 0 2px #ffffff, 2px 0 #ffffff, 0 -2px #ffffff;
+	left: 0px;
+	bottom: 20px;
+	color: #fff;
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 6px;
 }
 .ol-scale-singlebar {
+	display: none;
 	position: relative;
 	height: 10px;
 	z-index: 9;
