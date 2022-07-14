@@ -1,0 +1,790 @@
+#popup-milsymbol *::-webkit-scrollbar {
+	display: block;
+}
+
+/* Toolbar */
+#toolbarcontainer {
+	height: 50px;
+	background-color: rgb(113, 119, 135);
+}
+
+#toolbar-logo {
+	width: 280px;
+	height: inherit;
+	float: left;
+}
+
+#main-toolbar {
+	overflow: hidden;
+}
+
+#main-toolbar > span:first-child {
+	margin-left: 0;
+}
+
+#main-toolbar > span {
+	padding: 0px 5px;
+	display: flex;
+}
+
+.toolbar {
+	height: inherit;
+	display: flex;
+	align-items: center;
+}
+
+.toolbar span.toolbar-select {
+	margin: 0px 8px;
+}
+
+.toolbar select {
+	width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+	height: 30px;
+	min-height: 30px;
+	max-height: 30px;
+}
+
+.toolbar input {
+	display: none;
+	clip: rect(0, 0, 0, 0);
+}
+
+.toolbar a,
+.toolbar select {
+	float: left;
+}
+
+.toolbar a {
+	display: block;
+	width: 32px;
+	height: 32px;
+	text-align: center;
+	min-width: 32px;
+	max-width: 32px;
+	min-height: 32px;
+	max-height: 32px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin: 0px 2px;
+}
+
+.dist-unit-meter {
+	background-image: url("../d2/img/icons/calculation-dist-unit-01.png");
+}
+
+.area-unit-meter {
+	background-image: url("../d2/img/icons/calculation-area-unit-01.png");
+}
+
+.dist-unit-mile {
+	background-image: url("../d2/img/icons/calculation-dist-unit-02.png");
+}
+
+.area-unit-mile {
+	background-image: url("../d2/img/icons/calculation-area-unit-02.png");
+}
+
+.dist-unit-nauticalmile {
+	background-image: url("../d2/img/icons/calculation-dist-unit-03.png");
+}
+
+.dist-unit-meter:hover {
+	background-image: url("../d2/img/icons/calculation-dist-unit-01-hover.png");
+}
+
+.area-unit-meter:hover {
+	background-image: url("../d2/img/icons/calculation-area-unit-01-hover.png");
+}
+
+.dist-unit-mile:hover {
+	background-image: url("../d2/img/icons/calculation-dist-unit-02-hover.png");
+}
+
+.area-unit-mile:hover {
+	background-image: url("../d2/img/icons/calculation-area-unit-02-hover.png");
+}
+
+.dist-unit-nauticalmile:hover {
+	background-image: url("../d2/img/icons/calculation-dist-unit-03-hover.png");
+}
+
+a#tools-management-centerline.checked {
+	background-image: url("../d2/img/icons/management-centerline-on.png");
+}
+
+#drawing-layer.enable {
+	background-image: url("../d2/img/icons/drawing-layer-on.png");
+}
+
+/* sub toolbar */
+#sub-toolbar {
+	position: relative;
+	top: 0;
+	left: 300px;
+	z-index: 9;
+	background-color: rgb(90, 95, 108);
+}
+
+#sub-toolbar > div::before {
+	content: "";
+	margin-left: 10px;
+}
+
+#sub-toolbar > div {
+	width: 100%;
+	height: 45px;
+	display: none;
+	overflow: hidden;
+}
+
+#sub-toolbar > div.enable {
+	display: flex;
+}
+
+/* toolbar popup */
+
+.toolbar-popup-title {
+	font-size: 15px;
+	font-weight: 700;
+}
+
+#toolbar-popup {
+	position: absolute;
+	right: 0;
+	z-index: 9;
+	background-color: rgb(113, 119, 135);
+}
+
+.close-btn {
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.close-btn a {
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	float: right;
+	color: #fff;
+}
+
+#toolbar-popup > div {
+	display: none;
+	border-top: none;
+	padding: 10px;
+	box-sizing: content-box;
+}
+
+#popup-text {
+	width: 250px;
+}
+
+#popup-text-value {
+	width: 180px;
+	height: 25px;
+}
+
+#popup-text-value::placeholder {
+	text-align: center;
+}
+
+#popup-text-add {
+	width: 50px;
+	height: 25px;
+	text-align: center;
+	float: right;
+	color: #fff;
+	margin: 0;
+}
+
+#tree-container {
+	height: 300px;
+	min-height: 300px;
+	max-height: 300px;
+}
+
+div#popup-layer > div {
+	width: 100%;
+}
+
+div#layer-list {
+	background: #fff;
+	border: 1px solid #555;
+	outline: 0;
+	width: 100%;
+	height: 224px;
+	margin-bottom: 5px;
+	overflow: auto;
+}
+
+.layer-list-content {
+	display: block;
+	text-indent: 7px;
+	border: 0;
+	outline: 0;
+	width: 100%;
+	background: #ddd;
+	cursor: text;
+	color: transparent;
+	text-shadow: 0 0 0 black;
+	cursor: pointer;
+}
+
+.layer-list-content.selected {
+	background: #eee;
+	font-weight: 750;
+}
+
+div#layer-controller {
+	display: flex;
+	align-items: center;
+}
+
+div#layer-controller span {
+	width: 48px;
+	height: 40px;
+	display: inline-block;
+	text-align: center;
+	margin-right: 2px;
+}
+
+div#layer-controller span a {
+	width: 100%;
+	margin-top: 10px;
+	height: 20px;
+	display: inline-block;
+	border: 1px solid #000;
+	padding: 2px;
+}
+
+span#layer-order-control {
+	margin-left: 2px;
+	width: 65px;
+}
+
+span#layer-order-control a.layer-order-btn {
+	margin-right: 1px;
+	float: left;
+	width: 30px;
+}
+
+/* mapcontents */
+/* #mapcontainer {
+	flex: 1;
+	display: flex;
+	position: relative;
+}
+
+#map {
+	position: absolute;
+	right: 0;
+} */
+
+/* #sidemenu-controller {
+	min-height: 50px;
+	display: flex;
+	position: relative;
+}
+
+#sidemenu-controller select {
+	width: 150px;
+	height: 30px;
+}
+
+#sidemenu-controller span.toolbar-select {
+	margin: 10px;
+} */
+
+#sidemenu-controller-fold-button {
+	position: absolute;
+	right: -20px;
+	background-color: #333;
+	width: 20px;
+	height: 45px;
+	display: flex;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#sidemenu-controller-fold-button.pin-on {
+	background-image: url("../d2/img/pin_on.png");
+}
+
+#sidemenu-controller-fold-button.pin-off {
+	background-image: url("../d2/img/pin_off.png");
+}
+
+#d2map-coord-bottom {
+	text-shadow: 1px 1px 1px black;
+	position: absolute;
+	color: #f9900e;
+	bottom: 0;
+	left: 290px;
+}
+
+.d2map_ui-popup {
+	box-shadow: inset 0 0 15px 3px #222;
+	border-radius: 5px;
+	position: absolute;
+	z-index: 10;
+	opacity: 0.95;
+	background-color: rgb(51, 51, 51);
+	display: none;
+	top: 50%;
+	left: 50%;
+}
+
+.popup-title {
+	font-size: 15px;
+	font-weight: 700;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-bottom: 1px solid #4d4d4d;
+}
+
+.tab-content {
+	padding: 5px;
+}
+
+.popup-btns {
+	text-align: right;
+	border-top: 1px solid #4d4d4d;
+	padding-right: 5px;
+}
+
+.popup-btns a {
+	width: 60px;
+	margin-left: 5px;
+	display: inline-block;
+}
+
+#viewshed-popup-title {
+	margin-bottom: 12.5px;
+}
+
+#popup-viewshed {
+	display: none;
+	position: absolute;
+	width: 320px;
+	min-height: 125px;
+	top: 50%;
+	left: 50%;
+	background-color: #333;
+	opacity: 0.95;
+	z-index: 10;
+}
+
+#viewshed-container {
+	margin: 0 auto;
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+
+#viewshed-value-container {
+	width: 100%;
+	padding-bottom: 5px;
+	text-align: center;
+	border-bottom: 1px solid #4d4d4d;
+}
+
+#viewshed-value-container span {
+	width: 100%;
+	display: inline-block;
+	min-height: 0;
+	margin-bottom: 3px;
+}
+
+#viewshed-value-container span label {
+	width: 90px;
+	text-align: center;
+	float: left;
+}
+
+#viewshed-value-container input {
+	height: 20px;
+	outline: none;
+	opacity: 0.7;
+	border: 1px solid #000;
+	width: 220px;
+	margin-right: 10px;
+	float: right;
+}
+
+#viewshed-close-button {
+	color: #edffff;
+	float: right;
+	cursor: pointer;
+}
+
+#viewshed-value-button {
+	display: inline;
+	width: 100%;
+}
+
+#viewshed-value-button a {
+	float: right;
+	background-color: #717787;
+	font-size: 12px;
+	line-height: 25px;
+	color: #fff;
+	width: 50px;
+	height: 25px;
+	text-align: center;
+	margin: 5px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 1px #000, 0 0 1px #0d0d0d;
+}
+
+/* 그리드 */
+
+#popup-grid {
+	width: 310px;
+	box-sizing: content-box;
+	padding-bottom: 10px;
+}
+
+.grid-option li {
+	width: 100%;
+	height: 30px;
+	padding: 0px 15px;
+}
+
+.grid-option li > span {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+}
+
+.grid-option li > span:last-child {
+	float: right;
+	text-align: right;
+}
+
+.grid-option li > span:last-child::after {
+	clear: both;
+}
+
+.grid-option label.checkbox {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	width: 81px;
+}
+
+.grid-option input[type="color"] {
+	width: 16px;
+	height: 26px;
+	display: inline-block;
+	padding: 5px 0px 0px 0px;
+	background: rgba(0, 0, 0, 0.1);
+	border: none;
+}
+
+.grid-option input[type="number"] {
+	width: 25px;
+	height: 20px;
+}
+
+/* 팝업 탭컨트롤 디자인 */
+.tab-controller {
+	display: flex;
+}
+
+.tab-controller li {
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	background: #202020;
+	border-bottom: none;
+	cursor: pointer;
+}
+
+.tab-controller li.selected {
+	background: #3d3d3d;
+}
+
+.tail_right a {
+	color: #fff;
+}
+
+.normalBtn {
+	text-align: center;
+	text-decoration: none;
+	font: normal 11px "Malgun Gothic";
+	color: white;
+	padding: 5px;
+	margin: 3px 0;
+	display: inline-block;
+	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+	border-radius: 3px;
+	background: #4d4d4c;
+}
+
+#sidemenu-container li {
+	padding: 2px 3px;
+}
+
+#sidemenu-mvtlayer,
+#sidemenu-milSym,
+#sidemenu-coordinate,
+#sidemenu-graphiclayer,
+#sidemenu-graphicapp1,
+#sidemenu-graphicapp2,
+#sidemenu-terrainanalysis {
+	display: none;
+}
+
+#coordinate-system {
+	margin-top: 5px;
+}
+
+hr {
+	margin: 8px 0 8px 0;
+}
+
+#coordinate-system ul {
+	margin-bottom: 8px;
+}
+
+#coordinate-system p {
+	font-weight: bolder;
+}
+
+#coordinate-system button {
+	cursor: pointer;
+}
+
+#geographic-lat,
+#geographic-dms-lat {
+	margin-left: 12px;
+}
+
+#mgrs-zone,
+#utm-zone {
+	width: 20px;
+	margin-left: 30px;
+}
+
+#mgrs-band,
+#utm-band {
+	width: 15px;
+}
+
+#label-sq {
+	margin-left: 15px;
+}
+
+#mgrs-sq {
+	width: 25px;
+}
+
+#mgrs-easting,
+#utm-easting {
+	margin-left: 17px;
+}
+
+#mgrs-northing,
+#utm-northing {
+	margin-left: 6px;
+}
+
+#title-gars {
+	display: inline-block;
+}
+
+#coord-georef-li {
+	display: inline-flex;
+}
+
+#coord-georef {
+	margin-left: 19px;
+}
+
+#coord-gars {
+	margin-left: 34px;
+}
+
+#coord-gars2geo-minx {
+	margin-left: 28px;
+	width: 120px;
+}
+
+#coord-gars2geo-maxy {
+	margin-left: 27px;
+	width: 119px;
+}
+
+#coord-gars2geo-maxx {
+	margin-left: 27px;
+	width: 118px;
+}
+
+#coord-gars2geo-miny {
+	margin-left: 30px;
+	width: 118px;
+}
+
+#effect-brightness,
+#effect-contrast {
+	width: 50%;
+}
+
+#effect-brightness-contrast,
+#copy-canvas-clipboard {
+	display: inline-flex;
+}
+
+#effect-brightness-contrast p,
+#copy-canvas-clipboard p {
+	font-weight: bolder;
+	margin-right: 49px;
+}
+
+#apply-brightness-contrast {
+	cursor: pointer;
+}
+
+label[for="effect-contrast"] {
+	margin-right: 11px;
+}
+
+#graphiclayer-layer {
+	display: inline-block;
+	overflow: auto;
+	/* padding: 5px; */
+}
+
+#graphiclayer-layer > div {
+	/* display: inline-block; */
+	float: left;
+	height: 100%;
+}
+
+#graphiclayer-layer-list {
+	width: 215px;
+}
+
+.graphiclayerlist-list {
+	padding-left: 5px;
+}
+
+.graphiclayerlist-list div {
+	clear: both;
+}
+
+#graphiclayer-layer-list-content {
+	width: 100%;
+	height: 180px;
+	overflow-x: auto;
+	overflow-y: auto;
+	display: inline-block;
+}
+
+div.graphiclayer-list-row span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 10px;
+	height: 30px;
+	border: 1px solid black;
+	padding: 0px 5px;
+	text-align: center;
+	float: left;
+	max-width: 90px;
+}
+
+#graphiclayer-layer-list div.graphiclayer-list-row span:nth-child(1) {
+	width: 20px;
+}
+
+#graphiclayer-layer-list div.graphiclayer-list-row span:nth-child(2) {
+	width: 90px;
+}
+
+#graphiclayer-layer-list div.graphiclayer-list-row span:nth-child(3) {
+	width: 35px;
+}
+
+#graphiclayer-layer-list div.graphiclayer-list-row span:nth-child(4) {
+	width: 65px;
+}
+
+div.graphiclayer-list-row span:not(:first-child) {
+	border-left: none;
+}
+
+#graphiclayer-layer-controller {
+	width: 55px;
+}
+
+#graphiclayer-layer-controller ul {
+	text-align: center;
+}
+
+#graphiclayer-layer-controller li {
+	width: 50px;
+	display: inline-block;
+}
+
+#graphiclayer-layer-controller li a {
+	display: block;
+	color: #ffffff;
+	font-size: 10px;
+}
+
+#graphiclayer-object-list div.graphiclayer-list-row span:nth-child(1) {
+	width: 20px;
+}
+
+#graphiclayer-object-list div.graphiclayer-list-row span:nth-child(2) {
+	width: 85px;
+}
+
+#graphiclayer-object-list div.graphiclayer-list-row span:nth-child(3) {
+	width: 35px;
+}
+
+#graphiclayer-object-list div.graphiclayer-list-row span:nth-child(4) {
+	width: 35px;
+}
+
+#graphiclayer-object-list div.graphiclayer-list-row span:nth-child(5) {
+	width: 65px;
+}
+
+#graphiclayer-object-list-content {
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
+#graphiclayer-object-list-content div.graphiclayer-list-row span,
+#graphiclayer-layer-list-content div.graphiclayer-list-row span {
+	cursor: pointer;
+	border-top: none;
+}
+
+.graphiclayer-object-exampleButton ul {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.graphiclayer-object-exampleButton select {
+	display: inline-block;
+	width: 150px;
+	margin: 3px 0;
+	height: 25px;
+	font-size: 11px;
+}
+
+#graphiclayer-object-createTextInput {
+	width: 100%;
+	height: 100px;
+	resize: none;
+}

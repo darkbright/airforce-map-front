@@ -90,14 +90,6 @@ export default async () => {
 	// 레이어 관리 모듈 생성
 	window.mapLayerManager = new D2MapModule.MapLayerManager(window.map);
 
-	// 투명도 레이어 모듈 생성
-	window.graphic = new D2MapModule.Graphic(window.map);
-	window.graphic.getSelectGraphicBoard().setName("Layer-01");
-	window.graphic.loadStdXSD(urlInfo.graphic.overlay);
-
-	// TO_BE_CHECKED 좌표 관리 모듈 생성 - 현재 사용 안하고 있음?
-	// const coordinate = new D2MapModule.Coordinate(urlInfo.dem);
-
 	// 투명도 커서 정의
 	const cursor = {
 		default: "default",

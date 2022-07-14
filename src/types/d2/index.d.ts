@@ -16,6 +16,7 @@ declare global {
 		MilSymbol: any;
 		mapLayerManager: any;
 		graphic: any;
+		postComposeCtrl: any;
 		spatialMath: {
 			getMapScale: any;
 		};

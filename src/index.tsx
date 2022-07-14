@@ -4,6 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/index.css";
 // d2 styles
+import "./styles/d2/main.css";
 import "./styles/d2/d2map.ui.css";
 import "./styles/d2/d2map.ui.ms.popup.css";
 import "./styles/d2/ol.css";

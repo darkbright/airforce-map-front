@@ -13,14 +13,19 @@ import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
 
 const MapToolbar = () => {
 	const [alignment, setAlignment] = useState("select");
+	const [centerlineVisible, setCenterlineVisible] = useState(false);
 
 	// 선택된 토글버튼에 강조주기
 	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
 		setAlignment(newAlignment);
 	};
 
+	// 중심선 토글
 	const setCenterline = () => {
-		console.log("??");
+		// TO_BE_CHECKED
+		// 글자가 잘 안보이는데 css가 어디에 있는지 d2에 확인해야댐
+		setCenterlineVisible(!centerlineVisible);
+		window.postComposeCtrl.setCenterLineVisible(!centerlineVisible, !centerlineVisible);
 	};
 
 	// 지도 종류 선택하기 Drawer
