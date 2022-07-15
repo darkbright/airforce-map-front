@@ -28,6 +28,13 @@ const MapToolbar = () => {
 		window.postComposeCtrl.setCenterLineVisible(!centerlineVisible, !centerlineVisible);
 	};
 
+	// 지도 이미지 PNG로 저장
+	const downloadPNG = () => {
+		// TO_BE_CHECKED
+		// 저장 시 default 파일명이 d2로 되어 있는 부분 수정토록 d2에 얘기
+		window.exportImage.downloadPNG();
+	};
+
 	// 지도 종류 선택하기 Drawer
 	const [mapSelectOpen, setMapSelectOpen] = useState(false);
 	// 지도 컨트롤 설정 모달 선택하기
@@ -49,19 +56,19 @@ const MapToolbar = () => {
 							<NorthWestIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
-					<ToggleButton value="save">
-						<Tooltip title="지도 저장">
-							<SaveIcon fontSize="small" />
-						</Tooltip>
-					</ToggleButton>
 					<ToggleButton value="grid">
 						<Tooltip title="그리드">
 							<GridOnIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
-					<ToggleButton value="center" onClick={setCenterline}>
-						<Tooltip title="중심선">
+					<ToggleButton value="centerline" onClick={setCenterline}>
+						<Tooltip title="중심선 보기">
 							<CenterFocusWeakIcon fontSize="small" />
+						</Tooltip>
+					</ToggleButton>
+					<ToggleButton value="save" onClick={downloadPNG}>
+						<Tooltip title="그림으로 지도 저장">
+							<SaveIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
 					<ToggleButton
@@ -86,7 +93,7 @@ const MapToolbar = () => {
 							</div>
 						</Tooltip>
 					</ToggleButton>
-					<ToggleButton value="center" onClick={() => setMapControlsOpen(true)}>
+					<ToggleButton value="mapConfig" onClick={() => setMapControlsOpen(true)}>
 						<Tooltip title="지도설정">
 							<SettingsIcon fontSize="small" />
 						</Tooltip>

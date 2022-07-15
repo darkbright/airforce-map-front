@@ -17,6 +17,9 @@ declare global {
 		mapLayerManager: any;
 		graphic: any;
 		postComposeCtrl: any;
+		exportImage: {
+			downloadPNG: () => void;
+		};
 		spatialMath: {
 			getMapScale: any;
 		};
