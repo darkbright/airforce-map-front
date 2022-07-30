@@ -23,10 +23,10 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 				},
 				geometry: {
 					type: "Point",
-					//coordinates: [14157513.504923772, 4534550.265989796],
-					coordinates: new ol.geom.Point(
-						ol.proj.fromLonLat([129.0618896484375, 35.19625600786368]),
-					),
+					coordinates: [14157513.504923772, 4534550.265989796],
+					// coordinates: new ol.geom.Point(
+					// 	ol.proj.fromLonLat([129.0618896484375, 35.19625600786368]),
+					// ),
 				},
 			},
 			{
@@ -36,13 +36,8 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 				},
 				geometry: {
 					type: "Point",
-					coordinates: new ol.geom.Point(
-						ol.proj.fromLonLat([127.34939575195311, 37.315567502511044]),
-					),
-					//   "coordinates": [
-					// 	127.34939575195311,
-					// 	37.315567502511044
-					//   ]
+
+					coordinates: [14176469.887938498, 4483184.582982158],
 				},
 			},
 		],
@@ -52,24 +47,26 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 	const [loading, setLoading] = useState(false);
 
 	// console.log("original", geojsonObject.features[0].geometry.coordinates);
-	// // console.log(new ol.proj.fromLonLat(geojsonObject.features[0].geometry.coordinates));
-
-	const olFeature = new ol.Feature({
-		geometry: new ol.geom.MultiPoint([
-			ol.proj.fromLonLat([127, 39]),
-			ol.proj.fromLonLat([127.342, 37]),
-		]),
-	});
-	const olSource = new ol.source.Vector({});
+	console.log(new ol.proj.fromLonLat(geojsonObject.features[1].geometry.coordinates));
 
 	const olLayers = new ol.layer.Vector({
-		source: olSource,
+		// source: olSource,
+		source: new ol.source.Vector({
+			features: new ol.format.GeoJSON().readFeatures(geojsonObject),
+		}),
 		zIndex: 500, //(디투맵 내부에서는 지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
-		feature: olFeature,
-		style: sampleIconStyle,
+		// style: sampleIconStyle,
+		style: new ol.style.Style({
+			image: new ol.style.Circle({
+				radius: 7,
+				fill: new ol.style.Fill({ color: "black" }),
+				stroke: new ol.style.Stroke({
+					color: [255, 0, 0],
+					width: 2,
+				}),
+			}),
+		}),
 	});
-
-	olSource.addFeature(olFeature);
 
 	useEffect(() => {
 		// initializing d2 map module
