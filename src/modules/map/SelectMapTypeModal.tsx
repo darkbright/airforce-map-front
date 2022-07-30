@@ -1,13 +1,14 @@
 import BaseBlockTitleBox from "../../components/box/textBox/BaseBlockTitleBox";
 import BaseModal from "../../components/modal/BaseModal";
 import MapTypeCard from "./MapTypeCard";
+import { styled } from "@mui/material";
 
 import openStreetMapImage from "../../assets/images/mapSample/openStreetMap.png";
 import basemapImage from "../../assets/images/mapSample/basemap.png";
 import land100kImage from "../../assets/images/mapSample/land100k.png";
 import worldBoundaryImage from "../../assets/images/mapSample/worldBoundary.png";
 import satelliteVideoImage from "../../assets/images/mapSample/satelliteVideo.png";
-import { styled } from "@mui/material";
+
 
 interface SelectMapTypeModalProps {
 	open: boolean;

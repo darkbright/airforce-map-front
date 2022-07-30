@@ -24,31 +24,28 @@ export default async () => {
 			minZoom: 0,
 		}),
 		preload: Infinity,
-		opacity: 1.0,
-		visible: true,
+		opacity: 1,
+		visible: false,
 	});
 
 	// FDB 심볼 이미지 경로 설정
 	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", `${URL_HEADER}/MVTCONF/GSSSymbol/`);
 	window.mapLayerManager.addLayer("layer-sub-world", true, overViewWorldLayer);
 
-	// console.log(window.map.getLayers());
-	// window.map.getLayers().forEach((element, index, array) => console.log(element.getProperties().name))
-
 	// 기본 배경 레이어 COP 추가
-	addBackgroundLayer({ visible: true });
+	// addBackgroundLayer({ visible: true });
 
 	// 세계지도 추가
-	addWorldMapLayer({ visible: true });
+	addWorldMapLayer({ visible: false });
 
 	// MVT Layer 육도 2.5만
-	addMVTMapToLayer({
-		sourceUrl: G25K.sourceUrl,
-		minZoom: G25K.minZoom,
-		maxZoom: G25K.maxZoom,
-		layerClassName: G25K.btnName,
-		url: G25K.url,
-	});
+	// addMVTMapToLayer({
+	// 	sourceUrl: G25K.sourceUrl,
+	// 	minZoom: G25K.minZoom,
+	// 	maxZoom: G25K.maxZoom,
+	// 	layerClassName: G25K.btnName,
+	// 	url: G25K.url,
+	// });
 
 	const openStreetMapLayer = new ol.layer.Tile({
 		name: "openStreet",
@@ -56,6 +53,8 @@ export default async () => {
 			attributions: "test",
 		}),
 		visible: true,
+		opacity: 1,
+		zIndex: 1,
 	});
 
 	window.map.addLayer(openStreetMapLayer);

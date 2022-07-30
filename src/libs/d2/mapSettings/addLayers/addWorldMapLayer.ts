@@ -41,7 +41,7 @@ export default ({ visible }: WorldMapProps) => {
 			minZoom: 1,
 			maxZoom: 10,
 		}),
-		opacity: 0.9,
+		opacity: 0.1,
 		visible,
 	});
 	window.map.addLayer(worldLayer);

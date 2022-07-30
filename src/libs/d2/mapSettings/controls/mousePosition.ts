@@ -28,10 +28,10 @@ export const setMousePosition = ({
 			const { zone, band, easting, northing } = new CoordManager.Geo2UTM_Ex(lon, lat);
 			// GeoRef
 			// TO_BE_CHECKED 빈 값만 옴
-			// const geoRef = new CoordManager.Geo2GeoRef(lat, lon);
+			// const geoRef = new CoordManager.Geo2GeoRef(lon, lat);
 			// Gars
 			// TO_BE_CHECKED 빈 값만 옴
-			// const gars = new CoordManager.Geo2GARS(lat, lon, "5");
+			// const gars = new CoordManager.Geo2GARS(lon, lat, "5");
 
 			const lonlatString = showLonLat ? `Geo: ${lon.toFixed(4)}, ${lat.toFixed(4)} |` : "";
 			const mgrsString = showMGRS ? `MGRS: ${geoMgrs} |` : "";
