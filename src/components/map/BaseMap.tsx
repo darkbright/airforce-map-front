@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { Popover, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import TableHelperText from "../dataGrid/TableHelperText";
 import D2MapModule from "../../libs/d2/D2MapModule";
 import mapSettings from "../../libs/d2/mapSettings";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
+import SimpleTableOnMap from "../simpleTable/SimpleTableOnMap";
 
 interface BaseMapProps {
 	show?: boolean;
@@ -63,7 +66,6 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 			text: new ol.style.Text({
 				text: String(featureId),
 				scale: 2,
-				offsetY: 20,
 				fill: new ol.style.Fill({
 					color: [0, 0, 128, 1],
 				}),
@@ -76,7 +78,8 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 				color: iconColor === "green" ? "#7FFF00" : "#000",
 				src: "data:image/svg+xml;utf8," + escape(svgIcon),
 				scale: 0.5,
-				offset: [-100, -40],
+				offset: [0, 0],
+				anchor: [0.1, 0.4],
 			}),
 			// image: new ol.style.Circle({
 			// 	radius: 8,
@@ -116,8 +119,38 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 
 	useEffect(() => {
 		window.map.addLayer(olLayers);
-		console.log(window.map.getLayers().forEach((el: any) => console.log(el.get("name"))));
 	}, []);
+
+	const popupRef = useRef<HTMLDivElement>(null);
+	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+	const [selectedId, setSelectedId] = useState("");
+
+	const onClickFeatureOnMap = useCallback(
+		(event: any) => {
+			const feature = window.map.forEachFeatureAtPixel(event.pixel, (feature: any) => {
+				return feature;
+			});
+			if (feature) {
+				console.log("popupRef", popupRef.current);
+				console.log("event", event);
+				setAnchorEl(popupRef.current);
+				const { name } = feature.getProperties();
+				setSelectedId(name);
+
+				// const geometry = feature.getGeometry();
+				// console.log(event.coordinate);
+				// console.log(geometry);
+			}
+		},
+		[window.map],
+	);
+
+	useEffect(() => {
+		window.map.on("click", onClickFeatureOnMap);
+		return () => window.map.un("click", onClickFeatureOnMap);
+	}, [window.map, onClickFeatureOnMap]);
+
+	const id = anchorEl ? "simple-popover" : undefined;
 
 	return (
 		<div style={{ display: show ? "block" : "none" }}>
@@ -125,8 +158,34 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 			<div style={{ width: "100%" }}>
 				<MapToolbar />
 				<div id="map" className="map" style={{ width: "100%", height: "800px" }} />
-
+				<div
+					ref={popupRef}
+					aria-describedby={id}
+					style={{ position: "absolute", top: 500, left: 200 }}
+				/>
 				<div id="d2map-coord-bottom" className="d2map-coord-bottom" />
+				<Popover
+					id={id}
+					open={Boolean(anchorEl)}
+					anchorEl={anchorEl}
+					onClose={() => setAnchorEl(null)}
+					anchorOrigin={{
+						vertical: "top",
+						horizontal: "left",
+					}}
+					transformOrigin={{
+						vertical: "center",
+						horizontal: "left",
+					}}
+				>
+					<div style={{ padding: 10 }}>
+						<Typography variant="h6" sx={{ p: 2 }}>
+							{selectedId}
+						</Typography>
+						<TableHelperText type="percentage" />
+						<SimpleTableOnMap />
+					</div>
+				</Popover>
 			</div>
 		</div>
 	);
