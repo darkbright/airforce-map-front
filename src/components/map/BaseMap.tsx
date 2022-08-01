@@ -6,6 +6,10 @@ import mapSettings from "../../libs/d2/mapSettings";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
 import SimpleTableOnMap from "../simpleTable/SimpleTableOnMap";
+import { DMSConverter } from "../../utils/coordConversion";
+import { testSymbol } from "../../assets/customSymbols/testSymbol";
+import { PrototypeAllType, usePrototypesAll } from "../../query/prototype";
+import { OpenLayersStandardDataTypes } from "../../types/openlayers";
 
 interface BaseMapProps {
 	show?: boolean;
@@ -13,6 +17,7 @@ interface BaseMapProps {
 
 const BaseMap = ({ show = true }: BaseMapProps) => {
 	const { ol } = D2MapModule;
+	const [loading, setLoading] = useState(false);
 
 	const geojsonObject = {
 		type: "FeatureCollection",
@@ -46,17 +51,35 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 		],
 	};
 
-	const [loading, setLoading] = useState(false);
+	// 지도위에 뿌릴 좌표 데이터
+	const [mapData, setMapData] = useState<OpenLayersStandardDataTypes | null>(null);
+	const { data: prototypeData, status } = usePrototypesAll();
 
-	const svgIcon = `
-	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  >
-		<circle  cx="34.4" cy="27" r="19" style="fill:#fff"/>
-		<g>
-			<rect x="8.2" y="23.2"  width="52.4" height="10.4" style="fill:#fff"/>
-			<path d="M62.1,35.1H6.7V21.7h55.4V35.1z M9.7,32.1h49.4v-7.4H9.7V32.1z"/>
-		</g>
-	</svg>
-`;
+	// const convertPrototypeDataToOLData = async () => {
+	// 	const converted = await prototypeData.map((proto: PrototypeAllType) => ({
+	// 		type: "feature",
+	// 		properties: {
+	// 			id: proto.testCd,
+	// 			name: proto.testNm,
+	// 			color: proto.testColor,
+	// 		},
+	// 		geometry: {
+	// 			type: "Point",
+	// 			coordinates: DMSConverter({ dms: proto.testCoord, type: "toScreenCoord" }),
+	// 		},
+	// 	}));
+	// 	setMapData({
+	// 		type: "FeatureCollection",
+	// 		features: converted,
+	// 	});
+	// };
+
+	// useEffect(() => {
+	// 	if (status === "success") {
+	// 		convertPrototypeDataToOLData();
+	// 		console.log(mapData);
+	// 	}
+	// }, [status]);
 
 	const pointStyle = function (feature: any) {
 		const featureId = feature.get("name");
@@ -76,7 +99,7 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 			image: new ol.style.Icon({
 				opacity: 1,
 				color: iconColor === "green" ? "#7FFF00" : "#000",
-				src: "data:image/svg+xml;utf8," + escape(svgIcon),
+				src: "data:image/svg+xml;utf8," + encodeURIComponent(testSymbol),
 				scale: 0.5,
 				offset: [0, 0],
 				anchor: [0.1, 0.4],

@@ -10,9 +10,18 @@ import "./styles/d2/d2map.ui.ms.popup.css";
 import "./styles/d2/ol.css";
 import "./styles/d2/sub.dark.css";
 import "./styles/d2/zTreeStyle.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-root.render(<App />);
+root.render(
+	<QueryClientProvider client={queryClient}>
+		<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+		<App />
+	</QueryClientProvider>,
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
