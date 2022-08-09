@@ -55,32 +55,6 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 	const [mapData, setMapData] = useState<OpenLayersStandardDataTypes | null>(null);
 	const { data: prototypeData, status } = usePrototypesAll();
 
-	// const convertPrototypeDataToOLData = async () => {
-	// 	const converted = await prototypeData.map((proto: PrototypeAllType) => ({
-	// 		type: "feature",
-	// 		properties: {
-	// 			id: proto.testCd,
-	// 			name: proto.testNm,
-	// 			color: proto.testColor,
-	// 		},
-	// 		geometry: {
-	// 			type: "Point",
-	// 			coordinates: DMSConverter({ dms: proto.testCoord, type: "toScreenCoord" }),
-	// 		},
-	// 	}));
-	// 	setMapData({
-	// 		type: "FeatureCollection",
-	// 		features: converted,
-	// 	});
-	// };
-
-	// useEffect(() => {
-	// 	if (status === "success") {
-	// 		convertPrototypeDataToOLData();
-	// 		console.log(mapData);
-	// 	}
-	// }, [status]);
-
 	const pointStyle = function (feature: any) {
 		const featureId = feature.get("name");
 		const iconColor = feature.get("color");
@@ -117,9 +91,7 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 		feature.setStyle([point, textStyle]);
 	};
 
-	// console.log("original", geojsonObject.features[0].geometry.coordinates);
-	// console.log(new ol.proj.fromLonLat(geojsonObject.features[1].geometry.coordinates));
-
+	
 	const olLayers = new ol.layer.Vector({
 		// source: olSource,
 		source: new ol.source.Vector({
@@ -141,8 +113,9 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 	}, []);
 
 	useEffect(() => {
+		setMapData(prototypeData);
 		window.map.addLayer(olLayers);
-	}, []);
+	}, [prototypeData]);
 
 	const popupRef = useRef<HTMLDivElement>(null);
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);

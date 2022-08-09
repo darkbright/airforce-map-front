@@ -1,6 +1,6 @@
 {
   "short_name": "AFCCS COP",
-  "name": "AFCCS Cop Map Module",
+  "name": "AFCCS Cop Map",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#00c8ff",
+  "background_color": "#263238"
 }
