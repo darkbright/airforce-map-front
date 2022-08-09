@@ -91,7 +91,6 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 		feature.setStyle([point, textStyle]);
 	};
 
-	
 	const olLayers = new ol.layer.Vector({
 		// source: olSource,
 		source: new ol.source.Vector({
@@ -120,15 +119,28 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 	const popupRef = useRef<HTMLDivElement>(null);
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 	const [selectedId, setSelectedId] = useState("");
+	const [mousePosition, setMousePosition] = useState({
+		x: 0,
+		y: 0,
+	});
 
 	const onClickFeatureOnMap = useCallback(
 		(event: any) => {
-			const feature = window.map.forEachFeatureAtPixel(event.pixel, (feature: any) => {
-				return feature;
-			});
+			const feature = window.map.forEachFeatureAtPixel(
+				event.pixel,
+				(feature: any) => {
+					return feature;
+				},
+				{
+					// 마우스 클릭 시 좌표의 범위를 넓혀주어 대충 클릭해도 팝업이 뜰 수 있도록 조치하는 항목임.
+					hitTolerence: 5,
+				},
+			);
 			if (feature) {
-				console.log("popupRef", popupRef.current);
-				console.log("event", event);
+				setMousePosition({
+					x: event.pixel[0],
+					y: event.pixel[1],
+				});
 				setAnchorEl(popupRef.current);
 				const { name } = feature.getProperties();
 				setSelectedId(name);
@@ -146,19 +158,24 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 		return () => window.map.un("click", onClickFeatureOnMap);
 	}, [window.map, onClickFeatureOnMap]);
 
-	const id = anchorEl ? "simple-popover" : undefined;
+	const id = anchorEl ? "map-popover" : undefined;
 
 	return (
 		<div style={{ display: show ? "block" : "none" }}>
 			{loading && <Loading />}
 			<div style={{ width: "100%" }}>
 				<MapToolbar />
-				<div id="map" className="map" style={{ width: "100%", height: "800px" }} />
 				<div
-					ref={popupRef}
-					aria-describedby={id}
-					style={{ position: "absolute", top: 500, left: 200 }}
-				/>
+					id="map"
+					className="map"
+					style={{ width: "100%", height: "800px", position: "relative" }}
+				>
+					<div
+						ref={popupRef}
+						aria-describedby={id}
+						style={{ position: "absolute", left: mousePosition.x, bottom: mousePosition.y }}
+					/>
+				</div>
 				<div id="d2map-coord-bottom" className="d2map-coord-bottom" />
 				<Popover
 					id={id}
