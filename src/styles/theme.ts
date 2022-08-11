@@ -44,6 +44,16 @@ const baseTheme = {
 			lineHeight: 1.167,
 			fontWeight: 600,
 		},
+		h2: {
+			fontSize: "2.4rem",
+			lineHeight: 1.167,
+			fontWeight: 600,
+		},
+		h3: {
+			fontSize: "2rem",
+			lineHeight: 1.167,
+			fontWeight: 600,
+		},
 		h4: {
 			fontSize: "1.7rem",
 			lineHeight: 1.167,

@@ -6,9 +6,11 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import CenterFocusWeakIcon from "@mui/icons-material/CenterFocusWeak";
 import PublicIcon from "@mui/icons-material/Public";
 import SettingsIcon from "@mui/icons-material/Settings";
+import CategoryIcon from "@mui/icons-material/Category";
 
 import MapTypeDrawer from "../../modules/map/MapTypeDrawer";
 import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
+import DrawPanelToolbar from "./DrawPanelToolbar";
 
 const MapToolbar = () => {
 	const [alignment, setAlignment] = useState("select");
@@ -38,6 +40,8 @@ const MapToolbar = () => {
 	const [mapSelectOpen, setMapSelectOpen] = useState(false);
 	// 지도 컨트롤 설정 모달 선택하기
 	const [mapControlsOpen, setMapControlsOpen] = useState(false);
+	// 그리기 Toggle On/Off
+	const [drawPanelOpen, setDrawPanelOpen] = useState(false);
 
 	return (
 		<>
@@ -97,6 +101,11 @@ const MapToolbar = () => {
 							<SettingsIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
+					<ToggleButton value="drawPanel" onClick={() => setDrawPanelOpen(!drawPanelOpen)}>
+						<Tooltip title="그리기">
+							<CategoryIcon fontSize="small" />
+						</Tooltip>
+					</ToggleButton>
 				</ToggleButtonGroup>
 			</div>
 			{/* 지도종류선택 Drawer */}
@@ -115,6 +124,8 @@ const MapToolbar = () => {
 					setAlignment("");
 				}}
 			/>
+			{/* draw Panel  */}
+			{drawPanelOpen && <DrawPanelToolbar />}
 		</>
 	);
 };

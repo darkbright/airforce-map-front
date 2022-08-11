@@ -33,19 +33,19 @@ export default async () => {
 	window.mapLayerManager.addLayer("layer-sub-world", true, overViewWorldLayer);
 
 	// 기본 배경 레이어 COP 추가
-	// addBackgroundLayer({ visible: true });
+	addBackgroundLayer({ visible: true });
 
 	// 세계지도 추가
 	addWorldMapLayer({ visible: false });
 
 	// MVT Layer 육도 2.5만
-	// addMVTMapToLayer({
-	// 	sourceUrl: G25K.sourceUrl,
-	// 	minZoom: G25K.minZoom,
-	// 	maxZoom: G25K.maxZoom,
-	// 	layerClassName: G25K.btnName,
-	// 	url: G25K.url,
-	// });
+	addMVTMapToLayer({
+		sourceUrl: G25K.sourceUrl,
+		minZoom: G25K.minZoom,
+		maxZoom: G25K.maxZoom,
+		layerClassName: G25K.btnName,
+		url: G25K.url,
+	});
 
 	const openStreetMapLayer = new ol.layer.Tile({
 		name: "openStreet",
