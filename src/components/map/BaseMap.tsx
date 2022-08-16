@@ -6,7 +6,6 @@ import mapSettings from "../../libs/d2/mapSettings";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
 import SimpleTableOnMap from "../simpleTable/SimpleTableOnMap";
-import { DMSConverter } from "../../utils/coordConversion";
 import { testSymbol } from "../../assets/customSymbols/testSymbol";
 import { PrototypeAllType, usePrototypesAll } from "../../query/prototype";
 import { OpenLayersStandardDataTypes } from "../../types/openlayers";

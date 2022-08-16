@@ -1,7 +1,8 @@
-import { Box, Checkbox, Drawer, FormControlLabel, FormGroup } from "@mui/material";
+import { Box, Drawer, styled } from "@mui/material";
 import { useState } from "react";
 import BaseBlockTitleBox from "../../components/box/textBox/BaseBlockTitleBox";
 import BaseButton from "../../components/button/BaseButton";
+import MapListItemOnDrawer from "./MapListItemOnDrawer";
 import SelectMapTypeModal from "./SelectMapTypeModal";
 
 interface MapTypeDrawer {
@@ -9,8 +10,20 @@ interface MapTypeDrawer {
 	setOpen: (set: boolean) => void;
 }
 
+const defaultMapList = [
+	{
+		name: "OpenStreetMap",
+		layerName: "openStreet",
+	},
+	{
+		name: "세계지도",
+		layerName: "worldMap",
+	},
+];
+
 const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 	const [openSelectMap, setOpenSelectMap] = useState(false);
+	const [mapList, setMapList] = useState(defaultMapList);
 
 	return (
 		<>
@@ -23,12 +36,12 @@ const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 					<div style={{ textAlign: "right" }}>
 						<BaseButton title="지도 추가" type="button" onClick={() => setOpenSelectMap(true)} />
 					</div>
-					<FormGroup sx={{ padding: "20px 0px" }}>
-						<FormControlLabel control={<Checkbox defaultChecked />} label="COP 배경지도" />
-						<FormControlLabel control={<Checkbox checked={false} />} label="세계지도" />
-						<FormControlLabel control={<Checkbox checked={false} />} label="세계경계" />
-						<FormControlLabel control={<Checkbox checked={false} />} label="위성영상" />
-					</FormGroup>
+
+					<ItemWrapper>
+						{mapList.map((m) => (
+							<MapListItemOnDrawer key={m.name} title={m.name} layerName={m.layerName} />
+						))}
+					</ItemWrapper>
 				</Box>
 			</Drawer>
 			<SelectMapTypeModal open={openSelectMap} setOpen={() => setOpenSelectMap(false)} />
@@ -37,3 +50,7 @@ const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 };
 
 export default MapTypeDrawer;
+
+const ItemWrapper = styled("div")({
+	marginTop: 20,
+});

@@ -9,7 +9,6 @@ import land100kImage from "../../assets/images/mapSample/land100k.png";
 import worldBoundaryImage from "../../assets/images/mapSample/worldBoundary.png";
 import satelliteVideoImage from "../../assets/images/mapSample/satelliteVideo.png";
 
-
 interface SelectMapTypeModalProps {
 	open: boolean;
 	setOpen: () => void;
@@ -18,7 +17,7 @@ interface SelectMapTypeModalProps {
 const SelectMapTypeModal = ({ open, setOpen }: SelectMapTypeModalProps) => {
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
-			<BaseBlockTitleBox title="지도 선택" subtitle="화면에 표시할 지도를 선택해주세요" />
+			<BaseBlockTitleBox title="지도 선택" subtitle="배경으로 표시할 지도를 선택해주세요" />
 			<CardWrapper>
 				<MapTypeCard
 					title="오픈스트리트맵"
