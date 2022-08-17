@@ -2,53 +2,37 @@ import BaseBlockTitleBox from "../../components/box/textBox/BaseBlockTitleBox";
 import BaseModal from "../../components/modal/BaseModal";
 import MapTypeCard from "./MapTypeCard";
 import { styled } from "@mui/material";
-
-import openStreetMapImage from "../../assets/images/mapSample/openStreetMap.png";
-import basemapImage from "../../assets/images/mapSample/basemap.png";
-import land100kImage from "../../assets/images/mapSample/land100k.png";
-import worldBoundaryImage from "../../assets/images/mapSample/worldBoundary.png";
-import satelliteVideoImage from "../../assets/images/mapSample/satelliteVideo.png";
+import { mapLayerList, MapLayerListType } from "../../data/constants/mapLayerList";
+import { Dispatch, SetStateAction } from "react";
 
 interface SelectMapTypeModalProps {
 	open: boolean;
 	setOpen: () => void;
+	mapList: MapLayerListType[];
+	setMapList: Dispatch<SetStateAction<MapLayerListType[]>>;
 }
 
-const SelectMapTypeModal = ({ open, setOpen }: SelectMapTypeModalProps) => {
+const SelectMapTypeModal = ({ open, setOpen, mapList, setMapList }: SelectMapTypeModalProps) => {
+	// mapList에 있는 것을 제외하고 전체 가용한 지도 목록을 뿌려주기
+	const unloadedMapList = mapLayerList.filter((m) => !mapList.includes(m));
+
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
 			<BaseBlockTitleBox title="지도 선택" subtitle="배경으로 표시할 지도를 선택해주세요" />
 			<CardWrapper>
-				<MapTypeCard
-					title="오픈스트리트맵"
-					subtitle="오픈소스 지도"
-					imgSrc={openStreetMapImage}
-					onSelect={() => console.log("selected")}
-				/>
-				<MapTypeCard
-					title="기본 지도"
-					subtitle="기본위성지도"
-					imgSrc={basemapImage}
-					onSelect={() => console.log("selected")}
-				/>
-				<MapTypeCard
-					title="세계 경계"
-					subtitle="각 지역의 경계면 표시"
-					imgSrc={worldBoundaryImage}
-					onSelect={() => console.log("selected")}
-				/>
-				<MapTypeCard
-					title="위성영상"
-					subtitle="위성 영상 표시(용량이 큼)"
-					imgSrc={satelliteVideoImage}
-					onSelect={() => console.log("selected")}
-				/>
-				<MapTypeCard
-					title="육도 100만"
-					subtitle="육도 100만 지도 "
-					imgSrc={land100kImage}
-					onSelect={() => console.log("selected")}
-				/>
+				{unloadedMapList.map((layer) => (
+					<MapTypeCard
+						key={layer.name}
+						title={layer.title}
+						category={layer.category}
+						imgSrc={layer.thumbnail}
+						onSelect={() =>
+							setMapList((prev) => {
+								return [layer, ...prev];
+							})
+						}
+					/>
+				))}
 			</CardWrapper>
 		</BaseModal>
 	);

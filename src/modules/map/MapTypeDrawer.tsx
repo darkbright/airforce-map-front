@@ -2,6 +2,7 @@ import { Box, Drawer, styled } from "@mui/material";
 import { useState } from "react";
 import BaseBlockTitleBox from "../../components/box/textBox/BaseBlockTitleBox";
 import BaseButton from "../../components/button/BaseButton";
+import { mapLayerList } from "../../data/constants/mapLayerList";
 import MapListItemOnDrawer from "./MapListItemOnDrawer";
 import SelectMapTypeModal from "./SelectMapTypeModal";
 
@@ -10,20 +11,14 @@ interface MapTypeDrawer {
 	setOpen: (set: boolean) => void;
 }
 
-const defaultMapList = [
-	{
-		name: "OpenStreetMap",
-		layerName: "openStreet",
-	},
-	{
-		name: "세계지도",
-		layerName: "worldMap",
-	},
-];
-
 const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 	const [openSelectMap, setOpenSelectMap] = useState(false);
+
+	const defaultMapList = mapLayerList.filter((m) => m.default === true);
+
 	const [mapList, setMapList] = useState(defaultMapList);
+
+	console.log("mapList", mapList);
 
 	return (
 		<>
@@ -39,12 +34,22 @@ const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 
 					<ItemWrapper>
 						{mapList.map((m) => (
-							<MapListItemOnDrawer key={m.name} title={m.name} layerName={m.layerName} />
+							<MapListItemOnDrawer
+								key={m.name}
+								title={m.title}
+								layerName={m.name}
+								handleRemoveLayer={() => console.log("remove")}
+							/>
 						))}
 					</ItemWrapper>
 				</Box>
 			</Drawer>
-			<SelectMapTypeModal open={openSelectMap} setOpen={() => setOpenSelectMap(false)} />
+			<SelectMapTypeModal
+				open={openSelectMap}
+				setOpen={() => setOpenSelectMap(false)}
+				mapList={mapList}
+				setMapList={setMapList}
+			/>
 		</>
 	);
 };

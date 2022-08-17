@@ -21,6 +21,11 @@ declare module "@mui/material/styles" {
 			middleHigh: string;
 			high: string;
 		};
+		armyColor: {
+			land: string;
+			navy: string;
+			airforce: string;
+		};
 	}
 	interface PaletteOptions {
 		// 범례 시 숫자 100 - 75%: 그린, 74-60% 옐로우, 59-50% 레드, 49% 이하 블랙
@@ -29,6 +34,12 @@ declare module "@mui/material/styles" {
 			middle: string;
 			middleHigh: string;
 			high: string;
+		};
+		// 육해공 대표 컬러
+		armyColor?: {
+			land: string;
+			navy: string;
+			airforce: string;
 		};
 	}
 }
@@ -126,6 +137,11 @@ const darkTheme = {
 		middleHigh: yellow[500],
 		high: green[600],
 	},
+	armyColor: {
+		land: "#3d5114",
+		navy: "#001B69",
+		airforce: "#3399FF",
+	},
 	error: {
 		main: red[700],
 	},
@@ -149,6 +165,11 @@ const lightTheme = {
 		middle: red[500],
 		middleHigh: yellow[500],
 		high: green[600],
+	},
+	armyColor: {
+		land: "#3d5114",
+		navy: "#001B69",
+		airforce: "#3399FF",
 	},
 };
 

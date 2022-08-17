@@ -9,6 +9,8 @@ import {
 } from "../../../assets/d2/embeddedImages";
 import { setMousePosition } from "./controls/mousePosition";
 import { setScaleLineControl } from "./controls/scale";
+import { mapLayerList } from "../../../data/constants/mapLayerList";
+import { addMapLayer } from "./addLayers/addMapLayer";
 
 // 대한민국 중심좌표
 const KOREA_CENTER_LON = 127.027583;
@@ -23,6 +25,13 @@ export default async () => {
 	// fullScreen Button Load
 	const fullScreen = new ol.control.FullScreen();
 
+	// Default로 로드할 맵을 정하고 map 객체 생성 시 그 layer들을 넣어줌.
+	// Default 선정은 data / constants / mapLayerList에서 관리할 것.
+	const defaultMapToLoad = mapLayerList
+		.filter((m) => m.default === true)
+		.map((layer) => addMapLayer({ addToMap: false, ...layer }));
+
+	// 최초 맵 객체 생성
 	window.map = new ol.Map({
 		controls: ol.control
 			.defaults({
@@ -31,18 +40,7 @@ export default async () => {
 			})
 			.extend([fullScreen, setMousePosition({}), setScaleLineControl()]),
 		target: "map", // 지도 id
-		layers: [
-			new ol.layer.Tile({
-				preload: Infinity,
-				source: new ol.source.XYZ({
-					// 기본으로 띄울 url 설정
-					url: urlInfo.map.baseLayer,
-					crossOrigin: "Anonymous",
-					minZoom: 0,
-					maxZoom: 10,
-				}),
-			}),
-		],
+		layers: defaultMapToLoad,
 		view: new ol.View({
 			center: olCenter,
 			zoom: 8,
@@ -51,7 +49,7 @@ export default async () => {
 		}),
 		intersections: ol.interaction.defaults({
 			doubleClickZoom: false,
-			altShiftDragRotate: false,
+			altShiftDragRotate: true,
 			shiftDragZoom: false,
 			pinchRotate: false,
 			pinchZoom: false,

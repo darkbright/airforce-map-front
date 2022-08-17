@@ -1,7 +1,6 @@
-import React from "react";
 import { Button, ButtonProps } from "@mui/material";
 
-interface BaseButtonProps extends ButtonProps {
+export interface BaseButtonProps extends ButtonProps {
 	title: string;
 }
 

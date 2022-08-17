@@ -21,7 +21,7 @@ const YesNoSelectionModal = ({
 }: YesNoSelectionModal) => {
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
-			<Typography gutterBottom variant="h5">
+			<Typography gutterBottom variant="h5" sx={{ mb: 2 }}>
 				{title}
 			</Typography>
 			<Typography variant="body1">{question}</Typography>
@@ -29,8 +29,8 @@ const YesNoSelectionModal = ({
 				<BaseButton title="네" onClick={onYes} />
 				<BaseButton
 					title="아니요"
-					color="inherit"
 					sx={{ ml: 1 }}
+					color="inherit"
 					onClick={() => {
 						setOpen(!open);
 						onNo();
