@@ -7,9 +7,11 @@ import { ChangeEvent, useEffect, useState } from "react";
 import YesNoSelectionModal from "../modal/YesNoSelectionModal";
 import consonant from "../../utils/consonant";
 import TextButton from "../../components/button/TextButton";
+import { Draggable } from "react-beautiful-dnd";
 
 interface MapListItemOnDrawerProps {
 	title: string;
+	index: number;
 	layerName: string;
 	isDefaultMap: boolean;
 	handleRemoveLayer: () => void;
@@ -21,6 +23,7 @@ const MapListItemOnDrawer = ({
 	layerName,
 	handleRemoveLayer,
 	isDefaultMap,
+	index,
 }: MapListItemOnDrawerProps) => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [selectedLayer, setSelectedLayer] = useState({} as any);
@@ -30,7 +33,6 @@ const MapListItemOnDrawer = ({
 
 	// 해당 카드의 dropdown을 열때마다 그 카드의 layerName을 가져옴.
 	useEffect(() => {
-		console.log("layerName", layerName);
 		window.map.getLayers().forEach((element: any) => {
 			if (element.get("name") === layerName) {
 				setSelectedLayer(element);
@@ -56,65 +58,69 @@ const MapListItemOnDrawer = ({
 
 	return (
 		<>
-			<div style={{ marginBottom: 10 }}>
-				<DefaultBox>
-					<Wrapper>
-						<GrabBox>
-							<DragIndicatorIcon color="action" sx={{ opacity: 0.4 }} />
-							<Typography sx={{ ml: 1, opacity: visible ? 1 : 0.4 }} variant="body1">
-								{title}
-							</Typography>
-						</GrabBox>
-						<IconBox>
-							{dropdownOpen ? (
-								<KeyboardArrowUpIcon
-									color="action"
-									onClick={() => setDropdownOpen(false)}
-									sx={{ ...IconStyle, mr: 0.5 }}
-								/>
-							) : (
-								<KeyboardArrowDownIcon
-									color="action"
-									onClick={() => setDropdownOpen(true)}
-									sx={{ ...IconStyle, mr: 0.5 }}
-								/>
-							)}
-						</IconBox>
-					</Wrapper>
-					{dropdownOpen && (
-						<DropdownBox>
-							<FormGroup sx={{ mb: 2 }}>
-								<FormControlLabel
-									control={
-										<Switch
-											checked={visible}
-											color="secondary"
-											size="small"
-											onChange={handleVisibility}
+			<Draggable draggableId={layerName} index={index}>
+				{(provided) => (
+					<div ref={provided.innerRef} {...provided.draggableProps}>
+						<DefaultBox isBackgroundPaper={false} marginBottom={10}>
+							<Wrapper>
+								<GrabBox {...provided.dragHandleProps}>
+									<DragIndicatorIcon color="action" sx={{ opacity: 0.4 }} />
+									<Typography sx={{ ml: 1, opacity: visible ? 1 : 0.4 }} variant="body1">
+										{title}
+									</Typography>
+								</GrabBox>
+								<IconBox>
+									{dropdownOpen ? (
+										<KeyboardArrowUpIcon
+											color="action"
+											onClick={() => setDropdownOpen(false)}
+											sx={{ ...IconStyle, mr: 0.5 }}
 										/>
-									}
-									label={visible ? "표시" : "숨김"}
-								/>
-							</FormGroup>
-							<Typography variant="body2">불투명도 설정</Typography>
-							<Slider
-								value={opacityRate}
-								aria-label="layer opacity"
-								size="small"
-								color="secondary"
-								onChange={handleOpacityRate}
-								valueLabelDisplay="auto"
-							/>
-							<TextButton
-								type="button"
-								disabled={isDefaultMap}
-								title="제거"
-								onClick={() => setDeleteModalOpen(true)}
-							/>
-						</DropdownBox>
-					)}
-				</DefaultBox>
-			</div>
+									) : (
+										<KeyboardArrowDownIcon
+											color="action"
+											onClick={() => setDropdownOpen(true)}
+											sx={{ ...IconStyle, mr: 0.5 }}
+										/>
+									)}
+								</IconBox>
+							</Wrapper>
+							{dropdownOpen && (
+								<DropdownBox>
+									<FormGroup sx={{ mb: 2 }}>
+										<FormControlLabel
+											control={
+												<Switch
+													checked={visible}
+													color="secondary"
+													size="small"
+													onChange={handleVisibility}
+												/>
+											}
+											label={visible ? "표시" : "숨김"}
+										/>
+									</FormGroup>
+									<Typography variant="body2">불투명도 설정</Typography>
+									<Slider
+										value={opacityRate}
+										aria-label="layer opacity"
+										size="small"
+										color="secondary"
+										onChange={handleOpacityRate}
+										valueLabelDisplay="auto"
+									/>
+									<TextButton
+										type="button"
+										disabled={isDefaultMap}
+										title="제거"
+										onClick={() => setDeleteModalOpen(true)}
+									/>
+								</DropdownBox>
+							)}
+						</DefaultBox>
+					</div>
+				)}
+			</Draggable>
 			<YesNoSelectionModal
 				open={deleteModalOpen}
 				setOpen={() => setDeleteModalOpen(true)}
@@ -129,11 +135,11 @@ const MapListItemOnDrawer = ({
 
 export default MapListItemOnDrawer;
 
-const Wrapper = styled("div")({
+const Wrapper = styled("div")(() => ({
 	display: "flex",
 	justifyContent: "space-between",
 	alignItems: "center",
-});
+}));
 
 const GrabBox = styled("div")(() => ({
 	cursor: "grab",

@@ -29,6 +29,7 @@ export default async () => {
 	// Default 선정은 data / constants / mapLayerList에서 관리할 것.
 	const defaultMapToLoad = mapLayerList
 		.filter((m) => m.default === true)
+		.reverse()
 		.map((layer) => addMapLayer({ addToMap: false, ...layer }));
 
 	// 최초 맵 객체 생성
