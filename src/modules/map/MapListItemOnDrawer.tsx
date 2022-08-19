@@ -11,11 +11,17 @@ import TextButton from "../../components/button/TextButton";
 interface MapListItemOnDrawerProps {
 	title: string;
 	layerName: string;
+	isDefaultMap: boolean;
 	handleRemoveLayer: () => void;
 }
 
 // 배경지도 선택하기에서 Drawer에 뜬 개별 지도의 항목들을 컨트롤할 수 있는 Map Card
-const MapListItemOnDrawer = ({ title, layerName, handleRemoveLayer }: MapListItemOnDrawerProps) => {
+const MapListItemOnDrawer = ({
+	title,
+	layerName,
+	handleRemoveLayer,
+	isDefaultMap,
+}: MapListItemOnDrawerProps) => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [selectedLayer, setSelectedLayer] = useState({} as any);
 	const [opacityRate, setOpacityRate] = useState(100);
@@ -26,7 +32,7 @@ const MapListItemOnDrawer = ({ title, layerName, handleRemoveLayer }: MapListIte
 	useEffect(() => {
 		console.log("layerName", layerName);
 		window.map.getLayers().forEach((element: any) => {
-			if (element.get("name") == layerName) {
+			if (element.get("name") === layerName) {
 				setSelectedLayer(element);
 				setOpacityRate(element.getOpacity() * 100);
 				setVisible(element.getVisible());
@@ -99,7 +105,12 @@ const MapListItemOnDrawer = ({ title, layerName, handleRemoveLayer }: MapListIte
 								onChange={handleOpacityRate}
 								valueLabelDisplay="auto"
 							/>
-							<TextButton type="button" title="제거" onClick={() => setDeleteModalOpen(true)} />
+							<TextButton
+								type="button"
+								disabled={isDefaultMap}
+								title="제거"
+								onClick={() => setDeleteModalOpen(true)}
+							/>
 						</DropdownBox>
 					)}
 				</DefaultBox>

@@ -16,7 +16,7 @@ const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 
 	const defaultMapList = mapLayerList.filter((m) => m.default === true);
 
-	const [mapList, setMapList] = useState(defaultMapList);
+	const [mapList, setMapList] = useState(defaultMapList.reverse());
 
 	console.log("mapList", mapList);
 
@@ -38,7 +38,17 @@ const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 								key={m.name}
 								title={m.title}
 								layerName={m.name}
-								handleRemoveLayer={() => console.log("remove")}
+								isDefaultMap={m.default}
+								handleRemoveLayer={() => {
+									// map Layer list에서 해당 맵을 지움
+									window.map.getLayers().forEach((element: any) => {
+										if (element.get("name") === m.name) {
+											window.map.removeLayer(element);
+										}
+									});
+									// Drawer에 보이는 리스트에서 해당 맵을 지움
+									setMapList(mapList.filter((map) => map.name !== m.name));
+								}}
 							/>
 						))}
 					</ItemWrapper>
