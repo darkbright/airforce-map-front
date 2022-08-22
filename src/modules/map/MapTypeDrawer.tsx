@@ -13,6 +13,11 @@ interface MapTypeDrawer {
 	setOpen: (set: boolean) => void;
 }
 
+// 맵 종류 선택 버튼 클릭 후 오른쪽에 뜨는 Drawer 내 내용 관리임
+// 표시된 맵 리스트는 맨 위에서부터 가장 위에 뜨는 순서로 Stack 됨.
+// DragAndDrop으로 맵의 표시 순서를 변경할 수 있음.
+// onDragEnd 함수를 통해 특정 맵의 위치를 DragAndDrop으로 옮겼을 때 어떠한 일이 벌어져야 하는지를 정의하였음.
+
 const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
 	const [openSelectMap, setOpenSelectMap] = useState(false);
 

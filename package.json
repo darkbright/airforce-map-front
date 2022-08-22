@@ -25,6 +25,7 @@
     "hangul-js": "^0.2.6",
     "react": "^18.1.0",
     "react-beautiful-dnd": "^13.1.0",
+    "react-color-palette": "^6.2.0",
     "react-dom": "^18.1.0",
     "react-query": "^3.39.1",
     "react-router-dom": "^6.3.0",

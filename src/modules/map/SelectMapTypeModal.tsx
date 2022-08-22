@@ -13,6 +13,9 @@ interface SelectMapTypeModalProps {
 	setMapList: Dispatch<SetStateAction<MapLayerListType[]>>;
 }
 
+// 지도의 종류를 선택할 수 있는 모달
+// 지도의 리스트가 쭉 떠서 유저가 특정 맵을 선택하면 MapTypeDrawer에 추가가 되며, 그 지도가 실제 지도의 맨 위에 나타나게 됨.
+
 const SelectMapTypeModal = ({ open, setOpen, mapList, setMapList }: SelectMapTypeModalProps) => {
 	// mapList에 있는 것을 제외하고 전체 가용한 지도 목록을 뿌려주기
 	const unloadedMapList = mapLayerList.filter((m) => !mapList.includes(m));

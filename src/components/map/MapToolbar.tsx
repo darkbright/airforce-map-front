@@ -11,6 +11,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import MapTypeDrawer from "../../modules/map/MapTypeDrawer";
 import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
 import DrawPanelToolbar from "./DrawPanelToolbar";
+import MapGridControlModal from "../../modules/map/MapGridControlModal";
 
 const MapToolbar = () => {
 	const [alignment, setAlignment] = useState("select");
@@ -42,6 +43,8 @@ const MapToolbar = () => {
 	const [mapControlsOpen, setMapControlsOpen] = useState(false);
 	// 그리기 Toggle On/Off
 	const [drawPanelOpen, setDrawPanelOpen] = useState(false);
+	// 그리드 설정 모달 선택하기
+	const [mapGridControlsOpen, setMapGridControlsOpen] = useState(false);
 
 	return (
 		<>
@@ -59,7 +62,7 @@ const MapToolbar = () => {
 							<NorthWestIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
-					<ToggleButton value="grid">
+					<ToggleButton value="grid" onClick={() => setMapGridControlsOpen(true)}>
 						<Tooltip title="그리드">
 							<GridOnIcon fontSize="small" />
 						</Tooltip>
@@ -121,6 +124,14 @@ const MapToolbar = () => {
 				open={mapControlsOpen}
 				setOpen={() => {
 					setMapControlsOpen(false);
+					setAlignment("");
+				}}
+			/>
+			{/* Grid 설정 모달 */}
+			<MapGridControlModal
+				open={mapGridControlsOpen}
+				setOpen={() => {
+					setMapGridControlsOpen(false);
 					setAlignment("");
 				}}
 			/>

@@ -14,5 +14,3 @@
 - OSM: OpenStreetMap ?
 - COP: Common Operation map (공통작전 지도)
 - MGRS: 좌표계의 한 형식
-
-// slack test
