@@ -6,6 +6,7 @@ interface DefaultBoxProps {
 	// 기본적으로 해당 박스는 background.paper 색상으로 설정되어 있음(theme.ts 참조)
 	// 만약 해당 박스의 부모인 div가 paper 색상이라면, isBackgroundPapaer를  false로 설정하여 색상을 default로 바꿔주면 됨
 	isBackgroundPaper?: boolean;
+	marginTop?: number;
 	marginBottom?: number;
 	padding?: string;
 }
@@ -15,9 +16,10 @@ const DefaultBox = ({
 	isBackgroundPaper = true,
 	padding = "5%",
 	marginBottom = 0,
+	marginTop = 0,
 }: DefaultBoxProps) => {
 	return (
-		<BoxWrapper style={{ marginBottom, padding }} isBackgroundPaper={isBackgroundPaper}>
+		<BoxWrapper style={{ marginBottom, marginTop, padding }} isBackgroundPaper={isBackgroundPaper}>
 			{children}
 		</BoxWrapper>
 	);

@@ -12,7 +12,6 @@ function App() {
 	return (
 		<ThemeProvider theme={theme(isDark!)}>
 			<CssBaseline enableColorScheme />
-
 			<BrowserRouter>
 				<Router />
 			</BrowserRouter>
