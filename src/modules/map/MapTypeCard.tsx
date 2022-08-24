@@ -38,7 +38,13 @@ const MapTypeCard = ({ title, category, imgSrc, onSelect }: MapTypeCardProps) =>
 				<Chip
 					label={category}
 					size="small"
-					sx={{ backgroundColor: selectBgColor(category), height: 18, mt: 1, padding: "0px 2px" }}
+					sx={{
+						backgroundColor: selectBgColor(category),
+						height: 18,
+						mt: 1,
+						padding: "0px 2px",
+						color: isDark === "light" ? "white" : "black",
+					}}
 				/>
 			</Body>
 		</Root>

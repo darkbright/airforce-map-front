@@ -141,6 +141,11 @@ React로 작성된 현 프로젝트는 일반적인 React 프로젝트의 디렉
 <br>
 <br>
 
+![projectTree](./documents/img/projectTree.jpg)
+
+<br>
+<br>
+
 1. `public` Directory
 
 - React에서 따로 빌드를 거치지 않는 Static한 파일들을 담고 있습니다.
