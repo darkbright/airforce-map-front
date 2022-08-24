@@ -27,6 +27,7 @@ export const gridGenerator = ({ url, name, maxZoom, minZoom }: mapGridLayerListT
 		}),
 		name,
 		visible: true,
+		zIndex: 101,
 	});
 	grid.styleProperty = new GridStyle();
 	grid.setStyle((feature: FeatureValues) => {

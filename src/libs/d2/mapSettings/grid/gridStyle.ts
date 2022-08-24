@@ -36,7 +36,7 @@ export class GridStyle {
 	};
 
 	setLabelColor = (color: string) => {
-		this.label.getText().getFill().setColor(color);
+		return this.label.getText().getFill().setColor(color);
 	};
 
 	getGridColor = () => {
@@ -45,6 +45,10 @@ export class GridStyle {
 
 	getLabelColor = () => {
 		return this.label.getText().getFill().getColor();
+	};
+
+	getGridWidth = () => {
+		return this.grid.getStroke().getWidth();
 	};
 
 	setGridWidth = (width: number) => {
@@ -61,6 +65,14 @@ export class GridStyle {
 
 	getLabelVisible = () => {
 		return this.labelVisible;
+	};
+
+	getGridLineType = () => {
+		return this.grid.getStroke().getLineDash();
+	};
+
+	setGridLineType = (type: number[]) => {
+		return this.grid.getStroke().setLineDash(type);
 	};
 
 	setDistanceVisible = (

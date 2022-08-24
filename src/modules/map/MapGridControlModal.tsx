@@ -23,7 +23,10 @@ const MapGridControlModal = ({ open, setOpen }: MapGridControlModalProps) => {
 				title="그리드 설정"
 				subtitle="필요한 그리드를 설정하여 지도에 표시합니다"
 			/>
-			<MapGridLayerItemBox title="어쩌고" />
+			{mapGridLayerList.map((grid) => (
+				<MapGridLayerItemBox key={grid.name} gridLayer={grid} />
+			))}
+
 			<BaseButton title="눌러" onClick={handleOpenGrid} />
 		</BaseModal>
 	);

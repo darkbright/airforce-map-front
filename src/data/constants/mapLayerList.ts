@@ -53,6 +53,19 @@ const koreaExtent = [13468850, 3748096, 15026241, 5349302];
 
 export const mapLayerList: MapLayerListType[] = [
 	{
+		// COP Map, 분홍색으로 뜨는 맵 vector임
+		name: "COPMap",
+		title: "COP배경지도",
+		category: "세계지도",
+		mapType: "MVT",
+		default: true,
+		url: urlInfo.map.backgroundLayer,
+		minZoom: 1,
+		maxZoom: 10,
+		mvtUrl: urlInfo.mvtStyle.background,
+		thumbnail: cop,
+	},
+	{
 		// 기본 지도인 세계지도 (위성지도처럼 생겼고 바다색이 남색인 지도)
 		// 이 지도는 바탕에 항상 깔리는 식으로 생각하면 됨
 		name: "baseWorldMap",
@@ -65,6 +78,7 @@ export const mapLayerList: MapLayerListType[] = [
 		maxZoom: 10,
 		thumbnail: baseWorldMap,
 	},
+
 	{
 		// 위성영상 또는 위성지도, 여기서는 일단 아리랑을 썼음
 		name: "satelliteMap",
@@ -255,19 +269,7 @@ export const mapLayerList: MapLayerListType[] = [
 	},
 
 	////////// 여기서부터 Vector 지도 //////////////////
-	{
-		// COP Map, 분홍색으로 뜨는 맵
-		name: "COPMap",
-		title: "COP배경지도",
-		category: "세계지도",
-		mapType: "MVT",
-		default: true,
-		url: urlInfo.map.backgroundLayer,
-		minZoom: 1,
-		maxZoom: 10,
-		mvtUrl: urlInfo.mvtStyle.background,
-		thumbnail: cop,
-	},
+
 	{
 		name: "mvtG25K",
 		title: "육도 2.5만 벡터",
