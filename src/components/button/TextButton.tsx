@@ -4,6 +4,12 @@ interface TextButtonProps extends BaseButtonProps {
 	textPosition?: "left" | "center" | "right";
 }
 
+/**
+ * Text Link 타입의 버튼임. 주변을 둘러싼 백그라운드 컬러나 border가 없는 형태
+ * @param {TextButtonProps} TextButtonProps
+ * @returns {JSX.Element} React Component
+ */
+
 const TextButton = ({
 	title,
 	type = "submit",

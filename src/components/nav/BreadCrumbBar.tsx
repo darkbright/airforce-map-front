@@ -13,6 +13,13 @@ const LinkRouter = (props: LinkRouterProps) => {
 	return <Link {...props} component={RouterLink as any} />;
 };
 
+/**
+ * BreadCrumb 즉, 홈 > 서비스 > 서비스 와 같이 사이트의 이동 경로를 표기하는 모듈
+ *
+ * data/constants/menu.ts 의 항목을 작성하면 알아서 수정이 되니 별도로 해당 컴포넌트를 수정하지 않으셔도 됩니다
+ * @returns {JSX.Element} React Component
+ */
+
 const BreadCrumbBar = () => {
 	const location = useLocation();
 	const splitedRoute = location.pathname.split("/").slice(1);

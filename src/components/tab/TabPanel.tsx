@@ -7,6 +7,12 @@ interface TabPanelProps {
 	value: number;
 }
 
+/**
+ * 일반적인 형태의 Tab을 Wrapping하는 모듈임
+ * @param props
+ * @returns {JSX.Element} React Component
+ */
+
 const TabPanel = (props: TabPanelProps) => {
 	const { children, value, index, ...other } = props;
 

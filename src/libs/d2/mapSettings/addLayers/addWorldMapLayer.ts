@@ -1,8 +1,10 @@
 import D2MapModule from "../../D2MapModule";
 import urlInfo from "../urlInfo";
 
-// 기본 세계 지도 추가.
-// 해당 지도는 기본 레이어 + MVT 모두 추가되는 형태로 layers.ts에서 분리하지 않고 아래 그대로 쓰기로 함.
+/**
+ * @todos boundary 만들어야 할 때 추가
+ */
+
 const { ol } = D2MapModule;
 
 interface WorldMapProps {

@@ -16,17 +16,24 @@ import { addMapLayer } from "./addLayers/addMapLayer";
 const KOREA_CENTER_LON = 127.027583;
 const KOREA_CENTER_LAT = 37.497928;
 
+/**
+ * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴
+ */
 export default async () => {
 	const { ol, Coordinate } = D2MapModule;
 
-	// 초기 로딩 시 중심좌표를 어디로 잡을 것인지 설정. 현재는 대한민국 중심좌표로 설정되어 있음.
+	/**
+	 * 초기 로딩 시 중심좌표를 어디로 잡을 것인지 설정. 현재는 대한민국 중심좌표로 설정되어 있음.
+	 */
 	const olCenter = ol.proj.fromLonLat([KOREA_CENTER_LON, KOREA_CENTER_LAT]);
 
 	// fullScreen Button Load
 	const fullScreen = new ol.control.FullScreen();
 
-	// Default로 로드할 맵을 정하고 map 객체 생성 시 그 layer들을 넣어줌.
-	// Default 선정은 data / constants / mapLayerList에서 관리할 것.
+	/**
+	 * Default로 로드할 맵을 정하고 map 객체 생성 시 그 layer들을 넣어줌.
+	 * Default 선정은 data / constants / mapLayerList에서 관리할 것.
+	 */
 	const defaultMapToLoad = mapLayerList
 		.filter((m) => m.default === true)
 		.reverse()

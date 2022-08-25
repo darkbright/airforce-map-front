@@ -2,6 +2,9 @@ import D2MapModule from "../../D2MapModule";
 
 const { ol } = D2MapModule;
 
+/**
+ * 그리드의 스타일을 정의하는 클라스
+ */
 export class GridStyle {
 	distanceVisible: string | undefined;
 	labelVisible: boolean;
@@ -75,6 +78,15 @@ export class GridStyle {
 		return this.grid.getStroke().setLineDash(type);
 	};
 
+	/**
+	 * 이거는 뭐하는건지 나중에 확인
+	 * @param cid
+	 * @param layerVisible
+	 * @param currentDistanceVisible
+	 * @param color
+	 * @param labelVisible
+	 * @param width
+	 */
 	setDistanceVisible = (
 		cid: string,
 		layerVisible: boolean,

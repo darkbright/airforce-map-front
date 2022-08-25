@@ -4,6 +4,11 @@ import DefaultBox from "../box/DefaultBox";
 import WidgetTitleBox from "../box/textBox/WidgetTitleBox";
 
 // Widget에서 현재 전체 상황을 보여주는 블록
+/**
+ * 화면 맨 오른쪽의 아이콘으로 구성된 Vertical Tab 내의 테이블을 쌀 Wrapper 형태의 Div로 상태바를 구현한 예시임
+ * @returns {JSX.Element} React Component
+ *
+ */
 const WarningTab = () => {
 	return (
 		<Root>

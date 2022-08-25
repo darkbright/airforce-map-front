@@ -1,6 +1,11 @@
 import { LinearProgress, styled } from "@mui/material";
 import F15Icon from "../../assets/icons/F15Icon";
 
+/**
+ * 데이터를 불러오고 있을 때(loading 중일 때) 보여주는 화면으로, 전체 화면을 뒤덮는 반투명 Shadow 및 Progress Bar와 F15 전투기 모양이 뜸
+ * @returns {JSX.Element} React Component
+ */
+
 const Loading = () => {
 	return (
 		<Root>

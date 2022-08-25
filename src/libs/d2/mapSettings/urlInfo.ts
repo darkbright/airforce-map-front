@@ -1,5 +1,8 @@
 const URL_HEADER = `${process.env.REACT_APP_MAP_SERVER_URL}`;
 
+/**
+ * Map Server 내 상세 지도를 가져올 URL 목록
+ */
 export default {
 	map: {
 		baseLayer: `${URL_HEADER}/TARTMS/World_TMS/{z}/{x}/{-y}.png`,

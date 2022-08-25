@@ -27,6 +27,11 @@ interface StyledTabProps {
 	label: string;
 }
 
+/**
+ * 화면 좌측의 URL을 핸들링하는 메뉴 바의 구성
+ * @returns {JSX.Element} React Component
+ */
+
 const LeftMenuBar = () => {
 	const { isBarOpen, setIsBarOpen } = useMenuBarStore();
 	const { isDark } = useThemeStore();

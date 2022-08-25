@@ -6,6 +6,10 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { useState } from "react";
 import FavoritePagesModal from "../../modules/menu/FavoritePagesModal";
 
+/**
+ * 화면 좌측 메뉴 바를 펼쳤을 때 상단에 나오는 메뉴/즐겨찾기 Tab의 즐겨찾기 핸들링 컴포넌트
+ * @returns {JSX.Element} React Component
+ */
 const FavoritePagesBar = () => {
 	const { favoritePages } = useFavoritePageStore();
 	const [openPageHandler, setOpenPageHandler] = useState(false);

@@ -14,6 +14,15 @@ import { theme } from "../../styles/theme";
 
 const dummyDataHead = ["구분", "현재", "현재원", "충원율", "상태"];
 
+/**
+ * 지도의 특정 Feature를 클릭했을 때 뜨는 하드코딩된 예시 테이블
+ *
+ * 해당 내용은 추후 API 핸들링 결과에 따라 달라질 예정임
+ *
+ * @returns
+ *
+ */
+
 const SimpleTableOnMap = () => {
 	const { isDark } = useThemeStore();
 	const { high, middleHigh, middle, verylow } = theme(isDark).palette.percentageRemarks;

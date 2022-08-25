@@ -12,6 +12,11 @@ export interface PrototypeAllType {
 	testCoord: string;
 }
 
+/**
+ * 백엔드 API 테스트용 ProtoType URL API
+ * @returns {useQuery} useQuery
+ */
+
 export const usePrototypesAll = () => {
 	const getPrototypes = async () => {
 		const { data } = await axios.get(`${API_URL}/prototype/all`);

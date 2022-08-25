@@ -16,13 +16,16 @@ interface BaseColorPickerShowDotProps {
 interface BaseColorPickerProps {
 	color: Color;
 	onColorChange: OnChangeCallback;
-
 	openColorPicker: boolean;
 	setOpenColorPicker: () => void;
 }
 
-// 현재 색상이 어떤 색상인지 표시해주는 UI
-
+/**
+ * 컬러피커와 연계하여, 현재 선택한 색상이 어떤 색인지를 🟠 와 같은 원 형태로 보여줌
+ * clickable을 활성화하면 커서의 모양이 "pointer"로 변경되고 클릭하면 event를 활성시킬 수 있음.
+ * @param {BaseColorPickerShowDotProps}  BaseColorPickerShowDotProps
+ * @returns {JSX.Element} React Component
+ */
 export const BaseColorPickerShowDot = ({
 	color,
 	clickable = true,
@@ -45,7 +48,13 @@ export const BaseColorPickerShowDot = ({
 	);
 };
 
-// 색상 선택 팔레트를 모달에서 띄움
+/**
+ * react-color-palette 라이브러리의 컬러피커 구현체임. 여기서는 사용성을 위해 모달 안에 집어넣었음.
+ *
+ * 색상보드에서 마우스로 색상을 선택하면, "hex" | "rgba"| "hsv" 의 컬러타입과 해당하는 값을 리턴해줌
+ * @param {BaseColorPickerProps } BaseColorPickerProps
+ * @return {JSX.Element} React Component
+ */
 export const BaseColorPicker = ({
 	color,
 	onColorChange,

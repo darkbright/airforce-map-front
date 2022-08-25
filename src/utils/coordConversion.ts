@@ -7,8 +7,14 @@ interface DMSConverterProps {
 
 const { ol } = D2MapModule;
 
-// DMS 좌표( Degree, Minutes, Second로 구성된 DMS 좌표를 LonLat 좌표로 변환하거나, Screen 좌표로 변환하는 함수.
-// Backend에서 받은 coord는 반드시 아래의 함수를 통해 screen Coord로 변환해주어야 Openlayers에 표시 됨.
+/**
+ * DMS 좌표( Degree, Minutes, Second로 구성된 DMS 좌표를 LonLat 좌표로 변환하거나, Screen 좌표로 변환하는 함수.
+ *
+ * Backend에서 받은 coord는 반드시 아래의 함수를 통해 screen Coord로 변환해주어야 Openlayers에 표시 됨.
+ * @param {DMSConverterProps} DMSConverterProps
+ * @returns {[number, number]} [경도, 위도] 또는 Screen 좌표
+ */
+
 export const DMSConverter = ({ dms, type }: DMSConverterProps) => {
 	const splitByLonLat = dms.split("N");
 	const parsedDMSLat = splitByLonLat[0].match(/.{1,2}/g) || "";

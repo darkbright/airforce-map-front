@@ -7,6 +7,11 @@ interface BaseModalProps {
 	children: ReactNode;
 }
 
+/**
+ * 기본적인 모달(a.k.a 팝업) 의 틀 구성
+ * @param {BaseModalProps}  BaseModalProps
+ * @returns {JSX.Element} React Component
+ */
 const BaseModal = ({ open, setOpen, children }: BaseModalProps) => {
 	return (
 		<Dialog onClose={setOpen} open={open}>

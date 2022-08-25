@@ -37,6 +37,11 @@ const dummyData = [
 	},
 ];
 
+/**
+ * 예시 기본 테이블. API 데이터 내용이 확정되는대로 해당 테이블의 규격은 달라질 예정임.
+ * @returns
+ */
+
 const SimpleTable = () => {
 	return (
 		<TableContainer component={Paper}>

@@ -1,5 +1,8 @@
 import urlInfo from "../../libs/d2/mapSettings/urlInfo";
 
+/**
+ * 지도 위에 나타내는 격자 선인 Grid를 생성하기 위하여 들어가야 하는 기본 값이 정의된 인터페이스
+ */
 export interface mapGridLayerListType {
 	// grid 속성을 로드할 url로 Map Server에서 가져옴
 	url: string;
@@ -13,8 +16,9 @@ export interface mapGridLayerListType {
 	minZoom: number;
 }
 
-// 지도 위에 나타내는 격자 선인 Grid의 종류를 정의함.
-
+/**
+ * 지도 위에 나타내는 격자 선인 Grid의 종류를 배열로 정리한 것임
+ */
 export const mapGridLayerList: mapGridLayerListType[] = [
 	{
 		// Geographic(경위도) Grid

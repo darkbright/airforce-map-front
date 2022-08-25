@@ -1,3 +1,7 @@
+/**
+ * 화면 좌측의 개별 메뉴를 구성하는 인터페이스
+ */
+
 export interface MenuProps {
 	id: string;
 	name: string;
@@ -5,6 +9,10 @@ export interface MenuProps {
 	type: "dir" | "page";
 	subMenu?: MenuProps[];
 }
+
+/**
+ * 화면 좌측의 메뉴를 구성하기 위하여 URL을 갖는 개별 메뉴 Object들을 배치한 배열
+ */
 
 export const menu: MenuProps[] = [
 	{

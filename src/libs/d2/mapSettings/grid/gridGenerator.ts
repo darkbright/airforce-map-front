@@ -15,8 +15,12 @@ interface FeatureValues {
 
 const { ol } = D2MapModule;
 
-// Map Grid 생성기
-
+/**
+ * 🌐 격자 무늬로 지도 위에 각 좌표 타입별로 생성되는 선을 제작하는 함수.
+ *
+ * Lonlat, GeoRef, MGRS 등의 개별 설정 값에 따라 다른 그리드가 로드됨.
+ * @param gridLayer data/mapLayerList의 배열 내 객체를 넣어주면 됨
+ */
 export const gridGenerator = ({ url, name, maxZoom, minZoom }: mapGridLayerListType) => {
 	const grid = new ol.layer.VectorTile({
 		source: new ol.source.VectorTile({

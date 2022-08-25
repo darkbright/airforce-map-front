@@ -1,3 +1,6 @@
+/**
+ * DataGrid를 위해 작성된 더미데이터 인터페이스. 추후 삭제 예정
+ */
 export interface DummyAirplaneStatusProps {
 	type?: string;
 	second?: number;
@@ -9,6 +12,12 @@ export interface DummyAirplaneStatusProps {
 	editedDate?: string;
 	editedBy?: string;
 }
+
+/**
+ * DataGrid 를 위한 더미 데이터 배열
+ *
+ * 추후 삭제 필요
+ */
 
 export const dummyAirplaneStatus = [
 	{

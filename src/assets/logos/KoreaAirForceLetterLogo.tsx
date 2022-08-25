@@ -6,7 +6,11 @@ interface KoreaAirForceLetterLogoProp {
 	color?: string;
 }
 
-// 대한민국공군 글자 로고
+/**
+ * 대한민국공군 글자 로고
+ * @param {KoreaAirForceLetterLogoProp} KoreaAirForceLetterLogoProp
+ * @returns {JSX.Element} SVG Component
+ */
 const KoreaAirForceLetterLogo = ({ width = 110, color }: KoreaAirForceLetterLogoProp) => {
 	const { isDark } = useThemeStore();
 	const defaultColor = color || theme(isDark).palette.text.secondary;

@@ -6,6 +6,13 @@ import {
 	ResponsiveContainer,
 } from "recharts";
 
+/**
+ * n각의 방사형 차트.
+ *
+ * 예비용으로 준비한 통계 관련 그래프 관련 Component
+ * @returns {JSX.Element} React Component
+ */
+
 const RadarChartBox = () => {
 	const dummyData = [
 		{

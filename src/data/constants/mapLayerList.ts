@@ -15,42 +15,64 @@ import vectors from "../../assets/images/mapSample/vectors.png";
 import cop from "../../assets/images/mapSample/cop.png";
 import navyRaster from "../../assets/images/mapSample/navyRaster.png";
 
-// 로드할 수 있는 각종 지도의 종류 배열.
-// 지도를 추가하거나 삭제하고자 하는 경우, 아래와 같은 형식으로 배열에 해당 객체를 추가/삭제 할 것.
-// 기본적으로 아래의 배열에 객체를 추가/삭제함으로써 모든 맵 불러오기/삭제/핸들링등 기능이 자동구현됨.
-
+/**
+ * 지도 Layer 추가하기 위하여 넣어주어야 하는 기본 값
+ */
 export interface MapLayerListType {
-	// openLayers의 Layer 리스트에 쌓일 이름값
+	/**
+	 * openLayers의 Layer 리스트에 쌓일 이름값
+	 */
 	name: string;
-	// 유저를 위한 한글 이름
+	/**
+	 * 유저를 위한 한글 이름
+	 */
 	title: string;
-	// 최초 사이트 로드 시 해당 지도를 default로 로드할지 여부 (Default로 로드되면 해당 맵은 유저가 임의로 삭제할 수 없도록 되어있음)
+	/**
+	 * 최초 사이트 로드 시 해당 지도를 default로 로드할지 여부 (Default로 로드되면 해당 맵은 유저가 임의로 삭제할 수 없도록 되어있음)
+	 */
 	default: boolean;
-	// 지도 썸네일 이미지
+	/**
+	 * 지도 썸네일 이미지
+	 */
 	thumbnail: string;
-	/* 
-    mapType은 XYZ와  MVT(Mapbox Vector Tiles)로 크게 나눌 수 있음.
-    XYZ 인 경우 일반 Tile을 의미하므로 Openlayers layer 설정 시 new ol.layer.Tile의 형태로 설정.
-    MVT인 경우 Vector이므로 OpenLayers layer 설정 시 new ol.layer.VectorTile로 설정됨. 
-	libs/d2/mapSettings/addLayers/addMapLayer.ts 파일 참조
-    */
+	/**
+	 * mapType은 XYZ와  MVT(Mapbox Vector Tiles)로 크게 나눌 수 있음.
+	 * XYZ 인 경우 일반 Tile을 의미하므로 Openlayers layer 설정 시 new ol.layer.Tile의 형태로 설정.
+	 * MVT인 경우 Vector이므로 OpenLayers layer 설정 시 new ol.layer.VectorTile로 설정됨.
+	 * libs/d2/mapSettings/addLayers/addMapLayer.ts 파일 참조
+	 */
 	mapType: "XYZ" | "MVT";
 	category: "세계지도" | "육도" | "공도" | "해도";
-	// D2MapServer에서 가져올 지도 데이터 소스 url
+	/**
+	 * D2MapServer에서 가져올 지도 데이터 소스 url
+	 */
 	url: string;
-	// MVT일 경우에만 필요
+	/**
+	 * MVT일 경우에만 필요
+	 */
 	mvtUrl?: string;
-	// 최소 줌 레벨 - 해당 레벨은 Map Server에서 해당 지도의 실제 줌이 가능한 비율을 확인하고 넣을 것
+	/**
+	 * 최소 줌 레벨 - 해당 레벨은 Map Server에서 해당 지도의 실제 줌이 가능한 비율을 확인하고 넣을 것
+	 */
 	minZoom?: number;
-	// 최대 줌 레벻 - 해당 레벨은 Map Server에서 해당 지도의 실제 줌이 가능한 비율을 확인하고 넣을 것
+	/**
+	 * 최대 줌 레벻 - 해당 레벨은 Map Server에서 해당 지도의 실제 줌이 가능한 비율을 확인하고 넣을 것
+	 */
 	maxZoom?: number;
-	// 육도 공도 벡터에만 쓰이는 것으로 파악
+	/**
+	 * 육도 공도 벡터에만 쓰이는 것으로 파악
+	 */
 	extent?: number[];
 }
 
 // 한번도 경계좌표, 해당 맵이 어디까지 표기가 되는 건지 나타냄.
 const koreaExtent = [13468850, 3748096, 15026241, 5349302];
 
+/**
+ * 로드할 수 있는 각종 지도의 종류 배열.
+ * 지도를 추가하거나 삭제하고자 하는 경우, 아래와 같은 형식으로 배열에 해당 객체를 추가/삭제 할 것.
+ * 기본적으로 아래의 배열에 객체를 추가/삭제함으로써 모든 맵 불러오기/삭제/핸들링등 기능이 자동구현됨.
+ */
 export const mapLayerList: MapLayerListType[] = [
 	{
 		// COP Map, 분홍색으로 뜨는 맵 vector임

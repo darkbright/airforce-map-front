@@ -5,7 +5,11 @@ interface DataGridTitleBoxProps {
 	title?: string;
 }
 
-// DataGrid 사용 시 테이블 제목 설정
+/**
+ * 기존 공군 사이트에서 쓰던 "⃝ 제목" 형태의 제목 전용 Div Element로 원을 따로 그려주지 않아도 된다
+ * @param {DataGridTitleBoxProps} DataGridTitleBoxProps
+ * @returns {JSX.Element} React Component
+ */
 const DataGridTitleBox = ({ title = "현황목록" }: DataGridTitleBoxProps) => {
 	return (
 		<Root>

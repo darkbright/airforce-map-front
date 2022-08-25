@@ -15,7 +15,11 @@ function a11yProps(index: number) {
 		"aria-controls": `vertical-tabpanel-${index}`,
 	};
 }
-
+/**
+ * 화면 맨 오른쪽의 아이콘으로 구성된 Vertical Tab을 Vertical Bar 형태로 구현한 것
+ * @returns {JSX.Element} React Component
+ *
+ */
 const WidgetBar = () => {
 	const [selectedTab, setSelectedTab] = useState(0);
 	const [showWidgetContent, setShowWidgetContent] = useState(false);

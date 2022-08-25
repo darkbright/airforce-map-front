@@ -18,6 +18,16 @@ interface BaseDataGridProps {
 	showToolbar?: boolean;
 }
 
+/**
+ * Naver Toast UI Tui Grid의 기본적인 구현체임.
+ *
+ * 관련 라이브러리에 대해서는 다음을 참고 {@link https://ui.toast.com/tui-grid ToastUI Grid }
+ *
+ * 해당 컴포넌트는 아직 어떻게 쓸지 잡힌 것이 없으므로 추후 설명을 보충할 예정
+ * @param {BaseDataGridProps} BaseDataGridProps
+ * @returns {JSX.Element} React Component
+ */
+
 const BaseDataGrid = ({ showToolbar = true }: BaseDataGridProps) => {
 	// grid styles
 	const { isDark } = useThemeStore();

@@ -1,6 +1,11 @@
 import { styled } from "@mui/material";
 import KoreaAirForceLetterLogo from "../../assets/logos/KoreaAirForceLetterLogo";
 
+/**
+ * 랜딩 페이지의 Footer Component로, "대한민국공군" 레터 로고가 중앙에 붙어있음
+ * @returns {JSX.Element } React Component
+ */
+
 const LandingFooter = () => {
 	return (
 		<Root>
