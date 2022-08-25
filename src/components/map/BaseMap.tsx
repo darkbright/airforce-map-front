@@ -7,7 +7,7 @@ import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
 import SimpleTableOnMap from "../simpleTable/SimpleTableOnMap";
 import { testSymbol } from "../../assets/customSymbols/testSymbol";
-import { PrototypeAllType, usePrototypesAll } from "../../query/prototype";
+import { usePrototypesAll } from "../../query/prototype";
 import { OpenLayersStandardDataTypes } from "../../types/openlayers";
 
 interface BaseMapProps {
@@ -52,7 +52,7 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 
 	// 지도위에 뿌릴 좌표 데이터
 	const [mapData, setMapData] = useState<OpenLayersStandardDataTypes | null>(null);
-	const { data: prototypeData, status } = usePrototypesAll();
+	const { data: prototypeData } = usePrototypesAll();
 
 	const pointStyle = function (feature: any) {
 		const featureId = feature.get("name");
@@ -135,6 +135,7 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 					hitTolerence: 5,
 				},
 			);
+			console.log(feature);
 			if (feature) {
 				setMousePosition({
 					x: event.pixel[0],

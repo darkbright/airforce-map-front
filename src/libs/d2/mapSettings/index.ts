@@ -1,7 +1,7 @@
 import setupMap from "./setupMap";
-import setupMapLayer from "./setupMapLayer";
+import setupOverviewMap from "./setupOverviewMap";
 
 export default async () => {
 	await setupMap();
-	await setupMapLayer();
+	await setupOverviewMap();
 };
