@@ -8,17 +8,23 @@ import { reorder } from "../../utils/reorder";
 import MapListItemOnDrawer from "./MapListItemOnDrawer";
 import SelectMapTypeModal from "./SelectMapTypeModal";
 
-interface MapTypeDrawer {
+interface MapTypeDrawerProps {
 	open: boolean;
 	setOpen: (set: boolean) => void;
 }
 
-// 맵 종류 선택 버튼 클릭 후 오른쪽에 뜨는 Drawer 내 내용 관리임
-// 표시된 맵 리스트는 맨 위에서부터 가장 위에 뜨는 순서로 Stack 됨.
-// DragAndDrop으로 맵의 표시 순서를 변경할 수 있음.
-// onDragEnd 함수를 통해 특정 맵의 위치를 DragAndDrop으로 옮겼을 때 어떠한 일이 벌어져야 하는지를 정의하였음.
-
-const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawer) => {
+/**
+ * 지도 Toolbar에서 배경지도를 선택했을 때 우측에 뜨는 Drawer
+ *
+ * 표시된 맵들은 맨 위에서부터 지도 레이어의 가장 최상단에 위치되는 Stack의 형식임.
+ *
+ * DragAndDrop으로 맵의 표시 순서를 변경할 수 있음.
+ * OnDragEnd함수에서 특정 맵의 위치를 DragAndDrop으로 옮겼을 때 어떠한 일이 벌어져야 하는지를 정의하였음.
+ *
+ * @param {MapTypeDrawerProps} MapTypeDrawerProps
+ * @returns {JSX.Element} React Component(Drawer)
+ */
+const MapTypeDrawer = ({ open, setOpen }: MapTypeDrawerProps) => {
 	const [openSelectMap, setOpenSelectMap] = useState(false);
 
 	const defaultMapList = mapLayerList.filter((m) => m.default === true);

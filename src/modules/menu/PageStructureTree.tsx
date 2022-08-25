@@ -10,7 +10,12 @@ interface PageStructureTreeProps {
 	menu: MenuProps;
 }
 
-// 즐겨찾기 설정 선택 시 로드되는 모달 좌측의 전체 메뉴 구조 트리
+/**
+ * 측 메뉴에서 즐겨찾기 Tab을 누르면 나오는 "즐겨찾기 설정"을 눌렀을 때 나오는 모달인 FaveoritePagesModal을 누르면 좌측에 뜨는 트리임.
+ * 해당 구조는 Recursive하게 되어 있으며, data/constants/menu 의 배열 구조를 그대로 구현함
+ * @param {PageStructureTreeProps } PageStructureTreeProps
+ * @returns {JSX.Element} JSX.Element(div)
+ */
 
 const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 	const { favoritePages, addToFavoritePages } = useFavoritePageStore();

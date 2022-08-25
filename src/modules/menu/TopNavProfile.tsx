@@ -8,7 +8,11 @@ interface TapNavProfileProps {
 	title: string;
 }
 
-// 최상단 NavBar 내 유저 프로필을 확인할 수 있는 모듈
+/**
+ * 화면 최상단의 TopNav에서 우측의 유저의 프로필을 확인할 수 있는 Div
+ * @param {TapNavProfileProps} TapNavProfileProps
+ * @returns {JSX.Element} React Component(div)
+ */
 
 const TopNavProfile = ({ title }: TapNavProfileProps) => {
 	const [anchorOpen, setAnchorOpen] = useState<null | HTMLElement>(null);

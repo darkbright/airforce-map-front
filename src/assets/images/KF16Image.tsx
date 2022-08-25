@@ -6,6 +6,11 @@ interface KF16ImageProp {
 	color?: string;
 }
 
+/**
+ * KF16의 옆모습을 line 형태로 그린 svg 이미지 (공군이 만든 디자인 참고)
+ * @param {KF16ImageProp} KF16ImageProp
+ * @returns {JSX.Element} React Component(SVG)
+ */
 const KF16Image = ({ width = 200, color }: KF16ImageProp) => {
 	const { isDark } = useThemeStore();
 

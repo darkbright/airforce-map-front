@@ -2,7 +2,11 @@ interface AirForceLogoProp {
 	width?: number;
 }
 
-// 공군 심볼 모양
+/**
+ * 공군 심볼 모양으로 그 노란 왕관에 독수리가 날개펴고 옆을 보고 있는 것 같은 모양
+ * @param {AirForceLogoProp} AirForceLogoProp
+ * @returns React Component(SVG)
+ */
 
 const AirForceLogo = ({ width = 40 }: AirForceLogoProp) => {
 	return (

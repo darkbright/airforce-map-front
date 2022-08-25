@@ -2,6 +2,12 @@ import useThemeStore from "../../../stores/useThemeStore";
 import { theme } from "../../../styles/theme";
 import { IconProps } from "../IconProp";
 
+/**
+ * dot 형태의 점선 아이콘 "****" 모양
+ * @param {IconProps} IconProps
+ * @returns {JSX.Element} React Component(SVG)
+ */
+
 const DotLineIcon = ({ width = 22, color }: IconProps) => {
 	const { isDark } = useThemeStore();
 	const chosenColor = color || theme(isDark).palette.text.secondary;

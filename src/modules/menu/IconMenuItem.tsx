@@ -17,7 +17,12 @@ interface IconMenuItemProps {
 	color: string;
 }
 
-// 좌측 메뉴바 개별 메뉴 Display
+/**
+ * components/nav/LeftMenuBar 내에서 개별 메뉴 항목들을 표기해주는 div임.
+ *
+ * @param { IconMenuItemProps}  IconMenuItemProps
+ * @returns {JSX.Element} React Component(div)
+ */
 const IconMenuItem = ({
 	open,
 	iconComponent,

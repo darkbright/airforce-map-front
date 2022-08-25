@@ -8,6 +8,13 @@ interface StatusBoxProps {
 	desc: string;
 }
 
+/**
+ * 위젯 내에서 사용하는 현재 상태(안보지수가 어떻다, 진돗개가 어떻다 등등의 수위)를 표시해주는 div
+ * 추후 사용 여부 결정
+ * @param {StatusBoxProps} StatusBoxProps
+ * @returns {JSX.Element} React Element(div)
+ */
+
 const StatusBox = ({ title, desc, severity }: StatusBoxProps) => {
 	return (
 		<Root>

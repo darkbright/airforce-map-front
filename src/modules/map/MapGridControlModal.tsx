@@ -1,8 +1,6 @@
 import BaseBlockTitleBox from "../../components/box/textBox/BaseBlockTitleBox";
-import BaseButton from "../../components/button/BaseButton";
 import BaseModal from "../../components/modal/BaseModal";
 import { mapGridLayerList } from "../../data/constants/mapGridLayerList";
-import { gridGenerator } from "../../libs/d2/mapSettings/grid/gridGenerator";
 import MapGridLayerItemBox from "./MapGridLayerItemBox";
 
 interface MapGridControlModalProps {
@@ -11,12 +9,13 @@ interface MapGridControlModalProps {
 }
 
 // 지도의 Grid(그리드)를 설정할 수 있도록 하는 모달임.
-
+/**
+ * 지도 Toolbar의 그리드(Grid)를 누르면 나오는 모달
+ *
+ * @param {MapGridControlModalProps} MapGridControlModalProps
+ * @returns {JSX.Element} React Component
+ */
 const MapGridControlModal = ({ open, setOpen }: MapGridControlModalProps) => {
-	const handleOpenGrid = () => {
-		gridGenerator(mapGridLayerList[0]);
-	};
-
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
 			<BaseBlockTitleBox
@@ -26,8 +25,6 @@ const MapGridControlModal = ({ open, setOpen }: MapGridControlModalProps) => {
 			{mapGridLayerList.map((grid) => (
 				<MapGridLayerItemBox key={grid.name} gridLayer={grid} />
 			))}
-
-			<BaseButton title="눌러" onClick={handleOpenGrid} />
 		</BaseModal>
 	);
 };

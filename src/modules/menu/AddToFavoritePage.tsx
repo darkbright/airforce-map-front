@@ -9,6 +9,12 @@ interface AddToFavoritePageProps {
 	isNotMainPage: boolean;
 }
 
+/**
+ * components/nav/BreadCrumbBar에서 사용하는 버튼으로, 화면의 지도 위의 현재 위치 경로 표시 가장 오른쪽의 별표(⭐️)버튼을 핸들링함
+ * @param {AddToFavoritePageProps} AddToFavoritePageProps
+ * @returns {JSX.Element} React Component(button)
+ */
+
 const AddToFavoritePage = ({ location, koreanName, isNotMainPage }: AddToFavoritePageProps) => {
 	const { favoritePages, addToFavoritePages, removeFavoritePage } = useFavoritePageStore();
 	const isFavoritePage = favoritePages.some((p) => p.fullPath === location);

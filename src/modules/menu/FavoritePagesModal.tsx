@@ -14,6 +14,16 @@ interface FavoritePagesModalProps {
 }
 
 // 좌측 즐겨찾기 메뉴의 즐겨찾기 설정을 눌렀을 때 나오는 모달로 즐겨찾기 페이지를 추가/삭제, 정렬할 수 있음
+/**
+ * 좌측 메뉴에서 즐겨찾기 Tab을 누르면 나오는 "즐겨찾기 설정"을 눌렀을 때 나오는 모달임.
+ * 즐겨찾기 페이지를 추가/삭제, 정렬할 수 있음.
+ *
+ * 해당 모달의 우측에 위치한 박스들을 드래그앤드랍으로 순서를 변경할 수 있고
+ * 좌측의 Tree에서 관련된 메뉴를 찾아서 선택할 수 있음.
+ * 이렇게 선택된 리스트는 LocalStorage의 favPage에 저장됨.
+ * @param {FavoritePagesModalProps} FavoritePagesModalProps
+ * @returns {JSX.Element} React Component(modal)
+ */
 
 const FavoritePagesModal = ({ open, setOpen }: FavoritePagesModalProps) => {
 	const { favoritePages, changePageOrder } = useFavoritePageStore();

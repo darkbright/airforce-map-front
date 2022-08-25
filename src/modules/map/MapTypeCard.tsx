@@ -9,6 +9,14 @@ interface MapTypeCardProps {
 	onSelect: () => void;
 }
 
+/**
+ * 지도 Toolbar에서 배경지도를 선택했을 때 우측에 뜨는 Drawer 내 우측 상단에 위치한 "지도 추가" 버튼을 누르면 나오는 SelectMapTypeModal의 개별 지도를 표시해쥬는 Div
+ *
+ * 개별 지도의 이미지와 이름, 타입 등을 data/constants/mapLayerList 에서 불러와 Looping되는 구조임
+ *
+ * @param {MapTypeCardProps}  MapTypeCardProps
+ * @returns {JSX.Element} React Component(div)
+ */
 const MapTypeCard = ({ title, category, imgSrc, onSelect }: MapTypeCardProps) => {
 	const { isDark } = useThemeStore();
 	const { navy, land, airforce } = theme(isDark).palette.armyColor;

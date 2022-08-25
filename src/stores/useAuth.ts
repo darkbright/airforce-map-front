@@ -11,6 +11,10 @@ type UserActions = {
 };
 
 // TO_BE_CHECKED
+/**
+ * Authentication, Authorization의 전역 관리 모듈.
+ * 추후 업데이트 필요
+ */
 
 export const useAuth = create<UserActions>()(
 	persist(

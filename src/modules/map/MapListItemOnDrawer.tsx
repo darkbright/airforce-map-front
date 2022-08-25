@@ -18,6 +18,17 @@ interface MapListItemOnDrawerProps {
 }
 
 // 배경지도 선택하기에서 Drawer에 뜬 개별 지도의 항목들을 컨트롤할 수 있는 Map Card
+/**
+ * 지도 Toolbar에서 배경지도를 선택했을 때 우측에 뜨는 Drawer인 MapTypeDrawer 내에 위치한
+ * 개별 Map 항목에 대한 컨트롤를 할 수 있는 Div 요소임
+ *
+ * - 선택된 맵 레이어의 투명도(opacity) 조절
+ * - 선택된 맵의 display를 할지 말지 토글
+ * - 선택된 맵을 map.layers 배열에서 삭제하여, 해당 맵을 보이지 않게 함
+ * @param {MapListItemOnDrawerProps}  MapListItemOnDrawerProps
+ * @returns {JSX.Element} React Component(div)
+ */
+
 const MapListItemOnDrawer = ({
 	title,
 	layerName,

@@ -10,6 +10,15 @@ interface DraggablePageItemProps {
 	index: number;
 }
 
+/**
+ * 측 메뉴에서 즐겨찾기 Tab을 누르면 나오는 "즐겨찾기 설정"을 눌렀을 때 나오는 모달인 FaveoritePagesModal을 누르면 우측에 뜨는
+ * DragFavoritePagesList의 개별 항목 Div
+ * - 즐겨찾기 항목의 드래그
+ * - 즐겨찾기 항목의 삭제
+ * @param {DraggablePageItemProps } DraggablePageItemProps
+ * @returns {JSX.Element} JSX.Element(div)
+ */
+
 const DraggablePageItem = ({ id, name, deleteItem, index }: DraggablePageItemProps) => {
 	return (
 		<Draggable draggableId={id} index={index}>
@@ -38,7 +47,7 @@ const Root = styled("div")(({ theme }) => ({
 	border: `1px solid ${theme.palette.divider}`,
 	borderRadius: 6,
 	display: "flex",
-	flexDirection: "row",
+	alignItems: "center",
 	justifyContent: "space-between",
 	marginBottom: "8px",
 }));

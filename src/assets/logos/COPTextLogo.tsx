@@ -6,6 +6,14 @@ interface COPTextLogoProp {
 	color?: string;
 }
 
+/**
+ * 커스텀 제작한 상황도 로고로, 추후 디자인에 따라 변경할 수도 있겠음
+ *
+ * "AFCCS 상황도" 이렇게 적혀있는 모양임
+ * @param {COPTextLogoProp} COPTextLogoProp
+ * @returns React Component(SVG)
+ */
+
 const COPTextLogo = ({ width = 110, color }: COPTextLogoProp) => {
 	const { isDark } = useThemeStore();
 	const defaultColor = color || theme(isDark).palette.text.primary;

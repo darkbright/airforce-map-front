@@ -72,7 +72,18 @@ const lineType: LineTypeType[] = [
 	},
 ];
 
-// 그리드 설정 내 개별 그리드에 대한 선 색상, 선 굵기, 선 종류 등을 선택할 수 있도록 하는 패널
+/**
+ * Map ToolBar애서 그리드를 누르면 나오는 MapGridControlModal 내 개별 그리드 항목을 컨트롤 하는 Div Element
+ *
+ * - 개별 그리드의 추가 및 삭제
+ * - 생성된 그리드의 선 색상 변경
+ * - 생성된 그리드의 선 굵기 변경
+ * - 생성된 그리드의 선의 종류(점선, 일반선, dash-dot 등등) 변경
+ * - 생성된 그리드의 라벨(좌표 등 관련 정보가 그리드 위에 뜸) 표시 유무 설정
+ *
+ * @param {MapGridLayerItemBoxProps}  MapGridLayerItemBoxProps
+ * @returns {JSX.Element} React Component
+ */
 const MapGridLayerItemBox = ({ gridLayer }: MapGridLayerItemBoxProps) => {
 	const [layerAdded, setLayerAdded] = useState(isGridOnMap(gridLayer));
 	const [dropdownOpen, setDropdownOpen] = useState(false);

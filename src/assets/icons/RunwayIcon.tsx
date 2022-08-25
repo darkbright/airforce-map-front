@@ -2,6 +2,11 @@ import useThemeStore from "../../stores/useThemeStore";
 import { theme } from "../../styles/theme";
 import { IconProps } from "./IconProp";
 
+/**
+ * 활주로 모양 또는 도로 모양의 공군 아이콘 (공군이 만든 디자인 참고)
+ * @param {IconProps} IconProps
+ * @returns {JSX.Element} React Component(SVG)
+ */
 const RunwayIcon = ({ width = 20, color }: IconProps) => {
 	const { isDark } = useThemeStore();
 	const chosenColor = color || theme(isDark).palette.text.secondary;

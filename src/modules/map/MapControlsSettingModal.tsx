@@ -20,15 +20,23 @@ import {
 	showZoomControl,
 } from "../../libs/d2/mapSettings/controls/zoom";
 
-interface MapControlsSettingModal {
+interface MapControlsSettingModaPropsl {
 	open: boolean;
 	setOpen: () => void;
 }
 
-const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModal) => {
-	/*
-     Mouse Controls - 좌측하단 마우스 커서 위치에 따른 좌표 표시 설정 
-     */
+/**
+ * 지도 ToolBard의 지도설정을 클릭하면 나오는 모달
+ *
+ * - 마우스 움직임에 따른 좌표 표시 핸들러
+ * - 줌 인아웃 표기 핸들러
+ * - 스케일(축적) 표시 여부 핸들러
+ * @param { MapControlsSettingModaPropsl} MapControlsSettingModaPropsl
+ * @returns {JSX.Element} React Component
+ */
+
+const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModaPropsl) => {
+	// Mouse Controls - 좌측하단 마우스 커서 위치에 따른 좌표 표시 설정
 	const [mouseControlChecked, setMouseControlChecked] = useState(isMouseControlOn() || true);
 	const [controlEl, setControlEl] = useState({
 		geo: true,

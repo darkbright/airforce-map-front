@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import BaseButton from "../../components/button/BaseButton";
 import BaseModal from "../../components/modal/BaseModal";
 
-interface YesNoSelectionModal {
+interface YesNoSelectionModalProps {
 	open: boolean;
 	setOpen: (value: boolean) => void;
 	title: string;
@@ -11,6 +11,12 @@ interface YesNoSelectionModal {
 	onNo: () => void;
 }
 
+/**
+ * 모달 중 "정말로 그렇게 하시겠습니까?"류에 사용할 수 있는 예/아니오를 선택할 수 있도록 고안된 모달
+ * @param {YesNoSelectionModalProps} YesNoSelectionModalProps
+ * @returns {JSX.Element} React Component(Modal)
+ */
+
 const YesNoSelectionModal = ({
 	open,
 	setOpen,
@@ -18,7 +24,7 @@ const YesNoSelectionModal = ({
 	question,
 	onYes,
 	onNo,
-}: YesNoSelectionModal) => {
+}: YesNoSelectionModalProps) => {
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
 			<Typography gutterBottom variant="h5" sx={{ mb: 2 }}>
