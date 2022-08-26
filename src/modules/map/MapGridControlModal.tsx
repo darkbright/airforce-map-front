@@ -8,12 +8,11 @@ interface MapGridControlModalProps {
 	setOpen: () => void;
 }
 
-// 지도의 Grid(그리드)를 설정할 수 있도록 하는 모달임.
 /**
  * 지도 Toolbar의 그리드(Grid)를 누르면 나오는 모달
  *
  * @param {MapGridControlModalProps} MapGridControlModalProps
- * @returns {JSX.Element} React Component
+ * @returns {JSX.Element} React Component(modal)
  */
 const MapGridControlModal = ({ open, setOpen }: MapGridControlModalProps) => {
 	return (

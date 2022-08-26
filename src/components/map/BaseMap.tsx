@@ -180,6 +180,7 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 			{loading && <Loading />}
 			<div style={{ width: "100%" }}>
 				<MapToolbar />
+
 				<div
 					id="map"
 					className="map"
