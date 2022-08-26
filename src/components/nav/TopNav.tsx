@@ -1,5 +1,5 @@
 import { AppBar, Box, Toolbar } from "@mui/material";
-import COPTextLogo from "../../assets/logos/COPTextLogo";
+import COPTextLogoProposal1 from "../../assets/logos/COPTextLogoProposal1";
 import ToggleDarkMode from "../mode/ToggleDarkMode";
 import { useAuth } from "../../stores/useAuth";
 import TopNavProfile from "../../modules/menu/TopNavProfile";
@@ -27,7 +27,7 @@ const TopNav = () => {
 			>
 				<Toolbar>
 					<Link to="/index">
-						<COPTextLogo />
+						<COPTextLogoProposal1 hasIcon />
 					</Link>
 					<Box sx={{ flexGrow: 1 }} />
 					<TopNavProfile title={`${authUser?.name} ${authUser?.position}님`} />
