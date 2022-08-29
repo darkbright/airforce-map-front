@@ -1,0 +1,12 @@
+{
+    "tsconfig": "tsconfig.json",
+    "entryPointStrategy": "Expand",
+    "emit": "both",
+    "includeVersion": true,
+    "entryPoints": [
+        [
+            "src"
+        ]
+    ],
+    "out": "docs"
+}

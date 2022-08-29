@@ -1,0 +1,577 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>airforce-map-front - v0.1.0</title><meta name="description" content="Documentation for airforce-map-front - v0.1.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">airforce-map-front - v0.1.0</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>airforce-map-front - v0.1.0</h2></div>
+<div class="tsd-panel tsd-typography"><p><img src="./public/logo192.png" alt="logo"></p>
+
+<a href="#공군-상황도-시스템-frontend" id="공군-상황도-시스템-frontend" style="color: inherit; text-decoration: none;">
+  <h1>공군 상황도 시스템 FrontEnd</h1>
+</a>
+<br>
+<br>
+
+<blockquote>
+<p>본 문서를 편하게 보시려면, <code>VsCode</code> 좌측 패널의 디렉터리에서 본 파일명을 우클릭하시고
+<code>Open Preview</code> 버튼을 눌러 보시길 바랍니다.</p>
+</blockquote>
+<br>
+<br>
+
+<hr>
+
+<a href="#개발환경세팅" id="개발환경세팅" style="color: inherit; text-decoration: none;">
+  <h2>개발환경세팅</h2>
+</a>
+<br>
+<br>
+
+<blockquote>
+<p>본 세팅에서는 윈도우즈 10만을 다룹니다.</p>
+</blockquote>
+<br>
+<br>
+
+
+<a href="#준비물" id="준비물" style="color: inherit; text-decoration: none;">
+  <h3>준비물</h3>
+</a>
+<ol>
+<li>필수</li>
+</ol>
+<ul>
+<li>소스코드(폴더명 Airforce-map-front)</li>
+<li>node.js 설치파일</li>
+<li>yarn 설치파일</li>
+<li>VsCode(Visual Studio Code) 설치파일</li>
+<li>VsCode Extensions (EsLint, Prettier)</li>
+<li>Chrome 브라우저</li>
+</ul>
+<ol start="2">
+<li>옵션</li>
+</ol>
+<ul>
+<li>VsCode Extensions (기타 프로그램들 - 아래에서 설명)</li>
+<li>Chrome 브라우저 확장 프로그램 (React Developer Tools)</li>
+</ul>
+<br>
+<br>
+
+<br>
+<br>
+
+<ol>
+<li>node.js 설치</li>
+</ol>
+<p>먼저 node.js 버전 v16 이상을 설치해주세요. (다운로드 파일은 Nas에서 획득하시기 바랍니다.) node.js가 잘 설치되었는지 확인하시려면 Windows Powershell 또는 cmd을 켜시고 다음과 같이 입력하시길 바랍니다.</p>
+<pre><code><span class="hl-0">  </span><span class="hl-1">node</span><span class="hl-0"> --</span><span class="hl-1">version</span>
+</code></pre>
+<p>아울러 node가 설치되어 있다면 node의 패키지 매니저인 <code>npm</code> 역시 설치되어 있어야 합니다. <code>npm</code>은 node.js가 설치되면 함께 설치됩니다. 잘 설치되었는지 버전을 확인해보세요.</p>
+<pre><code><span class="hl-0">  </span><span class="hl-1">npm</span><span class="hl-0"> --</span><span class="hl-1">version</span>
+</code></pre>
+<br>
+<br>
+
+<ol start="2">
+<li>yarn 설치</li>
+</ol>
+<p>yarn은 NPM 대신 사용할 node/자바스크립트 패키지 매니저입니다. yarn은 npm 대비 속도 및 보안성에서 더 우수하기 때문에 본 프로젝트에서는 yarn을 사용합니다. Nas에서 Yarn 설치 파일을 획득해주세요. 설치 파일을 실행하여 설치해주세요. 상기와 동일하게 yarn이 잘 깔렸는지 powershell 또는 cmd에서 yarn의 버전을 확인해주세요.</p>
+<pre><code><span class="hl-0">  </span><span class="hl-1">yarn</span><span class="hl-0"> --</span><span class="hl-1">version</span>
+</code></pre>
+<br>
+<br>
+
+<ol start="3">
+<li>VsCode 설치</li>
+</ol>
+<p>본 프로젝트에서는 IDE로 Visual Studio Code를 사용합니다. Nas에서 VsCode 설치 파일을 다운받아주세요.</p>
+<br>
+<br>
+
+<ol start="4">
+<li>VsCode Extension 설치</li>
+</ol>
+<p>Nas에서 <code>EsLint</code> 및 <code>Prettier</code>을 다운받으신 후 <strong>*</strong> 폴더에 붙여 넣으세요. 설치가 되었다면 Vscode를 켜시고 좌측 패널에서 큐빅 모양으로 생긴 아이콘(아마도 위에서부터 5번째에 위치)를 누르시면 INSTALLED에 해당 Extension이 설치되어 있을 것입니다.
+<br>
+본 외로 다음과 같은 Extension을 추가로 설치하실 수도 있습니다. 필요하시다면 폴더에 넣어주시면 됩니다.</p>
+<ul>
+<li>colorize : 소스코드에서 CSS 등 색상을 선택하실 때 그 색상 자체를 소스코드 내에서 hex/rgba 코드가 아닌 실제 색상을 보여줌. 컬러피커가 열려 코드 내에서 색상을 자유롭게 변경할 수 있음.</li>
+<li>atom one dark theme: vscode 테마 중 하나로, 기본 테마가 싫으시다면 실행</li>
+<li>eslint: 하기에서 상세히 설명. Javascript/Typescript Linter</li>
+<li>prettier: 하기에서 상세히 설명. 코드 저장 시 예쁘게 자동 정렬됨</li>
+<li>ES7_React/Redux/React-native snippets: React 관련 신규 파일 생성 시 default로 사용해야 하는 코드를 자동으로 생성해주어 귀찮게 똑같은 코드를 입력하는 것을 방지해줌</li>
+<li>Live Server: d2 Map Sample을 보시고자 하시는 분들에게 해당함.</li>
+<li>Material Icon Theme: 디렉토리 트리에서 각 파일 확장명에 맞는 해당 언어/파일의 로고를 보여주어 보다 빨리 파일을 찾을 수 있음.</li>
+</ul>
+<br>
+<br>
+
+<ol start="5">
+<li>소스코드 파일 실행</li>
+</ol>
+<p>먼저 소스코드를 적당한 디렉토리에 다운 받으신 후, 그 위치를 Powershell 또는 cmd로 열어주세요. 그런 뒤 다음과 같이 입력합니다.</p>
+<pre><code><span class="hl-1">code</span><span class="hl-0"> .</span>
+</code></pre>
+<p>상기 명령어는 VsCode를 여는 명령어입니다.</p>
+<p>VsCode 좌측 맨 위 문서모양 아이콘을 클릭하여 디렉토리가 제대로 나타나는지 확인하세요. <code>AIRFORCE_MAP_FRONT</code>가 폴더 명이고 node_modules, public, src 등 폴더가 보여야 정상적으로 진입한 것입니다.
+<br>
+이제 VsCode의 상단 메뉴바에서 Terminal을 클릭하시고 New Terminal을 클릭하세요. IDE 하단에 Terminal 패널이 열립니다. Terminal 패널에 다음과 같이 입력하세요.</p>
+<pre><code><span class="hl-1">yarn</span><span class="hl-0"> </span><span class="hl-1">start</span>
+</code></pre>
+<p>구동이 시작되고 자주 사용하는 브라우저에 <code>localhost:3000</code>에 프로젝트가 열립니다. 원활한 디버깅을 위하여 Chrome으로 여는 것을 추천 드립니다.
+만약 3000번 포트를 사용 중이어서 에러가 뜨거나 특정 이유로 포트를 변경하고자 하시는 경우, 다음과 같이 합니다.<br>
+우선 프로젝트를 중단해주세요. 프로젝트를 중단하시려면 터미널 활성화(마우스 커서가 깜빡이도록 클릭 한번 ) 후 <code>ctrl</code> + <code>c</code>를 입력합니다. 프로젝트가 종료됩니다.</p>
+<p>root 폴더에서 <code>package.json</code> 파일을 열어주세요. 그리고 다음과 같이 &quot;scripts&quot;의 내용을 고쳐주세요.</p>
+<pre><code><span class="hl-2">&quot;scripts&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">  </span><span class="hl-2">&quot;start&quot;</span><span class="hl-1">:</span><span class="hl-0"> </span><span class="hl-2">&quot;set PORT=3001 &amp;&amp; react-scripts start&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  ...</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>저장 후 <code>yarn start</code>를 다시 해보세요. 해당 포트에서 프로젝트가 열립니다.</p>
+<br>
+<br>
+
+<hr>
+
+<a href="#디렉터리-구조" id="디렉터리-구조" style="color: inherit; text-decoration: none;">
+  <h2>디렉터리 구조</h2>
+</a>
+<p>React로 작성된 현 프로젝트는 일반적인 React 프로젝트의 디렉토리 구조와 유사합니다. 크게 보면 <code>public</code>, <code>src</code> 및 설정 파일들로 구성되어 있으며, 아래의 내용과 같이 정리됩니다.
+<br>
+<br></p>
+<p><img src="./documents/img/projectTree.jpg" alt="projectTree"></p>
+<br>
+<br>
+
+<ol>
+<li><code>public</code> Directory</li>
+</ol>
+<ul>
+<li>React에서 따로 빌드를 거치지 않는 Static한 파일들을 담고 있습니다.</li>
+<li>일반적인 웹사이트가 렌더링되기 위하여 필요한 <code>index.html</code>파일이 본 프로젝트의 시작 파일이며 전체 자바스크립트 모듈을 로드하기 위한 <code> &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</code>가 핵심이 되는 태그입니다.</li>
+<li>이 외 파비콘 및 추후 <code>Progressive Web App</code>을 구축하거나 브라우저에서 보다 본 프로젝트를 잘 이해하기 할 수 있도록 도움을 주는 <code>manifest.json</code>, 외부망인 경우 서치엔진이 프로젝트를 Indexing하는 설정 값인 <code>Robots.txt</code>(본 프로젝트에서는 당연히 사용하지 않습니다) 등이 포함되어 있습니다.<br>
+<br></li>
+</ul>
+<ol start="2">
+<li><code>src</code> Directory</li>
+</ol>
+<ul>
+<li>이 부분은 아래에서 별도로 설명드리겠습니다.<br>
+<br></li>
+</ul>
+<ol start="3">
+<li><code>package.json</code> File</li>
+</ol>
+<ul>
+<li><code>package.json</code>은 <code>node_modules</code> 관리 및 쉘스크립트 명령어 단축키, 버전 등 프로젝트 전반 정보 관리를 할 수 있도록 하는 파일로, <code>nodejs</code>를 사용하는 모든 프로젝트들은 해당 파일을 반드시 필요로 합니다. 해당 파일에 대한 상세한 설명을 인터넷을 참조하시길 바랍니다.</li>
+<li><code>node_modules</code>에 포함될 다양한 library들의 설치 여부는 <code>dependencies</code> 항목에서 그 리스트를 찾아볼 수 있습니다.<br>
+<br></li>
+</ul>
+<ol start="4">
+<li><code>.eslintrc.json</code> File</li>
+</ol>
+<ul>
+<li><code>Eslint</code>는 Javascript 및 Typescript 의 문법적 오류 및 문법 컨벤션 등을 <code>VsCode</code> 내에서 사전에 감지할 수 있는 라이브러리로, <code>Java</code>를 포함한 컴파일 언어들의 IDE들이 파일 작성 중에 오류를 확인할 수 있는 것과 유사한 효과를 낼 수 있습니다.</li>
+<li>또한 <code>Eslint</code>는 ES6 이후 보다 엄격해진 Javascript의 문법을 최대한 반영하여 예컨대 <code>var</code>과 같이 전역으로 쓰이며 Scope Hoisting을 일으키거나 클로저에 혼란을 가할 수 있는 변수를 사용하지 못하게 사전에 차단함에 따라 보다 견고한 프로젝트를 만드는데 도움을 줍니다.</li>
+<li>또한 코딩 스타일(줄간격, Indentation, Destructuring, arrow Function style....등)을 통일할 수 있어 다수의 개발자들이 한 사람이 쓴 것처럼 깔끔한 코드를 구현할 수 있게 도움을 줍니다.</li>
+<li>해당 파일은 Linter의 설정 값을 정의한 파일입니다.<br>
+<br></li>
+</ul>
+<ol start="5">
+<li><code>prettierrc</code> File</li>
+</ol>
+<ul>
+<li><code>Eslint</code>와 함께 짝을 이루는 <code>VsCode</code> 전용 줄맞춤, 띄워쓰기 등을 도와주는 <code>Prettier</code>의 스펙을 정의한 파일입니다. <code>Prettier</code>가 있음으로 인해 어지럽게 작성된 코드도 파일 저장을 하는 순간 모조리 예쁘게 정렬됩니다.<br>
+<br></li>
+</ul>
+<ol start="6">
+<li><code>.gitignore</code> File</li>
+</ol>
+<ul>
+<li>깃허브, 깃랩 등 깃 관리 도구에 프로젝트를 등록하는 경우, 민감한 정보 내지는 용량이 너무 큰 파일들을 <strong>제외</strong> 시켜 보다 효율적으로 Git을 관리할 수 있도록 하는 파일입니다.</li>
+<li>본 프로젝트 개발 기간 동안 우리는 폐쇄망에서 깃랩을 활용하여 버전관리를 하고 있습니다. 필요 시 해당 깃랩을 유지보수팀에서도 사용하실 수 있겠습니다.</li>
+<li>해당 파일은 어떤 것을 제외시킬지 규정한 파일입니다. 이 파일은 자바스크립트 뿐만 아니라 어느 언어에도 동일하게 적용되는 파일 형식입니다.<br>
+<br></li>
+</ul>
+<ol start="7">
+<li><code>tsconfig.json</code> File</li>
+</ol>
+<ul>
+<li><code>Typescript</code> 정의 파일입니다.<br>
+<br></li>
+</ul>
+<ol start="8">
+<li><code>Yarn.lock</code> File</li>
+</ol>
+<ul>
+<li>우리 프로젝트는 Package 관리 도구로 <code>npm</code> 대신 <code>yarn</code>을 사용하고 있습니다.</li>
+<li>해당 파일은 설치된 Package 로그로 deploy, clone 후 <code>yarn install</code> 등에 반드시 필요하므로 절대 건드리면 안됩니다.</li>
+</ul>
+<br>
+<br>
+
+<hr>
+
+<a href="#src-directory-설명" id="src-directory-설명" style="color: inherit; text-decoration: none;">
+  <h2>SRC Directory 설명</h2>
+</a>
+<ol>
+<li><code>index.tsx</code> File</li>
+</ol>
+<ul>
+<li>아래의 코드와 같이 <code>id</code>값 <code>root</code>를 찾은 뒤(<code>public/index.html</code>에 정의된 것과 같이) 전체 코드를 <code>root</code>에 담는 역할을 하는 시작 파일입니다.</li>
+</ul>
+<pre><code><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">root</span><span class="hl-0"> = </span><span class="hl-1">ReactDOM</span><span class="hl-0">.</span><span class="hl-5">createRoot</span><span class="hl-0">(</span><span class="hl-1">document</span><span class="hl-0">.</span><span class="hl-5">getElementById</span><span class="hl-0">(</span><span class="hl-2">&quot;root&quot;</span><span class="hl-0">) </span><span class="hl-6">as</span><span class="hl-0"> </span><span class="hl-7">HTMLElement</span><span class="hl-0">);</span>
+</code></pre>
+<br>
+<br>
+
+<ol start="2">
+<li><code>App.tsx</code> File</li>
+</ol>
+<ul>
+<li><code>index.tsx</code>에 정의된 <code>&lt;App /&gt;</code>이 정의된 파일입니다.</li>
+<li>본 프로젝트의 실질적인 시작 파일입니다.<br>
+<br></li>
+</ul>
+<ol start="3">
+<li><code>assets</code> Directory</li>
+</ol>
+<ul>
+<li>각종 자원이 되는 파일들을 담고 있습니다.</li>
+<li>본 프로젝트에서는 각종 <code>svg</code>, <code>png</code>, <code>jpg/jpeg</code> 등의 파일을 저장해 두었습니다.</li>
+<li>주로 프로젝트 로고, 메뉴나 내비게이션, 각종 툴바에 담긴 아이콘들, 지도와 관련된 부호 등이 저장되어 있으니 필요한 파일을 꺼내다가 붙여 넣으면 됩니다.<br>
+<br></li>
+</ul>
+<ol start="4">
+<li><code>components</code> Directory</li>
+</ol>
+<ul>
+<li>각종 <code>UI</code> 요소들을 사전에 정의하여 조립할 수 있게 만들어놓은 요소 모음입니다.</li>
+<li>이는 <code>UI</code>의 스타일 및 <code>props</code>들을 <code>components</code>외에서 사용할 수 있도록 그 <code>원형</code>을 구조화해놓은 형식으로, 전형적인 React 프로젝트의 개발 구조를 따르는 것입니다.</li>
+<li>이런 식의 개발은 각종 요소들을 미리 정의하고, 이 것들을 Page 등에서 가져다 쓰는 구조이므로 전체 프로젝트의 스타일 및 사용 함수들을 통일할 수 있고, Publisher를 별도로 필요로 하지 않게 됩니다.</li>
+<li><code>components</code>에서 가져다가 <code>modules</code>에서 조립된 <code>UI</code> 덩어리는 <code>Pages</code>에서 최종 구현됩니다.<br>
+<br></li>
+</ul>
+<ol start="5">
+<li><code>data</code> Directory</li>
+</ol>
+<ul>
+<li>하드코딩이 필요한 데이터, 미리 정의해둔 배열 등이 정리된 파일 폴더입니다.</li>
+<li>메뉴 리스트, 지도 레이어 리스트, 지도 그리드 리스트 등 각종 데이터들이 정리되어 있습니다. 추후 메뉴를 추가하시거나, 지도 레이어 등을 추가/삭제하고자 하시는 경우 해당 파일만 정리해주시면 전체 구현이 자동으로 구현되므로 해당 디렉토리를 유심히 확인해 주시길 바랍니다.<br>
+<br></li>
+</ul>
+<ol start="6">
+<li><code>libs</code> Directory</li>
+</ol>
+<ul>
+<li><code>D2 Map Library</code> 또는 <code>Openlayers</code>와 관련된, 즉 지도 모듈의 구현과 관련된 각종 구동 함수 및 구현 함수들이 포함되어 있는 파일 모음입니다.<br>
+<br></li>
+</ul>
+<ol start="7">
+<li><code>modules</code> Directory</li>
+</ol>
+<ul>
+<li><code>components</code>에서 필요한 <code>UI elements</code>를 가져와 <code>modules</code>에서 보다 상세히 구현합니다(이는 반드시 그래야 하는 것이 아니라 본 프로젝트에서 정의한 코딩 규칙의 일환입니다. 결국 모든 내용들은 <code>Pages</code>의 형식으로 뭉쳐지게 되는데, 모든 내용을 <code>Page</code>에 한번에 담으면 파일이 너무 복잡하고 지저분해지기 때문입니다.). <code>modules</code>는 원형이 아닌 특정한 목적으로 특정한 페이지를 구현하기 위한 <strong>semi-built</strong>된 조합물이므로, 특정한 1개의 목적을 위하여 만들어집니다.</li>
+<li>예컨대, 지도에서 구현할 Grid 요소를 불러오는 <code>Popup</code>(여기서는 <code>Modal</code>이라고 칭함)을 하기 위해서는 <code>components</code> 내에서 <code>modal</code>요소, <code>button</code> 요소, <code>form</code> 요소 등을 가져와 <code>modules/map/MapGridControlModal.tsx</code>파일에 조립하여 붙여넣게 됩니다. 해당 파일은 단 한가지의 목적인 Grid의 요소를 불러오는 <code>Popup</code>의 역할을 위하여 만들어졌기 때문에, 다른 곳에서 다용도로 사용할 수 없습니다.</li>
+</ul>
+<br>
+<br>
+
+<ol start="8">
+<li><code>pages</code> Directory</li>
+</ol>
+<ul>
+<li><code>pages</code>라고 정의하였지만, 기본적인 React의 컨셉은 <code>Single Page Application</code>, 약자로 SPA의 형식을 따릅니다. React와 더불어 <code>Vue</code>, <code>Angular</code>등도 SPA의 일환입니다.</li>
+<li>따라서 React에는 별도의 <code>Page</code>라는 개념은 없고, 전체 <code>Application</code>이 단 하나의 <code>Page</code>로 구성되어 있는 셈입니다. 말하자면 이는 일반적인 비웹개발의 구현과 비슷합니다.</li>
+<li>SPA에 대한 상세한 설명은 인터넷을 찾아보시면 되나, 간략히 설명드리면 SPA를 구현함으로써 반복적으로 생산해야내는 유사한 류의 <code>html</code>페이지들, 자바인 경우 <code>jsp</code>페이지들의 어지러운 나열이 사라지고, 신규 페이지를 로드할 때마다 Network에서 rendered html을 가져오는 일을 줄이게 됩니다. 왜냐하면 SPA는 첫 구동 시 단 한번만 모든 코드를 불러오면 끝이기 때문입니다.</li>
+<li>따라서 여기서 말하는 <code>Page</code>란 일반적인 개념 하에서의 단독 url을 갖는 1개의 html 덩어리를 의미하는 것이 아니라, 특정 url 진입 시 <strong>보여줄</strong> 특정한 요소를 의미하게 됩니다.</li>
+<li>정리하면 특정 url 진입 시, 그 url에 매칭되는 React 요소를 찾아서 (<code>React-router-dom</code>에서 처리), 그 요소를 보여주는 개념이라고 생각할 수 있겠습니다.</li>
+<li>따라서 <code>index.html</code> 내의 <code>id=&quot;root&quot;</code>는 <code>src/index.tsx</code>의 <code>root</code>가 되며, 이 <code>root</code>는 <code>src/App.tsx</code>의 <code>&lt;App /&gt;</code>으로 대표되며, <code>&lt;App/&gt;</code>에는 <code>&lt;Router&gt;</code>를 통한 url별 요소들 보여주기의 구조로 뿌리로부터 점차 가지를 펼쳐나가는 전형적인 <code>tree</code>구조라고 이해하실 수 있겠습니다.</li>
+<li><code>pages</code> 정의된 개별 파일들은 <code>&lt;Router /&gt;</code>에서 조건에 따라 화면에 표시될지 여부가 결정됩니다.</li>
+</ul>
+<br>
+<br>
+
+<ol start="9">
+<li><code>query</code> Directory</li>
+</ol>
+<ul>
+<li><code>Backend</code>와 통신할 <code>API</code> 목록을 정의하고, <code>React-query</code>를 통하여 화면에 뿌리거나, 생성/업데이트 해줄 데이터를 핸들링하게 됩니다.</li>
+</ul>
+<br>
+<br>
+
+<ol start="10">
+<li><code>routes</code> Directory</li>
+</ol>
+<ul>
+<li><code>Pages</code>에서 정의된 파일들을 어떠한 조건 하에서 불러오게 할 것인지가 정의된 디렉토리입니다.</li>
+<li><code>React-router-dom</code>을 이용하여, <code>Authentication</code>, 페이지별 <code>Authorization</code> 등을 모두 정의합니다.</li>
+<li>크게보면 라우팅 전략은 로그인/비로그인, 권한있음/권한없음, url 매칭 여부 등에 따라 분기하게 되는데, 이러한 구조를 모두 따르고 있습니다.</li>
+<li>한편, 상기한 8번 항목에서 설명한 바와 같이, 페이지라는 것은 원래 따로 존재하는 것이 아니라 단 한개의 페이지 즉, SPA라는 개념을 응용하면, 모든 페이지에서 보여줄 요소와 조건부로 보여줄 요소를 구분하여 코딩할 수 있게 됩니다. 이렇게 모든 페이지 내지는 특정 페이지의 묶음에서 공통적으로 보여줄 요소(예를 들면 메뉴나 Header, Footer와 같은 류)들은 <code>&lt;Outlet /&gt;</code>이라는 개념을 통해 구현됩니다. 해당 내용의 상세한 설명은 인터넷에서 <code>React-router-dom v6</code>를 살펴보시길 바랍니다.</li>
+</ul>
+<br>
+<br>
+
+<ol start="11">
+<li><code>stores</code> Directory</li>
+</ol>
+<ul>
+<li>해당 디렉토리는 전체 프로젝트의 전역변수를 관리하기 위한 디렉토리입니다.</li>
+<li>전역으로 사용된다고 하는 것은 크게 다음과 같이 나눌 수 있습니다.<ol>
+<li>페이지를 여기저기 이동하여도, 다량의 component들을 이곳 저곳에서 사용하여도, 특정한 값이 일관적으로 유지되어야 함.</li>
+<li>브라우저에서 해당 프로젝트를 껐다 키거나, 새로고침을 하여도 특정한 값이 일관적으로 유지되어야 함.</li>
+</ol>
+</li>
+<li>전통적으로 React에서는 <code>Redux</code>를 사용하였으나, 여기서는 보다 간편하게 전역관리를 도와줄 <code>Zustand</code>를 사용합니다.</li>
+<li>상기의 1번의 경우, 로그인과 같은 경우가 해당됩니다. <code>useAuth</code>파일을 참고해보세요.</li>
+<li>상기의 2번의 경우, 프로젝트의 스타일 중 다크모드/라이트모드, 즐겨찾기 페이지 등이 해당됩니다. 사이트를 종료한 후 다시 켰을 때 유저가 설정해둔 값은 유지가 되어야 합니다. 이러한 경우 굳이 DB까지 거치지 않더라도, 브라우저의 LocalStorage 내 그닥 중요하지 않은 간단한 정보를 저장해 둘 수 있습니다. <code>useThemeStore</code>나 <code>useFavoritePageStore</code>파일을 참고해보세요.</li>
+</ul>
+<br>
+<br>
+
+<ol start="12">
+<li><code>styles</code> Directory</li>
+</ol>
+<ul>
+<li>일반적인 방식의 <code>css</code>를 활용하여 전체 프로젝트 스타일링을 관리할 수도 있지만, 프로그래밍틱하게 css를 제어하는 것이 여간 번거로운 일이 아닙니다. 그리하여 css 자체를 자바스크립트로 생성하고 컨트롤하는 방식의 <code>css-in-js</code>와 같은 방식이 널리 퍼지게 되었고, 본 프로젝트는 그와 유사한 <code>material-ui</code>의 styling 방식을 이용합니다. 더 구체적으로는 <code>styled-components</code>와 매우 유사한 방식입니다.</li>
+<li><code>material-ui</code>(줄여서 <code>MUI</code>)란, 구글에서 고안한 <code>Material-design</code>의 원칙에 기반하여 제작된 UI 라이브러리로, React 전용입니다. 마치 옛날에 많이 쓰였던 부트스트랩 등과 유사하지만 <code>jQuery</code>가 아닌 React를 위한 디자인 component로 이해해야 합니다. (논외로, React나 vue 등을 사용하는 경우 jQuery는 사용하지 않아야 합니다. 혼합하는 경우 DOM에 더 많은 혼란을 줍니다.)</li>
+<li><code>theme.ts</code> 파일이 기본적인 규격을 정의한 파일입니다. 해당 파일 + MUI 규격이 합쳐저 전체 디자인 기본 요소가 되며, <code>components</code> 디렉토리에서 정의된 각각의 UI 요소들에 본 프로젝트를 위한 스타일링이 더해집니다.</li>
+<li>그러나, 외부 라이브러리 또는 D2 제작 지도 속성 등은 기존에 쓰인 CSS를 그대로 따라야 하므로 필요 시 CSS를 추가하거나 수정하여 사용할 수 있도록 css 파일도 구성되어 있습니다.</li>
+</ul>
+<br>
+<br>
+13. `types` Directory
+
+<ul>
+<li>타입스크립트 전용 타입들을 적어놓은 디렉토리입니다.</li>
+<li>타입스크립트는 자바스크립트의 고질적인 단점인 명시된 <code>형</code> 또는 <code>Type</code>이 없음에 착안하여 마이크로소프트에서 개발한 자바스크립트 상위 호환 언어입니다. 현재 이 글을 보시고 계시는 VsCode도 타입스크립트로 만들엇습니다.</li>
+<li>따라서 필요로 하는 type들을 정리해 둔 파일들입니다.</li>
+</ul>
+<br>
+<br>
+
+<ol start="14">
+<li><code>utils</code> Directory</li>
+</ol>
+<ul>
+<li>자주 사용되는 유용한 함수들을 모아둔 디렉토리입니다.</li>
+<li><code>consonant</code>와 같은 경우, 한글 받침의 여부에 따라 &quot;을를&quot; 등과 같이 조사가 바뀌는 것을 자동으로 감지해주는 기능입니다.</li>
+<li><code>coordConversion</code>의 경우 Database에서 받은 좌표 형식을 경위도 형식으로 뱉어줍니다.</li>
+<li><code>reorder</code>은 배열의 순서를 바꿀 때 사용합니다</li>
+<li><code>time</code>은 다양한 형식의 날짜시간관련 내용을 원하는 방식으로 바꿔 출력해주는 함수입니다.</li>
+</ul>
+<br>
+<br>
+
+<br>
+<br>
+
+
+<a href="#할-일-중-해소해야-할-것을-적어놓은-주석-시작-문구" id="할-일-중-해소해야-할-것을-적어놓은-주석-시작-문구" style="color: inherit; text-decoration: none;">
+  <h2>할 일 중 해소해야 할 것을 적어놓은 주석 시작 문구</h2>
+</a>
+<p><code>TO_BE_CHECKED</code></p>
+
+<a href="#acronyms" id="acronyms" style="color: inherit; text-decoration: none;">
+  <h2>Acronyms</h2>
+</a>
+<ul>
+<li>OGC: Open Geospatial Consortium (맵서비스 인증 컨소시움으로 map 표준 인증 담당)</li>
+<li>WMS: Web Map Service</li>
+<li>MVT: Mapbox Vector Tiles</li>
+<li>TMS: Tile Map Service</li>
+<li>FDB: Feature Database</li>
+<li>OSM: OpenStreetMap ?</li>
+<li>COP: Common Operation map (공통작전 지도)</li>
+<li>MGRS: 좌표계의 한 형식</li>
+<li>GARS: Global Area Reference System</li>
+</ul>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">airforce-<wbr/>map-<wbr/>front -<wbr/> v0.1.0</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/App.html">App</a></li>
+<li class="tsd-kind-module"><a href="modules/App_test.html">App.test</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_customSymbols_testSymbol.html">assets/custom<wbr/>Symbols/test<wbr/>Symbol</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_d2_embeddedImages.html">assets/d2/embedded<wbr/>Images</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_AerospaceIcon.html">assets/icons/<wbr/>Aerospace<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_DefenseIcon.html">assets/icons/<wbr/>Defense<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_F15Icon.html">assets/icons/<wbr/>F15<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_HumanIcon.html">assets/icons/<wbr/>Human<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_IconProp.html">assets/icons/<wbr/>Icon<wbr/>Prop</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_InternetIcon.html">assets/icons/<wbr/>Internet<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_MapIcon.html">assets/icons/<wbr/>Map<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_MilitaryBagIcon.html">assets/icons/<wbr/>Military<wbr/>Bag<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_MoonIcon.html">assets/icons/<wbr/>Moon<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_OperationSharingIcon.html">assets/icons/<wbr/>Operation<wbr/>Sharing<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_RunwayIcon.html">assets/icons/<wbr/>Runway<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_SunIcon.html">assets/icons/<wbr/>Sun<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_SunnyWeatherIcon.html">assets/icons/<wbr/>Sunny<wbr/>Weather<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_WarehouseIcon.html">assets/icons/<wbr/>Warehouse<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_lineTypes_DashDotDotLineIcon.html">assets/icons/line<wbr/>Types/<wbr/>Dash<wbr/>Dot<wbr/>Dot<wbr/>Line<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_lineTypes_DashDotLineIcon.html">assets/icons/line<wbr/>Types/<wbr/>Dash<wbr/>Dot<wbr/>Line<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_lineTypes_DashLineIcon.html">assets/icons/line<wbr/>Types/<wbr/>Dash<wbr/>Line<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_lineTypes_DotLineIcon.html">assets/icons/line<wbr/>Types/<wbr/>Dot<wbr/>Line<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_lineTypes_OneLineIcon.html">assets/icons/line<wbr/>Types/<wbr/>One<wbr/>Line<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_ArcIcon.html">assets/icons/shapes/<wbr/>Arc<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_BSplineIcon.html">assets/icons/shapes/BSpline<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_CircleIcon.html">assets/icons/shapes/<wbr/>Circle<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_CombatBoundaryIcon.html">assets/icons/shapes/<wbr/>Combat<wbr/>Boundary<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_FanShapedIcon.html">assets/icons/shapes/<wbr/>Fan<wbr/>Shaped<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_FlightForwradAxisIcon.html">assets/icons/shapes/<wbr/>Flight<wbr/>Forwrad<wbr/>Axis<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_ForwardAxisIcon.html">assets/icons/shapes/<wbr/>Forward<wbr/>Axis<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_HexagonIcon.html">assets/icons/shapes/<wbr/>Hexagon<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_ImageIcon.html">assets/icons/shapes/<wbr/>Image<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_MultiPointForwardAxisIcon.html">assets/icons/shapes/<wbr/>Multi<wbr/>Point<wbr/>Forward<wbr/>Axis<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_PentagonIcon.html">assets/icons/shapes/<wbr/>Pentagon<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_PointIcon.html">assets/icons/shapes/<wbr/>Point<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_PolyLineIcon.html">assets/icons/shapes/<wbr/>Poly<wbr/>Line<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_PolygonIcon.html">assets/icons/shapes/<wbr/>Polygon<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_RoundedSquareIcon.html">assets/icons/shapes/<wbr/>Rounded<wbr/>Square<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_SectorIcon.html">assets/icons/shapes/<wbr/>Sector<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_SplineIcon.html">assets/icons/shapes/<wbr/>Spline<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_SquareIcon.html">assets/icons/shapes/<wbr/>Square<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_StraightLineIcon.html">assets/icons/shapes/<wbr/>Straight<wbr/>Line<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_TextIcon.html">assets/icons/shapes/<wbr/>Text<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_icons_shapes_TriangleIcon.html">assets/icons/shapes/<wbr/>Triangle<wbr/>Icon</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_images_KF16Image.html">assets/images/KF16<wbr/>Image</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_logos_AirForceLogo.html">assets/logos/<wbr/>Air<wbr/>Force<wbr/>Logo</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_logos_COPTextLogo.html">assets/logos/COPText<wbr/>Logo</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_logos_COPTextLogoProposal1.html">assets/logos/COPText<wbr/>Logo<wbr/>Proposal1</a></li>
+<li class="tsd-kind-module"><a href="modules/assets_logos_KoreaAirForceLetterLogo.html">assets/logos/<wbr/>Korea<wbr/>Air<wbr/>Force<wbr/>Letter<wbr/>Logo</a></li>
+<li class="tsd-kind-module"><a href="modules/components_alert_ShortAlert.html">components/alert/<wbr/>Short<wbr/>Alert</a></li>
+<li class="tsd-kind-module"><a href="modules/components_box_CenteredDiv.html">components/box/<wbr/>Centered<wbr/>Div</a></li>
+<li class="tsd-kind-module"><a href="modules/components_box_DefaultBox.html">components/box/<wbr/>Default<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/components_box_textBox_BaseBlockTitleBox.html">components/box/text<wbr/>Box/<wbr/>Base<wbr/>Block<wbr/>Title<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/components_box_textBox_DataGridTitleBox.html">components/box/text<wbr/>Box/<wbr/>Data<wbr/>Grid<wbr/>Title<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/components_box_textBox_SpaceBetweenTextBox.html">components/box/text<wbr/>Box/<wbr/>Space<wbr/>Between<wbr/>Text<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/components_box_textBox_WidgetTitleBox.html">components/box/text<wbr/>Box/<wbr/>Widget<wbr/>Title<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/components_button_BaseButton.html">components/button/<wbr/>Base<wbr/>Button</a></li>
+<li class="tsd-kind-module"><a href="modules/components_button_TextButton.html">components/button/<wbr/>Text<wbr/>Button</a></li>
+<li class="tsd-kind-module"><a href="modules/components_chart_RadarChartBox.html">components/chart/<wbr/>Radar<wbr/>Chart<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/components_chip_StatusChip.html">components/chip/<wbr/>Status<wbr/>Chip</a></li>
+<li class="tsd-kind-module"><a href="modules/components_colorPicker_BaseColorPicker.html">components/color<wbr/>Picker/<wbr/>Base<wbr/>Color<wbr/>Picker</a></li>
+<li class="tsd-kind-module"><a href="modules/components_dataGrid_BaseDataGrid.html">components/data<wbr/>Grid/<wbr/>Base<wbr/>Data<wbr/>Grid</a></li>
+<li class="tsd-kind-module"><a href="modules/components_dataGrid_DataGridToolbar.html">components/data<wbr/>Grid/<wbr/>Data<wbr/>Grid<wbr/>Toolbar</a></li>
+<li class="tsd-kind-module"><a href="modules/components_dataGrid_HeaderSettingModal.html">components/data<wbr/>Grid/<wbr/>Header<wbr/>Setting<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/components_dataGrid_TableHelperText.html">components/data<wbr/>Grid/<wbr/>Table<wbr/>Helper<wbr/>Text</a></li>
+<li class="tsd-kind-module"><a href="modules/components_dataGrid_TableSettingModal.html">components/data<wbr/>Grid/<wbr/>Table<wbr/>Setting<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/components_dataGrid_grigStyle.html">components/data<wbr/>Grid/grig<wbr/>Style</a></li>
+<li class="tsd-kind-module"><a href="modules/components_form_TextInput.html">components/form/<wbr/>Text<wbr/>Input</a></li>
+<li class="tsd-kind-module"><a href="modules/components_icon_MenuIconWrapper.html">components/icon/<wbr/>Menu<wbr/>Icon<wbr/>Wrapper</a></li>
+<li class="tsd-kind-module"><a href="modules/components_layout_BaseLayout.html">components/layout/<wbr/>Base<wbr/>Layout</a></li>
+<li class="tsd-kind-module"><a href="modules/components_layout_Container.html">components/layout/<wbr/>Container</a></li>
+<li class="tsd-kind-module"><a href="modules/components_layout_LandingFooter.html">components/layout/<wbr/>Landing<wbr/>Footer</a></li>
+<li class="tsd-kind-module"><a href="modules/components_layout_LandingLayout.html">components/layout/<wbr/>Landing<wbr/>Layout</a></li>
+<li class="tsd-kind-module"><a href="modules/components_loading_Loading.html">components/loading/<wbr/>Loading</a></li>
+<li class="tsd-kind-module"><a href="modules/components_map_BaseMap.html">components/map/<wbr/>Base<wbr/>Map</a></li>
+<li class="tsd-kind-module"><a href="modules/components_map_DrawPanelToolbar.html">components/map/<wbr/>Draw<wbr/>Panel<wbr/>Toolbar</a></li>
+<li class="tsd-kind-module"><a href="modules/components_map_MapToolbar.html">components/map/<wbr/>Map<wbr/>Toolbar</a></li>
+<li class="tsd-kind-module"><a href="modules/components_modal_BaseModal.html">components/modal/<wbr/>Base<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/components_mode_ToggleDarkMode.html">components/mode/<wbr/>Toggle<wbr/>Dark<wbr/>Mode</a></li>
+<li class="tsd-kind-module"><a href="modules/components_nav_BreadCrumbBar.html">components/nav/<wbr/>Bread<wbr/>Crumb<wbr/>Bar</a></li>
+<li class="tsd-kind-module"><a href="modules/components_nav_FavoritePagesBar.html">components/nav/<wbr/>Favorite<wbr/>Pages<wbr/>Bar</a></li>
+<li class="tsd-kind-module"><a href="modules/components_nav_LeftMenuBar.html">components/nav/<wbr/>Left<wbr/>Menu<wbr/>Bar</a></li>
+<li class="tsd-kind-module"><a href="modules/components_nav_TopNav.html">components/nav/<wbr/>Top<wbr/>Nav</a></li>
+<li class="tsd-kind-module"><a href="modules/components_simpleTable_SimpleTable.html">components/simple<wbr/>Table/<wbr/>Simple<wbr/>Table</a></li>
+<li class="tsd-kind-module"><a href="modules/components_simpleTable_SimpleTableOnMap.html">components/simple<wbr/>Table/<wbr/>Simple<wbr/>Table<wbr/>On<wbr/>Map</a></li>
+<li class="tsd-kind-module"><a href="modules/components_tab_TabPanel.html">components/tab/<wbr/>Tab<wbr/>Panel</a></li>
+<li class="tsd-kind-module"><a href="modules/components_widget_DataTab.html">components/widget/<wbr/>Data<wbr/>Tab</a></li>
+<li class="tsd-kind-module"><a href="modules/components_widget_WarningTab.html">components/widget/<wbr/>Warning<wbr/>Tab</a></li>
+<li class="tsd-kind-module"><a href="modules/components_widget_WidgetBar.html">components/widget/<wbr/>Widget<wbr/>Bar</a></li>
+<li class="tsd-kind-module"><a href="modules/data_constants_dataGridKeys.html">data/constants/data<wbr/>Grid<wbr/>Keys</a></li>
+<li class="tsd-kind-module"><a href="modules/data_constants_dummyData.html">data/constants/dummy<wbr/>Data</a></li>
+<li class="tsd-kind-module"><a href="modules/data_constants_mapGridLayerList.html">data/constants/map<wbr/>Grid<wbr/>Layer<wbr/>List</a></li>
+<li class="tsd-kind-module"><a href="modules/data_constants_mapLayerList.html">data/constants/map<wbr/>Layer<wbr/>List</a></li>
+<li class="tsd-kind-module"><a href="modules/data_constants_menu.html">data/constants/menu</a></li>
+<li class="tsd-kind-module"><a href="modules/index.html">index</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_D2MapModule.html">libs/d2/<wbr/>D2<wbr/>Map<wbr/>Module</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings.html">libs/d2/map<wbr/>Settings</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_addLayers_addMapLayer.html">libs/d2/map<wbr/>Settings/add<wbr/>Layers/add<wbr/>Map<wbr/>Layer</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_addLayers_addWorldMapLayer.html">libs/d2/map<wbr/>Settings/add<wbr/>Layers/add<wbr/>World<wbr/>Map<wbr/>Layer</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_controls_mousePosition.html">libs/d2/map<wbr/>Settings/controls/mouse<wbr/>Position</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_controls_scale.html">libs/d2/map<wbr/>Settings/controls/scale</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_controls_zoom.html">libs/d2/map<wbr/>Settings/controls/zoom</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_grid_checkGrid.html">libs/d2/map<wbr/>Settings/grid/check<wbr/>Grid</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_grid_gridGenerator.html">libs/d2/map<wbr/>Settings/grid/grid<wbr/>Generator</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_grid_gridStyle.html">libs/d2/map<wbr/>Settings/grid/grid<wbr/>Style</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_setupMap.html">libs/d2/map<wbr/>Settings/setup<wbr/>Map</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_setupOverviewMap.html">libs/d2/map<wbr/>Settings/setup<wbr/>Overview<wbr/>Map</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_styles_testStyle.html">libs/d2/map<wbr/>Settings/styles/test<wbr/>Style</a></li>
+<li class="tsd-kind-module"><a href="modules/libs_d2_mapSettings_urlInfo.html">libs/d2/map<wbr/>Settings/url<wbr/>Info</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_landing_LandingCTA.html">modules/landing/<wbr/>LandingCTA</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_map_MapControlsSettingModal.html">modules/map/<wbr/>Map<wbr/>Controls<wbr/>Setting<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_map_MapGridControlModal.html">modules/map/<wbr/>Map<wbr/>Grid<wbr/>Control<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_map_MapGridLayerItemBox.html">modules/map/<wbr/>Map<wbr/>Grid<wbr/>Layer<wbr/>Item<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_map_MapListItemOnDrawer.html">modules/map/<wbr/>Map<wbr/>List<wbr/>Item<wbr/>On<wbr/>Drawer</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_map_MapTypeCard.html">modules/map/<wbr/>Map<wbr/>Type<wbr/>Card</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_map_MapTypeDrawer.html">modules/map/<wbr/>Map<wbr/>Type<wbr/>Drawer</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_map_SelectMapTypeModal.html">modules/map/<wbr/>Select<wbr/>Map<wbr/>Type<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_AddToFavoritePage.html">modules/menu/<wbr/>Add<wbr/>To<wbr/>Favorite<wbr/>Page</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_DragFavoritePagesList.html">modules/menu/<wbr/>Drag<wbr/>Favorite<wbr/>Pages<wbr/>List</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_DraggablePageItem.html">modules/menu/<wbr/>Draggable<wbr/>Page<wbr/>Item</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_FavoritePagesModal.html">modules/menu/<wbr/>Favorite<wbr/>Pages<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_IconMenuItem.html">modules/menu/<wbr/>Icon<wbr/>Menu<wbr/>Item</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_ModeCodeToggle.html">modules/menu/<wbr/>Mode<wbr/>Code<wbr/>Toggle</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_PageStructureTree.html">modules/menu/<wbr/>Page<wbr/>Structure<wbr/>Tree</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_menu_TopNavProfile.html">modules/menu/<wbr/>Top<wbr/>Nav<wbr/>Profile</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_modal_YesNoSelectionModal.html">modules/modal/<wbr/>Yes<wbr/>No<wbr/>Selection<wbr/>Modal</a></li>
+<li class="tsd-kind-module"><a href="modules/modules_widget_StatusBox.html">modules/widget/<wbr/>Status<wbr/>Box</a></li>
+<li class="tsd-kind-module"><a href="modules/pages_Landing.html">pages/<wbr/>Landing</a></li>
+<li class="tsd-kind-module"><a href="modules/pages_Main.html">pages/<wbr/>Main</a></li>
+<li class="tsd-kind-module"><a href="modules/pages_NotFound.html">pages/<wbr/>Not<wbr/>Found</a></li>
+<li class="tsd-kind-module"><a href="modules/pages_SampleTable.html">pages/<wbr/>Sample<wbr/>Table</a></li>
+<li class="tsd-kind-module"><a href="modules/pages_Unauthorized.html">pages/<wbr/>Unauthorized</a></li>
+<li class="tsd-kind-module"><a href="modules/pages_auth_Login.html">pages/auth/<wbr/>Login</a></li>
+<li class="tsd-kind-module"><a href="modules/query_prototype.html">query/prototype</a></li>
+<li class="tsd-kind-module"><a href="modules/react_app_env.html">react-<wbr/>app-<wbr/>env</a></li>
+<li class="tsd-kind-module"><a href="modules/reportWebVitals.html">report<wbr/>Web<wbr/>Vitals</a></li>
+<li class="tsd-kind-module"><a href="modules/routes_RequireAuth.html">routes/<wbr/>Require<wbr/>Auth</a></li>
+<li class="tsd-kind-module"><a href="modules/routes_RouteStyleHandler.html">routes/<wbr/>Route<wbr/>Style<wbr/>Handler</a></li>
+<li class="tsd-kind-module"><a href="modules/routes_Router.html">routes/<wbr/>Router</a></li>
+<li class="tsd-kind-module"><a href="modules/setupTests.html">setup<wbr/>Tests</a></li>
+<li class="tsd-kind-module"><a href="modules/stores_localStorageSetting.html">stores/local<wbr/>Storage<wbr/>Setting</a></li>
+<li class="tsd-kind-module"><a href="modules/stores_useAuth.html">stores/use<wbr/>Auth</a></li>
+<li class="tsd-kind-module"><a href="modules/stores_useFavoritePageStore.html">stores/use<wbr/>Favorite<wbr/>Page<wbr/>Store</a></li>
+<li class="tsd-kind-module"><a href="modules/stores_useMenuBarStore.html">stores/use<wbr/>Menu<wbr/>Bar<wbr/>Store</a></li>
+<li class="tsd-kind-module"><a href="modules/stores_useThemeStore.html">stores/use<wbr/>Theme<wbr/>Store</a></li>
+<li class="tsd-kind-module"><a href="modules/styles_theme.html">styles/theme</a></li>
+<li class="tsd-kind-module"><a href="modules/types_army_statusType.html">types/army/status<wbr/>Type</a></li>
+<li class="tsd-kind-module"><a href="modules/types_auth_sso.html">types/auth/sso</a></li>
+<li class="tsd-kind-module"><a href="modules/types_d2.html">types/d2</a></li>
+<li class="tsd-kind-module"><a href="modules/types_d2_D2Constants.html">types/d2/<wbr/>D2<wbr/>Constants</a></li>
+<li class="tsd-kind-module"><a href="modules/types_d2_D2MapManager.html">types/d2/<wbr/>D2<wbr/>Map<wbr/>Manager</a></li>
+<li class="tsd-kind-module"><a href="modules/types_openlayers.html">types/openlayers</a></li>
+<li class="tsd-kind-module"><a href="modules/types_styles_createPalette.html">types/styles/create<wbr/>Palette</a></li>
+<li class="tsd-kind-module"><a href="modules/utils_compareArray.html">utils/compare<wbr/>Array</a></li>
+<li class="tsd-kind-module"><a href="modules/utils_consonant.html">utils/consonant</a></li>
+<li class="tsd-kind-module"><a href="modules/utils_coordConversion.html">utils/coord<wbr/>Conversion</a></li>
+<li class="tsd-kind-module"><a href="modules/utils_reorder.html">utils/reorder</a></li>
+<li class="tsd-kind-module"><a href="modules/utils_time.html">utils/time</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>
