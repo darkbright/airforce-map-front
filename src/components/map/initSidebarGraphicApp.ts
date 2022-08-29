@@ -7,7 +7,7 @@ export function initSidebarGraphicApp( tid: any, createID: any ){
     var GraphicObjectStyle = window.D2.Core.GraphicObjectStyle;
     var multiLineTextPosition = [[300, 100], []];
         switch (tid) {
-            
+             
             case 'initialize':
                 // 모든 투명도 레이어를 삭제한다.
                 var graphicBoard = graphic._graphicBoard;
