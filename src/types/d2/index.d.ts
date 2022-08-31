@@ -1,3 +1,4 @@
+import { MGRSType, UTMType } from "./Coords";
 import { d2Constants } from "./d2Constants";
 import { d2MapManager } from "./d2MapManager";
 
@@ -31,19 +32,24 @@ declare global {
 				CesiumManager: any;
 				CoordManager: {
 					CartographicRadian2Cartesian: any;
-					DMS2Geo: any;
+					DMS2Geo: (lon: string, lat: string) => string;
 					GARS2Geo: any;
 					Geo2DMS: any;
-					Geo2GARS: any;
-					Geo2GeoRef: any;
+					Geo2GARS: (lat: number, lon: number, option: string) => string;
+					Geo2GeoRef: (lat: number, lon: number) => string;
 					Geo2KCGRS: any;
-					Geo2MGRS: any;
+					Geo2MGRS: (lon: number, lat: number) => MGRSType;
 					Geo2UTM: any;
-					Geo2UTM_Ex: any;
+					Geo2UTM_Ex: (lon: number, lat: number) => UTMType;
 					GeoRef2Geo: any;
 					KCGRS2Geo: any;
-					MGRS2Geo: any;
-					UTM2Geo: any;
+					MGRS2Geo: (obj: MGRSType) => { lon: number; lat: number };
+					UTM2Geo: (
+						zone: UTMType.zone,
+						band: UTMType.band,
+						easting: UTMType.easting,
+						northing: UTMType.northing,
+					) => { lon: number; lat: number };
 					UTM2Geo_Ex: any;
 					getGeoCenter: any;
 					getOLProj: any;

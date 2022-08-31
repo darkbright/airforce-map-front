@@ -31,21 +31,19 @@ export const setMousePosition = ({
 			const lon = coordinate[0];
 			const lat = coordinate[1];
 			// MGRS 형식
-			const geoMgrs = new CoordManager.Geo2MGRS(lon, lat);
+			const geoMgrs = CoordManager.Geo2MGRS(lon, lat);
 			// UTM 형식
-			const { zone, band, easting, northing } = new CoordManager.Geo2UTM_Ex(lon, lat);
+			const { zone, band, easting, northing } = CoordManager.Geo2UTM_Ex(lon, lat);
 			// GeoRef
-			// TO_BE_CHECKED 빈 값만 옴
-			// const geoRef = new CoordManager.Geo2GeoRef(lon, lat);
+			const geoRef = CoordManager.Geo2GeoRef(lat, lon);
 			// Gars
-			// TO_BE_CHECKED 빈 값만 옴
-			// const gars = new CoordManager.Geo2GARS(lon, lat, "5");
+			const gars = CoordManager.Geo2GARS(lat, lon, "5");
 
 			const lonlatString = showLonLat ? `Geo: ${lon.toFixed(4)}, ${lat.toFixed(4)} |` : "";
 			const mgrsString = showMGRS ? `MGRS: ${geoMgrs} |` : "";
 			const utmString = showUTM ? `UTM: ${zone}${band} ${easting} ${northing} |` : "";
-			const geoRefString = showGeoRef ? `GeoRef: |` : "";
-			const garsString = showGARS ? `GARS:?` : "";
+			const geoRefString = showGeoRef ? `GeoRef: |${geoRef}` : "";
+			const garsString = showGARS ? `GARS:${gars}` : "";
 
 			return `${lonlatString} ${mgrsString} ${utmString} ${geoRefString} ${garsString}`;
 		},

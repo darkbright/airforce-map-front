@@ -11,10 +11,7 @@ import { setMousePosition } from "./controls/mousePosition";
 import { setScaleLineControl } from "./controls/scale";
 import { mapLayerList } from "../../../data/constants/mapLayerList";
 import { addMapLayer } from "./addLayers/addMapLayer";
-
-// 대한민국 중심좌표
-const KOREA_CENTER_LON = 127.027583;
-const KOREA_CENTER_LAT = 37.497928;
+import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../data/constants/baseCoord";
 
 /**
  * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴

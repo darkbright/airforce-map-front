@@ -7,11 +7,13 @@ import CenterFocusWeakIcon from "@mui/icons-material/CenterFocusWeak";
 import PublicIcon from "@mui/icons-material/Public";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CategoryIcon from "@mui/icons-material/Category";
+import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 
 import MapTypeDrawer from "../../modules/map/MapTypeDrawer";
 import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
 import DrawPanelToolbar from "./DrawPanelToolbar";
 import MapGridControlModal from "../../modules/map/MapGridControlModal";
+import MoveMapCenterByCoordDrawer from "../../modules/map/MoveMapCenterByCoordDrawer";
 
 /**
  * 맵 Display에서 최상단에 위치한 다양한 이벤트를 수행할 수 있는 목록을 표현한 툴바임.
@@ -50,6 +52,8 @@ const MapToolbar = () => {
 	const [drawPanelOpen, setDrawPanelOpen] = useState(false);
 	// 그리드 설정 모달 선택하기
 	const [mapGridControlsOpen, setMapGridControlsOpen] = useState(false);
+	// 좌표 입력 시 지도 중심으로 이동 Drawer
+	const [moveMapByCoordOpen, setMoveMapByCoordOpen] = useState(false);
 
 	return (
 		<>
@@ -75,6 +79,11 @@ const MapToolbar = () => {
 					<ToggleButton value="centerline" onClick={setCenterline}>
 						<Tooltip title="중심선 보기">
 							<CenterFocusWeakIcon fontSize="small" />
+						</Tooltip>
+					</ToggleButton>
+					<ToggleButton value="moveMapByCoord" onClick={() => setMoveMapByCoordOpen(true)}>
+						<Tooltip title="좌표에 따른 지도 이동">
+							<MultipleStopIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
 					<ToggleButton value="save" onClick={downloadPNG}>
@@ -137,6 +146,14 @@ const MapToolbar = () => {
 				open={mapGridControlsOpen}
 				setOpen={() => {
 					setMapGridControlsOpen(false);
+					setAlignment("");
+				}}
+			/>
+			{/* 좌표 입력 후 지도 중심 이동 Drawer */}
+			<MoveMapCenterByCoordDrawer
+				open={moveMapByCoordOpen}
+				setOpen={() => {
+					setMoveMapByCoordOpen(false);
 					setAlignment("");
 				}}
 			/>

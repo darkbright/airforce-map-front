@@ -1,6 +1,12 @@
 {
+    "name": "공군 상황도 시스템 Document",
     "tsconfig": "tsconfig.json",
     "entryPointStrategy": "Expand",
+    "plugin": [
+        "typedoc-theme-hierarchy",
+        "typedoc-plugin-mermaid"
+    ],
+    "theme": "hierarchy",
     "emit": "both",
     "includeVersion": true,
     "entryPoints": [

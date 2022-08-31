@@ -49,13 +49,13 @@
 
 먼저 node.js 버전 v16 이상을 설치해주세요. (다운로드 파일은 Nas에서 획득하시기 바랍니다.) node.js가 잘 설치되었는지 확인하시려면 Windows Powershell 또는 cmd을 켜시고 다음과 같이 입력하시길 바랍니다.
 
-```
+```sh
   node --version
 ```
 
 아울러 node가 설치되어 있다면 node의 패키지 매니저인 `npm` 역시 설치되어 있어야 합니다. `npm`은 node.js가 설치되면 함께 설치됩니다. 잘 설치되었는지 버전을 확인해보세요.
 
-```
+```sh
   npm --version
 ```
 
@@ -66,7 +66,7 @@
 
 yarn은 NPM 대신 사용할 node/자바스크립트 패키지 매니저입니다. yarn은 npm 대비 속도 및 보안성에서 더 우수하기 때문에 본 프로젝트에서는 yarn을 사용합니다. Nas에서 Yarn 설치 파일을 획득해주세요. 설치 파일을 실행하여 설치해주세요. 상기와 동일하게 yarn이 잘 깔렸는지 powershell 또는 cmd에서 yarn의 버전을 확인해주세요.
 
-```
+```sh
   yarn --version
 ```
 
@@ -101,7 +101,7 @@ Nas에서 `EsLint` 및 `Prettier`을 다운받으신 후 **\*** 폴더에 붙여
 
 먼저 소스코드를 적당한 디렉토리에 다운 받으신 후, 그 위치를 Powershell 또는 cmd로 열어주세요. 그런 뒤 다음과 같이 입력합니다.
 
-```
+```sh
 code .
 ```
 
@@ -111,7 +111,7 @@ VsCode 좌측 맨 위 문서모양 아이콘을 클릭하여 디렉토리가 제
 <br>
 이제 VsCode의 상단 메뉴바에서 Terminal을 클릭하시고 New Terminal을 클릭하세요. IDE 하단에 Terminal 패널이 열립니다. Terminal 패널에 다음과 같이 입력하세요.
 
-```
+```sh
 yarn start
 ```
 
@@ -121,7 +121,7 @@ yarn start
 
 root 폴더에서 `package.json` 파일을 열어주세요. 그리고 다음과 같이 "scripts"의 내용을 고쳐주세요.
 
-```
+```json
 "scripts": {
   "start": "set PORT=3001 && react-scripts start",
   ...
@@ -141,7 +141,22 @@ React로 작성된 현 프로젝트는 일반적인 React 프로젝트의 디렉
 <br>
 <br>
 
-![projectTree](./documents/img/projectTree.jpg)
+```mermaid
+  flowchart TD;
+    A[public/index.html] --> | id=root | B[src/index.tsx]
+    B --> C[src/App.tsx]
+    C --> D[src/pages1]
+    C --> E[src/pages2]
+    C --> F[src/pages3]
+    D --> G[src/modules]
+    D --> H[src/modules]
+    G --> I[src/components/button]
+    G --> J[src/components/table]
+    G --> K[src/component/form]
+    G --> L[src/assets]
+    G --> M[...등등]
+
+```
 
 <br>
 <br>
@@ -212,7 +227,7 @@ React로 작성된 현 프로젝트는 일반적인 React 프로젝트의 디렉
 
 - 아래의 코드와 같이 `id`값 `root`를 찾은 뒤(`public/index.html`에 정의된 것과 같이) 전체 코드를 `root`에 담는 역할을 하는 시작 파일입니다.
 
-```
+```jsx
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 ```
 
@@ -354,3 +369,4 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 - COP: Common Operation map (공통작전 지도)
 - MGRS: 좌표계의 한 형식
 - GARS: Global Area Reference System
+- UTM: Universal Transverse Mercator

@@ -79,7 +79,7 @@ const Login = () => {
 										helperText={touched.id && errors.id}
 										variant="outlined"
 										autoFocus
-										sx={{ marginBottom: "1.5%" }}
+										sx={{ mb: "1.5%" }}
 									/>
 									<TextInput
 										label="비밀번호"
@@ -90,7 +90,7 @@ const Login = () => {
 										error={touched.password && Boolean(errors.password)}
 										helperText={touched.password && errors.password}
 										variant="outlined"
-										sx={{ marginBottom: "3%" }}
+										sx={{ mb: "3%" }}
 									/>
 									{invalid && (
 										<ShortAlert
@@ -99,12 +99,7 @@ const Login = () => {
 											text="아이디 또는 비밀번호가 맞지 않습니다"
 										/>
 									)}
-									<BaseButton
-										size="large"
-										disabled={!isValid}
-										title="로그인"
-										sx={{ marginTop: "2%" }}
-									/>
+									<BaseButton size="large" disabled={!isValid} title="로그인" sx={{ mt: "2%" }} />
 								</Form>
 							)}
 						</Formik>
