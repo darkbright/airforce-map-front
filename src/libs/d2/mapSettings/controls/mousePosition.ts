@@ -42,7 +42,7 @@ export const setMousePosition = ({
 			const lonlatString = showLonLat ? `Geo: ${lon.toFixed(4)}, ${lat.toFixed(4)} |` : "";
 			const mgrsString = showMGRS ? `MGRS: ${geoMgrs} |` : "";
 			const utmString = showUTM ? `UTM: ${zone}${band} ${easting} ${northing} |` : "";
-			const geoRefString = showGeoRef ? `GeoRef: |${geoRef}` : "";
+			const geoRefString = showGeoRef ? `GeoRef: ${geoRef} |` : "";
 			const garsString = showGARS ? `GARS:${gars}` : "";
 
 			return `${lonlatString} ${mgrsString} ${utmString} ${geoRefString} ${garsString}`;

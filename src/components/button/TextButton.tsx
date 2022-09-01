@@ -24,7 +24,8 @@ const TextButton = ({
 			disableFocusRipple
 			size="small"
 			sx={{
-				padding: "10px 0px",
+				minWidth: 10,
+				padding: "10px 0",
 				marginBottom: 0,
 				justifyContent: textPosition,
 				"&:hover": { backgroundColor: "unset", color: (theme) => theme.palette.secondary.light },

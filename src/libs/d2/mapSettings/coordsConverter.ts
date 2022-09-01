@@ -13,20 +13,20 @@ interface fromLonLatToVariousCoordsType {
 	lon: number;
 	lat: number;
 
-	dms: {
-		/**
-		 * DMS(도분초) 경도
-		 *
-		 * 127°01′39″E와 같은 모양
-		 */
-		0: string;
-		/**
-		 * DMS 위도(도분초)  3
-		 *
-		 * 7°29′53″N 와 같은 모양
-		 */
-		1: string;
-	};
+	/**
+	 * DMS(도분초) 경도
+	 *
+	 * 127°01′39″E와 같은 모양
+	 */
+	dmsLon: string;
+
+	/**
+	 * DMS 위도(도분초)  3
+	 *
+	 * 7°29′53″N 와 같은 모양
+	 */
+	dmsLat: string;
+
 	utm: UTMType;
 	mgrs: MGRSType;
 	geoRef: string;
@@ -55,7 +55,7 @@ export const fromLonLatToVariousCoords = (
 	// GARS
 	const gars: string = CoordManager.Geo2GARS(lat, lon, "5");
 
-	return { lon, lat, dms, utm, mgrs, geoRef, gars };
+	return { lon, lat, dmsLon: dms[0], dmsLat: dms[1], utm, mgrs, geoRef, gars };
 };
 
 /**

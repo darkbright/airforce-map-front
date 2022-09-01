@@ -9,7 +9,7 @@ export interface UTMType {
 	/**
 	 * Grid Zone의 밴드값으로 A - X까지 올 수 있으나, O과 I는 제외됨.
 	 */
-	band: string;
+	band: string | undefined;
 	/**
 	 * Easting Value는 100,000 ~ 900,000까지 사이임.
 	 */
@@ -31,15 +31,15 @@ export interface MGRSType {
 	/**
 	 * Grid Zone의 밴드값으로 A - X까지 올 수 있으나, O과 I는 제외됨.
 	 */
-	band: string;
+	band: string | undefined;
 	/**
 	 * Grid Square Value의 eastern value(A-Z without O and I)
 	 */
-	e100k: string;
+	e100k: string | undefined;
 	/**
 	 * Grid Square Value의 northen value(A-V without O and I)
 	 */
-	n100k: string;
+	n100k: string | undefined;
 	/**
 	 * Easting Value는 1 ~ 99,999까지 사이임.
 	 */
