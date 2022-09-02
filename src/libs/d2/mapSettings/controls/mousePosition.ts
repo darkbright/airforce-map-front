@@ -1,6 +1,8 @@
+import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../../data/constants/baseCoord";
 import D2MapModule from "../../D2MapModule";
+import { fromLonLatToVariousCoords } from "../coordsConverter";
 
-const { ol, CoordManager } = D2MapModule;
+const { ol } = D2MapModule;
 
 /**
  * 마우스 위치에 따라 좌표를 보여줄 때 특정한 타입(lonlat, MGRS 등)을 보여줄지 말지 선택하는 인터페이스
@@ -28,20 +30,18 @@ export const setMousePosition = ({
 }: MousePositionProps): string => {
 	const mousePosition = new ol.control.MousePosition({
 		coordinateFormat: (coordinate: number[]) => {
-			const lon = coordinate[0];
-			const lat = coordinate[1];
-			// MGRS 형식
-			const geoMgrs = CoordManager.Geo2MGRS(lon, lat);
-			// UTM 형식
-			const { zone, band, easting, northing } = CoordManager.Geo2UTM_Ex(lon, lat);
-			// GeoRef
-			const geoRef = CoordManager.Geo2GeoRef(lat, lon);
-			// Gars
-			const gars = CoordManager.Geo2GARS(lat, lon, "5");
+			const lon = coordinate[0] || KOREA_CENTER_LON;
+			const lat = coordinate[1] || KOREA_CENTER_LAT;
+
+			const { utm, mgrs, geoRef, gars } = fromLonLatToVariousCoords(lon, lat);
 
 			const lonlatString = showLonLat ? `Geo: ${lon.toFixed(4)}, ${lat.toFixed(4)} |` : "";
-			const mgrsString = showMGRS ? `MGRS: ${geoMgrs} |` : "";
-			const utmString = showUTM ? `UTM: ${zone}${band} ${easting} ${northing} |` : "";
+			const mgrsString = showMGRS
+				? `MGRS: ${mgrs.zone} ${mgrs.band} ${mgrs.e100k}${mgrs.n100k} ${mgrs.easting} ${mgrs.northing} |`
+				: "";
+			const utmString = showUTM
+				? `UTM: ${utm.zone}${utm.band} ${utm.easting} ${utm.northing} |`
+				: "";
 			const geoRefString = showGeoRef ? `GeoRef: ${geoRef} |` : "";
 			const garsString = showGARS ? `GARS:${gars}` : "";
 

@@ -90,6 +90,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 						onSubmit={(values) => {
 							try {
 								CoordManager.setGeoAnimatedMoveCenter(values.lon, values.lat, 3);
+								setOpen(false);
 							} catch (err) {
 								console.log(err);
 							}
@@ -98,7 +99,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 					>
 						{({ values, handleChange, setValues, touched, errors }) => (
 							<Form>
-								<div style={{ textAlign: "right" }}>
+								<div style={{ textAlign: "right", marginBottom: 10 }}>
 									<BaseButton type="submit" title="지도에 반영" />
 								</div>
 
