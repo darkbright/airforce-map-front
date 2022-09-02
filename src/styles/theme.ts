@@ -143,7 +143,7 @@ const darkTheme = {
 		airforce: "#3399FF",
 	},
 	error: {
-		main: red[700],
+		main: red[400],
 	},
 };
 

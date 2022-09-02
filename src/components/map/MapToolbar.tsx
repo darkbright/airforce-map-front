@@ -14,6 +14,7 @@ import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
 import DrawPanelToolbar from "./DrawPanelToolbar";
 import MapGridControlModal from "../../modules/map/MapGridControlModal";
 import MoveMapCenterByCoordDrawer from "../../modules/map/MoveMapCenterByCoordDrawer";
+import { setupCenterline } from "../../libs/d2/mapSettings/setupCenterLine";
 
 /**
  * 맵 Display에서 최상단에 위치한 다양한 이벤트를 수행할 수 있는 목록을 표현한 툴바임.
@@ -31,10 +32,8 @@ const MapToolbar = () => {
 
 	// 중심선 토글
 	const setCenterline = () => {
-		// TO_BE_CHECKED
-		// 글자가 잘 안보이는데 css가 어디에 있는지 d2에 확인해야댐
 		setCenterlineVisible(!centerlineVisible);
-		window.postComposeCtrl.setCenterLineVisible(!centerlineVisible, !centerlineVisible);
+		setupCenterline(centerlineVisible);
 	};
 
 	// 지도 이미지 PNG로 저장
@@ -63,7 +62,6 @@ const MapToolbar = () => {
 					size="small"
 					color="primary"
 					value={alignment}
-					exclusive
 					onChange={handleChange}
 				>
 					<ToggleButton value="select">

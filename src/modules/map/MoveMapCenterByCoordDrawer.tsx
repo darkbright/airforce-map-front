@@ -16,6 +16,7 @@ import SpaceBetweenTextBox from "../../components/box/textBox/SpaceBetweenTextBo
 import TextButton from "../../components/button/TextButton";
 import BaseButton from "../../components/button/BaseButton";
 import D2MapModule from "../../libs/d2/D2MapModule";
+import { mgrsBandRegex, mgrsSquareIdRegex } from "../../utils/regex";
 
 const { CoordManager } = D2MapModule;
 
@@ -28,26 +29,58 @@ interface MoveMapCenterByCoordDrawerProps {
  * coord form value 스키마
  */
 const coordSchema = yup.object({
-	lon: yup.number().defined("경도 입력"),
-	lat: yup.number().defined("위도 입력"),
-	dmsLon: yup.string().defined("dms 경도 입력하라"),
-	dmsLat: yup.string().defined("dms 위도 입력하라"),
+	lon: yup
+		.number()
+		.min(-180, "경도는 -180 미만일 수 없습니다")
+		.max(180, "경도는 180을 초과할 수 없습니다.")
+		.defined("-180 ~ 180"),
+	lat: yup
+		.number()
+		.min(-90, "위도는 -90 미만일 수 없습니다")
+		.max(90, "위도는 90을 초과할 수 없습니다.")
+		.defined("-90 ~ 90"),
+	dmsLon: yup.string().defined("127°01′39″E 와 같은 형식으로 입력하세요"),
+	dmsLat: yup.string().defined(" 37°29′53″N 와 같은 형식으로 입력하세요"),
 	utm: yup.object({
-		zone: yup.number().min(0).max(60).defined("존 번호를 입력"),
-		band: yup.string().max(1, "알파벳 한글자만 들어감"),
-		easting: yup.number().min(100000).max(900000).defined("10만 이상 90만 이하"),
-		northing: yup.number().min(1).max(9999999).defined("1~9,999,999까지"),
+		zone: yup
+			.number()
+			.min(0, "0 미만은 불가능합니다")
+			.max(60, "60을 초과할 수 없습니다")
+			.defined("0부터 60까지"),
+		band: yup.string().matches(mgrsBandRegex, "O, I, Y, Z를 제외한 하나의 대문자만 허용"),
+		easting: yup
+			.number()
+			.min(100000, "10만 이상만 가능합니다")
+			.max(900000, "90만 이하로만 가능합니다")
+			.defined("10만 이상 90만 이하"),
+		northing: yup
+			.number()
+			.min(1, "1이상만 가능합니다")
+			.max(9999999, "9,999,999 미만만 가능합니다")
+			.defined("1~9,999,999까지"),
 	}),
 	mgrs: yup.object({
-		zone: yup.number().min(0).max(60).defined("존 번호를 입력"),
-		band: yup.string().max(1, "알파벳 한글자만 들어감"),
-		e100k: yup.string(),
-		n100k: yup.string(),
-		easting: yup.number().min(1).max(99999).defined("1~99,999까지"),
-		northing: yup.number().min(1).max(99999).defined("1~99,999까지"),
+		zone: yup
+			.number()
+			.min(0, "0이상만 가능합니다")
+			.max(60, "60 이하만 가능합니다")
+			.defined("0부터 60까지"),
+		band: yup.string().matches(mgrsBandRegex, "O, I, Y, Z를 제외한 하나의 대문자만 허용"),
+		e100k: yup.string().matches(mgrsSquareIdRegex, "O, I를 제외한 하나의 대문자만 허용"),
+		n100k: yup.string().matches(mgrsSquareIdRegex, "O, I를 제외한 하나의 대문자만 허용"),
+		easting: yup
+			.number()
+			.min(1, "1 이상만 가능")
+			.max(99999, "99,999 이하만 가능")
+			.defined("1~99,999까지"),
+		northing: yup
+			.number()
+			.min(1, "1 이상만 가능")
+			.max(99999, "99,999 이하만 가능")
+			.defined("1~99,999까지"),
 	}),
-	geoRef: yup.string(),
-	gars: yup.string(),
+	geoRef: yup.string().defined("WJHH 01654 29875 와 같은 형식으로 입력하세요"),
+	gars: yup.string().defined("615LQ11 와 같은 형식으로 입력하세요"),
 });
 
 type CoordValues = yup.InferType<typeof coordSchema>;
@@ -120,6 +153,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.lon && Boolean(errors.lon)}
+										helperText={Boolean(errors.lon) && String(errors.lon)}
 										variant="outlined"
 										autoFocus
 										sx={{ mr: 1, mb: "1.5%" }}
@@ -132,6 +166,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.lat && Boolean(errors.lat)}
+										helperText={Boolean(errors.lat) && String(errors.lat)}
 										variant="outlined"
 										sx={{ marginBottom: "1.5%" }}
 									/>
@@ -153,6 +188,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="text"
 										error={touched.dmsLon && Boolean(errors.dmsLon)}
+										helperText={Boolean(errors.dmsLon) && String(errors.dmsLon)}
 										variant="outlined"
 										sx={{ mr: 1, mb: "1.5%" }}
 									/>
@@ -164,6 +200,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="text"
 										error={touched.dmsLat && Boolean(errors.dmsLat)}
+										helperText={Boolean(errors.dmsLat) && String(errors.dmsLat)}
 										variant="outlined"
 										sx={{ marginBottom: "1.5%" }}
 									/>
@@ -185,6 +222,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.utm?.zone && Boolean(errors.utm?.zone)}
+										helperText={Boolean(errors.utm?.zone) && String(errors.utm?.zone)}
 										variant="outlined"
 										sx={{ mr: 1, marginBottom: "1.5%" }}
 									/>
@@ -196,6 +234,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="text"
 										error={touched.utm?.band && Boolean(errors.utm?.band)}
+										helperText={Boolean(errors.utm?.band) && String(errors.utm?.band)}
 										variant="outlined"
 										sx={{ marginBottom: "1.5%" }}
 									/>
@@ -209,6 +248,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.utm?.easting && Boolean(errors.utm?.easting)}
+										helperText={Boolean(errors.utm?.easting) && String(errors.utm?.easting)}
 										variant="outlined"
 										sx={{ mr: 1, marginBottom: "1.5%" }}
 									/>
@@ -220,6 +260,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.utm?.northing && Boolean(errors.utm?.northing)}
+										helperText={Boolean(errors.utm?.northing) && String(errors.utm?.northing)}
 										variant="outlined"
 										sx={{ marginBottom: "1.5%" }}
 									/>
@@ -241,6 +282,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.mgrs?.zone && Boolean(errors.mgrs?.zone)}
+										helperText={Boolean(errors.mgrs?.zone) && String(errors.mgrs?.zone)}
 										variant="outlined"
 										sx={{ mr: 1, marginBottom: "1.5%" }}
 									/>
@@ -252,6 +294,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="text"
 										error={touched.mgrs?.band && Boolean(errors.mgrs?.band)}
+										helperText={Boolean(errors.mgrs?.band) && String(errors.mgrs?.band)}
 										variant="outlined"
 										sx={{ mr: 1, marginBottom: "1.5%" }}
 									/>
@@ -263,6 +306,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="text"
 										error={touched.mgrs?.e100k && Boolean(errors.mgrs?.e100k)}
+										helperText={Boolean(errors.mgrs?.e100k) && String(errors.mgrs?.e100k)}
 										variant="outlined"
 										sx={{ mr: 1, marginBottom: "1.5%" }}
 									/>
@@ -274,6 +318,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="text"
 										error={touched.mgrs?.n100k && Boolean(errors.mgrs?.n100k)}
+										helperText={Boolean(errors.mgrs?.n100k) && String(errors.mgrs?.n100k)}
 										variant="outlined"
 										sx={{ marginBottom: "1.5%" }}
 									/>
@@ -287,6 +332,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.mgrs?.easting && Boolean(errors.mgrs?.easting)}
+										helperText={Boolean(errors.mgrs?.easting) && String(errors.mgrs?.easting)}
 										variant="outlined"
 										sx={{ mr: 1, marginBottom: "1.5%" }}
 									/>
@@ -298,6 +344,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 										onChange={handleChange}
 										type="number"
 										error={touched.mgrs?.northing && Boolean(errors.mgrs?.northing)}
+										helperText={Boolean(errors.mgrs?.northing) && String(errors.mgrs?.northing)}
 										variant="outlined"
 										sx={{ marginBottom: "1.5%" }}
 									/>
@@ -318,6 +365,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 									onChange={handleChange}
 									type="text"
 									error={touched.geoRef && Boolean(errors.geoRef)}
+									helperText={Boolean(errors.geoRef) && String(errors.geoRef)}
 									variant="outlined"
 									sx={{ marginBottom: "1.5%" }}
 								/>
@@ -337,6 +385,7 @@ const MoveMapCenterByCoordDrawer = ({ open, setOpen }: MoveMapCenterByCoordDrawe
 									onChange={handleChange}
 									type="text"
 									error={touched.gars && Boolean(errors.gars)}
+									helperText={Boolean(errors.gars) && String(errors.gars)}
 									variant="outlined"
 									sx={{ marginBottom: "1.5%" }}
 								/>
