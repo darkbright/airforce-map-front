@@ -1,6 +1,6 @@
 import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../../data/constants/baseCoord";
 import D2MapModule from "../../D2MapModule";
-import { fromLonLatToVariousCoords } from "../coordsConverter";
+import { fromLonLatToVariousCoords } from "../utils/coordsConverter";
 
 const { ol } = D2MapModule;
 

@@ -11,7 +11,7 @@ import {
 	fromLonLatToVariousCoords,
 	fromMGRSToVariousCoords,
 	fromUtmToVariousCoords,
-} from "../../libs/d2/mapSettings/coordsConverter";
+} from "../../libs/d2/mapSettings/utils/coordsConverter";
 import SpaceBetweenTextBox from "../../components/box/textBox/SpaceBetweenTextBox";
 import TextButton from "../../components/button/TextButton";
 import BaseButton from "../../components/button/BaseButton";

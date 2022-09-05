@@ -7,6 +7,10 @@ export {};
 export type Color = number[];
 
 declare global {
+	// eslint-disable-next-line no-var
+	var D2: {
+		Core: any;
+	};
 	interface Window {
 		// tslint:disable-next-line
 
@@ -21,9 +25,12 @@ declare global {
 		exportImage: {
 			downloadPNG: () => void;
 		};
-		spatialMath: {
-			getMapScale: any;
-		};
+		// spatialMath: {
+		// 	getMapScale: () => number;
+		// 	getHeight(lon: number, lat: number, callback: (result: number) => void);
+		// 	getZoomLevel: () => number;
+		// };
+		spatialMath: any;
 		CoordManager: any;
 
 		// d2Map.min.js 에서 추출된 값

@@ -1,32 +1,25 @@
-import { MGRSType, UTMType } from "../../../types/d2/Coords";
-import D2MapModule from "../D2MapModule";
+import { MGRSType, UTMType } from "../../../../types/d2/Coords";
+import D2MapModule from "../../D2MapModule";
 const { CoordManager } = D2MapModule;
 
 /**
  * 일반 LonLat 좌표를 dms, utm, mgrs, geoRef, gars의 형식으로 리턴하는 인터페이스
  */
 interface fromLonLatToVariousCoordsType {
-	/**
-	 * 도분초 형태의 경도와 위도를 Key값이 0인 경우 경도, 1인 경우 위도로 나타냄
-	 */
-
 	lon: number;
 	lat: number;
-
 	/**
 	 * DMS(도분초) 경도
 	 *
 	 * 127°01′39″E와 같은 모양
 	 */
 	dmsLon: string;
-
 	/**
 	 * DMS 위도(도분초)  3
 	 *
 	 * 7°29′53″N 와 같은 모양
 	 */
 	dmsLat: string;
-
 	utm: UTMType;
 	mgrs: MGRSType;
 	geoRef: string;
@@ -96,7 +89,6 @@ export const fromMGRSToVariousCoords = (mgrs: MGRSType): fromLonLatToVariousCoor
  * @param geoRef string `WJHH 01654 29875` 이런 식으로 생김
  * @returns {fromLonLatToVariousCoordsType} fromLonLatToVariousCoordsType
  */
-
 export const fromGeoRefToVariousCoords = (geoRef: string): fromLonLatToVariousCoordsType => {
 	const refinedValue = geoRef.replace(/ /g, "");
 	const converted = CoordManager.GeoRef2Geo(refinedValue).split(" ");

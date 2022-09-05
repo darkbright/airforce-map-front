@@ -14,7 +14,7 @@ import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
 import DrawPanelToolbar from "./DrawPanelToolbar";
 import MapGridControlModal from "../../modules/map/MapGridControlModal";
 import MoveMapCenterByCoordDrawer from "../../modules/map/MoveMapCenterByCoordDrawer";
-import { setupCenterline } from "../../libs/d2/mapSettings/setupCenterLine";
+import { setupCenterline } from "../../libs/d2/mapSettings/utils/setupCenterLine";
 
 /**
  * 맵 Display에서 최상단에 위치한 다양한 이벤트를 수행할 수 있는 목록을 표현한 툴바임.
