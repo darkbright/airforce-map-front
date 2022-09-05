@@ -18,6 +18,7 @@ declare global {
 		mapLayerManager: any;
 		graphic: any;
 		postComposeCtrl: any;
+		eventManager:any;
 		exportImage: {
 			downloadPNG: () => void;
 		};
@@ -168,6 +169,7 @@ declare global {
 				GraphicUtil: any;
 				Grid: any;
 				MSTacticalLineGraphics: any;
+				MSTacticalPolygonGraphics: any;
 				MVTLayerUI: any;
 				MapLayerManager: any;
 				MilSymbol: any;
