@@ -48,15 +48,6 @@ const DrawPanelToolbar = () => {
 
 	};
 
-	const handleDrawFeature = ( tid: any ) => {
-		// 여기에 직선 그리는 로직 추가
-		//window.map.removeInteraction(draw);
-		GraphicToolApp(tid);
-
-		/**
- * Handle change event.
- */
-		}
 
 	return (
 		<>
@@ -76,7 +67,7 @@ const DrawPanelToolbar = () => {
 					</ToggleButton>
 					
 					<ToggleButton value="straightLine" onClick={()=>GraphicToolApp('straightLine')}>
-						<Tooltip title="포인트">
+						<Tooltip title="직선">
 							<StraightLineIcon />
 						</Tooltip>
 					</ToggleButton>
@@ -118,13 +109,13 @@ const DrawPanelToolbar = () => {
 						</Tooltip>
 					</ToggleButton>
 					<ToggleButton value="pentagon" onClick={()=>GraphicToolApp('pentagon')}>
-						<Tooltip title="포인트">
+						<Tooltip title="오각형">
 							<PentagonIcon />
 						</Tooltip>
 					</ToggleButton>
 					
 					<ToggleButton value="hexagon" onClick={()=>GraphicToolApp('hexagon')}>
-						<Tooltip title="포인트">
+						<Tooltip title="육각형">
 							<HexagonIcon />
 						</Tooltip>
 					</ToggleButton>
@@ -141,7 +132,7 @@ const DrawPanelToolbar = () => {
 						</Tooltip>
 					</ToggleButton>
 					<ToggleButton value="arcIcon" onClick={()=>GraphicToolApp('arcIcon')}>
-						<Tooltip title="원호 - 1">
+						<Tooltip title="원호">
 							<ArcIcon />
 						</Tooltip>
 					</ToggleButton>
@@ -151,7 +142,7 @@ const DrawPanelToolbar = () => {
 						</Tooltip>
 					</ToggleButton>
 					<ToggleButton value="sector" onClick={()=>GraphicToolApp('sector')}>
-						<Tooltip title="원호 - 2">
+						<Tooltip title="섹터">
 							<SectorIcon />
 						</Tooltip>
 					</ToggleButton>
