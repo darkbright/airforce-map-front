@@ -1,10 +1,5 @@
-import { ToggleButton, ToggleButtonGroup, ToggleButtonProps, Tooltip } from "@mui/material";
-import { useState } from "react";
-import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
-import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
-//import SquareIcon from "@mui/icons-material/Square";
-import CropSquareIcon from "@mui/icons-material/CropSquare";
-//import CircleIcon from "@mui/icons-material/Circle";
+import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
+import { ReactElement, useState } from "react";
 import ArcIcon from "../../assets/icons/shapes/ArcIcon";
 import BSplineIcon from "../../assets/icons/shapes/BSplineIcon";
 import CircleIcon from "../../assets/icons/shapes/CircleIcon";
@@ -18,7 +13,7 @@ import MultiPointForwardAxisIcon from "../../assets/icons/shapes/MultiPointForwa
 import PentagonIcon from "../../assets/icons/shapes/PentagonIcon";
 import PointIcon from "../../assets/icons/shapes/PointIcon";
 import PolygonIcon from "../../assets/icons/shapes/PolygonIcon";
-import PolyLineIcon from "../../assets/icons/shapes/PolyLineIcon";
+// import PolyLineIcon from "../../assets/icons/shapes/PolyLineIcon";
 import RoundedSquareIcon from "../../assets/icons/shapes/RoundedSquareIcon";
 import SectorIcon from "../../assets/icons/shapes/SectorIcon";
 import SquareIcon from "../../assets/icons/shapes/SquareIcon";
@@ -26,28 +21,149 @@ import SplineIcon from "../../assets/icons/shapes/SplineIcon";
 import StraightLineIcon from "../../assets/icons/shapes/StraightLineIcon";
 import TextIcon from "../../assets/icons/shapes/TextIcon";
 import TriangleIcon from "../../assets/icons/shapes/TriangleIcon";
-import DashDotDotLineIcon from "../../assets/icons/lineTypes/DashDotDotLineIcon";
-import DashDotLineIcon from "../../assets/icons/lineTypes/DashDotLineIcon";
-import DashLineIcon from "../../assets/icons/lineTypes/DashLineIcon";
-import DotLineIcon from "../../assets/icons/lineTypes/DotLineIcon";
-import OneLineIcon from "../../assets/icons/lineTypes/OneLineIcon";
-import { GraphicToolApp } from "./GraphicToolApp"
 
+import {
+	ShapesOnToolbarShaper,
+	GraphicShapeType,
+} from "../../libs/d2/mapSettings/draw/ShapesOnToolbarShaper";
+
+/**
+ * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
+ */
+interface ShapesListProps {
+	value: GraphicShapeType;
+	title: string;
+	icon: ReactElement;
+}
+
+/**
+ * 툴바에 그려질 도형 리스트
+ */
+const shapesList: ShapesListProps[] = [
+	{
+		value: "point",
+		title: "포인트",
+		icon: <PointIcon />,
+	},
+	{
+		value: "straightLine",
+		title: "직선",
+		icon: <StraightLineIcon />,
+	},
+	{
+		value: "straightLineWithOneArrow",
+		title: "한쪽 화살표 직선",
+		icon: <StraightLineIcon arrowNumber={1} />,
+	},
+	{
+		value: "straigntLineWithTwoArrows",
+		title: "양쪽 화살표 직선",
+		icon: <StraightLineIcon arrowNumber={2} />,
+	},
+	{
+		value: "spline",
+		title: "곡선",
+		icon: <SplineIcon />,
+	},
+	{
+		value: "triangle",
+		title: "삼각형",
+		icon: <TriangleIcon />,
+	},
+	{
+		value: "rectangle",
+		title: "사각형",
+		icon: <SquareIcon />,
+	},
+	{
+		value: "roundedRectangle",
+		title: "둥근사각형",
+		icon: <RoundedSquareIcon />,
+	},
+	{
+		value: "polygon",
+		title: "다각형",
+		icon: <PolygonIcon />,
+	},
+	{
+		value: "BSpline",
+		title: "B Spline",
+		icon: <BSplineIcon />,
+	},
+	{
+		value: "pentagon",
+		title: "오각형",
+		icon: <PentagonIcon />,
+	},
+	{
+		value: "hexagon",
+		title: "육각형",
+		icon: <HexagonIcon />,
+	},
+	{
+		value: "circle",
+		title: "원",
+		icon: <CircleIcon />,
+	},
+	{
+		value: "fanShaped",
+		title: "부채꼴",
+		icon: <FanShapedIcon />,
+	},
+	{
+		value: "arc",
+		title: "원호",
+		icon: <ArcIcon />,
+	},
+	{
+		value: "text",
+		title: "텍스트",
+		icon: <TextIcon />,
+	},
+	{
+		value: "sector",
+		title: "섹터",
+		icon: <SectorIcon />,
+	},
+	{
+		value: "forwardAxis",
+		title: "전진축",
+		icon: <ForwardAxisIcon />,
+	},
+	{
+		value: "multiPointForwardAxis",
+		title: "다점전진축",
+		icon: <MultiPointForwardAxisIcon />,
+	},
+	{
+		value: "FlightForwradAxis",
+		title: "비행점진축",
+		icon: <FlightForwradAxisIcon />,
+	},
+	{
+		value: "combatBoundary",
+		title: "전투지경선",
+		icon: <CombatBoundaryIcon />,
+	},
+	{
+		value: "image",
+		title: "이미지",
+		icon: <ImageIcon />,
+	},
+];
+
+/**
+ * 맵 내 툴바에서 도형 관련 아이콘을 눌렀을 때 나오는 각종 도형 그리기 툴바 Component
+ * @returns {JSX.Element} React Component
+ */
 const DrawPanelToolbar = () => {
+	// 선택된 토글 버튼의 value 값이 무엇인지 파악하고, 그 값을 유지시켜 툴바 내에서 하이라이트를 줌
 	const [alignment, setAlignment] = useState("");
+
 	// 선택된 토글버튼에 강조주기
-
-
-
-	const handleChange = ( tid: any ) => {
-		//let draw; // global so we can remove it later
-		//setAlignment(newAlignment);
-		//window.map.removeInteraction(draw);
-		GraphicToolApp(tid);
-
-
+	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
+		setAlignment(newAlignment);
 	};
-
 
 	return (
 		<>
@@ -60,121 +176,21 @@ const DrawPanelToolbar = () => {
 					exclusive
 					onChange={handleChange}
 				>
-					<ToggleButton value="point" onClick={()=>GraphicToolApp('point')}>
-						<Tooltip title="포인트">
-							<PointIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="straightLine" onClick={()=>GraphicToolApp('straightLine')}>
-						<Tooltip title="직선">
-							<StraightLineIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="polyline" onClick={()=>GraphicToolApp('polyline')}>
-						<Tooltip title="연결선">
-							<PolyLineIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="spline" onClick={()=>GraphicToolApp('spline')}>
-						<Tooltip title="곡선">
-							<SplineIcon />
-						</Tooltip>
-					</ToggleButton>
-
-					<ToggleButton value="triangle" onClick={()=>GraphicToolApp('triangle')}>
-						<Tooltip title="삼각형">
-							<TriangleIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="rectangle" onClick={()=>GraphicToolApp('rectangle')}>
-						<Tooltip title="사각형">
-							<SquareIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="rectangleround" onClick={()=>GraphicToolApp('rectangleround')}>
-						<Tooltip title="둥근사각형">
-							<RoundedSquareIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="polygon" onClick={()=>GraphicToolApp('polygon')}>
-						<Tooltip title="다각형">
-							<PolygonIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="BSpline" onClick={()=>GraphicToolApp('BSpline')}>
-						<Tooltip title="포인트">
-							<BSplineIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="pentagon" onClick={()=>GraphicToolApp('pentagon')}>
-						<Tooltip title="오각형">
-							<PentagonIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="hexagon" onClick={()=>GraphicToolApp('hexagon')}>
-						<Tooltip title="육각형">
-							<HexagonIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="circle" onClick={()=>GraphicToolApp('circle')}>
-						<Tooltip title="타원">
-							<CircleIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="fanShaped" onClick={()=>GraphicToolApp('fanShaped')}>
-						<Tooltip title="포인트">
-							<FanShapedIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="arcIcon" onClick={()=>GraphicToolApp('arcIcon')}>
-						<Tooltip title="원호">
-							<ArcIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="text" onClick={()=>GraphicToolApp('text')}>
-						<Tooltip title="텍스트">
-							<TextIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="sector" onClick={()=>GraphicToolApp('sector')}>
-						<Tooltip title="섹터">
-							<SectorIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="forwardAxis" onClick={()=>GraphicToolApp('forwardAxis')}>
-						<Tooltip title="포인트">
-							<ForwardAxisIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="multiPointForwardAxis" onClick={()=>GraphicToolApp('multiPointForwardAxis')}>
-						<Tooltip title="포인트">
-							<MultiPointForwardAxisIcon />
-						</Tooltip>
-					</ToggleButton>
-					<ToggleButton value="FlightForwradAxis" onClick={()=>GraphicToolApp('FlightForwradAxis')}>
-						<Tooltip title="포인트">
-							<FlightForwradAxisIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="combatBoundary" onClick={()=>GraphicToolApp('combatBoundary')}>
-						<Tooltip title="포인트">
-							<CombatBoundaryIcon />
-						</Tooltip>
-					</ToggleButton>
-					
-					<ToggleButton value="image" onClick={()=>GraphicToolApp('image')}>
-						<Tooltip title="이미지">
-							<ImageIcon />
-						</Tooltip>
-					</ToggleButton>
+					{shapesList.map((shape) => (
+						<ToggleButton
+							key={shape.value}
+							value={shape.value}
+							onClick={() => {
+								ShapesOnToolbarShaper({
+									tid: shape.value,
+								});
+							}}
+						>
+							<Tooltip title={shape.title}>
+								<div>{shape.icon}</div>
+							</Tooltip>
+						</ToggleButton>
+					))}
 				</ToggleButtonGroup>
 			</div>
 		</>

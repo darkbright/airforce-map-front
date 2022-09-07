@@ -22,8 +22,8 @@ const SplineIcon = ({ width = 18, color }: IconProps) => {
 			xmlSpace="preserve"
 			width={width}
 		>
-			<rect x="134.4" y="13.1" width="38.7" height="38.7" />
-			<rect x="9.3" y="142.9" width="38.7" height="38.7" />
+			<rect x="134.4" y="13.1" width="38.7" height="38.7" style={{ fill: chosenColor }} />
+			<rect x="9.3" y="142.9" width="38.7" height="38.7" style={{ fill: chosenColor }} />
 			<path
 				style={{
 					fill: "none",

@@ -40,10 +40,22 @@ const TextIcon = ({ width = 18, color, small = false }: TextIconProps) => {
 			) : (
 				<>
 					<g>
-						<path d="M43.6,87.7v35.7H33.4V87.7H20.7v-7.9h35.7v7.9H43.6z" />
-						<path d="M91.7,115.4v7.9H61.1V79.7h29.4v7.9H71.4v9.8h18.3v7.7H71.4v10.3H91.7z" />
-						<path d="M124.4,123.4l-9-14.1l-9,14.1H95.3l14.6-22.7L96.4,79.7h11.1l7.9,12.3l7.9-12.3h11.1L121,100.6l14.6,22.7H124.4z" />
-						<path d="M159.5,87.7v35.7h-10.2V87.7h-12.8v-7.9h35.7v7.9H159.5z" />
+						<path
+							d="M43.6,87.7v35.7H33.4V87.7H20.7v-7.9h35.7v7.9H43.6z"
+							style={{ fill: chosenColor }}
+						/>
+						<path
+							d="M91.7,115.4v7.9H61.1V79.7h29.4v7.9H71.4v9.8h18.3v7.7H71.4v10.3H91.7z"
+							style={{ fill: chosenColor }}
+						/>
+						<path
+							d="M124.4,123.4l-9-14.1l-9,14.1H95.3l14.6-22.7L96.4,79.7h11.1l7.9,12.3l7.9-12.3h11.1L121,100.6l14.6,22.7H124.4z"
+							style={{ fill: chosenColor }}
+						/>
+						<path
+							d="M159.5,87.7v35.7h-10.2V87.7h-12.8v-7.9h35.7v7.9H159.5z"
+							style={{ fill: chosenColor }}
+						/>
 					</g>
 					<g style={{ opacity: 0.68 }}>
 						<g>
