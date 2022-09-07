@@ -15,12 +15,37 @@ import "@fontsource/noto-serif-kr/700.css";
 
 declare module "@mui/material/styles" {
 	interface Palette {
+		/**
+		 * 범례 시 숫자
+		 * - 100 - 75%: 그린 (high),
+		 * - 74-60% 옐로우 (middleHigh),
+		 * - 59-50% 레드 (middle),
+		 * - 49% 이하 블랙 (veryLow)
+		 */
 		percentageRemarks: {
+			/**
+			 * 49% 이하 블랙 (veryLow)
+			 */
 			verylow: string;
+			/**
+			 * 59-50% 레드 (middle)
+			 */
 			middle: string;
+			/**
+			 * 74-60% 옐로우 (middleHigh)
+			 */
 			middleHigh: string;
+			/**
+			 * 100 - 75%: 그린 (high)
+			 */
 			high: string;
 		};
+		/**
+		 * 각 군별 대표 색상
+		 * - land: 육군
+		 * - navy: 해군
+		 * - airforce: 공군
+		 */
 		armyColor: {
 			land: string;
 			navy: string;

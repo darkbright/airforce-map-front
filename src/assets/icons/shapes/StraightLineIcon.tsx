@@ -7,7 +7,7 @@ interface StraightLineIconProps extends IconProps {
 }
 
 /**
- * 작선 (Straight Line) 모양 아이콘.
+ * 직선 (Straight Line) 모양 아이콘.
  *
  * 옵션으로 arrow 숫자를 입력하면 화살표가 생김
  * - arrowNumber 0 - 화살표 없음

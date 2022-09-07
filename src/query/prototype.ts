@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useQuery } from "react-query";
+import { OpenLayersStandardDataTypes } from "../types/openlayers";
 import { DMSConverter } from "../utils/coordConversion";
 
 const API_URL = process.env.REACT_APP_BACKEND_SERVER_URL;
 
 export interface PrototypeAllType {
-	testCd: string;
+	testCd: number;
 	testNm: string;
 	testPercent: number;
 	testColor: "B" | "G";
@@ -18,11 +19,11 @@ export interface PrototypeAllType {
  */
 
 export const usePrototypesAll = () => {
-	const getPrototypes = async () => {
-		const { data } = await axios.get(`${API_URL}/prototype/all`);
+	const getPrototypes = async (): Promise<OpenLayersStandardDataTypes> => {
+		const { data } = await axios.get(`${API_URL}/prototype`);
 
 		const convertedData = await data.map((proto: PrototypeAllType) => ({
-			type: "feature",
+			type: "Feature",
 			properties: {
 				id: proto.testCd,
 				name: proto.testNm,
@@ -34,7 +35,7 @@ export const usePrototypesAll = () => {
 			},
 		}));
 
-		return convertedData;
+		return { type: "FeatureCollection", features: convertedData };
 	};
 	return useQuery("prototypes", getPrototypes);
 };
