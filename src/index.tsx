@@ -13,7 +13,14 @@ import "./styles/d2/zTreeStyle.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			staleTime: Infinity,
+			structuralSharing: false,
+		},
+	},
+});
 
 /**
  * 최초 시작

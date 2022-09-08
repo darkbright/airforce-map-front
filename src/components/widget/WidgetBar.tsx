@@ -1,5 +1,4 @@
 import { IconButton, styled, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
 import TabPanel from "../tab/TabPanel";
 import WarningIcon from "@mui/icons-material/Warning";
 import TableRowsIcon from "@mui/icons-material/TableRows";
@@ -8,6 +7,7 @@ import WarningTab from "./WarningTab";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import DataTab from "./DataTab";
+import useRightWidgetBarStore from "../../stores/useRightWidgetBarStore";
 
 function a11yProps(index: number) {
 	return {
@@ -21,8 +21,7 @@ function a11yProps(index: number) {
  *
  */
 const WidgetBar = () => {
-	const [selectedTab, setSelectedTab] = useState(0);
-	const [showWidgetContent, setShowWidgetContent] = useState(false);
+	const { isBarOpen, setIsBarOpen, setSelectedTab, selectedTab } = useRightWidgetBarStore();
 
 	return (
 		<Root>
@@ -30,14 +29,14 @@ const WidgetBar = () => {
 				<TabHeadArea>
 					<div style={{ marginTop: "2%", textAlign: "left" }}>
 						<ShrinkBtn
-							isshrinked={String(showWidgetContent)}
+							isshrinked={String(isBarOpen)}
 							size="small"
 							aria-label="expand-menu"
 							onClick={() => {
-								setShowWidgetContent(!showWidgetContent);
+								setIsBarOpen(!isBarOpen);
 							}}
 						>
-							{showWidgetContent ? (
+							{isBarOpen ? (
 								<ArrowForwardIosIcon fontSize="small" color="secondary" />
 							) : (
 								<ArrowBackIosIcon fontSize="small" color="secondary" />
@@ -47,10 +46,10 @@ const WidgetBar = () => {
 					<Tabs
 						orientation="vertical"
 						variant="scrollable"
-						value={showWidgetContent ? selectedTab : false}
+						value={isBarOpen ? selectedTab : false}
 						onChange={(e, newValue) => {
 							setSelectedTab(newValue);
-							setShowWidgetContent(true);
+							setIsBarOpen(true);
 						}}
 						aria-label="vertical-widget-tab"
 					>
@@ -59,7 +58,7 @@ const WidgetBar = () => {
 						<Tab icon={<EmojiObjectsIcon />} {...a11yProps(2)} />
 					</Tabs>
 				</TabHeadArea>
-				<TabContentArea show={showWidgetContent}>
+				<TabContentArea show={isBarOpen}>
 					<TabPanel value={selectedTab} index={0}>
 						<WarningTab />
 					</TabPanel>

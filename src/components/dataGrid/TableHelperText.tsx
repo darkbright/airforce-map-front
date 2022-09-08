@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { styled, Typography } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import useThemeStore from "../../stores/useThemeStore";
 import { theme } from "../../styles/theme";
@@ -12,10 +12,10 @@ const ColorPercentage = () => {
 	const { high, middleHigh, middle, verylow } = theme(isDark).palette.percentageRemarks;
 
 	const percentType = [
-		{ title: "100 - 75% 그린", color: high },
-		{ title: "74 - 60% 옐로우", color: middleHigh },
-		{ title: "59 - 50% 레드", color: middle },
-		{ title: "49% 이하 블랙", color: verylow },
+		{ title: "100 - 75% 정상", color: high },
+		{ title: "74 - 60% 경고", color: middleHigh },
+		{ title: "59 - 50% 위험", color: middle },
+		{ title: "49% 이하 낮음", color: verylow },
 	];
 
 	return (
@@ -55,9 +55,8 @@ const ColorWrapper = styled("div")(() => ({
 	paddingRight: 10,
 }));
 
-const HelperWrapper = styled(Box)(({ theme }) => ({
+const HelperWrapper = styled("div")(({ theme }) => ({
 	padding: 6,
 	borderRadius: 4,
-	width: "fit-content",
 	border: `1px solid ${theme.palette.divider}`,
 }));

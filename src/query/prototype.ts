@@ -21,6 +21,7 @@ export interface PrototypeAllType {
 export const usePrototypesAll = () => {
 	const getPrototypes = async (): Promise<OpenLayersStandardDataTypes> => {
 		const { data } = await axios.get(`${API_URL}/prototype`);
+		console.log(data);
 
 		const convertedData = await data.map((proto: PrototypeAllType) => ({
 			type: "Feature",
@@ -37,5 +38,5 @@ export const usePrototypesAll = () => {
 
 		return { type: "FeatureCollection", features: convertedData };
 	};
-	return useQuery("prototypes", getPrototypes);
+	return useQuery(["prototypes"], getPrototypes);
 };

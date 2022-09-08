@@ -1,17 +1,14 @@
 import { Popover, Typography } from "@mui/material";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import TableHelperText from "../dataGrid/TableHelperText";
-import D2MapModule from "../../libs/d2/D2MapModule";
 import mapSettings from "../../libs/d2/mapSettings";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
 import SimpleTableOnMap from "../simpleTable/SimpleTableOnMap";
-import { usePrototypesAll } from "../../query/prototype";
-import { OpenLayersStandardDataTypes } from "../../types/openlayers";
-import { simplifiedSymbolStyle } from "../../libs/d2/mapSettings/styles/simplifiedSymbolStyle";
 
 interface BaseMapProps {
 	show?: boolean;
+	children: ReactNode;
 }
 
 /**
@@ -25,13 +22,8 @@ interface BaseMapProps {
  * @returns {JSX.Element} React Component
  */
 
-const BaseMap = ({ show = true }: BaseMapProps) => {
-	const { ol } = D2MapModule;
+const BaseMap = ({ show = true, children }: BaseMapProps) => {
 	const [loading, setLoading] = useState(false);
-
-	// 지도위에 뿌릴 좌표 데이터
-	const [mapData, setMapData] = useState<OpenLayersStandardDataTypes | null>(null);
-	const { data: prototypeData, isFetched } = usePrototypesAll();
 
 	useEffect(() => {
 		// initializing d2 map module
@@ -43,21 +35,6 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 		return () => window.map.setTarget(undefined);
 	}, []);
 
-	useEffect(() => {
-		if (isFetched) {
-			setMapData(prototypeData!);
-			const olLayers = new ol.layer.Vector({
-				name: "objectLayer",
-				source: new ol.source.Vector({
-					features: new ol.format.GeoJSON().readFeatures(prototypeData),
-				}),
-				zIndex: 500, //(디투맵 내부에서는 지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
-				style: simplifiedSymbolStyle,
-			});
-			return window.map.addLayer(olLayers);
-		}
-	}, [isFetched]);
-
 	const popupRef = useRef<HTMLDivElement>(null);
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 	const [selectedId, setSelectedId] = useState("");
@@ -68,7 +45,6 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 
 	const onClickFeatureOnMap = useCallback(
 		(event: any) => {
-			console.log(mapData);
 			const feature = window.map.forEachFeatureAtPixel(
 				event.pixel,
 				(feature: any) => {
@@ -96,14 +72,13 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 		[window.map],
 	);
 
-	{
-		/*
+	/*
 	useEffect(() => {
 		window.map.on("click", onClickFeatureOnMap);
 		return () => window.map.un("click", onClickFeatureOnMap);
 	}, [window.map, onClickFeatureOnMap]);
 */
-	}
+
 	const id = anchorEl ? "map-popover" : undefined;
 
 	return (
@@ -114,8 +89,9 @@ const BaseMap = ({ show = true }: BaseMapProps) => {
 				<div
 					id="map"
 					className="map"
-					style={{ width: "100%", height: "800px", position: "relative" }}
+					style={{ width: "100%", height: "85vh", position: "relative" }}
 				>
+					{children}
 					<div
 						ref={popupRef}
 						aria-describedby={id}
