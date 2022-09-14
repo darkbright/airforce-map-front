@@ -19,7 +19,7 @@ const MapDataTableWrapper = ({ show, setShow, children }: MapDataTableWrapperPro
 		<Root>
 			<Wrapper
 				style={{
-					width: show ? "20vw" : 0,
+					width: show ? "22vw" : 0,
 					background: bgColor,
 				}}
 			>
