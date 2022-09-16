@@ -6,9 +6,8 @@ import Login from "../pages/auth/Login";
 import Landing from "../pages/Landing";
 import Main from "../pages/Main";
 import NotFound from "../pages/NotFound";
-
-import SampleTable from "../pages/SampleTable";
 import Unauthroized from "../pages/Unauthorized";
+import Whatever from "../pages/Whatever";
 import RequireAuth from "./RequireAuth";
 
 const Router = () => {
@@ -27,7 +26,11 @@ const Router = () => {
 					{menu.map((route) =>
 						route.subMenu?.map((subRoute) => {
 							return (
-								<Route key={subRoute.id} path={`/${route.id}/${subRoute.id}`} element={<Main />} />
+								<Route
+									key={subRoute.id}
+									path={`/${route.id}/${subRoute.id}`}
+									element={route.id === "UNUSSEDLEO" ? <Whatever /> : <Main />}
+								/>
 							);
 						}),
 					)}

@@ -7,10 +7,10 @@ import {
 	TableRow,
 	TableBody,
 } from "@mui/material";
-import { dummyArmyStatus } from "../../data/constants/dummyData";
+import { dummyArmyStatus } from "../../../data/constants/dummyData";
 import CircleIcon from "@mui/icons-material/Circle";
-import useThemeStore from "../../stores/useThemeStore";
-import { theme } from "../../styles/theme";
+import useThemeStore from "../../../stores/useThemeStore";
+import { theme } from "../../../styles/theme";
 
 const dummyDataHead = ["구분", "현재", "현재원", "충원율", "상태"];
 

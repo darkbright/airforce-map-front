@@ -17,6 +17,11 @@ interface DataGridToolBarProps {
 	openHeaderSetting: () => void;
 }
 
+/**
+ * Toast UI 사용 시, 테이블 상단에 뜨는 툴바 설정
+ * @param DataGridToolBarProps DataGridToolBarProps
+ * @returns {JSX.Element} React Component(div)
+ */
 const DataGridToolbar = ({
 	addNewRow,
 	refresh,

@@ -1,5 +1,10 @@
 import { Palette } from "@mui/material";
 
+/**
+ * Toast UI 용 데이터 그리드 스타일 설정 파일
+ * @param palette
+ * @returns
+ */
 export const gridStyles = (palette: Palette) => {
 	const { background, divider, text, action, primary } = palette;
 	return {

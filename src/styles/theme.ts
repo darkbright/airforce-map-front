@@ -101,7 +101,7 @@ const baseTheme = {
 			fontWeight: 600,
 		},
 		h6: {
-			fontSize: "1rem",
+			fontSize: "0.92rem",
 			lineHeight: 1,
 			fontWeight: 600,
 		},

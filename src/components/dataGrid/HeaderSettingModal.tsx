@@ -33,6 +33,11 @@ interface HeaderSettingModalProps {
 	setFrozenCount: (value: number) => void;
 }
 
+/**
+ * Toast UI Grid 사용 시, 테이블 상단의 툴바에 뜨는 헤더 설정을 핸들링하기 위한 모달
+ * @param HeaderSettingModalProps HeaderSettingModalProps
+ * @returns {JSX.Element} React Component(Modal)
+ */
 const HeaderSettingModal = ({
 	open,
 	setOpen,

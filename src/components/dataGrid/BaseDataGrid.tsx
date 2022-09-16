@@ -12,7 +12,7 @@ import "../../styles/dataGrid/index.css";
 import HeaderSettingModal from "./HeaderSettingModal";
 import { DataGridKeyProps, dataGridKeys } from "../../data/constants/dataGridKeys";
 import { dummyAirplaneStatus } from "../../data/constants/dummyData";
-import { gridStyles } from "./grigStyle";
+import { gridStyles } from "./dataGridStyle";
 
 interface BaseDataGridProps {
 	showToolbar?: boolean;

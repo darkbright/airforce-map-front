@@ -1,6 +1,6 @@
 export interface OpenLayersStandardDataTypes {
 	type: "FeatureCollection";
-	features: OpenLayersStandardFeatureTypes[];
+	features: OpenLayersStandardFeatureTypes[] | undefined | null;
 }
 
 export interface OpenLayersStandardFeatureTypes {

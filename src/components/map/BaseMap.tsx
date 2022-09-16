@@ -4,7 +4,7 @@ import TableHelperText from "../dataGrid/TableHelperText";
 import mapSettings from "../../libs/d2/mapSettings";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
-import SimpleTableOnMap from "../simpleTable/SimpleTableOnMap";
+import SimpleTableOnMap from "../dataGrid/simpleTable/SimpleTableOnMap";
 
 interface BaseMapProps {
 	show?: boolean;

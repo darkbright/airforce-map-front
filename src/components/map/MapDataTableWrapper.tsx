@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { styled, Tooltip } from "@mui/material";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import useThemeStore from "../../stores/useThemeStore";
 import { theme } from "../../styles/theme";
@@ -26,9 +26,13 @@ const MapDataTableWrapper = ({ show, setShow, children }: MapDataTableWrapperPro
 				<ShrinkBtn style={{ background: bgColor }} onClick={() => setShow(!show)}>
 					<Centered>
 						{show ? (
-							<ArrowForwardIosIcon fontSize="small" color="secondary" />
+							<Tooltip title="정보패널 닫기">
+								<ArrowForwardIosIcon fontSize="small" color="secondary" />
+							</Tooltip>
 						) : (
-							<ArrowBackIosIcon fontSize="small" color="secondary" />
+							<Tooltip title="정보패널 열기">
+								<ArrowBackIosIcon fontSize="small" color="secondary" />
+							</Tooltip>
 						)}
 					</Centered>
 				</ShrinkBtn>
@@ -50,7 +54,7 @@ const Wrapper = styled("div")(() => ({
 	top: 0,
 	right: 0,
 	zIndex: 200,
-	transition: "width ease-out 0.1s",
+	transition: "width ease-out 0.2s",
 }));
 
 const ShrinkBtn = styled("div")(() => ({
