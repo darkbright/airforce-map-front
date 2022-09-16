@@ -85,12 +85,12 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 		<div style={{ display: show ? "block" : "none" }}>
 			{loading && <Loading />}
 			<div style={{ width: "100%" }}>
-				<MapToolbar />
 				<div
 					id="map"
 					className="map"
 					style={{ width: "100%", height: "85vh", position: "relative" }}
 				>
+					<MapToolbar />
 					{children}
 					<div
 						ref={popupRef}

@@ -20,7 +20,7 @@ interface WhaterverAllType {
 
 export const useWhateverAll = () => {
 	const getWhatevers = async (): Promise<OpenLayersStandardDataTypes> => {
-		const { data } = await axios.get(`${API_URL}/prototypes`);
+		const { data } = await axios.get(`${API_URL}/whatever`);
 
 		const convertedData = await data.map((proto: WhaterverAllType) => ({
 			type: "Feature",

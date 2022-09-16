@@ -59,12 +59,12 @@ export const usePrototypesAll = () => {
  * @param id 가져올 id 값. 여기서는 testCd값
  * @returns {useQuery} useQuery
  */
-export const usePrototypeById = (id: string) => {
+export const usePrototypeById = (id: string | undefined) => {
 	const getPrototypeById = async (id: string): Promise<PrototypeByIdType[]> => {
 		const { data } = await axios.get(`${API_URL}/prototype/${id}`);
 		return data;
 	};
-	return useQuery(["prototypeById", id], () => getPrototypeById(id), {
-		enabled: false,
+	return useQuery(["prototypeById", id], () => getPrototypeById(id!), {
+		enabled: !!id,
 	});
 };

@@ -55,7 +55,7 @@ const MapToolbar = () => {
 
 	return (
 		<>
-			<div style={{ margin: ".5%" }}>
+			<div style={{ padding: ".5%" }}>
 				<ToggleButtonGroup
 					sx={{ marginLeft: "10px" }}
 					size="small"
