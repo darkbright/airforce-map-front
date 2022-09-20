@@ -9,6 +9,10 @@ interface WhaterverAllType {
 	testCd: number;
 	testNm: string;
 	testNumber: number;
+	todayOnboard: number;
+	todayInjured: number;
+	yesterdayOnboard: number;
+	yesterdayInjured: number;
 	testColor: BasicSymbolColorType;
 	testCoord: string;
 }
@@ -29,6 +33,10 @@ export const useWhateverAll = () => {
 				name: proto.testNm,
 				percent: proto.testNumber,
 				color: proto.testColor,
+				todayOnboard: proto.todayOnboard,
+				todayInjured: proto.todayInjured,
+				yesterdayOnboard: proto.yesterdayOnboard,
+				yesterdayInjured: proto.yesterdayInjured,
 				lonlat: DMSConverter({ dms: proto.testCoord, type: "toLonlat" }),
 			},
 			geometry: {

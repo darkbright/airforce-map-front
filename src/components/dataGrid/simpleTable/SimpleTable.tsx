@@ -22,7 +22,7 @@ interface SimpleTableProps {
 const SimpleTable = ({ head, children }: SimpleTableProps) => {
 	return (
 		<TableContainer component={Paper} elevation={0}>
-			<Table size="small" aria-label="sample table">
+			<Table size="small" aria-label="simple table">
 				<TableHead>
 					<TableRow>
 						{head?.map((h) => (

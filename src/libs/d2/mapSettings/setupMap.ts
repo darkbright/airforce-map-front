@@ -48,7 +48,7 @@ export default async () => {
 		layers: defaultMapToLoad,
 		view: new ol.View({
 			center: olCenter,
-			zoom: 8,
+			zoom: 7,
 			minZoom: 0,
 			maxZoom: 17,
 		}),

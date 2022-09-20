@@ -29,6 +29,7 @@ export const setupVectorsOnPage = ({ data, layerName }: SetupVectorsOnPageType) 
 		}
 	});
 
+	// 아래의 레이어에서 type 은 각종 레이어 종류(지도 tile 레이어, 그리기 레이어 등등) 중에 개별 페이지 내에서 지도위에 띄울 장소 좌표 및 기타 properties를 포함한 객체인 경우, 구분을 쉽게하고 레이어를 없앴다가 띄웠다가 하기 위하여 custom하게 삽입한 것이므로 건드리지 말 것.
 	const olLayers = new ol.layer.Vector({
 		name: layerName,
 		type: "vectors-on-page",

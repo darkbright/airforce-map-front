@@ -1,10 +1,7 @@
-import { Popover, Typography } from "@mui/material";
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react";
-import TableHelperText from "../dataGrid/TableHelperText";
+import React, { ReactNode, useEffect, useState } from "react";
 import mapSettings from "../../libs/d2/mapSettings";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
-import SimpleTableOnMap from "../dataGrid/simpleTable/SimpleTableOnMap";
 
 interface BaseMapProps {
 	show?: boolean;
@@ -30,47 +27,17 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 		setLoading(true);
 		mapSettings();
 		setLoading(false);
-		// setLoadedData(geojsonObject);
 
 		return () => window.map.setTarget(undefined);
 	}, []);
 
-	const popupRef = useRef<HTMLDivElement>(null);
-	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-	const [selectedId, setSelectedId] = useState("");
-	const [mousePosition, setMousePosition] = useState({
-		x: 0,
-		y: 0,
-	});
-
-	const onClickFeatureOnMap = useCallback(
-		(event: any) => {
-			const feature = window.map.forEachFeatureAtPixel(
-				event.pixel,
-				(feature: any) => {
-					return feature;
-				},
-				{
-					// 마우스 클릭 시 좌표의 범위를 넓혀주어 대충 클릭해도 팝업이 뜰 수 있도록 조치하는 항목임.
-					hitTolerence: 5,
-				},
-			);
-			if (feature) {
-				setMousePosition({
-					x: event.pixel[0],
-					y: event.pixel[1],
-				});
-				setAnchorEl(popupRef.current);
-				const { name } = feature.getProperties();
-				setSelectedId(name);
-
-				// const geometry = feature.getGeometry();
-				// console.log(event.coordinate);
-				// console.log(geometry);
-			}
-		},
-		[window.map],
-	);
+	//const popupRef = useRef<HTMLDivElement>(null);
+	// const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+	// const [selectedId, setSelectedId] = useState("");
+	// const [mousePosition, setMousePosition] = useState({
+	// 	x: 0,
+	// 	y: 0,
+	// });
 
 	/*
 	useEffect(() => {
@@ -79,7 +46,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 	}, [window.map, onClickFeatureOnMap]);
 */
 
-	const id = anchorEl ? "map-popover" : undefined;
+	// const id = anchorEl ? "map-popover" : undefined;
 
 	return (
 		<div style={{ display: show ? "block" : "none" }}>
@@ -92,14 +59,14 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 				>
 					<MapToolbar />
 					{children}
-					<div
+					{/* <div
 						ref={popupRef}
 						aria-describedby={id}
 						style={{ position: "absolute", left: mousePosition.x, bottom: mousePosition.y }}
-					/>
+					/> */}
 				</div>
 				<div id="d2map-coord-bottom" className="d2map-coord-bottom" />
-				<Popover
+				{/* <Popover
 					id={id}
 					open={Boolean(anchorEl)}
 					anchorEl={anchorEl}
@@ -120,7 +87,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 						<TableHelperText type="percentage" />
 						<SimpleTableOnMap />
 					</div>
-				</Popover>
+				</Popover> */}
 			</div>
 		</div>
 	);

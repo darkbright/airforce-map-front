@@ -1,5 +1,5 @@
 import { Divider, TableRow, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import TableHelperText from "../components/dataGrid/TableHelperText";
 import MapDataTableWrapper from "../components/map/MapDataTableWrapper";
 import SimpleTable from "../components/dataGrid/simpleTable/SimpleTable";
@@ -29,6 +29,13 @@ const Main = () => {
 	// 셀렉트박스를 이용하여 뿌려줄 데이터( mapData를 변형하기 위한 용도)
 	const [selectedMapData, setSelectedMapData] = useState(mapData);
 
+	// 개별 데이터 prototypeById
+	const [selectedId, setSelectedId] = useState<string>();
+	const [selectedName, setSelectedName] = useState("");
+	const [prototypeIdData, setPrototypeIdData] = useState<PrototypeByIdType[] | null>(null);
+	const { data: idData, refetch } = usePrototypeById(selectedId);
+
+	// 맵에 좌표 데이터 로딩
 	useEffect(() => {
 		if (isPrototypeFetched) {
 			setMapData(prototypeData && prototypeData.features!);
@@ -37,15 +44,13 @@ const Main = () => {
 				data: prototypeData!,
 				layerName: "prototype-layer",
 			});
+			// 맵에 뿌려진 좌표를 클릭했을 때 핸들링하는 기능
+			window.map.on("click", onClickFeatureOnMap);
+			return () => window.map.un("click", onClickFeatureOnMap);
 		}
-	}, [isPrototypeFetched]);
+	}, [isPrototypeFetched, setSelectedId, setSelectedName]);
 
-	// 개별 데이터 prototypeById
-	const [selectedId, setSelectedId] = useState<string>();
-	const [selectedName, setSelectedName] = useState("");
-	const [prototypeIdData, setPrototypeIdData] = useState<PrototypeByIdType[] | null>(null);
-	const { data: idData, refetch } = usePrototypeById(selectedId);
-
+	// 기본으로 받은 데이터의 id를 클릭했을 때, 신규로 상세 데이터를 가져오는 로직
 	useEffect(() => {
 		refetch();
 		setPrototypeIdData(idData!);
@@ -59,6 +64,27 @@ const Main = () => {
 		"전체",
 		...new Set(prototypeData?.features?.map((data) => data.properties.category)),
 	];
+
+	// 지도 상에 나타난 좌표 및 부호를 클릭했을 때 해당하는 세부 표를 보여주는 기능
+	const onClickFeatureOnMap = useCallback(
+		(event: any) => {
+			const feature = window.map.forEachFeatureAtPixel(
+				event.pixel,
+				(feature: any) => {
+					return feature;
+				},
+				{
+					hitTolerence: 5,
+				},
+			);
+			if (feature) {
+				const { id, name } = feature.getProperties();
+				setSelectedId(id);
+				setSelectedName(name);
+			}
+		},
+		[window.map],
+	);
 
 	return (
 		<MapDataTableWrapper show={openTable} setShow={() => setOpenTable(!openTable)}>
