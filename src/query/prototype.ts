@@ -4,7 +4,6 @@ import { API_URL } from ".";
 import { toastShow } from "../components/alert/ToastMessage";
 import { DMSConverter } from "../libs/d2/mapSettings/utils/coordsConverter";
 import { OpenLayersStandardDataTypes } from "../types/openlayers";
-
 import { BasicSymbolColorType } from "../utils/milColorHandler";
 
 export interface PrototypeAllType {

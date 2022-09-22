@@ -12,10 +12,9 @@ interface ColorPercentageProps {
 	percentType: PercentTypeElement[];
 }
 
-interface PercentTypeElement {
+export interface PercentTypeElement {
 	percent: string;
 	desc: string;
-	isDash: boolean;
 	color: BasicSymbolColorType;
 }
 
@@ -28,7 +27,7 @@ const ColorPercentage = ({ percentType }: ColorPercentageProps) => {
 		<Root>
 			{percentType.map((p) => (
 				<ColorWrapper key={p.color}>
-					{p.isDash ? (
+					{p.color === "X" ? (
 						<HorizontalRuleIcon sx={{ color: milColorHandler(p.color) }} fontSize="small" />
 					) : (
 						<CircleIcon sx={{ color: milColorHandler(p.color) }} fontSize="small" />
@@ -51,10 +50,10 @@ const ColorPercentage = ({ percentType }: ColorPercentageProps) => {
  * 디폴트 값. 가장 많이 쓰는 값으로 이것을 설정해두면 별도로 나중에 쓰지 않아도 이 값이 유지됨
  */
 const defaultPercentType: PercentTypeElement[] = [
-	{ percent: "100 - 75%", desc: "정상", isDash: false, color: "G" },
-	{ percent: "74 - 60%", desc: "경고", isDash: false, color: "Y" },
-	{ percent: "59 - 50%", desc: "위험", isDash: false, color: "R" },
-	{ percent: "49% 이하", desc: "낮음", isDash: true, color: "X" },
+	{ percent: "100 - 75%", desc: "정상", color: "G" },
+	{ percent: "74 - 60%", desc: "경고", color: "Y" },
+	{ percent: "59 - 50%", desc: "위험", color: "R" },
+	{ percent: "49% 이하", desc: "낮음", color: "X" },
 ];
 
 /**
@@ -62,7 +61,7 @@ const defaultPercentType: PercentTypeElement[] = [
  * - type을 percentage로 설정하면 퍼센티지를 표시하는 형식의 범례가 구성됨. 기타 type은 추후 추가 예정임
  * - percentType은 각각의 범례마다 표기하는 텍스트가 다르므르, percentage 선택 시 입력해주어야 함. 입력하지 않을 시 기본으로 설정된 값이 뜨게 됨.
  * @param TableHelperTextProps TableHelperTextProps
- * @returns React.Element
+ * @returns JSX.Element(div)
  */
 const TableHelperText = ({ type, percentType = defaultPercentType }: TableHelperTextProps) => {
 	const helperType = (value: string) => {

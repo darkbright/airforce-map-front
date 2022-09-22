@@ -1,11 +1,15 @@
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Divider, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";
 import BaseBlockTitleBox from "../components/box/textBox/BaseBlockTitleBox";
+import TextButton from "../components/button/TextButton";
 import CustomTable from "../components/dataGrid/simpleTable/CustomTable";
+import ReportModalExample from "../components/dataGrid/simpleTable/ReportModalExample";
 import {
 	SimpleTableCellText,
 	SimpleTableCircleCellByColor,
 } from "../components/dataGrid/simpleTable/SimpleTableCellDisplay";
+import { CollapsibleTableExample } from "../components/dataGrid/simpleTable/SimpleTableExamples";
+import TableHelperText, { PercentTypeElement } from "../components/dataGrid/TableHelperText";
 import MapDataTableWrapper from "../components/map/MapDataTableWrapper";
 import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnPage";
 import { useWhateverAll } from "../query/whatever";
@@ -24,8 +28,8 @@ const Whatever = () => {
 	const tableLineColor = `1px solid ${theme(isDark).palette.divider}`;
 
 	useEffect(() => {
-		setMapData(whateverData && whateverData.features!);
 		if (isWhateverDataFetched) {
+			setMapData(whateverData && whateverData.features!);
 			setupVectorsOnPage({
 				data: whateverData!,
 				layerName: "whatever-layer",
@@ -33,13 +37,39 @@ const Whatever = () => {
 		}
 	}, [isWhateverDataFetched]);
 
+	const percentType: PercentTypeElement[] = [
+		{
+			percent: "1 - 30%",
+			desc: "😱 큰일",
+			color: "R",
+		},
+		{
+			percent: "31 - 60%",
+			desc: "🤔 글쎄",
+			color: "Y",
+		},
+		{
+			percent: "61 - 100%",
+			desc: "🤗 좋아요",
+			color: "G",
+		},
+		{
+			percent: "0",
+			desc: "😑 몰겠음",
+			color: "X",
+		},
+	];
+
+	// sample Modal Open Close SEtting
+	const [modalOpen, setModalOpen] = useState(false);
+
 	return (
-		<MapDataTableWrapper show={openTable} setShow={() => setOpenTable(!openTable)}>
+		<MapDataTableWrapper width="25vw" show={openTable} setShow={() => setOpenTable(!openTable)}>
 			<BaseBlockTitleBox title="병사현황" subtitle="병사 상태 조회" />
 			<CustomTable>
 				<TableHead>
 					<TableRow>
-						<TableCell sx={{ borderRight: tableLineColor }} colSpan={2}></TableCell>
+						<TableCell sx={{ borderRight: tableLineColor }} colSpan={2} />
 						<TableCell colSpan={2} align="center" sx={{ borderRight: tableLineColor }}>
 							어제
 						</TableCell>
@@ -62,7 +92,7 @@ const Whatever = () => {
 				</TableHead>
 				<TableBody>
 					{mapData?.map((row) => (
-						<TableRow key={row.properties.id}>
+						<TableRow hover key={row.properties.id}>
 							<SimpleTableCellText text={row.properties.name} />
 							<SimpleTableCircleCellByColor
 								sx={{ borderRight: tableLineColor }}
@@ -92,6 +122,15 @@ const Whatever = () => {
 					</TableRow>
 				</TableBody>
 			</CustomTable>
+			<Divider sx={{ mt: 4, mb: 4 }} />
+			<BaseBlockTitleBox title="접었다펴봐" subtitle="접었다펴봐 예시" />
+			<CollapsibleTableExample />
+			<TextButton title="정보통신장애보고" onClick={() => setModalOpen(true)} />
+			<Divider sx={{ mt: 4, mb: 4 }} />
+			<TableHelperText type="percentage" percentType={percentType} />
+			{modalOpen && (
+				<ReportModalExample open={modalOpen} setOpen={() => setModalOpen(!modalOpen)} />
+			)}
 		</MapDataTableWrapper>
 	);
 };

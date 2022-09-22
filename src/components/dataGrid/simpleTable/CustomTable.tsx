@@ -12,7 +12,16 @@ interface SimpleTableProps {
 
 const CustomTable = ({ children }: SimpleTableProps) => {
 	return (
-		<TableContainer component={Paper} elevation={0}>
+		<TableContainer
+			component={Paper}
+			elevation={0}
+			sx={{
+				border: (theme) => `1px solid ${theme.palette.divider}`,
+				borderBottomWidth: 0,
+				background: (theme) => theme.palette.table,
+				marginBottom: 2,
+			}}
+		>
 			<Table size="small" aria-label="simple table">
 				{children}
 			</Table>

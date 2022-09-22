@@ -7,11 +7,24 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 interface MapDataTableWrapperProps {
 	show: boolean;
+	width?: string;
 	setShow: Dispatch<SetStateAction<boolean>>;
 	children: ReactNode;
 }
 
-const MapDataTableWrapper = ({ show, setShow, children }: MapDataTableWrapperProps) => {
+/**
+ * 지도 우측에 띄우게 되는  Div를 정의한 것으로 각종 테이블을 지도에 띄울 데이터와 연계하여 보여줄 수 있겠음
+ * - show, setShow: useState로 보여줄지 말지를 핸들링함.
+ * - width: 기본은 "22vw"인데, 만약 테이블의 너비가 너무 넓어서 시각적으로 보기 어려운 경우 width를 늘릴 수 있겠음
+ * @param MapDataTableWrapperProps MapDataTableWrapperProps
+ * @returns JSX.Element(div)
+ */
+const MapDataTableWrapper = ({
+	show,
+	width = "22vw",
+	setShow,
+	children,
+}: MapDataTableWrapperProps) => {
 	const { isDark } = useThemeStore();
 	const bgColor = theme(isDark).palette.background.paper;
 
@@ -19,7 +32,7 @@ const MapDataTableWrapper = ({ show, setShow, children }: MapDataTableWrapperPro
 		<Root>
 			<Wrapper
 				style={{
-					width: show ? "22vw" : 0,
+					width: show ? width : 0,
 					background: bgColor,
 				}}
 			>

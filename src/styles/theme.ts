@@ -51,6 +51,7 @@ declare module "@mui/material/styles" {
 			navy: string;
 			airforce: string;
 		};
+		table: string;
 	}
 	interface PaletteOptions {
 		// 범례 시 숫자 100 - 75%: 그린, 74-60% 옐로우, 59-50% 레드, 49% 이하 블랙
@@ -66,6 +67,7 @@ declare module "@mui/material/styles" {
 			navy: string;
 			airforce: string;
 		};
+		table?: string;
 	}
 }
 
@@ -170,6 +172,7 @@ const darkTheme = {
 	error: {
 		main: red[400],
 	},
+	table: "#2e3d46",
 };
 
 const lightTheme = {
@@ -196,6 +199,7 @@ const lightTheme = {
 		navy: "#001B69",
 		airforce: "#3399FF",
 	},
+	table: "#fafafa",
 };
 
 const getDesignTokens = (mode: PaletteMode) => ({

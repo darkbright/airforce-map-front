@@ -14,7 +14,7 @@ interface BaseModalProps {
  */
 const BaseModal = ({ open, setOpen, children }: BaseModalProps) => {
 	return (
-		<Dialog onClose={setOpen} open={open}>
+		<Dialog maxWidth="lg" onClose={setOpen} open={open}>
 			<Root>{children}</Root>
 		</Dialog>
 	);

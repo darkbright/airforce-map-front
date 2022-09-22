@@ -10,6 +10,7 @@ import BaseBlockTitleBox from "../components/box/textBox/BaseBlockTitleBox";
 import {
 	SimpleTableCircleCellByColor,
 	SimpleTableCellText,
+	SimpleTableBackgroundColorCell,
 } from "../components/dataGrid/simpleTable/SimpleTableCellDisplay";
 import SelectBox from "../components/form/SelectBox";
 import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnPage";
@@ -17,7 +18,7 @@ import { findFeatures } from "../libs/d2/mapSettings/interactions/findFeatures";
 
 /**
  * 메인 페이지 (프로토타입 샘플)
- * @returns React.Element(Page)
+ * @returns JSX.Element(Page)
  */
 const Main = () => {
 	const { CoordManager } = D2MapModule;
@@ -112,7 +113,7 @@ const Main = () => {
 			)}
 			<SimpleTable head={["지역", "상태", "이거의 형태"]}>
 				{selectedMapData?.map((row) => (
-					<TableRow key={row.properties.id}>
+					<TableRow hover key={row.properties.id}>
 						<SimpleTableCellText
 							text={row.properties.name}
 							pointer
@@ -129,7 +130,7 @@ const Main = () => {
 							}}
 						/>
 						<SimpleTableCircleCellByColor color={row.properties.color} />
-						<SimpleTableCellText text={row.geometry.type} />
+						<SimpleTableBackgroundColorCell color={row.properties.color} text={row.geometry.type} />
 					</TableRow>
 				))}
 			</SimpleTable>
@@ -141,7 +142,7 @@ const Main = () => {
 					</Typography>
 					<SimpleTable head={["부대명", "A상황", "B상황", "C상황", "총평"]}>
 						{prototypeIdData?.map((row) => (
-							<TableRow key={row.id}>
+							<TableRow hover key={row.id}>
 								<SimpleTableCellText text={row.testTroop} />
 								<SimpleTableCircleCellByColor color={row.testAColor} />
 								<SimpleTableCircleCellByColor color={row.testBColor} />

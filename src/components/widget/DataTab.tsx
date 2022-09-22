@@ -15,7 +15,7 @@ const DataTab = () => {
 			<WidgetTitleBox title="퍼센트 표시 바 형태 예시" />
 			<ProgressTable />
 			<Divider sx={{ marginBottom: 1 }} />
-			<WidgetTitleBox title="필요한 테이블" />
+			<WidgetTitleBox title="..." />
 		</Root>
 	);
 };

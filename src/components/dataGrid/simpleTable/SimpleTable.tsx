@@ -21,7 +21,16 @@ interface SimpleTableProps {
 
 const SimpleTable = ({ head, children }: SimpleTableProps) => {
 	return (
-		<TableContainer component={Paper} elevation={0}>
+		<TableContainer
+			component={Paper}
+			sx={{
+				border: (theme) => `1px solid ${theme.palette.divider}`,
+				borderBottomWidth: 0,
+				background: (theme) => theme.palette.table,
+				marginBottom: 3,
+			}}
+			elevation={0}
+		>
 			<Table size="small" aria-label="simple table">
 				<TableHead>
 					<TableRow>
