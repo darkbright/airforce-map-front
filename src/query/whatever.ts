@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { DMSConverter } from "../libs/d2/mapSettings/utils/coordsConverter";
 import { API_URL } from ".";
 import { BasicSymbolColorType } from "../utils/milColorHandler";
+import { toastShow } from "../components/alert/ToastMessage";
 
 interface WhaterverAllType {
 	testCd: number;
@@ -23,29 +24,37 @@ interface WhaterverAllType {
  */
 
 export const useWhateverAll = () => {
-	const getWhatevers = async (): Promise<OpenLayersStandardDataTypes> => {
-		const { data } = await axios.get(`${API_URL}/whatever`);
+	const getWhatevers = async (): Promise<OpenLayersStandardDataTypes | undefined> => {
+		try {
+			const { data } = await axios.get(`${API_URL}/whatever`);
 
-		const convertedData = await data.map((proto: WhaterverAllType) => ({
-			type: "Feature",
-			properties: {
-				id: proto.testCd,
-				name: proto.testNm,
-				percent: proto.testNumber,
-				color: proto.testColor,
-				todayOnboard: proto.todayOnboard,
-				todayInjured: proto.todayInjured,
-				yesterdayOnboard: proto.yesterdayOnboard,
-				yesterdayInjured: proto.yesterdayInjured,
-				lonlat: DMSConverter({ dms: proto.testCoord, type: "toLonlat" }),
-			},
-			geometry: {
-				type: "Point",
-				coordinates: DMSConverter({ dms: proto.testCoord, type: "toScreenCoord" }),
-			},
-		}));
+			const convertedData = await data.map((proto: WhaterverAllType) => ({
+				type: "Feature",
+				properties: {
+					id: proto.testCd,
+					name: proto.testNm,
+					percent: proto.testNumber,
+					color: proto.testColor,
+					todayOnboard: proto.todayOnboard,
+					todayInjured: proto.todayInjured,
+					yesterdayOnboard: proto.yesterdayOnboard,
+					yesterdayInjured: proto.yesterdayInjured,
+					lonlat: DMSConverter({ dms: proto.testCoord, type: "toLonlat" }),
+				},
+				geometry: {
+					type: "Point",
+					coordinates: DMSConverter({ dms: proto.testCoord, type: "toScreenCoord" }),
+				},
+			}));
 
-		return { type: "FeatureCollection", features: convertedData };
+			return { type: "FeatureCollection", features: convertedData };
+		} catch (error: any) {
+			toastShow({
+				title: "네트워크 에러",
+				message: ` 서버에 연결할 수 없습니다. ${error.message}`,
+				type: "error",
+			});
+		}
 	};
 	return useQuery(["whatevers"], getWhatevers);
 };

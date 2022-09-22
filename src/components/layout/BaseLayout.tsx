@@ -1,4 +1,6 @@
 import { Outlet, matchPath, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import useThemeStore from "../../stores/useThemeStore";
 import BaseMap from "../map/BaseMap";
 import BreadCrumbBar from "../nav/BreadCrumbBar";
 import LeftMenuBar from "../nav/LeftMenuBar";
@@ -29,11 +31,21 @@ const BaseLayout = () => {
 	 */
 	const { pathname } = useLocation();
 	const match = matchPath("/random/*", pathname);
+	const { isDark } = useThemeStore();
 
 	return (
 		<>
 			<TopNav />
 			<div style={{ display: "flex", width: "100%", height: "100%" }}>
+				<div>
+					<ToastContainer
+						position="top-right"
+						autoClose={6000}
+						hideProgressBar
+						closeOnClick
+						theme={isDark === "dark" ? "dark" : "light"}
+					/>
+				</div>
 				<LeftMenuBar />
 				<div style={{ width: "100%" }}>
 					<BreadCrumbBar />

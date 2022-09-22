@@ -1,3 +1,4 @@
+import { toastShow } from "../../../../components/alert/ToastMessage";
 import { OpenLayersStandardDataTypes } from "../../../../types/openlayers";
 import D2MapModule from "../../D2MapModule";
 import { simplifiedSymbolStyle } from "../styles/simplifiedSymbolStyle";
@@ -23,21 +24,29 @@ interface SetupVectorsOnPageType {
 export const setupVectorsOnPage = ({ data, layerName }: SetupVectorsOnPageType) => {
 	const { ol } = D2MapModule;
 
-	window.map.getLayers().forEach((element: any) => {
-		if (element.get("type") === "vectors-on-page") {
-			window.map.removeLayer(element);
-		}
-	});
+	try {
+		window.map.getLayers().forEach((element: any) => {
+			if (element.get("type") === "vectors-on-page") {
+				window.map.removeLayer(element);
+			}
+		});
 
-	// 아래의 레이어에서 type 은 각종 레이어 종류(지도 tile 레이어, 그리기 레이어 등등) 중에 개별 페이지 내에서 지도위에 띄울 장소 좌표 및 기타 properties를 포함한 객체인 경우, 구분을 쉽게하고 레이어를 없앴다가 띄웠다가 하기 위하여 custom하게 삽입한 것이므로 건드리지 말 것.
-	const olLayers = new ol.layer.Vector({
-		name: layerName,
-		type: "vectors-on-page",
-		source: new ol.source.Vector({
-			features: new ol.format.GeoJSON().readFeatures(data),
-		}),
-		zIndex: 500, //(디투맵 내부에서는 지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
-		style: simplifiedSymbolStyle,
-	});
-	return window.map.addLayer(olLayers);
+		// 아래의 레이어에서 type 은 각종 레이어 종류(지도 tile 레이어, 그리기 레이어 등등) 중에 개별 페이지 내에서 지도위에 띄울 장소 좌표 및 기타 properties를 포함한 객체인 경우, 구분을 쉽게하고 레이어를 없앴다가 띄웠다가 하기 위하여 custom하게 삽입한 것이므로 건드리지 말 것.
+		const olLayers = new ol.layer.Vector({
+			name: layerName,
+			type: "vectors-on-page",
+			source: new ol.source.Vector({
+				features: new ol.format.GeoJSON().readFeatures(data),
+			}),
+			zIndex: 500, //(디투맵 내부에서는 지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
+			style: simplifiedSymbolStyle,
+		});
+		return window.map.addLayer(olLayers);
+	} catch (error) {
+		toastShow({
+			title: "네트워크 에러",
+			message: `에러가 발생하여 데이터를 가져올 수 없습니다.\n서버가 제대로 연결되었는지 다시 확인해주세요.`,
+			type: "error",
+		});
+	}
 };

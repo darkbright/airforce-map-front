@@ -13,6 +13,7 @@ import {
 } from "../components/dataGrid/simpleTable/SimpleTableCellDisplay";
 import SelectBox from "../components/form/SelectBox";
 import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnPage";
+import { findFeatures } from "../libs/d2/mapSettings/interactions/findFeatures";
 
 /**
  * 메인 페이지 (프로토타입 샘플)
@@ -37,13 +38,27 @@ const Main = () => {
 
 	// 맵에 좌표 데이터 로딩
 	useEffect(() => {
-		if (isPrototypeFetched) {
+		if (window.map && isPrototypeFetched) {
 			setMapData(prototypeData && prototypeData.features!);
 			setSelectedMapData(prototypeData && prototypeData.features!);
 			setupVectorsOnPage({
 				data: prototypeData!,
 				layerName: "prototype-layer",
 			});
+
+			// 우클릭 핸들러
+			window.map.on("pointerdown", function (event: any) {
+				//우클릭 시 기본으로 뜨는 브라우저 context menu를 가려줌
+				document.addEventListener("contextmenu", (e) => {
+					e.preventDefault();
+				});
+				const feature = findFeatures(event);
+				if (feature) {
+					const result = feature.getProperties();
+					console.log(result);
+				}
+			});
+
 			// 맵에 뿌려진 좌표를 클릭했을 때 핸들링하는 기능
 			window.map.on("click", onClickFeatureOnMap);
 			return () => window.map.un("click", onClickFeatureOnMap);
@@ -68,15 +83,7 @@ const Main = () => {
 	// 지도 상에 나타난 좌표 및 부호를 클릭했을 때 해당하는 세부 표를 보여주는 기능
 	const onClickFeatureOnMap = useCallback(
 		(event: any) => {
-			const feature = window.map.forEachFeatureAtPixel(
-				event.pixel,
-				(feature: any) => {
-					return feature;
-				},
-				{
-					hitTolerence: 5,
-				},
-			);
+			const feature = findFeatures(event);
 			if (feature) {
 				const { id, name } = feature.getProperties();
 				setSelectedId(id);
