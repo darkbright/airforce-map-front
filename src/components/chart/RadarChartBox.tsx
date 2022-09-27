@@ -1,10 +1,4 @@
-import {
-	PolarAngleAxis,
-	PolarGrid,
-	PolarRadiusAxis,
-	RadarChart,
-	ResponsiveContainer,
-} from "recharts";
+import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
 
 /**
  * n각의 방사형 차트.
@@ -18,7 +12,7 @@ const RadarChartBox = () => {
 		{
 			subject: "환경",
 			A: 120,
-			B: 110,
+			B: 80,
 			fullMark: 150,
 		},
 		{
@@ -54,13 +48,22 @@ const RadarChartBox = () => {
 	];
 
 	return (
-		<ResponsiveContainer width="100%" height="100%">
-			<RadarChart cx="50%" cy="50%" outerRadius={150} width={250} height={250} data={dummyData}>
+		<div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+			<RadarChart outerRadius={90} width={250} height={250} data={dummyData}>
 				<PolarGrid />
-				<PolarAngleAxis dataKey="subject" />
-				<PolarRadiusAxis />
+				<PolarAngleAxis
+					dataKey="subject"
+					stroke="#fff"
+					strokeOpacity={0.2}
+					color="#fff"
+					fontSize={11}
+				/>
+				<PolarRadiusAxis angle={30} domain={[0, 150]} />
+				<Radar name="재경단" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+				<Radar name="대구" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+				<Legend />
 			</RadarChart>
-		</ResponsiveContainer>
+		</div>
 	);
 };
 

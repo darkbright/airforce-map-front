@@ -19,7 +19,7 @@ const ReportStyleTextBox = ({ title, children, marginBottom = 0 }: ReportStyleTe
 	return (
 		<Root style={{ marginBottom }}>
 			<TitleWrapper>
-				<FiberManualRecordOutlinedIcon fontSize="small" />
+				<FiberManualRecordOutlinedIcon fontSize="small" sx={{ opacity: 0.5 }} />
 				<Typography sx={{ pl: 1, pr: 2, fontWeight: 600 }} variant="body1">
 					{title}
 				</Typography>
@@ -40,4 +40,5 @@ const Root = styled("div")(() => ({
 const TitleWrapper = styled("div")(() => ({
 	display: "flex",
 	alignItems: "center",
+	minWidth: "15%",
 }));

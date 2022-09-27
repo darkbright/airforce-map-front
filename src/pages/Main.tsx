@@ -15,6 +15,7 @@ import {
 import SelectBox from "../components/form/SelectBox";
 import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnPage";
 import { findFeatures } from "../libs/d2/mapSettings/interactions/findFeatures";
+import RadarChartBox from "../components/chart/RadarChartBox";
 
 /**
  * 메인 페이지 (프로토타입 샘플)
@@ -97,6 +98,7 @@ const Main = () => {
 	return (
 		<MapDataTableWrapper show={openTable} setShow={() => setOpenTable(!openTable)}>
 			<BaseBlockTitleBox title="전국공항상황" subtitle="상태를 보여줍니다" />
+			<RadarChartBox />
 			{mapData && (
 				<SelectBox
 					data={indexForSelect}
