@@ -69,9 +69,8 @@ const Main = () => {
 
 	// 기본으로 받은 데이터의 id를 클릭했을 때, 신규로 상세 데이터를 가져오는 로직
 	useEffect(() => {
-		refetch();
 		setPrototypeIdData(idData!);
-	}, [selectedId, setSelectedId, idData, refetch]);
+	}, [prototypeIdData, idData]);
 
 	// selectBox handling
 	const [selectedHeader, setSelectedHeader] = useState("전체");
@@ -119,10 +118,10 @@ const Main = () => {
 						<SimpleTableCellText
 							text={row.properties.name}
 							pointer
-							onClick={() => {
+							onClick={async () => {
 								setSelectedId(row.properties.id);
 								setSelectedName(row.properties.name);
-								refetch();
+								await refetch();
 								// 값을 선택하면 지도 상의 위치를 옮겨줌
 								CoordManager.setGeoAnimatedMoveCenter(
 									row.properties.lonlat[0],

@@ -84,6 +84,6 @@ export const usePrototypeById = (id?: string | undefined) => {
 		}
 	};
 	return useQuery(["prototypeById", id], () => getPrototypeById(id!), {
-		enabled: Boolean(id),
+		enabled: id !== undefined,
 	});
 };
