@@ -1,3 +1,5 @@
+import { BasicSymbolColorType } from "../../utils/milColorHandler";
+
 export interface OpenLayersStandardDataTypes {
 	type: "FeatureCollection";
 	features: OpenLayersStandardFeatureTypes[] | undefined | null;
@@ -5,7 +7,13 @@ export interface OpenLayersStandardDataTypes {
 
 export interface OpenLayersStandardFeatureTypes {
 	type: "Feature";
-	properties: any;
+	properties: {
+		id: string;
+		color: BasicSymbolColorType;
+		name: string;
+		lonlat: number[];
+		[key: string]: any;
+	};
 	geometry: {
 		type: "Point";
 		coordinates: string[];

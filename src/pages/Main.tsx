@@ -16,6 +16,7 @@ import SelectBox from "../components/form/SelectBox";
 import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnPage";
 import { findFeatures } from "../libs/d2/mapSettings/interactions/findFeatures";
 import RadarChartBox from "../components/chart/RadarChartBox";
+import useRightClickStore from "../stores/useRightClickStore";
 
 /**
  * 메인 페이지 (프로토타입 샘플)
@@ -24,6 +25,8 @@ import RadarChartBox from "../components/chart/RadarChartBox";
 const Main = () => {
 	const { CoordManager } = D2MapModule;
 	const [openTable, setOpenTable] = useState(true);
+
+	const { setRightClickEnabled } = useRightClickStore();
 
 	// 맵에 뿌려즐 전체 데이터 (DB에서 받은 데이터 그대로 보존)
 	const [mapData, setMapData] = useState<OpenLayersStandardFeatureTypes[] | null | undefined>(null);
@@ -47,19 +50,7 @@ const Main = () => {
 				data: prototypeData!,
 				layerName: "prototype-layer",
 			});
-
-			// 우클릭 핸들러
-			window.map.on("pointerdown", function (event: any) {
-				//우클릭 시 기본으로 뜨는 브라우저 context menu를 가려줌
-				document.addEventListener("contextmenu", (e) => {
-					e.preventDefault();
-				});
-				const feature = findFeatures(event);
-				if (feature) {
-					const result = feature.getProperties();
-					console.log(result);
-				}
-			});
+			setRightClickEnabled(true);
 
 			// 맵에 뿌려진 좌표를 클릭했을 때 핸들링하는 기능
 			window.map.on("click", onClickFeatureOnMap);
@@ -67,7 +58,7 @@ const Main = () => {
 		}
 	}, [isPrototypeFetched, setSelectedId, setSelectedName]);
 
-	// 기본으로 받은 데이터의 id를 클릭했을 때, 신규로 상세 데이터를 가져오는 로직
+	// 기본으로 받은 데이터의 id를 클릭했을 때, 신규로 상세 데이터를 테이블에 뿌리는 로직
 	useEffect(() => {
 		setPrototypeIdData(idData!);
 	}, [prototypeIdData, idData]);

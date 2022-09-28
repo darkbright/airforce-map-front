@@ -13,12 +13,14 @@ import TableHelperText, { PercentTypeElement } from "../components/dataGrid/Tabl
 import MapDataTableWrapper from "../components/map/MapDataTableWrapper";
 import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnPage";
 import { useWhateverAll } from "../query/whatever";
+import useRightClickStore from "../stores/useRightClickStore";
 import useThemeStore from "../stores/useThemeStore";
 import { theme } from "../styles/theme";
 import { OpenLayersStandardFeatureTypes } from "../types/openlayers";
 
 const Whatever = () => {
 	const [openTable, setOpenTable] = useState(true);
+	const { setRightClickEnabled } = useRightClickStore();
 
 	// 맵에 뿌려즐 전체 데이터 (DB에서 받은 데이터 그대로 보존)
 	const [mapData, setMapData] = useState<OpenLayersStandardFeatureTypes[] | null | undefined>(null);
@@ -34,6 +36,7 @@ const Whatever = () => {
 				data: whateverData!,
 				layerName: "whatever-layer",
 			});
+			setRightClickEnabled(true);
 		}
 	}, [isWhateverDataFetched]);
 

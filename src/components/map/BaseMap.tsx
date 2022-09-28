@@ -1,5 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import mapSettings from "../../libs/d2/mapSettings";
+import RightClickFeatureBox from "../../modules/map/rightClick/RightClickFeatureBox";
+import useRightClickStore from "../../stores/useRightClickStore";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
 
@@ -31,22 +33,8 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 		return () => window.map.setTarget(undefined);
 	}, []);
 
-	//const popupRef = useRef<HTMLDivElement>(null);
-	// const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-	// const [selectedId, setSelectedId] = useState("");
-	// const [mousePosition, setMousePosition] = useState({
-	// 	x: 0,
-	// 	y: 0,
-	// });
-
-	/*
-	useEffect(() => {
-		window.map.on("click", onClickFeatureOnMap);
-		return () => window.map.un("click", onClickFeatureOnMap);
-	}, [window.map, onClickFeatureOnMap]);
-*/
-
-	// const id = anchorEl ? "map-popover" : undefined;
+	// 우클릭 핸들링
+	const { rightClickEnabled } = useRightClickStore();
 
 	return (
 		<div style={{ display: show ? "block" : "none" }}>
@@ -58,36 +46,11 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 					style={{ width: "100%", height: "85vh", position: "relative" }}
 				>
 					<MapToolbar />
+
 					{children}
-					{/* <div
-						ref={popupRef}
-						aria-describedby={id}
-						style={{ position: "absolute", left: mousePosition.x, bottom: mousePosition.y }}
-					/> */}
 				</div>
 				<div id="d2map-coord-bottom" className="d2map-coord-bottom" />
-				{/* <Popover
-					id={id}
-					open={Boolean(anchorEl)}
-					anchorEl={anchorEl}
-					onClose={() => setAnchorEl(null)}
-					anchorOrigin={{
-						vertical: "top",
-						horizontal: "left",
-					}}
-					transformOrigin={{
-						vertical: "center",
-						horizontal: "left",
-					}}
-				>
-					<div style={{ padding: 10 }}>
-						<Typography variant="h6" sx={{ p: 2 }}>
-							{selectedId}
-						</Typography>
-						<TableHelperText type="percentage" />
-						<SimpleTableOnMap />
-					</div>
-				</Popover> */}
+				{rightClickEnabled && <RightClickFeatureBox />}
 			</div>
 		</div>
 	);
