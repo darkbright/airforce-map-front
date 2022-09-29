@@ -38,7 +38,7 @@ export const setupVectorsOnPage = ({ data, layerName }: SetupVectorsOnPageType) 
 			source: new ol.source.Vector({
 				features: new ol.format.GeoJSON().readFeatures(data),
 			}),
-			zIndex: 500, //(디투맵 내부에서는 지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
+			zIndex: 500, //(지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
 			style: simplifiedSymbolStyle,
 		});
 		return window.map.addLayer(olLayers);

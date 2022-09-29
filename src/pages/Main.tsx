@@ -139,7 +139,7 @@ const Main = () => {
 								<SimpleTableCircleCellByColor color={row.testAColor} />
 								<SimpleTableCircleCellByColor color={row.testBColor} />
 								<SimpleTableCircleCellByColor color={row.testCColor} />
-								<SimpleTableCellText text={row.resultString} />
+								<SimpleTableCellText text={row.resultString!} />
 							</TableRow>
 						))}
 					</SimpleTable>

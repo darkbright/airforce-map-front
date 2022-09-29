@@ -7,7 +7,7 @@
  * - G for Green
  * - R for Red
  */
-export type BasicSymbolColorType = "Y" | "B" | "G" | "R" | "X";
+export type BasicSymbolColorType = "Y" | "B" | "G" | "R" | "X" | undefined;
 
 /**
  * 부대 데이터베이스에서 받아 온 대문자 1글자 짜리 색상 정보를 받아서  색상의 HEX 정보를 뽑아주는 함수
