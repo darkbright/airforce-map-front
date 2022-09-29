@@ -1,15 +1,18 @@
-import { Divider, ListItemText, MenuItem, MenuList, Popover, Typography } from "@mui/material";
+import {
+	Divider,
+	ListItemText,
+	MenuItem,
+	MenuList,
+	Popover,
+	Slider,
+	Typography,
+} from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
-import D2MapModule from "../../../libs/d2/D2MapModule";
+import { findFeatures } from "../../../libs/d2/mapSettings/interactions/findFeatures";
 import {
-	findFeatures,
-	findFeaturesByPixel,
-} from "../../../libs/d2/mapSettings/interactions/findFeatures";
-import {
-	basicPointStyle,
-	basicTextStyle,
-} from "../../../libs/d2/mapSettings/styles/simplifiedSymbolStyle";
-
+	customizeSymbol,
+	defaultFeatureLabelTextSize,
+} from "../../../libs/d2/mapSettings/styles/changeSymbolStyle";
 import useRightClickStore from "../../../stores/useRightClickStore";
 import { BasicSymbolColorType } from "../../../utils/milColorHandler";
 
@@ -34,6 +37,9 @@ const RightClickFeatureBox = () => {
 		y: 0,
 	});
 	const [featureProp, setFeatureProp] = useState<FeaturePropType | null | undefined>(null);
+	const [isSymbolLabelOnScreen, setIsSymbolLabelOnScreen] = useState(defaultFeatureLabelTextSize);
+	const [openOpacityHandler, setOpenOpacityHandler] = useState(false);
+	const [opacityRate, setOpacityRate] = useState(100);
 
 	const onClickFeatureOnMap = useCallback(
 		(event: any) => {
@@ -51,6 +57,8 @@ const RightClickFeatureBox = () => {
 				if (result.name) {
 					setFeatureProp(result);
 					setAnchorEl(popupRef.current);
+					const textScaleInfo = feature.getStyle()[1].text_.scale_;
+					setIsSymbolLabelOnScreen(textScaleInfo);
 				} else {
 					setAnchorEl(null);
 				}
@@ -68,20 +76,20 @@ const RightClickFeatureBox = () => {
 
 	const id = anchorEl ? "map-popover" : undefined;
 
-	// 부호 모양 확대
-	const resizeSymbol = ({ enlarge }: { enlarge: boolean }) => {
-		const pixel = [mousePosition.x, mousePosition.y];
-		const feature = findFeaturesByPixel(pixel);
-		if (feature) {
-			//  원래의 모양에 있던 도형의 크기 (원인 경우 radius로 처리한다)
-			const originalRadius = feature.getStyle()[0].getImage().getRadius();
-			// newStyle 지정 시, point 스타일이 먼저 나오고, text 스타일이 나중에 들어가야 함. 이를 어기면 배열이 꼬임
-			const changedSize = enlarge ? originalRadius + 2 : originalRadius - 2;
-			// 축소 시 사이즈가 너무 작아지는 것을 방지하기 위하여 7을 기본값을 정했음.
-			const preventSizeToZero = changedSize < 7 ? 7 : changedSize;
-			const newStyle = [basicPointStyle(feature, preventSizeToZero), basicTextStyle(feature)];
-			feature.setStyle(newStyle);
-		}
+	const handleOpacityRate = (event: Event, newValue: number | number[]) => {
+		// slider의 value 값은 0~100까지이고, css opacity는 0~1 까지이므로 0.1 단위로 변환하여 지도에 적용해야 함.
+		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
+		// selectedLayer.setOpacity(opacityNumber);
+		// setOpacityRate(newValue as number);
+		console.log(opacityNumber);
+		setOpacityRate(newValue as number);
+		customizeSymbol({
+			mousePosition,
+			enlarge: "none",
+			showText: "none",
+			handleOpacity: true,
+			opacity: opacityNumber,
+		});
 	};
 
 	return (
@@ -122,18 +130,63 @@ const RightClickFeatureBox = () => {
 
 					<MenuList dense>
 						<Divider />
-						<MenuItem onClick={() => resizeSymbol({ enlarge: true })}>
+						<MenuItem
+							onClick={() =>
+								customizeSymbol({ mousePosition, enlarge: "larger", showText: "none" })
+							}
+						>
 							<ListItemText>확대</ListItemText>
 						</MenuItem>
-						<MenuItem onClick={() => resizeSymbol({ enlarge: false })}>
+						<MenuItem
+							onClick={() =>
+								customizeSymbol({ mousePosition, enlarge: "smaller", showText: "none" })
+							}
+						>
 							<ListItemText>축소</ListItemText>
 						</MenuItem>
-						<MenuItem>
+						<MenuItem onClick={() => setOpenOpacityHandler(true)}>
 							<ListItemText>밝기 조절</ListItemText>
 						</MenuItem>
-						<MenuItem>
-							<ListItemText>심볼명 숨기기/표시</ListItemText>
-						</MenuItem>
+						{openOpacityHandler && (
+							<div style={{ padding: "0px 15px" }}>
+								<Slider
+									value={opacityRate}
+									aria-label="feature opacity"
+									size="small"
+									color="secondary"
+									onChange={handleOpacityRate}
+									valueLabelDisplay="auto"
+								/>
+							</div>
+						)}
+						{isSymbolLabelOnScreen === defaultFeatureLabelTextSize ? (
+							<MenuItem
+								onClick={() => {
+									customizeSymbol({
+										mousePosition,
+										enlarge: "none",
+										showText: "hide",
+									});
+									setAnchorEl(null);
+								}}
+							>
+								<ListItemText>심볼명 숨기기</ListItemText>
+							</MenuItem>
+						) : (
+							<MenuItem
+								onClick={() => {
+									customizeSymbol({
+										mousePosition,
+										enlarge: "none",
+										showText: "show",
+									});
+									setAnchorEl(null);
+								}}
+							>
+								<ListItemText>심볼명 보이기</ListItemText>
+							</MenuItem>
+						)}
+
 						<Divider />
 						<MenuItem>
 							<ListItemText>간략부호 표시</ListItemText>
