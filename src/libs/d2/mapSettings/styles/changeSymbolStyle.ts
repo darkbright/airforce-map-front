@@ -1,5 +1,6 @@
+import { MapSymbolType } from "../../../../types/army/symbolType";
 import { findFeaturesByPixel } from "../interactions/findFeatures";
-import { basicPointStyle, basicTextStyle } from "./simplifiedSymbolStyle";
+import { basicPointStyle, basicTextStyle, defaultFeatureLabelTextSize } from "./symbolStyle";
 
 interface CustomizeSymbolType {
 	mousePosition: {
@@ -10,12 +11,13 @@ interface CustomizeSymbolType {
 	showText: "show" | "hide" | "none";
 	handleOpacity?: boolean;
 	opacity?: number;
+	/**
+	 * - simplified : 간략부호 (일반적으로 원의 형태로 나타남)
+	 * - basic : 기본부호 (간략화된 부호의 형태로 나타남)
+	 * - military: 군대부호 (군에서 지정한 군대부호의 형태로 나타남)
+	 */
+	symbolType?: MapSymbolType;
 }
-
-/**
- * 기본 feature Label의 scale 사이즈
- */
-export const defaultFeatureLabelTextSize = 1.5;
 
 /**
  * 개별 Feature의 크기, 심볼 보이기, 투명도 등을 조정하는 기능임.
@@ -31,39 +33,40 @@ export const customizeSymbol = ({
 	showText,
 	handleOpacity = false,
 	opacity,
+	symbolType = "basic",
 }: CustomizeSymbolType) => {
-	const pixel = [mousePosition.x, mousePosition.y];
-	const feature = findFeaturesByPixel(pixel);
+	const feature = findFeaturesByPixel(mousePosition);
 	if (feature) {
-		//  원래의 모양에 있던 도형의 크기 (원인 경우 radius로 처리한다)
-		const originalRadius = feature.getStyle()[0].getImage().getRadius();
-		// 원래 모양의 도형 투명도
-		const originalFill = feature.getStyle()[0].getImage().getFill().color_;
-		const originalOpacity = originalFill[3];
-		console.log(originalFill);
+		if (symbolType === "basic") {
+			//  원래의 모양에 있던 도형의 크기 (원인 경우 radius로 처리한다)
+			const originalRadius = feature.getStyle()[0].getImage().getRadius();
+			// 원래 모양의 도형 투명도
+			const originalFill = feature.getStyle()[0].getImage().getFill().color_;
+			const originalOpacity = originalFill[3];
 
-		const changedSize = (): number => {
-			if (enlarge === "larger") {
-				return originalRadius + 2;
-			} else if (enlarge === "smaller") {
-				return originalRadius - 2;
-			}
-			return originalRadius;
-		};
-		// 축소 시 사이즈가 너무 작아지는 것을 방지하기 위하여 7을 기본값을 정했음.
-		const preventSizeToZero = changedSize() < 7 ? 7 : changedSize();
+			const changedSize = (): number => {
+				if (enlarge === "larger") {
+					return originalRadius + 2;
+				} else if (enlarge === "smaller") {
+					return originalRadius - 2;
+				}
+				return originalRadius;
+			};
+			// 축소 시 사이즈가 너무 작아지는 것을 방지하기 위하여 7을 기본값을 정했음.
+			const preventSizeToZero = changedSize() < 7 ? 7 : changedSize();
 
-		// Label Text를 보여줄지 말지 선택하는 것으로 hide를 선택하면 ol.text의 scale이 0이 되어 글자가 보이지 않음
-		const changedTextOpacity = showText === "hide" ? 0 : defaultFeatureLabelTextSize;
+			// Label Text를 보여줄지 말지 선택하는 것으로 hide를 선택하면 ol.text의 scale이 0이 되어 글자가 보이지 않음
+			const changedTextOpacity = showText === "hide" ? 0 : defaultFeatureLabelTextSize;
 
-		// 도형의 fill 부분 색상을 변경할 것인지 확인 (handleOpacity 유무) 후, opacity를 바꿔주거나, 만약 그렇지 않다면 오리지널 값을 유지
-		const adjustedOpacity = handleOpacity ? opacity : originalOpacity;
+			// 도형의 fill 부분 색상을 변경할 것인지 확인 (handleOpacity 유무) 후, opacity를 바꿔주거나, 만약 그렇지 않다면 오리지널 값을 유지
+			const adjustedOpacity = handleOpacity ? opacity : originalOpacity;
 
-		// newStyle 지정 시, point 스타일이 먼저 나오고, text 스타일이 나중에 들어가야 함. 이를 어기면 배열이 꼬임
-		const newStyle = [
-			basicPointStyle(feature, preventSizeToZero, adjustedOpacity),
-			basicTextStyle(feature, changedTextOpacity),
-		];
-		feature.setStyle(newStyle);
+			// newStyle 지정 시, point 스타일이 먼저 나오고, text 스타일이 나중에 들어가야 함. 이를 어기면 배열이 꼬임
+			const newStyle = [
+				basicPointStyle(feature, preventSizeToZero, adjustedOpacity),
+				basicTextStyle(feature, changedTextOpacity),
+			];
+			feature.setStyle(newStyle);
+		}
 	}
 };

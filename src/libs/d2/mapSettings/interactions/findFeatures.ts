@@ -25,7 +25,8 @@ export const findFeatures = (event: any) => {
  * @returns feature
  */
 
-export const findFeaturesByPixel = (pixel: number[]) => {
+export const findFeaturesByPixel = (mousePosition: { x: number; y: number }) => {
+	const pixel = [mousePosition.x, mousePosition.y];
 	return window.map.forEachFeatureAtPixel(
 		pixel,
 		(feature: any) => {

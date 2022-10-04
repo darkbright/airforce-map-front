@@ -1,6 +1,7 @@
-import { testSymbol } from "../../../../assets/customSymbols/testSymbol";
+import { baseSymbol } from "../../../../assets/symbols/basicSymbols";
 import { BasicSymbolColorType, milColorHandler } from "../../../../utils/milColorHandler";
 import D2MapModule from "../../D2MapModule";
+import { basicTextStyle, defaultFeatureLabelTextSize } from "./symbolStyle";
 
 const { ol } = D2MapModule;
 
@@ -12,38 +13,40 @@ const { ol } = D2MapModule;
  * @returns ol.Circle Object
  */
 export const basicSymbolStyle = function (feature: any) {
-	const featureId = feature.get("name");
 	const iconColor: BasicSymbolColorType = feature.get("color");
 	const convertedColor = milColorHandler(iconColor);
 
 	// 기본으로 뜨는 간략부호에 같이 붙어 있는 텍스트 (일반적으로 기지 이름이나 도시 이름 같은 것을 씀)
-	const textStyle = new ol.style.Style({
-		text: new ol.style.Text({
-			text: String(featureId),
-			scale: 2,
-			fill: new ol.style.Fill({
-				color: [255, 255, 255, 1],
-			}),
-			stroke: new ol.style.Stroke({
-				color: [0, 0, 0, 1],
-				width: 1,
-			}),
-		}),
-	});
+	// const textStyle = new ol.style.Style({
+	// 	text: new ol.style.Text({
+	// 		text: String(featureId),
+	// 		scale: 2,
+	// 		fill: new ol.style.Fill({
+	// 			color: [255, 255, 255, 1],
+	// 		}),
+	// 		stroke: new ol.style.Stroke({
+	// 			color: [0, 0, 0, 1],
+	// 			width: 1,
+	// 		}),
+	// 	}),
+	// });
 
 	const pointStyle = new ol.style.Style({
 		image: new ol.style.Icon({
 			opacity: 1,
 			color: convertedColor,
-			src: "data:image/svg+xml;utf8," + encodeURIComponent(testSymbol),
+			src: "data:image/svg+xml;utf8," + encodeURIComponent(baseSymbol),
 			scale: 0.5,
 			offset: [0, 0],
 			anchor: [0.1, 0.4],
 		}),
 	});
 
+	const textStyle = basicTextStyle(feature, defaultFeatureLabelTextSize);
+
 	// 기본부호 도형의 모양. 기본부호는 정해진 이미지에 따라 표출해주면 됨.
 	// 거기에 API에서 받은 값에 따라 컬러를 렌더링해준다.
+	// setStyle시, symbol 스타일을 먼저 배열에 넣고, 그 다음에 text 스타일을 넣을 것. 반대로 하면 속성 변경 시 꼬임
 
 	feature.setStyle([pointStyle, textStyle]);
 };

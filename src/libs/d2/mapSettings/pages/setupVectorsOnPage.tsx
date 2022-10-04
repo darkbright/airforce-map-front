@@ -1,4 +1,5 @@
 import { toastShow } from "../../../../components/alert/ToastMessage";
+import useRightClickStore from "../../../../stores/useRightClickStore";
 import { OpenLayersStandardDataTypes } from "../../../../types/openlayers";
 import D2MapModule from "../../D2MapModule";
 import { simplifiedSymbolStyle } from "../styles/simplifiedSymbolStyle";
@@ -43,7 +44,7 @@ export const setupVectorsOnPage = ({ data, layerName }: SetupVectorsOnPageType) 
 		});
 		return window.map.addLayer(olLayers);
 	} catch (error) {
-		toastShow({
+		return toastShow({
 			title: "네트워크 에러",
 			message: `에러가 발생하여 데이터를 가져올 수 없습니다.\n서버가 제대로 연결되었는지 다시 확인해주세요.`,
 			type: "error",

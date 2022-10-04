@@ -8,13 +8,18 @@ import {
 	Typography,
 } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { findFeatures } from "../../../libs/d2/mapSettings/interactions/findFeatures";
 import {
-	customizeSymbol,
-	defaultFeatureLabelTextSize,
-} from "../../../libs/d2/mapSettings/styles/changeSymbolStyle";
+	findFeatures,
+	findFeaturesByPixel,
+} from "../../../libs/d2/mapSettings/interactions/findFeatures";
+import { customizeSymbol } from "../../../libs/d2/mapSettings/styles/changeSymbolStyle";
 import useRightClickStore from "../../../stores/useRightClickStore";
 import { BasicSymbolColorType } from "../../../utils/milColorHandler";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { defaultFeatureLabelTextSize } from "../../../libs/d2/mapSettings/styles/symbolStyle";
+import { changeSymbolTypeOnScreen } from "../../../libs/d2/mapSettings/styles/changeSymbolType";
+import { MapSymbolType } from "../../../types/army/symbolType";
 
 interface FeaturePropType {
 	color: BasicSymbolColorType;
@@ -22,6 +27,7 @@ interface FeaturePropType {
 	lonlat: number[];
 	name: string;
 	geometry: any;
+	symbol?: MapSymbolType;
 }
 
 /**
@@ -55,7 +61,13 @@ const RightClickFeatureBox = () => {
 					y: event.pixel[1],
 				});
 				if (result.name) {
-					setFeatureProp(result);
+					// 심볼의 형태가 어떤 것인지 파악하고, 최초에 심볼 property가 feature 객체에 들어가 있지 않다면, 우선적으로 simplified(즉, 간략부호로 설정해줌. 그런 뒤 아래쪽의 버튼을 통하여 해당 feature property의 심볼값을 변경하여 전역으로 저장함)
+					if (result.symbol === undefined || null) {
+						feature.setProperties({ symbol: "simplified" });
+						setFeatureProp({ symbol: "simplified", ...result });
+					} else {
+						setFeatureProp(result);
+					}
 					setAnchorEl(popupRef.current);
 					const textScaleInfo = feature.getStyle()[1].text_.scale_;
 					setIsSymbolLabelOnScreen(textScaleInfo);
@@ -79,9 +91,6 @@ const RightClickFeatureBox = () => {
 	const handleOpacityRate = (event: Event, newValue: number | number[]) => {
 		// slider의 value 값은 0~100까지이고, css opacity는 0~1 까지이므로 0.1 단위로 변환하여 지도에 적용해야 함.
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
-		// selectedLayer.setOpacity(opacityNumber);
-		// setOpacityRate(newValue as number);
-		console.log(opacityNumber);
 		setOpacityRate(newValue as number);
 		customizeSymbol({
 			mousePosition,
@@ -121,7 +130,7 @@ const RightClickFeatureBox = () => {
 				}}
 			>
 				<div style={{ padding: 5, width: 200 }}>
-					<div style={{ padding: 6 }}>
+					<div style={{ padding: 5 }}>
 						<Typography variant="body1">{featureProp?.name}</Typography>
 						<Typography variant="body2">
 							{featureProp?.lonlat[0].toFixed(2)}, {featureProp?.lonlat[1].toFixed(2)}
@@ -144,8 +153,15 @@ const RightClickFeatureBox = () => {
 						>
 							<ListItemText>축소</ListItemText>
 						</MenuItem>
-						<MenuItem onClick={() => setOpenOpacityHandler(true)}>
+						<MenuItem onClick={() => setOpenOpacityHandler(!openOpacityHandler)}>
 							<ListItemText>밝기 조절</ListItemText>
+							<Typography variant="body2" color="text.secondary">
+								{openOpacityHandler ? (
+									<KeyboardArrowUpIcon fontSize="small" />
+								) : (
+									<KeyboardArrowDownIcon fontSize="small" />
+								)}
+							</Typography>
 						</MenuItem>
 						{openOpacityHandler && (
 							<div style={{ padding: "0px 15px" }}>
@@ -188,12 +204,34 @@ const RightClickFeatureBox = () => {
 						)}
 
 						<Divider />
-						<MenuItem>
+						<MenuItem
+							disabled={featureProp?.symbol === "simplified"}
+							onClick={() => {
+								const feature = findFeaturesByPixel(mousePosition);
+								if (feature) {
+									feature.setProperties({ symbol: "simplified" });
+									changeSymbolTypeOnScreen({ mousePosition, type: "simplified" });
+									setAnchorEl(null);
+								}
+							}}
+						>
 							<ListItemText>간략부호 표시</ListItemText>
 						</MenuItem>
-						<MenuItem>
+
+						<MenuItem
+							disabled={featureProp?.symbol === "basic"}
+							onClick={() => {
+								const feature = findFeaturesByPixel(mousePosition);
+								if (feature) {
+									feature.setProperties({ symbol: "basic" });
+									changeSymbolTypeOnScreen({ mousePosition, type: "basic" });
+									setAnchorEl(null);
+								}
+							}}
+						>
 							<ListItemText>기본심볼 표시</ListItemText>
 						</MenuItem>
+
 						<MenuItem>
 							<ListItemText>군대심볼 표시</ListItemText>
 						</MenuItem>
