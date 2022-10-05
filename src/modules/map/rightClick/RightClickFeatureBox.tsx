@@ -21,6 +21,7 @@ import { defaultFeatureLabelTextSize } from "../../../libs/d2/mapSettings/styles
 import { changeSymbolTypeOnScreen } from "../../../libs/d2/mapSettings/styles/changeSymbolType";
 import { MapSymbolType } from "../../../types/army/symbolType";
 import YesNoSelectionModal from "../../modal/YesNoSelectionModal";
+import useMenuBarStore from "../../../stores/useMenuBarStore";
 
 interface FeaturePropType {
 	color: BasicSymbolColorType;
@@ -49,6 +50,9 @@ const RightClickFeatureBox = () => {
 	const [opacityRate, setOpacityRate] = useState(100);
 	const [hideEverythingOpen, setHideEverythingOpen] = useState(false);
 
+	// 화면 좌측에 메뉴바가 열려 있으면 feature 클릭 시 맵의 라벨과 심볼을 가리므로, 열려있는지 여부를 확인 후 anchor를 다르게 가져가기 위하여 사용
+	const { isBarOpen } = useMenuBarStore();
+
 	const onClickFeatureOnMap = useCallback(
 		(event: any) => {
 			//우클릭 시 기본으로 뜨는 브라우저 context menu를 가려줌
@@ -62,6 +66,7 @@ const RightClickFeatureBox = () => {
 					x: event.pixel[0],
 					y: event.pixel[1],
 				});
+				console.log(event.pixel);
 				if (result.name) {
 					// 심볼의 형태가 어떤 것인지 파악하고, 최초에 심볼 property가 feature 객체에 들어가 있지 않다면, 우선적으로 simplified(즉, 간략부호로 설정해줌. 그런 뒤 아래쪽의 버튼을 통하여 해당 feature property의 심볼값을 변경하여 전역으로 저장함)
 					if (result.symbol === undefined || null) {
@@ -71,6 +76,7 @@ const RightClickFeatureBox = () => {
 						setFeatureProp(result);
 					}
 					setAnchorEl(popupRef.current);
+					console.log(popupRef.current);
 					const textScaleInfo = feature.getStyle()[1].text_.scale_;
 					setIsSymbolLabelOnScreen(textScaleInfo);
 				} else {
@@ -126,11 +132,11 @@ const RightClickFeatureBox = () => {
 				onClose={() => setAnchorEl(null)}
 				anchorOrigin={{
 					vertical: "top",
-					horizontal: "left",
+					horizontal: isBarOpen ? "right" : "left",
 				}}
 				transformOrigin={{
-					vertical: "center",
-					horizontal: "left",
+					vertical: "top",
+					horizontal: isBarOpen ? "right" : "left",
 				}}
 			>
 				<div style={{ padding: 5, width: 200 }}>

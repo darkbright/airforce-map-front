@@ -46,7 +46,6 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 					style={{ width: "100%", height: "85vh", position: "relative" }}
 				>
 					<MapToolbar />
-
 					{children}
 				</div>
 				<div id="d2map-coord-bottom" className="d2map-coord-bottom" />

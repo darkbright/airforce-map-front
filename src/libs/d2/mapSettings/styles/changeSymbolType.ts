@@ -24,7 +24,7 @@ interface ChangeSymbolTypeOnScreenType {
  * @param MapSymbolType MapSymbolType
  */
 
-const { MSTacticalGraphics, MSTacticalLineGraphics, MSTacticalPolygonGraphics } = D2MapModule;
+const { MSTacticalLineGraphics, MSTacticalPolygonGraphics } = D2MapModule;
 
 export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTypeOnScreenType) => {
 	const feature = findFeaturesByPixel(mousePosition);
