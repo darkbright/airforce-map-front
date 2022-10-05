@@ -12,6 +12,7 @@ export interface OpenLayersStandardFeatureTypes {
 		color: BasicSymbolColorType;
 		name: string;
 		lonlat: number[];
+		originLonlat: string;
 		[key: string]: any;
 	};
 	geometry: {

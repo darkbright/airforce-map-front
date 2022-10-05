@@ -42,6 +42,7 @@ export const usePrototypesAll = () => {
 					name: proto.testNm,
 					color: proto.testColor,
 					category: proto.testCat,
+					originLonlat: proto.testCoord,
 					lonlat: DMSConverter({ dms: proto.testCoord, type: "toLonlat" }),
 				},
 				geometry: {

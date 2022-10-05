@@ -1,4 +1,5 @@
-import { baseSymbol } from "../../../../assets/symbols/basicSymbols";
+import { notApplicableSymbol } from "../../../../assets/symbols/basicSymbols";
+import { symbolListByCoord } from "../../../../data/constants/symbolListByCoord";
 import { MapSymbolType } from "../../../../types/army/symbolType";
 import { findFeaturesByPixel } from "../interactions/findFeatures";
 import {
@@ -33,7 +34,13 @@ export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTy
 			feature.setStyle([symbolStyle, textStyle]);
 		}
 		if (type === "basic") {
-			const symbolStyle = basicSymbolStyle(feature, baseSymbol);
+			const properties = feature.getProperties();
+			// 매칭되는 심볼을 symbolListByCoord 내의 DB에서 받은 좌표값으로 찾음
+			const symbol = symbolListByCoord.find(
+				(sym) => sym.baseCoord === properties.originLonlat,
+			)?.basicSymbol;
+			const foundSymbol = symbol ? symbol : notApplicableSymbol;
+			const symbolStyle = basicSymbolStyle(feature, foundSymbol);
 			feature.setStyle([symbolStyle, textStyle]);
 		}
 	}

@@ -51,6 +51,15 @@ export const symbolListByCoord: coordType[] = [
 		basicSymbol: baseSymbol,
 	},
 	{
+		unitNm: "재경단",
+		unitCd: "111111111",
+		unitTp: "W1",
+		baseCd: "K57",
+		baseNm: "재경단",
+		baseCoord: "373023N1265545E",
+		basicSymbol: baseSymbol,
+	},
+	{
 		unitNm: "3훈비",
 		unitCd: "7000000044",
 		unitTp: "W1",
