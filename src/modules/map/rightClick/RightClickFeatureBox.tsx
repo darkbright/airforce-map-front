@@ -56,6 +56,7 @@ const RightClickFeatureBox = () => {
 			const feature = findFeatures(event);
 			if (feature) {
 				const result = feature.getProperties();
+				console.log("result", result);
 				setMousePosition({
 					x: event.pixel[0],
 					y: event.pixel[1],
@@ -98,6 +99,7 @@ const RightClickFeatureBox = () => {
 			showText: "none",
 			handleOpacity: true,
 			opacity: opacityNumber,
+			symbolType: featureProp?.symbol,
 		});
 	};
 
@@ -141,14 +143,24 @@ const RightClickFeatureBox = () => {
 						<Divider />
 						<MenuItem
 							onClick={() =>
-								customizeSymbol({ mousePosition, enlarge: "larger", showText: "none" })
+								customizeSymbol({
+									mousePosition,
+									enlarge: "larger",
+									showText: "none",
+									symbolType: featureProp?.symbol,
+								})
 							}
 						>
 							<ListItemText>확대</ListItemText>
 						</MenuItem>
 						<MenuItem
 							onClick={() =>
-								customizeSymbol({ mousePosition, enlarge: "smaller", showText: "none" })
+								customizeSymbol({
+									mousePosition,
+									enlarge: "smaller",
+									showText: "none",
+									symbolType: featureProp?.symbol,
+								})
 							}
 						>
 							<ListItemText>축소</ListItemText>
@@ -182,6 +194,7 @@ const RightClickFeatureBox = () => {
 										mousePosition,
 										enlarge: "none",
 										showText: "hide",
+										symbolType: featureProp?.symbol,
 									});
 									setAnchorEl(null);
 								}}
@@ -195,6 +208,7 @@ const RightClickFeatureBox = () => {
 										mousePosition,
 										enlarge: "none",
 										showText: "show",
+										symbolType: featureProp?.symbol,
 									});
 									setAnchorEl(null);
 								}}

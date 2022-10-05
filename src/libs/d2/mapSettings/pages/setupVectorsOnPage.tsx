@@ -1,5 +1,4 @@
 import { toastShow } from "../../../../components/alert/ToastMessage";
-import useRightClickStore from "../../../../stores/useRightClickStore";
 import { OpenLayersStandardDataTypes } from "../../../../types/openlayers";
 import D2MapModule from "../../D2MapModule";
 import { simplifiedSymbolStyle } from "../styles/simplifiedSymbolStyle";

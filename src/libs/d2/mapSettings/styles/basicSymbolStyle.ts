@@ -16,21 +16,6 @@ export const basicSymbolStyle = function (feature: any) {
 	const iconColor: BasicSymbolColorType = feature.get("color");
 	const convertedColor = milColorHandler(iconColor);
 
-	// 기본으로 뜨는 간략부호에 같이 붙어 있는 텍스트 (일반적으로 기지 이름이나 도시 이름 같은 것을 씀)
-	// const textStyle = new ol.style.Style({
-	// 	text: new ol.style.Text({
-	// 		text: String(featureId),
-	// 		scale: 2,
-	// 		fill: new ol.style.Fill({
-	// 			color: [255, 255, 255, 1],
-	// 		}),
-	// 		stroke: new ol.style.Stroke({
-	// 			color: [0, 0, 0, 1],
-	// 			width: 1,
-	// 		}),
-	// 	}),
-	// });
-
 	const pointStyle = new ol.style.Style({
 		image: new ol.style.Icon({
 			opacity: 1,

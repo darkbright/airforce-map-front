@@ -17,6 +17,8 @@ export const basicTextStyle = (feature: any, scale: number) => {
 		text: new ol.style.Text({
 			text: String(featureId),
 			scale,
+			offsetX: 5,
+			offsetY: 10,
 			fill: new ol.style.Fill({
 				color: [255, 255, 255, 1],
 			}),
@@ -32,7 +34,7 @@ export const basicTextStyle = (feature: any, scale: number) => {
 /**
  * 기본 feature Label의 scale 사이즈
  */
-export const defaultFeatureLabelTextSize = 1.5;
+export const defaultFeatureLabelTextSize = 1.4;
 
 /**
  * 기본으로 뜨는 원형의 간략부호 형태
@@ -44,7 +46,8 @@ export const defaultFeatureLabelTextSize = 1.5;
 export const basicPointStyle = (feature: any, radius: number, opacity: number) => {
 	const iconColor: BasicSymbolColorType = feature.get("color");
 
-	const rgbColor = hexToRgba(milColorHandler(iconColor)!);
+	// 만약 API에서 컬러값을 보내주지 않는다면, 기본 색상을 화이트로 지정함
+	const rgbColor = iconColor ? hexToRgba(milColorHandler(iconColor)!) : [255, 255, 255];
 
 	const pointStyle = new ol.style.Style({
 		image: new ol.style.Circle({
@@ -63,21 +66,36 @@ export const basicPointStyle = (feature: any, radius: number, opacity: number) =
  * ol feature 객체를 생성핳고 이에 해당하는 기본부호를 svg로 생성함
  * @param feature 생성된 ol feature객체
  * @param symbolSvg assets/symbols에 정리된 공군 기본심볼 중 하나를 택일함
+ * @param opacity 불투명도 (기본은 1)
+ *  @param scale 크기 (기본은 0.55)
  * @returns 해당 ol 객체의 스타일 객체를 리턴함
  */
-export const basicSymbolStyle = (feature: any, symbolSvg: string) => {
+export const basicSymbolStyle = (
+	feature: any,
+	symbolSvg: string,
+	opacity: number,
+	scale: number,
+) => {
 	const iconColor: BasicSymbolColorType = feature.get("color");
 
-	const rgbColor = hexToRgba(milColorHandler(iconColor)!);
+	// 만약 API에서 컬러값을 보내주지 않는다면, 기본 색상을 화이트로 지정함
+	const rgbColor = iconColor ? hexToRgba(milColorHandler(iconColor)!) : "#ffffff";
 
 	const basicSymbol = new ol.style.Style({
 		image: new ol.style.Icon({
-			opacity: 1,
+			opacity,
 			color: rgbColor,
 			src: "data:image/svg+xml;utf8," + encodeURIComponent(symbolSvg),
-			scale: 0.5,
+			// svg 이미지 크기 (기본은 0.55)
+			scale,
+			// offset 현재 좌표에서 [좌측, 위측] 으로 이동
 			offset: [0, 0],
-			anchor: [0.1, 0.4],
+			offsetOrigin: "bottom-left",
+			// anchor: Array.<number> (defaults to [0.5, 0.5])	Anchor. Default value is the icon center.
+			// anchor 현재 중심에서 [좌측,위측]으로 이동
+			// anchorXUnits: "pixels",
+			// anchorYUnits: "pixels",
+			anchor: [0.1, 0.38],
 		}),
 	});
 

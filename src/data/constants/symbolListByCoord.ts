@@ -28,7 +28,7 @@ interface coordType {
 	/**
 	 * 기본부호 svg
 	 */
-	basicSymbol?: string;
+	basicSymbol: string;
 	/**
 	 * 군대부호 svg
 	 */
@@ -49,6 +49,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "광주",
 		baseCoord: "350733N1264835E",
 		basicSymbol: baseSymbol,
+		milSymbol: "SIDC-****-3e3$$$$",
 	},
 	{
 		unitNm: "재경단",

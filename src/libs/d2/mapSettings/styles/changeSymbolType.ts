@@ -39,8 +39,9 @@ export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTy
 			const symbol = symbolListByCoord.find(
 				(sym) => sym.baseCoord === properties.originLonlat,
 			)?.basicSymbol;
+			// 매칭되는 심볼이 존재하지 않는다면 N/A로 표기
 			const foundSymbol = symbol ? symbol : notApplicableSymbol;
-			const symbolStyle = basicSymbolStyle(feature, foundSymbol);
+			const symbolStyle = basicSymbolStyle(feature, foundSymbol, 1, 0.55);
 			feature.setStyle([symbolStyle, textStyle]);
 		}
 	}
