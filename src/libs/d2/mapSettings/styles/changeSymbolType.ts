@@ -1,6 +1,7 @@
 import { notApplicableSymbol } from "../../../../assets/symbols/basicSymbols";
 import { symbolListByCoord } from "../../../../data/constants/symbolListByCoord";
 import { MapSymbolType } from "../../../../types/army/symbolType";
+import D2MapModule from "../../D2MapModule";
 import { findFeaturesByPixel } from "../interactions/findFeatures";
 import {
 	basicPointStyle,
@@ -23,6 +24,8 @@ interface ChangeSymbolTypeOnScreenType {
  * @param MapSymbolType MapSymbolType
  */
 
+const { MSTacticalGraphics, MSTacticalLineGraphics, MSTacticalPolygonGraphics } = D2MapModule;
+
 export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTypeOnScreenType) => {
 	const feature = findFeaturesByPixel(mousePosition);
 
@@ -43,6 +46,21 @@ export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTy
 			const foundSymbol = symbol ? symbol : notApplicableSymbol;
 			const symbolStyle = basicSymbolStyle(feature, foundSymbol, 1, 0.55);
 			feature.setStyle([symbolStyle, textStyle]);
+		}
+		if (type === "military") {
+			let symbolProp;
+			const symbolName = "SFG*USTA--*****";
+			const lineGraphics = new MSTacticalLineGraphics();
+			const polyGraphics = new MSTacticalPolygonGraphics();
+			if (lineGraphics.isExist(symbolName)) {
+				lineGraphics.setAffiliation("F");
+				symbolProp = lineGraphics.getMSObject(symbolName);
+			}
+			if (polyGraphics.isExist(symbolName)) {
+				polyGraphics.setAffiliation("F");
+				symbolProp = polyGraphics.getMSObject(symbolName);
+			}
+			return symbolProp ? console.log(symbolProp) : console.log("not exist");
 		}
 	}
 };

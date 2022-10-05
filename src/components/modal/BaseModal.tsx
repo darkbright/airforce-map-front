@@ -24,5 +24,5 @@ export default BaseModal;
 
 const Root = styled("div")(() => ({
 	minWidth: 600,
-	padding: "4%",
+	padding: "5%",
 }));

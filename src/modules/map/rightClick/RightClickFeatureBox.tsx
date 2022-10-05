@@ -20,6 +20,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { defaultFeatureLabelTextSize } from "../../../libs/d2/mapSettings/styles/symbolStyle";
 import { changeSymbolTypeOnScreen } from "../../../libs/d2/mapSettings/styles/changeSymbolType";
 import { MapSymbolType } from "../../../types/army/symbolType";
+import YesNoSelectionModal from "../../modal/YesNoSelectionModal";
 
 interface FeaturePropType {
 	color: BasicSymbolColorType;
@@ -46,6 +47,7 @@ const RightClickFeatureBox = () => {
 	const [isSymbolLabelOnScreen, setIsSymbolLabelOnScreen] = useState(defaultFeatureLabelTextSize);
 	const [openOpacityHandler, setOpenOpacityHandler] = useState(false);
 	const [opacityRate, setOpacityRate] = useState(100);
+	const [hideEverythingOpen, setHideEverythingOpen] = useState(false);
 
 	const onClickFeatureOnMap = useCallback(
 		(event: any) => {
@@ -56,7 +58,6 @@ const RightClickFeatureBox = () => {
 			const feature = findFeatures(event);
 			if (feature) {
 				const result = feature.getProperties();
-				console.log("result", result);
 				setMousePosition({
 					x: event.pixel[0],
 					y: event.pixel[1],
@@ -119,6 +120,7 @@ const RightClickFeatureBox = () => {
 			</div>
 			<Popover
 				id={id}
+				sx={{ opacity: 0.95 }}
 				open={Boolean(anchorEl)}
 				anchorEl={anchorEl}
 				onClose={() => setAnchorEl(null)}
@@ -134,7 +136,7 @@ const RightClickFeatureBox = () => {
 				<div style={{ padding: 5, width: 200 }}>
 					<div style={{ padding: 5 }}>
 						<Typography variant="body1">{featureProp?.name}</Typography>
-						<Typography variant="body2">
+						<Typography variant="subtitle2" sx={{ opacity: 0.7 }}>
 							{featureProp?.lonlat[0].toFixed(2)}, {featureProp?.lonlat[1].toFixed(2)}
 						</Typography>
 					</div>
@@ -246,7 +248,17 @@ const RightClickFeatureBox = () => {
 							<ListItemText>기본심볼 표시</ListItemText>
 						</MenuItem>
 
-						<MenuItem>
+						<MenuItem
+							disabled={featureProp?.symbol === "military"}
+							onClick={() => {
+								const feature = findFeaturesByPixel(mousePosition);
+								if (feature) {
+									feature.setProperties({ symbol: "military" });
+									changeSymbolTypeOnScreen({ mousePosition, type: "military" });
+									setAnchorEl(null);
+								}
+							}}
+						>
 							<ListItemText>군대심볼 표시</ListItemText>
 						</MenuItem>
 						<Divider />
@@ -257,9 +269,32 @@ const RightClickFeatureBox = () => {
 						<MenuItem>
 							<ListItemText>추가정보 표시</ListItemText>
 						</MenuItem>
+						<MenuItem onClick={() => setHideEverythingOpen(true)}>
+							<ListItemText>심볼/심볼명 숨기기</ListItemText>
+						</MenuItem>
 					</MenuList>
 				</div>
 			</Popover>
+			<YesNoSelectionModal
+				open={hideEverythingOpen}
+				setOpen={() => setHideEverythingOpen(false)}
+				title="심볼과 심볼명을 모두 숨기시겠어요?"
+				question={`심볼과 라벨을 모두 숨기면 다시 클릭할 수 없습니다.\n만약 다시 심볼과 라벨을 보시려면 페이지 새로고침 또는 초기화를 하세요.`}
+				onNo={() => setHideEverythingOpen(false)}
+				onYes={() => {
+					customizeSymbol({
+						mousePosition,
+						enlarge: "none",
+						showText: "none",
+						handleOpacity: false,
+						opacity: 0,
+						symbolType: featureProp?.symbol,
+						hideEverything: true,
+					});
+					setAnchorEl(null);
+					setHideEverythingOpen(false);
+				}}
+			/>
 		</>
 	);
 };

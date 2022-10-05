@@ -49,7 +49,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "광주",
 		baseCoord: "350733N1264835E",
 		basicSymbol: baseSymbol,
-		milSymbol: "SIDC-****-3e3$$$$",
+		milSymbol: "SFG*USTA--*****",
 	},
 	{
 		unitNm: "재경단",
@@ -104,6 +104,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "대구",
 		baseCoord: "355339N1283932E",
 		basicSymbol: baseSymbol,
+		milSymbol: "SFG*USTA--*****",
 	},
 	{
 		unitNm: "15비",
@@ -195,6 +196,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "김해",
 		baseCoord: "351423N1285313E",
 		basicSymbol: rocketSymbol,
+		milSymbol: "SFG*USTA--*****",
 	},
 	{
 		unitNm: "작근단",

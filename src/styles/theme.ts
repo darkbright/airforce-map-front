@@ -108,7 +108,10 @@ const baseTheme = {
 			fontWeight: 600,
 		},
 		body1: {
-			lineHeight: 1,
+			lineHeight: 1.25,
+		},
+		body2: {
+			fontSize: ".7rem",
 		},
 		subtitle2: {
 			fontSize: ".5rem",

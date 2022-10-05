@@ -24,6 +24,7 @@ interface CustomizeSymbolType {
 	 * - military: 군대부호 (군에서 지정한 군대부호의 형태로 나타남)
 	 */
 	symbolType?: MapSymbolType;
+	hideEverything?: boolean;
 }
 
 /**
@@ -41,11 +42,18 @@ export const customizeSymbol = ({
 	handleOpacity = false,
 	opacity,
 	symbolType = "simplified",
+	hideEverything = false,
 }: CustomizeSymbolType) => {
 	const feature = findFeaturesByPixel(mousePosition);
 	if (feature) {
 		// Label Text를 보여줄지 말지 선택하는 것으로 hide를 선택하면 ol.text의 scale이 0이 되어 글자가 보이지 않음
 		const changedTextOpacity = showText === "hide" ? 0 : defaultFeatureLabelTextSize;
+
+		// 전체 feature 가리기
+		if (hideEverything) {
+			const newStyle = [basicPointStyle(feature, 0, 0), basicTextStyle(feature, 0)];
+			return feature.setStyle(newStyle);
+		}
 
 		// symbol의 종류가 간략부호인 경우
 		if (symbolType === "simplified") {
@@ -74,7 +82,7 @@ export const customizeSymbol = ({
 				basicPointStyle(feature, preventSizeToZero, adjustedOpacity),
 				basicTextStyle(feature, changedTextOpacity),
 			];
-			feature.setStyle(newStyle);
+			return feature.setStyle(newStyle);
 		}
 		if (symbolType === "basic") {
 			//  원래의 svg 이미지 사이즈. 기본은 0.55로 설정되어 있음.
@@ -110,7 +118,7 @@ export const customizeSymbol = ({
 				basicSymbolStyle(feature, foundSymbol, adjustedOpacity, preventSizeToZero),
 				basicTextStyle(feature, changedTextOpacity),
 			];
-			feature.setStyle(newStyle);
+			return feature.setStyle(newStyle);
 		}
 	}
 };
