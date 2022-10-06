@@ -26,6 +26,7 @@ import {
 	ShapesOnToolbarShaper,
 	GraphicShapeType,
 } from "../../libs/d2/mapSettings/draw/ShapesOnToolbarShaper";
+import MilSymbolIcon from "../../assets/icons/shapes/MilSymbolIcon";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
@@ -167,7 +168,7 @@ const DrawPanelToolbar = () => {
 
 	return (
 		<>
-			<div style={{ margin: ".5%" }}>
+			<div style={{ margin: ".5%", display: "flex", alignItems: "center" }}>
 				<ToggleButtonGroup
 					sx={{ marginLeft: "10px" }}
 					size="small"
@@ -192,6 +193,21 @@ const DrawPanelToolbar = () => {
 						</ToggleButton>
 					))}
 				</ToggleButtonGroup>
+				<ToggleButton
+					sx={{ ml: 2 }}
+					size="small"
+					color="primary"
+					value="military Symbol"
+					onClick={() => {
+						console.log("milsym");
+					}}
+				>
+					<Tooltip title="군대부호 탐색기">
+						<div>
+							<MilSymbolIcon />
+						</div>
+					</Tooltip>
+				</ToggleButton>
 			</div>
 		</>
 	);
