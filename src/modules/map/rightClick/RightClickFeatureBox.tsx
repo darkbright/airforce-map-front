@@ -66,7 +66,6 @@ const RightClickFeatureBox = () => {
 					x: event.pixel[0],
 					y: event.pixel[1],
 				});
-				console.log(event.pixel);
 				if (result.name) {
 					// 심볼의 형태가 어떤 것인지 파악하고, 최초에 심볼 property가 feature 객체에 들어가 있지 않다면, 우선적으로 simplified(즉, 간략부호로 설정해줌. 그런 뒤 아래쪽의 버튼을 통하여 해당 feature property의 심볼값을 변경하여 전역으로 저장함)
 					if (result.symbol === undefined || null) {
@@ -76,7 +75,6 @@ const RightClickFeatureBox = () => {
 						setFeatureProp(result);
 					}
 					setAnchorEl(popupRef.current);
-					console.log(popupRef.current);
 					const textScaleInfo = feature.getStyle()[1].text_.scale_;
 					setIsSymbolLabelOnScreen(textScaleInfo);
 				} else {

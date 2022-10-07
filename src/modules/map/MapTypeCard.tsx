@@ -51,7 +51,7 @@ const MapTypeCard = ({ title, category, imgSrc, onSelect }: MapTypeCardProps) =>
 						height: 18,
 						mt: 1,
 						padding: "0px 2px",
-						color: isDark === "light" ? "white" : "black",
+						color: "#fff",
 					}}
 				/>
 			</Body>

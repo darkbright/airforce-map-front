@@ -1,5 +1,6 @@
 import { MapLayerListType } from "../../../../data/constants/mapLayerList";
 import D2MapModule from "../../D2MapModule";
+import { worldBoundaryStyle } from "../styles/boundaryMapStyle";
 
 const { ol } = D2MapModule;
 
@@ -63,11 +64,46 @@ export const addMapLayer = ({ addToMap, ...layer }: AddMapLayerType) => {
 			renderMode: "image",
 			zIndex: 99,
 		});
+
 		if (addToMap) {
 			window.map.addLayer(createdMVTLayer);
 			window.mapLayerManager.addMVTLayer(layer.name, layer.mvtUrl, false, createdMVTLayer);
 		} else {
 			return createdMVTLayer;
+		}
+	}
+	if (layer.mapType === "worldBoundary") {
+		const createdBoundaryLayer = new ol.layer.VectorTile({
+			source: new ol.source.VectorTile({
+				format: new ol.format.MVT(),
+				url: layer.url,
+				minZoom: layer.minZoom,
+				maxZoom: layer.maxZoom,
+			}),
+			name: layer.name,
+			opacity: 1,
+			visible: true,
+			// extent: layer.extent || ?
+			zIndex: 99,
+			style: (feature: any) => {
+				switch (feature.get("layer")) {
+					case "label":
+						if (worldBoundaryStyle.label.getText() !== undefined) {
+							worldBoundaryStyle.label.getText().setText(feature.properties_.Name);
+						}
+						return worldBoundaryStyle.label;
+					case "boundary":
+						return worldBoundaryStyle.geometry;
+					default:
+						return null;
+				}
+			},
+		});
+		if (addToMap) {
+			window.map.addLayer(createdBoundaryLayer);
+			window.mapLayerManager.addLayer(layer.name, false, createdBoundaryLayer);
+		} else {
+			return createdBoundaryLayer;
 		}
 	}
 };

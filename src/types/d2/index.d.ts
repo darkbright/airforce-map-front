@@ -15,6 +15,7 @@ declare global {
 		// tslint:disable-next-line
 
 		// d2Core를 통해 생성된 객체
+		Coordinate: any;
 		D2_CONSTANTS: d2Constants;
 		map: any;
 		D2MapManager: d2MapManager;
@@ -22,7 +23,7 @@ declare global {
 		mapLayerManager: any;
 		graphic: any;
 		postComposeCtrl: any;
-		eventManager:any;
+		eventManager: any;
 		exportImage: {
 			downloadPNG: () => void;
 		};

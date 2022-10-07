@@ -62,7 +62,7 @@ export default async () => {
 	});
 
 	// 좌표 관리 모듈 생성
-	new Coordinate(urlInfo.dem);
+	window.Coordinate = new Coordinate(urlInfo.dem);
 
 	// 정배율 지도 확대/축소 설정
 	window.map.getView().setConstrainResolution(true);

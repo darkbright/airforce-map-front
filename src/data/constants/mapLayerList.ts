@@ -39,9 +39,10 @@ export interface MapLayerListType {
 	 * mapType은 XYZ와  MVT(Mapbox Vector Tiles)로 크게 나눌 수 있음.
 	 * XYZ 인 경우 일반 Tile을 의미하므로 Openlayers layer 설정 시 new ol.layer.Tile의 형태로 설정.
 	 * MVT인 경우 Vector이므로 OpenLayers layer 설정 시 new ol.layer.VectorTile로 설정됨.
+	 * 단, worldBoundary의 경우 MVT 형식이지만 일반 MVT와 다른 properties가 설정되므로 별도로 지정하였음
 	 * libs/d2/mapSettings/addLayers/addMapLayer.ts 파일 참조
 	 */
-	mapType: "XYZ" | "MVT";
+	mapType: "XYZ" | "MVT" | "worldBoundary";
 	category: "세계지도" | "육도" | "공도" | "해도";
 	/**
 	 * D2MapServer에서 가져올 지도 데이터 소스 url
@@ -100,7 +101,30 @@ export const mapLayerList: MapLayerListType[] = [
 		maxZoom: 10,
 		thumbnail: baseWorldMap,
 	},
-
+	{
+		name: "worldMapMVT",
+		title: "세계지도(MVT)",
+		category: "세계지도",
+		mapType: "MVT",
+		default: false,
+		url: urlInfo.map.worldLayer,
+		minZoom: 1,
+		maxZoom: 10,
+		thumbnail: aerialAuto,
+		mvtUrl: urlInfo.mvtStyle.worldMap,
+	},
+	// 세계 경계 지도
+	{
+		name: "worldBoundaryMap",
+		title: "세계경계지도",
+		category: "세계지도",
+		mapType: "worldBoundary",
+		default: false,
+		url: urlInfo.map.worldBoundary,
+		minZoom: 0,
+		maxZoom: 12,
+		thumbnail: aerialAuto,
+	},
 	{
 		// 위성영상 또는 위성지도, 여기서는 일단 아리랑을 썼음
 		name: "satelliteMap",
@@ -289,8 +313,6 @@ export const mapLayerList: MapLayerListType[] = [
 		maxZoom: 14,
 		thumbnail: navyRaster,
 	},
-
-	////////// 여기서부터 Vector 지도 //////////////////
 
 	{
 		name: "mvtG25K",
