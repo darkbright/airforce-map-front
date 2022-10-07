@@ -6,6 +6,7 @@ import {
 	Switch,
 	ToggleButton,
 	ToggleButtonGroup,
+	Tooltip,
 	Typography,
 } from "@mui/material";
 import { ChangeEvent, MouseEvent, ReactNode, useState } from "react";
@@ -228,8 +229,15 @@ const MapGridLayerItemBox = ({ gridLayer }: MapGridLayerItemBoxProps) => {
 							size="small"
 						>
 							{lineType.map((line) => (
-								<ToggleButton key={line.name} value={line.name} aria-label={line.name}>
-									{line.icon}
+								<ToggleButton
+									sx={{ lineHeight: 1 }}
+									key={line.name}
+									value={line.name}
+									aria-label={line.name}
+								>
+									<Tooltip title={line.name}>
+										<div>{line.icon}</div>
+									</Tooltip>
 								</ToggleButton>
 							))}
 						</ToggleButtonGroup>
