@@ -106,7 +106,7 @@ export const mapLayerList: MapLayerListType[] = [
 		title: "세계지도(MVT)",
 		category: "세계지도",
 		mapType: "MVT",
-		default: false,
+		default: true,
 		url: urlInfo.map.worldLayer,
 		minZoom: 1,
 		maxZoom: 10,

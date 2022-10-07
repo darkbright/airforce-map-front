@@ -81,6 +81,7 @@ const Main = () => {
 				setSelectedId(id);
 				setSelectedName(name);
 			}
+			return null;
 		},
 		[window.map],
 	);

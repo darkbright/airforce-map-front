@@ -87,8 +87,8 @@ const RightClickFeatureBox = () => {
 
 	useEffect(() => {
 		if (rightClickEnabled) {
-			window.map.on("pointerdown", onClickFeatureOnMap);
-			return () => window.map.un("pointerdown", onClickFeatureOnMap);
+			window.map.on("contextmenu", onClickFeatureOnMap);
+			return () => window.map.un("contextmenu", onClickFeatureOnMap);
 		}
 	}, [window.map, onClickFeatureOnMap]);
 
