@@ -168,9 +168,23 @@ const DrawPanelToolbar = () => {
 
 	return (
 		<>
-			<div style={{ margin: ".5%", display: "flex", alignItems: "center" }}>
+			<div
+				style={{
+					margin: ".5%",
+					display: "flex",
+					alignItems: "center",
+					position: "absolute",
+					top: "3.2em",
+					left: 3,
+					zIndex: 1500,
+				}}
+			>
 				<ToggleButtonGroup
-					sx={{ marginLeft: "10px" }}
+					sx={{
+						marginLeft: "10px",
+						background: (theme) => theme.palette.background.default,
+						opacity: 0.9,
+					}}
 					size="small"
 					color="primary"
 					value={alignment}
@@ -180,6 +194,7 @@ const DrawPanelToolbar = () => {
 					{shapesList.map((shape) => (
 						<ToggleButton
 							key={shape.value}
+							sx={{ lineHeight: 1 }}
 							value={shape.value}
 							onClick={() => {
 								ShapesOnToolbarShaper({
@@ -194,7 +209,12 @@ const DrawPanelToolbar = () => {
 					))}
 				</ToggleButtonGroup>
 				<ToggleButton
-					sx={{ ml: 2 }}
+					sx={{
+						ml: 2,
+						background: (theme) => theme.palette.background.default,
+						opacity: 0.9,
+						"&:hover": { background: (theme) => theme.palette.background.paper },
+					}}
 					size="small"
 					color="primary"
 					value="military Symbol"

@@ -7,7 +7,7 @@ import { IconProps } from "../IconProp";
  * @param {IconProps} IconProps
  * @returns {JSX.Element} React Component(SVG)
  */
-const ForwardAxisIcon = ({ width = 18, color }: IconProps) => {
+const ForwardAxisIcon = ({ width = 14, color }: IconProps) => {
 	const { isDark } = useThemeStore();
 	const chosenColor = color || theme(isDark).palette.text.secondary;
 
@@ -17,8 +17,7 @@ const ForwardAxisIcon = ({ width = 18, color }: IconProps) => {
 			xmlns="http://www.w3.org/2000/svg"
 			x="0px"
 			y="0px"
-			viewBox="0 0 200 200"
-			enableBackground="new 0 0 200 200"
+			viewBox="0 0 180 180"
 			xmlSpace="preserve"
 			width={width}
 		>

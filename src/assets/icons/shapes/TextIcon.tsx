@@ -11,7 +11,7 @@ interface TextIconProps extends IconProps {
  * @param {IconProps} IconProps
  * @returns {JSX.Element} React Component(SVG)
  */
-const TextIcon = ({ width = 18, color, small = false }: TextIconProps) => {
+const TextIcon = ({ width = 16, color, small = false }: TextIconProps) => {
 	const { isDark } = useThemeStore();
 	const chosenColor = color || theme(isDark).palette.text.secondary;
 
@@ -28,8 +28,7 @@ const TextIcon = ({ width = 18, color, small = false }: TextIconProps) => {
 			xmlns="http://www.w3.org/2000/svg"
 			x="0px"
 			y="0px"
-			viewBox="0 0 200 200"
-			enableBackground="new 0 0 200 200"
+			viewBox="0 0 180 180"
 			xmlSpace="preserve"
 			width={width}
 		>

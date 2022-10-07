@@ -13,7 +13,7 @@ interface SquareIconProps extends IconProps {
  * @param {IconProps} IconProps
  * @returns {JSX.Element} React Component(SVG)
  */
-const SquareIcon = ({ width = 18, color, rotate = 0 }: SquareIconProps) => {
+const SquareIcon = ({ width = 14, color, rotate = 0 }: SquareIconProps) => {
 	const { isDark } = useThemeStore();
 	const chosenColor = color || theme(isDark).palette.text.secondary;
 
@@ -23,8 +23,7 @@ const SquareIcon = ({ width = 18, color, rotate = 0 }: SquareIconProps) => {
 			xmlns="http://www.w3.org/2000/svg"
 			x="0px"
 			y="0px"
-			viewBox="0 0 200 200"
-			enableBackground="new 0 0 200 200"
+			viewBox="0 0 180 180"
 			xmlSpace="preserve"
 			width={width}
 			transform={`rotate(${rotate})`}

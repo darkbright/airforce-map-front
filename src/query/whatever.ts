@@ -39,6 +39,7 @@ export const useWhateverAll = () => {
 					todayInjured: proto.todayInjured,
 					yesterdayOnboard: proto.yesterdayOnboard,
 					yesterdayInjured: proto.yesterdayInjured,
+					originLonlat: proto.testCoord,
 					lonlat: DMSConverter({ dms: proto.testCoord, type: "toLonlat" }),
 				},
 				geometry: {

@@ -55,9 +55,13 @@ const MapToolbar = () => {
 
 	return (
 		<>
-			<div style={{ padding: ".5%" }}>
+			<div style={{ padding: ".5%", position: "absolute", top: "0.4em", left: 3, zIndex: 1500 }}>
 				<ToggleButtonGroup
-					sx={{ marginLeft: "10px" }}
+					sx={{
+						marginLeft: "10px",
+						background: (theme) => theme.palette.background.default,
+						opacity: 0.9,
+					}}
 					size="small"
 					color="primary"
 					value={alignment}
