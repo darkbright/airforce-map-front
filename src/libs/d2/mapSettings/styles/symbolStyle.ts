@@ -18,7 +18,7 @@ export const basicTextStyle = (feature: any, scale: number) => {
 			text: String(featureId),
 			scale,
 			offsetX: 5,
-			offsetY: 10,
+			offsetY: 18,
 			fill: new ol.style.Fill({
 				color: [255, 255, 255, 1],
 			}),
@@ -89,13 +89,13 @@ export const basicSymbolStyle = (
 			// svg 이미지 크기 (기본은 0.55)
 			scale,
 			// offset 현재 좌표에서 [좌측, 위측] 으로 이동
-			offset: [0, 0],
+			offset: [0, -8],
 			offsetOrigin: "bottom-left",
 			// anchor: Array.<number> (defaults to [0.5, 0.5])	Anchor. Default value is the icon center.
 			// anchor 현재 중심에서 [좌측,위측]으로 이동
 			// anchorXUnits: "pixels",
 			// anchorYUnits: "pixels",
-			anchor: [0.1, 0.38],
+			anchor: [0, 0],
 		}),
 	});
 

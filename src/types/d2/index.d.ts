@@ -135,6 +135,9 @@ declare global {
 				 * 고도 서비스 초기화, 그리드 객체 초기화 측정기능 및 지형분석 초기화 등 지도 서비스를 위한 클랙스를 초기화함
 				 */
 				Coordinate: any;
+				/**
+				 * 한국군 표준군대부호(MND-STD-2525C) 처리를 위한 기본클래스로 기본부호인 전술기호(Tactical Symbol)와 전술도식(Tactical Grapphic) 정형 부호를 표출하는 전용 클래스
+				 */
 				D2MS: any;
 				D2MapManager: any;
 				Graphic: any;

@@ -1,8 +1,11 @@
 import { notApplicableSymbol } from "../../../../assets/symbols/basicSymbols";
+import { toastShow } from "../../../../components/alert/ToastMessage";
 import { symbolListByCoord } from "../../../../data/constants/symbolListByCoord";
 import { MapSymbolType } from "../../../../types/army/symbolType";
-import D2MapModule from "../../D2MapModule";
 import { findFeaturesByPixel } from "../interactions/findFeatures";
+import { getMilSymbolImage } from "../milSymbols/getMilSymbolImage";
+import { getMilSymbolType } from "../milSymbols/getMilSymbolType";
+import { militarySymbolStyle } from "./militarySymbolStyle";
 import {
 	basicPointStyle,
 	basicSymbolStyle,
@@ -24,43 +27,47 @@ interface ChangeSymbolTypeOnScreenType {
  * @param MapSymbolType MapSymbolType
  */
 
-const { MSTacticalLineGraphics, MSTacticalPolygonGraphics } = D2MapModule;
-
 export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTypeOnScreenType) => {
 	const feature = findFeaturesByPixel(mousePosition);
 
 	const textStyle = basicTextStyle(feature, defaultFeatureLabelTextSize);
 
 	if (feature) {
+		const properties = feature.getProperties();
+		// 매칭되는 심볼을 symbolListByCoord 내의 DB에서 받은 좌표값으로 찾음
+		const symbol = symbolListByCoord.find((sym) => sym.baseCoord === properties.originLonlat);
 		if (type === "simplified") {
 			const symbolStyle = basicPointStyle(feature, 10, 1);
 			feature.setStyle([symbolStyle, textStyle]);
 		}
 		if (type === "basic") {
-			const properties = feature.getProperties();
-			// 매칭되는 심볼을 symbolListByCoord 내의 DB에서 받은 좌표값으로 찾음
-			const symbol = symbolListByCoord.find(
-				(sym) => sym.baseCoord === properties.originLonlat,
-			)?.basicSymbol;
+			const matchedSymbol = symbol?.basicSymbol;
 			// 매칭되는 심볼이 존재하지 않는다면 N/A로 표기
-			const foundSymbol = symbol ? symbol : notApplicableSymbol;
+			const foundSymbol = matchedSymbol ? matchedSymbol : notApplicableSymbol;
 			const symbolStyle = basicSymbolStyle(feature, foundSymbol, 1, 0.55);
 			feature.setStyle([symbolStyle, textStyle]);
 		}
 		if (type === "military") {
-			let symbolProp;
-			const symbolName = "SFG*USTA--*****";
-			const lineGraphics = new MSTacticalLineGraphics();
-			const polyGraphics = new MSTacticalPolygonGraphics();
-			if (lineGraphics.isExist(symbolName)) {
-				lineGraphics.setAffiliation("F");
-				symbolProp = lineGraphics.getMSObject(symbolName);
+			// 심볼이 없으면 미식별 군대부호를 표출
+			const matchedSymbol = symbol?.milSymbol || "SFZ*------*****";
+
+			const isSymbolType1 = getMilSymbolType(matchedSymbol) === 1;
+			if (isSymbolType1) {
+				const symbolImage = getMilSymbolImage(matchedSymbol, 1);
+				if (symbolImage) {
+					const symbolStyle = militarySymbolStyle(symbolImage);
+
+					feature.setStyle([symbolStyle, textStyle]);
+
+					window.MilSymbol.loadMilsymbolTree();
+				} else {
+					toastShow({
+						title: "해당 심볼이 아닙니다",
+						message: `심볼을 찾을 수 없습니다`,
+						type: "error",
+					});
+				}
 			}
-			if (polyGraphics.isExist(symbolName)) {
-				polyGraphics.setAffiliation("F");
-				symbolProp = polyGraphics.getMSObject(symbolName);
-			}
-			return symbolProp ? console.log(symbolProp) : console.log("not exist");
 		}
 	}
 };

@@ -147,50 +147,58 @@ const RightClickFeatureBox = () => {
 
 					<MenuList dense>
 						<Divider />
-						<MenuItem
-							onClick={() =>
-								customizeSymbol({
-									mousePosition,
-									enlarge: "larger",
-									showText: "none",
-									symbolType: featureProp?.symbol,
-								})
-							}
-						>
-							<ListItemText>확대</ListItemText>
-						</MenuItem>
-						<MenuItem
-							onClick={() =>
-								customizeSymbol({
-									mousePosition,
-									enlarge: "smaller",
-									showText: "none",
-									symbolType: featureProp?.symbol,
-								})
-							}
-						>
-							<ListItemText>축소</ListItemText>
-						</MenuItem>
-						<MenuItem onClick={() => setOpenOpacityHandler(!openOpacityHandler)}>
-							<ListItemText>밝기 조절</ListItemText>
-							<Typography variant="body2" color="text.secondary">
-								{openOpacityHandler ? (
-									<KeyboardArrowUpIcon fontSize="small" />
-								) : (
-									<KeyboardArrowDownIcon fontSize="small" />
+						{featureProp?.symbol === "military" ? (
+							<MenuItem>
+								<ListItemText>군대부호 편집</ListItemText>
+							</MenuItem>
+						) : (
+							<div>
+								<MenuItem
+									onClick={() =>
+										customizeSymbol({
+											mousePosition,
+											enlarge: "larger",
+											showText: "none",
+											symbolType: featureProp?.symbol,
+										})
+									}
+								>
+									<ListItemText>확대</ListItemText>
+								</MenuItem>
+								<MenuItem
+									onClick={() =>
+										customizeSymbol({
+											mousePosition,
+											enlarge: "smaller",
+											showText: "none",
+											symbolType: featureProp?.symbol,
+										})
+									}
+								>
+									<ListItemText>축소</ListItemText>
+								</MenuItem>
+								<MenuItem onClick={() => setOpenOpacityHandler(!openOpacityHandler)}>
+									<ListItemText>밝기 조절</ListItemText>
+									<Typography variant="body2" color="text.secondary">
+										{openOpacityHandler ? (
+											<KeyboardArrowUpIcon fontSize="small" />
+										) : (
+											<KeyboardArrowDownIcon fontSize="small" />
+										)}
+									</Typography>
+								</MenuItem>
+								{openOpacityHandler && (
+									<div style={{ padding: "0px 15px" }}>
+										<Slider
+											value={opacityRate}
+											aria-label="feature opacity"
+											size="small"
+											color="secondary"
+											onChange={handleOpacityRate}
+											valueLabelDisplay="auto"
+										/>
+									</div>
 								)}
-							</Typography>
-						</MenuItem>
-						{openOpacityHandler && (
-							<div style={{ padding: "0px 15px" }}>
-								<Slider
-									value={opacityRate}
-									aria-label="feature opacity"
-									size="small"
-									color="secondary"
-									onChange={handleOpacityRate}
-									valueLabelDisplay="auto"
-								/>
 							</div>
 						)}
 						{isSymbolLabelOnScreen === defaultFeatureLabelTextSize ? (
@@ -270,9 +278,7 @@ const RightClickFeatureBox = () => {
 							<ListItemText>레벨 5 보기</ListItemText>
 						</MenuItem>
 						<Divider />
-						<MenuItem>
-							<ListItemText>추가정보 표시</ListItemText>
-						</MenuItem>
+
 						<MenuItem onClick={() => setHideEverythingOpen(true)}>
 							<ListItemText>심볼/심볼명 숨기기</ListItemText>
 						</MenuItem>
