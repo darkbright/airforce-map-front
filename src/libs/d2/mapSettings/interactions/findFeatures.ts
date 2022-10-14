@@ -21,7 +21,7 @@ export const findFeatures = (event: any) => {
 
 /**
  * 클릭한 지점의 픽셀 값을 미리 저장해두고 그 값을 가지고 feature의 속성을 찾아냄
- * @param pixel number[x, y]
+ * @param mousePosition {x: number, y: number}
  * @returns feature
  */
 

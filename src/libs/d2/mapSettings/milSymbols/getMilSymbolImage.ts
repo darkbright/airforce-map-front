@@ -65,6 +65,6 @@ export const getMilSymbolImage = (
 		ms: symbol,
 		anchor: [anchorX, anchorY],
 		imgURL: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg),
-		size: symbol.getSize(),
+		size: symbolSize,
 	};
 };

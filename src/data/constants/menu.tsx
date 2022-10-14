@@ -2,11 +2,17 @@
  * 화면 좌측의 개별 메뉴를 구성하는 인터페이스
  */
 
+import { ReactNode } from "react";
+import Main from "../../pages/Main";
+import TabSample from "../../pages/TabSample";
+import Whatever from "../../pages/Whatever";
+
 export interface MenuProps {
 	id: string;
 	name: string;
 	parentUrl: string;
 	type: "dir" | "page";
+	element?: ReactNode;
 	subMenu?: MenuProps[];
 }
 
@@ -26,18 +32,21 @@ export const menu: MenuProps[] = [
 				name: "이더리움",
 				type: "page",
 				parentUrl: "bitcoin",
+				element: <Main />,
 			},
 			{
 				id: "Tether",
 				name: "테더",
 				type: "page",
 				parentUrl: "bitcoin",
+				element: <Whatever />,
 			},
 			{
 				id: "USDCoin",
 				name: "달러 코인",
 				type: "page",
 				parentUrl: "bitcoin",
+				element: <TabSample />,
 			},
 			{
 				id: "BNB",

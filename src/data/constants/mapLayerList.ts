@@ -402,13 +402,3 @@ export const mapLayerList: MapLayerListType[] = [
 		thumbnail: vectors,
 	},
 ];
-
-// {
-// 	// openStreetMap
-// 	// 부대 내에선 작동안하므로 지워야댐.
-// 	id: 1,
-// 	name: "openStreetMap",
-// 	title: "오픈스트리트맵",
-// 	category: "세계지도",
-// 	mapType: "XYZ",
-// },

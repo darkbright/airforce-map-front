@@ -3,6 +3,11 @@ import { MilSymbolImageType } from "../milSymbols/getMilSymbolImage";
 
 const { ol } = D2MapModule;
 
+/**
+ * 군대부호 스타일 지정
+ * @param symbol MilSymbolImageType
+ * @returns ol.style.Style
+ */
 export const militarySymbolStyle = (symbol: MilSymbolImageType) => {
 	const symbolStyle = new ol.style.Style({
 		image: new ol.style.Icon({

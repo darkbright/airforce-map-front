@@ -7,7 +7,6 @@ import Landing from "../pages/Landing";
 import Main from "../pages/Main";
 import NotFound from "../pages/NotFound";
 import Unauthroized from "../pages/Unauthorized";
-import Whatever from "../pages/Whatever";
 import RequireAuth from "./RequireAuth";
 
 const Router = () => {
@@ -29,7 +28,8 @@ const Router = () => {
 								<Route
 									key={subRoute.id}
 									path={`/${route.id}/${subRoute.id}`}
-									element={route.id === "UNUSSEDLEO" ? <Whatever /> : <Main />}
+									// element={route.id === "UNUSSEDLEO" ? <Whatever /> : <Main />}
+									element={subRoute.element}
 								/>
 							);
 						}),
