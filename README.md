@@ -370,3 +370,4 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 - MGRS: 좌표계의 한 형식
 - GARS: Global Area Reference System
 - UTM: Universal Transverse Mercator
+- DEM: Digital Elevation Model (고도 관련)

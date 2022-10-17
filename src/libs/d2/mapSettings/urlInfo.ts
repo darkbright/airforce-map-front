@@ -49,7 +49,8 @@ export default {
 		georef: `${URL_HEADER}/TARTMS/GRID_GeoRef_MVT/L{z}/{y}/{x}.pbf`,
 		mgrs: `${URL_HEADER}/TARTMS/GRID_MGRS_MVT/L{z}/{y}/{x}.pbf`,
 	},
-	dem: "http://192.168.1.132:7443/tilesets/srtm/",
+	// Digital Elevation Model
+	dem: `${URL_HEADER}/tilesets/srtm/`,
 	d2ms: `${URL_HEADER}/D2MS/Symbol/`,
 	d2ms_property: `${URL_HEADER}/D2MS/milsymbol-prop.json`,
 	mvtStyle: {

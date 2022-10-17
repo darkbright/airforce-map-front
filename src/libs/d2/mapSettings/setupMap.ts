@@ -62,6 +62,7 @@ export default async () => {
 	});
 
 	// 좌표 관리 모듈 생성
+	// Digital Elevation Model 생성을 통해 고도 관련 자료를 받아옴
 	window.Coordinate = new Coordinate(urlInfo.dem);
 
 	// 정배율 지도 확대/축소 설정

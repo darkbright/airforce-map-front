@@ -27,6 +27,7 @@ import {
 	GraphicShapeType,
 } from "../../libs/d2/mapSettings/draw/ShapesOnToolbarShaper";
 import MilSymbolIcon from "../../assets/icons/shapes/MilSymbolIcon";
+import MilitarySymbolListTreeDrawer from "../../modules/map/MilitarySymbolListTreeDrawer";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
@@ -166,6 +167,9 @@ const DrawPanelToolbar = () => {
 		setAlignment(newAlignment);
 	};
 
+	// 군대부호 탐색기 열고 닫기
+	const [symbolListOpen, setSymbolListOpen] = useState(false);
+
 	return (
 		<>
 			<div
@@ -219,7 +223,7 @@ const DrawPanelToolbar = () => {
 					color="primary"
 					value="military Symbol"
 					onClick={() => {
-						console.log("milsym");
+						setSymbolListOpen(true);
 					}}
 				>
 					<Tooltip title="군대부호 탐색기">
@@ -229,6 +233,10 @@ const DrawPanelToolbar = () => {
 					</Tooltip>
 				</ToggleButton>
 			</div>
+			<MilitarySymbolListTreeDrawer
+				open={symbolListOpen}
+				setOpen={() => setSymbolListOpen(false)}
+			/>
 		</>
 	);
 };

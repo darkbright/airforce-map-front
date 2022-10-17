@@ -13,6 +13,7 @@ interface MousePositionProps {
 	showGeoRef?: boolean;
 	showUTM?: boolean;
 	showGARS?: boolean;
+	showAltitude?: boolean;
 }
 
 /**
@@ -44,6 +45,8 @@ export const setMousePosition = ({
 				: "";
 			const geoRefString = showGeoRef ? `GeoRef: ${geoRef} |` : "";
 			const garsString = showGARS ? `GARS:${gars}` : "";
+
+			// const altitudeString = showAltitude ? `Altitude: ${getAltitude()}` : "";
 
 			return `${lonlatString} ${mgrsString} ${utmString} ${geoRefString} ${garsString}`;
 		},
