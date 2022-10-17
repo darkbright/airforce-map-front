@@ -1,16 +1,31 @@
-import { Autocomplete, Box, Drawer, TextField } from "@mui/material";
-import { useState } from "react";
-import BaseBlockTitleBox from "../../components/box/textBox/BaseBlockTitleBox";
-import { milSymbolTreeList, MilSymbolTreeListType } from "../../data/constants/milSymbolTreeList";
+import {
+	Autocomplete,
+	Box,
+	CircularProgress,
+	Drawer,
+	styled,
+	TextField,
+	Typography,
+} from "@mui/material";
+import { Fragment, useEffect, useState } from "react";
+
+import BaseBlockTitleBox from "../../../components/box/textBox/BaseBlockTitleBox";
+import {
+	milSymbolTreeList,
+	MilSymbolTreeListType,
+} from "../../../data/constants/milSymbolTreeList";
+import { getMilSymbolImage } from "../../../libs/d2/mapSettings/milSymbols/getMilSymbolImage";
+import SingleMilitarySymbolBox from "./SingleMilitarySymbolBox";
 
 interface MilitarySymbolListTreeDrawerProps {
 	open: boolean;
 	setOpen: (set: boolean) => void;
 }
 
-interface ModifiedMilSymboListType extends MilSymbolTreeListType {
+export interface ModifiedMilSymboListType extends MilSymbolTreeListType {
 	groupName: string;
 	modifiedName: string;
+	symbolImage: string;
 }
 
 const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeDrawerProps) => {
@@ -25,12 +40,51 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 			milSymbolTreeList.find((sym: MilSymbolTreeListType) => sym.id === parentName)?.name ||
 			"최상위"
 		} > ${option.name}  | ${option.cd}`;
+		const symbolImage = getMilSymbolImage(option.cd)?.imgURL || "";
+
 		return {
 			groupName: foundName,
 			modifiedName,
+			symbolImage,
 			...option,
 		};
 	});
+
+	function sleep(delay = 0) {
+		return new Promise((resolve) => {
+			setTimeout(resolve, delay);
+		});
+	}
+
+	const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
+	const [options, setOptions] = useState<readonly ModifiedMilSymboListType[]>([]);
+	const loading = autoCompleteOpen && options.length === 0;
+
+	useEffect(() => {
+		let active = true;
+
+		if (!loading) {
+			return undefined;
+		}
+
+		(async () => {
+			await sleep(2);
+
+			if (active) {
+				setOptions([...groupedSearchOptions]);
+			}
+		})();
+
+		return () => {
+			active = false;
+		};
+	}, [loading]);
+
+	useEffect(() => {
+		if (!autoCompleteOpen) {
+			setOptions([]);
+		}
+	}, [autoCompleteOpen]);
 
 	const [selectedMilSymbol, setSelectedMilSymbol] = useState<ModifiedMilSymboListType | null>(null);
 
@@ -41,14 +95,24 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 				<Autocomplete
 					id="milSymbolList"
 					sx={{ width: "100%" }}
-					options={groupedSearchOptions}
+					open={autoCompleteOpen}
+					onOpen={() => setAutoCompleteOpen(true)}
+					onClose={() => setAutoCompleteOpen(false)}
+					loading={loading}
+					loadingText="로딩 중..."
+					options={options}
 					groupBy={(option) => option.groupName!}
 					autoHighlight
 					noOptionsText="결과가 없습니다"
 					getOptionLabel={(option) => option.modifiedName}
 					renderOption={(props, option) => (
 						<Box component="li" {...props}>
-							{option.modifiedName}
+							<img
+								loading="lazy"
+								style={{ width: 35, height: 35, paddingRight: 10 }}
+								src={option.symbolImage}
+							/>
+							<Typography variant="body2">{option.modifiedName}</Typography>
 						</Box>
 					)}
 					value={selectedMilSymbol}
@@ -64,7 +128,16 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 							label="군대부호 검색"
 							inputProps={{
 								...params.inputProps,
-								autoComplete: "new-Password",
+								autoComplete: "new",
+							}}
+							InputProps={{
+								...params.InputProps,
+								endAdornment: (
+									<Fragment>
+										{loading ? <CircularProgress color="inherit" size={20} /> : null}
+										{params.InputProps.endAdornment}
+									</Fragment>
+								),
 							}}
 						/>
 					)}
@@ -77,9 +150,16 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 				>
 					ddd
 				</div> */}
+				<SingleSymbolWrapper>
+					{selectedMilSymbol && <SingleMilitarySymbolBox symbol={selectedMilSymbol!} />}
+				</SingleSymbolWrapper>
 			</Box>
 		</Drawer>
 	);
 };
 
 export default MilitarySymbolListTreeDrawer;
+
+const SingleSymbolWrapper = styled("div")(() => ({
+	marginTop: 20,
+}));

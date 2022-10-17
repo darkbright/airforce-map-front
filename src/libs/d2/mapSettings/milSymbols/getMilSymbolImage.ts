@@ -14,10 +14,7 @@ export interface MilSymbolImageType {
 	};
 }
 
-export const getMilSymbolImage = (
-	symbolName: string,
-	state: number,
-): MilSymbolImageType | undefined => {
+export const getMilSymbolImage = (symbolName: string): MilSymbolImageType | undefined => {
 	if (!symbolName) {
 		toastShow({
 			title: "군대부호를 찾을 수 없음",
@@ -32,14 +29,9 @@ export const getMilSymbolImage = (
 	const options: MilSymbolObjectOptions = {
 		SIDC: symbolName,
 		size: 25,
-		staffComments: "sdfsdfdsfds",
 	};
 
-	if (state === 1) {
-		symbol.setOptions({ outlineColor: "#FFAF3A", outlineWidth: "10", ...options });
-	} else {
-		symbol.setOptions({ outlineColor: "#FF0040", outlineWidth: "20", ...options });
-	}
+	symbol.setOptions(options);
 
 	// 군대부호 중심위치 찾기
 	const symbolSize = symbol.getSize();

@@ -53,7 +53,7 @@ export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTy
 
 			const isSymbolType1 = getMilSymbolType(matchedSymbol) === 1;
 			if (isSymbolType1) {
-				const symbolImage = getMilSymbolImage(matchedSymbol, 1);
+				const symbolImage = getMilSymbolImage(matchedSymbol);
 				if (symbolImage) {
 					const symbolStyle = militarySymbolStyle(symbolImage);
 

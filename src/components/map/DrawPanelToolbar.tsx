@@ -27,7 +27,7 @@ import {
 	GraphicShapeType,
 } from "../../libs/d2/mapSettings/draw/ShapesOnToolbarShaper";
 import MilSymbolIcon from "../../assets/icons/shapes/MilSymbolIcon";
-import MilitarySymbolListTreeDrawer from "../../modules/map/MilitarySymbolListTreeDrawer";
+import MilitarySymbolListTreeDrawer from "../../modules/map/milSymbol/MilitarySymbolListTreeDrawer";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스

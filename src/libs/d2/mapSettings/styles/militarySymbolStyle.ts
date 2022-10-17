@@ -4,7 +4,7 @@ import { MilSymbolImageType } from "../milSymbols/getMilSymbolImage";
 const { ol } = D2MapModule;
 
 /**
- * 군대부호 스타일 지정
+ * OL 내 군대부호 스타일 지정
  * @param symbol MilSymbolImageType
  * @returns ol.style.Style
  */
