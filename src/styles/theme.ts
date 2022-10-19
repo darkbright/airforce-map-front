@@ -113,6 +113,10 @@ const baseTheme = {
 		body2: {
 			fontSize: ".7rem",
 		},
+		subtitle1: {
+			fontSize: ".6rem",
+			fontWeight: 400,
+		},
 		subtitle2: {
 			fontSize: ".5rem",
 			fontWeight: 400,

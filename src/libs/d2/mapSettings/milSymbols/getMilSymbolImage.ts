@@ -1,19 +1,17 @@
 import { toastShow } from "../../../../components/alert/ToastMessage";
-import { MilSymbolObjectOptions } from "../../../../types/d2/MilSymbolObjectOptions";
+import {
+	MilSymbolImageType,
+	MilSymbolObjectOptions,
+} from "../../../../types/d2/MilSymbolObjectOptions";
 import D2MapModule from "../../D2MapModule";
 
 const { D2MS } = D2MapModule;
 
-export interface MilSymbolImageType {
-	ms: string;
-	anchor: number[];
-	imgURL: string;
-	size: {
-		width: number;
-		height: number;
-	};
-}
-
+/**
+ * 군대부호 기호명으로 해당하는 군대부호를 찾고, 관련 내용을 리턴해줌
+ * @param symbolName 군대부호 기호코드(기호명)
+ * @returns MilSymbolImageType
+ */
 export const getMilSymbolImage = (symbolName: string): MilSymbolImageType | undefined => {
 	if (!symbolName) {
 		toastShow({
@@ -24,6 +22,9 @@ export const getMilSymbolImage = (symbolName: string): MilSymbolImageType | unde
 		return undefined;
 	}
 
+	/**
+	 * TO_BE_CHECKED symbol은 D2MSProps로 보이나, 설정값을 변경하는 method는 properties 내에 정의되어 있지 않음. 따라서 return 시의 ms 값은 하기에 정의된 symbol값과 일치할 수가 없음. 혼란이 있음
+	 */
 	const symbol = new D2MS.ms.Symbol("");
 
 	const options: MilSymbolObjectOptions = {

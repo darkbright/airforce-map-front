@@ -1,5 +1,5 @@
+import { MilSymbolImageType } from "../../../../types/d2/MilSymbolObjectOptions";
 import D2MapModule from "../../D2MapModule";
-import { MilSymbolImageType } from "../milSymbols/getMilSymbolImage";
 
 const { ol } = D2MapModule;
 

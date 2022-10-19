@@ -1,3 +1,328 @@
+/**
+ * 이용 가능 값(현재 화인 중) "black"
+ */
+type MilSymbolColorType = "black";
+
+/**
+ * 그리기 값
+ */
+interface DrawInstructionsType {
+	/**svg 좌표 값 */
+	d: string;
+	/**
+	 * rgb 형식 "rgb(128, 224, 255)"
+	 */
+	fill: string;
+	/**
+	 * 0에서 1까지
+	 */
+	fillOpacity: number;
+	stroke: MilSymbolColorType;
+	strokeWidth: number;
+	type: "path";
+}
+
+/**
+ * 생성된 군대부호 이미지의 Properties
+ */
+export interface MilSymbolImageType {
+	/**
+	 * 앵커값. [horizontal, vertical] 앵커값은 libs/d2/mapSettings/milSymbos/getMilSymboImage에서 설정 가능함
+	 */
+	anchor: number[];
+	/**
+	 * 생성된 군대부호의 기본 설정 값
+	 */
+	ms: D2MSProps;
+	imgURL: string;
+	size: {
+		width: number;
+		height: number;
+	};
+}
+
+/**
+ * D2MS.ms 생성 시 생성되는 SymbolProperties
+ */
+export interface D2MSProps {
+	baseHeight: number;
+	baseWidth: number;
+	bbox: BBoxType;
+	colors: {
+		black: {
+			Civilian: MilSymbolColorType;
+			Friend: MilSymbolColorType;
+			Hostile: MilSymbolColorType;
+			Neutral: MilSymbolColorType;
+			Unknown: MilSymbolColorType;
+		};
+		/**
+		 * rgb(255, 161, 255)와 같은 형식을 가짐
+		 */
+		fillColor: {
+			Civilian: string;
+			Friend: string;
+			Hostile: string;
+			Neutral: string;
+			Unknown: string;
+		};
+		frameColor: {
+			Civilian: MilSymbolColorType;
+			Friend: MilSymbolColorType;
+			Hostile: MilSymbolColorType;
+			Neutral: MilSymbolColorType;
+			Unknown: MilSymbolColorType;
+		};
+		iconColor: {
+			Civilian: MilSymbolColorType;
+			Friend: MilSymbolColorType;
+			Hostile: MilSymbolColorType;
+			Neutral: MilSymbolColorType;
+			Unknown: MilSymbolColorType;
+		};
+		/**
+		 * rgb(255, 161, 255)와 같은 형식을 가짐
+		 */
+		iconColorEquipment: {
+			Civilian: string;
+			Friend: string;
+			Hostile: string;
+			Neutral: string;
+			Unknown: string;
+		};
+		/**
+		 * rgb(255, 161, 255)와 같은 형식을 가짐
+		 */
+		iconFillColor: {
+			Civilian: string;
+			Friend: string;
+			Hostile: string;
+			Neutral: string;
+			Unknown: string;
+		};
+		/**
+		 * rgb(255, 161, 255)와 같은 형식을 가짐
+		 */
+		iconFillColorEx: {
+			Civilian: string;
+			Friend: string;
+			Hostile: string;
+			Neutral: string;
+			Unknown: string;
+		};
+		/**
+		 * default false
+		 */
+		none: {
+			Civilian: boolean;
+			Friend: boolean;
+			Hostile: boolean;
+			Neutral: boolean;
+			Unknown: boolean;
+		};
+		/**
+		 * rgb(255, 161, 255)와 같은 형식을 가지거나 "white" 이런 식으로 표출됨...뭔..
+		 */
+		white: {
+			Civilian: string;
+			Friend: string;
+			Hostile: string;
+			Neutral: string;
+			Unknown: string;
+		};
+	};
+	drawInstructions: DrawInstructionsType[];
+	height: number;
+	metadata: MilSymboMetadataProps;
+	octagonAnchor: {
+		x: number;
+		y: number;
+	};
+	options: {
+		// 군대부호 기호명
+		addSymbol: string;
+		addSymbolOnly: boolean;
+		additionalInformation: string;
+		additionalInformation1: string;
+		altitudeDepth: string;
+		altitudeDepth1: string;
+		areaOfUncertainty: string;
+		auxiliaryEquipmentIndicator: string;
+		combatEffectiveness: string;
+		commonIdentifier: string;
+		country: string;
+		deadReckoningTrailer: string;
+		direction: string;
+		dtg: string;
+		dtg1: string;
+		engagementBar: string;
+		engagementType: string;
+		equipmentTeardownTime: string;
+		evaluationRating: string;
+		feintDummyIndicator: string;
+		fillOpacity: string;
+		guardedUnit: string;
+		headquarters: boolean;
+		headquartersElement: string;
+		headquartersRealPosition: string;
+		higherFormation: string;
+		hostile: string;
+		iffSif: string;
+		installation: string;
+		installationComposition: string;
+		location: string;
+		mobileUnit: string;
+		mobilityCode: string;
+		operationalConditionPoint: number;
+		platformType: string;
+		quantity: string;
+		reinforcedReduced: string;
+		showCombatEffectivenessLabel: string;
+		showCombatEffectivenessWaterFill: string;
+		//"S-P------------" 같은 모양
+		sidc: string;
+		signatureEquipment: string;
+		specialDesignator: string;
+		specialHeadquarters: string;
+		speed: string;
+		speedLeader: number;
+		speedLeaderTrailer: string;
+		staffComments: string;
+		type: string;
+		uniqueDesignation: string;
+		uniqueDesignation1: string;
+		useDefineColorTocombatEffectiveness: string;
+	};
+	style: {
+		alternateMedal: boolean;
+		civilianColor: boolean;
+		// 확인
+		colorMode: ColorModeType;
+		fill: boolean;
+		fillOpacity: number;
+		// font 설정 기본값은 "Arial"
+		fontfamily: string;
+		frame: boolean;
+		frameColor: string;
+		hqStaffLength: number;
+		icon: boolean;
+		iconColor: string;
+		infoAHAzimuth: number;
+		infoAHAzimuthError: number;
+		infoAHFillColor: string;
+		// rgb(0, 0, 0) 형식
+		infoAHLineColor: string;
+		// rgb(0, 0, 0) 형식
+		infoAHLineColorError: string;
+		infoAHLineLength: number;
+		// "5,5"와 같은 모양
+		infoAHLineStyle: string;
+		infoAHLineStyleError: string;
+		infoAHLineWidth: number;
+		infoAHLineWidthError: number;
+		infoAHRectHeight: number;
+		infoAHRectWidth: number;
+		infoAIFillColor: string;
+		// rgb(0, 0, 0) 형식
+		infoAILineColor: string;
+		// "5,5"와 같은 모양
+		infoAILineStyle: string;
+		infoAILineWidth: number;
+		infoAIRadius: number;
+		infoAIStartLineX: number;
+		infoAIStartLineY: number;
+		infoAJDynamicLength: number;
+		infoAJDynamicSize: number;
+		// rgb(0, 0, 0) 형식
+		infoAJLineColor: string;
+		infoAJLineStyle: string;
+		infoAJLineWidth: number;
+		infoAJMovingDirection: number;
+		infoAJMovingSpeed: number;
+		infoAJSpeedRangeLengthHigh: number;
+		infoAJSpeedRangeLengthLow: number;
+		infoAJSpeedRangeLengthMid: number;
+		infoAJSpeedRangeLower: number;
+		infoAJSpeedRangeUpper: number;
+		infoBackground: string;
+		infoBackgroundFrame: string;
+		infoColor: string;
+		infoFields: boolean;
+		// rgb(0, 0, 0) 형식
+		infoOutlineColor: string;
+		infoOutlineWidth: boolean;
+		infoSize: number;
+		monoColor: string;
+		// rgb(0, 0, 0) 형식
+		outlineColor: string;
+		outlineWidth: number;
+		padding: number;
+		simpleStatusModifier: boolean;
+		size: number;
+		square: boolean;
+		standard: string;
+		strokeWidth: number;
+		userDefineBrightness: string;
+		userDefineFillColor: string;
+		userDefineLineColor: string;
+	};
+	symbolAnchor: {
+		x: number;
+		y: number;
+	};
+	validIcon: boolean;
+	width: number;
+}
+
+/**
+ * 군대부호 메타데이터 값
+ */
+interface MilSymboMetadataProps {
+	STD2525: boolean;
+	acitiviy: boolean;
+	affiliation: AffiliationFullNameType;
+	baseAffiliation: AffiliationFullNameType;
+	baseDimension: "Air";
+	baseGeometry: {
+		bbox: BBoxType;
+		g: {
+			d: string;
+			type: "path";
+		};
+	};
+	civilian: boolean;
+	combatEffectiveness: number;
+	condition: string;
+	context: "Reality";
+	dimension: "Air";
+	dimensionUnknown: boolean;
+	echelon: string;
+	faker: boolean;
+	fenintDummy: boolean;
+	fill: boolean;
+	fillOpacity: number;
+	frame: boolean;
+	functionid: string;
+	headquarters: boolean;
+	installation: boolean;
+	joker: boolean;
+	mobility: string;
+	notpresent: string;
+	numberSIDC: boolean;
+	showCombatEffectivenessWaterFill: string;
+	space: boolean;
+	symbolType: MilSymbolType;
+	taskForce: string;
+	unit: boolean;
+	useDefineColorTocombatEffectiveness: string;
+	userDefineBrightness: string;
+	userDefineFillColor: string;
+	userDefineLineColor: string;
+}
+
+/**
+ * 군대부호 객체의 설정 변경 시 사용할 수 있는 옵션값들
+ */
 export interface MilSymbolObjectOptions {
 	/**
 	 * 군대부호 코드값 15자리
@@ -68,7 +393,7 @@ export interface MilSymbolObjectOptions {
 	/**
 	 * 부호 밝기 조절
 	 */
-	colorMode?: "Light" | "Medium" | "Dark";
+	colorMode?: ColorModeType;
 	/**
 	 * 부호 밝기 조절(0 ~ 100사이의 % 값으로 설정)
 	 */
@@ -392,3 +717,41 @@ export type AffiliationType =
 	| "M"
 	| "J"
 	| "K";
+
+/**
+ * 약어가 아닌 fullName으로 접근할 때 쓰는 타입
+ */
+export type AffiliationFullNameType = "Friend" | "Civilian" | "Hostile" | "Neutral" | "Unknown";
+
+/**
+ * BBox가 뭐의 약자인지는 모르겠음
+ */
+interface BBoxType {
+	centerX: () => void;
+	centerY: () => void;
+	getCenter: () => void;
+	getSize: () => void;
+	height: () => void;
+	//event 확인 필요
+	merge: (event: string) => void;
+	width: () => void;
+	x1: number;
+	x2: number;
+	y1: number;
+	y2: number;
+}
+
+/**
+ * 군대부호를 입력하였을 때 그에 해당하는 타입을 출력함
+ * - 0: 유효하지 않은 부호
+ * - 1: 기본부호
+ * - 2: 작전활동부호 점형
+ * - 3: 작전활동부호 선형
+ * - 4: 작전활동부호 면형
+ */
+export type MilSymbolType = 0 | 1 | 2 | 3 | 4;
+
+/**
+ * 심볼의 밝기 조정값
+ */
+type ColorModeType = "Light" | "Medium" | "Dark";

@@ -7,6 +7,12 @@ interface SingleMilitarySymbolBoxProps {
 	onClick?: () => void;
 }
 
+/**
+ * 군대부호 검색 시, 또는 군대부호 나열 시 개별 군대부호를 표시해주는 작은 박스임
+ *
+ * @param SingleMilitarySymbolBoxProps SingleMilitarySymbolBoxProps
+ * @returns {JSX.Element} React Component
+ */
 const SingleMilitarySymbolBox = ({ symbol, onClick }: SingleMilitarySymbolBoxProps) => {
 	const symbolImage = getMilSymbolImage(symbol.cd);
 
@@ -14,10 +20,10 @@ const SingleMilitarySymbolBox = ({ symbol, onClick }: SingleMilitarySymbolBoxPro
 
 	return (
 		<Root onClick={onClick}>
-			<Typography variant="body1" sx={{ fontWeight: 600 }} gutterBottom>
+			<Typography variant="body2" sx={{ fontWeight: 600 }} gutterBottom>
 				{symbol.name}
 			</Typography>
-			<Typography variant="body2" color="secondary">
+			<Typography variant="subtitle1" color="secondary">
 				{symbol.cd}
 			</Typography>
 			<img style={{ width: 55, height: 55 }} src={symbolImage?.imgURL} />
