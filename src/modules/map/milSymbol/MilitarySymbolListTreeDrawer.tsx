@@ -8,12 +8,14 @@ import {
 	Typography,
 } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
+import ShortAlert from "../../../components/alert/ShortAlert";
 
 import BaseBlockTitleBox from "../../../components/box/textBox/BaseBlockTitleBox";
 import {
 	milSymbolTreeList,
 	MilSymbolTreeListType,
 } from "../../../data/constants/milSymbolTreeList";
+import { addMilSymbolOnMap } from "../../../libs/d2/mapSettings/draw/addMilSymbolOnMap";
 import { getMilSymbolImage } from "../../../libs/d2/mapSettings/milSymbols/getMilSymbolImage";
 import SingleMilitarySymbolBox from "./SingleMilitarySymbolBox";
 
@@ -150,8 +152,21 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 				>
 					ddd
 				</div> */}
+				<ShortAlert
+					title="부호를 클릭하여 맵에 표시"
+					severity="info"
+					text="아래의 부호를 클릭하면 지도 위 마우스 커서가 + 모양이 되고 선택한 지점에 부호가 표시됩니다."
+				/>
 				<SingleSymbolWrapper>
-					{selectedMilSymbol && <SingleMilitarySymbolBox symbol={selectedMilSymbol!} />}
+					{selectedMilSymbol && (
+						<SingleMilitarySymbolBox
+							symbol={selectedMilSymbol!}
+							onClick={() => {
+								setOpen(false);
+								addMilSymbolOnMap({ cd: selectedMilSymbol.cd });
+							}}
+						/>
+					)}
 				</SingleSymbolWrapper>
 			</Box>
 		</Drawer>

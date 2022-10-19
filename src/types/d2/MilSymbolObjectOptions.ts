@@ -368,12 +368,12 @@ export interface MilSymbolObjectOptions {
 	affiliation?: AffiliationType;
 	/**
 	 * 상태 (군대부호 4번째 자리)
-	 * - A: 예상/계획
-	 * - P: 현재
-	 * - C: 현재/정상
-	 * - D: 현재/손상된
-	 * - X: 현재/파괴된
-	 * - F: 현재/최대가동
+	 * - A: 예상/계획 Anticipated / planned
+	 * - P: 현재 present (units only)
+	 * - C: 현재/정상 present / fully capable
+	 * - D: 현재/손상된 present / damaged
+	 * - X: 현재/파괴된 present / destroyed
+	 * - F: 현재/최대가동 preent / full to capacity
 	 */
 	status?: "A" | "P" | "C" | "D" | "X" | "F";
 	/**심볼크기 */
@@ -697,9 +697,9 @@ export interface MilSymbolObjectOptions {
  * - W (훈) 미식별 (Exercise Unknown)
  * - D (훈) 아군 (Exercise Friend)
  * - L (훈) 중립  (Exercise Neutral)
- * - M (훈) 아군간주
+ * - M (훈) 아군간주 (Exercise Assumed Freind)
  * - J 의심적 (Joker)
- * - K 가상적
+ * - K 가상적 (Faker)
  */
 export type AffiliationType =
 	| "-"

@@ -1,5 +1,6 @@
 import { alpha, styled, Typography } from "@mui/material";
 import { getMilSymbolImage } from "../../../libs/d2/mapSettings/milSymbols/getMilSymbolImage";
+import { getMilSymbolType } from "../../../libs/d2/mapSettings/milSymbols/getMilSymbolType";
 import { ModifiedMilSymboListType } from "./MilitarySymbolListTreeDrawer";
 
 interface SingleMilitarySymbolBoxProps {
@@ -16,7 +17,8 @@ interface SingleMilitarySymbolBoxProps {
 const SingleMilitarySymbolBox = ({ symbol, onClick }: SingleMilitarySymbolBoxProps) => {
 	const symbolImage = getMilSymbolImage(symbol.cd);
 
-	console.log(symbolImage);
+	const type = getMilSymbolType(symbol.cd);
+	console.log("type", type);
 
 	return (
 		<Root onClick={onClick}>
