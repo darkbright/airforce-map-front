@@ -118,7 +118,7 @@ const baseTheme = {
 			fontWeight: 400,
 		},
 		subtitle2: {
-			fontSize: ".5rem",
+			fontSize: ".4rem",
 			fontWeight: 400,
 		},
 	},

@@ -1,4 +1,5 @@
 import { styled, Typography } from "@mui/material";
+import TextButton from "../../../components/button/TextButton";
 import useFavoriteMilSymbolStore from "../../../stores/useFavoriteMilSymbolStore";
 import SingleMilitarySymbolBox from "./SingleMilitarySymbolBox";
 
@@ -6,14 +7,27 @@ interface MilitarySymbolFavoriteTabProps {
 	onClickSymbol: () => void;
 }
 
+/**
+ * 군대부호 찾기 Drawer 내에서 군대부호 즐겨찾기를 핸들링하는 모듈
+ * @param MilitarySymbolFavoriteTabProps MilitarySymbolFavoriteTabProps
+ * @returns {JSX.Element} JSX.Element(div)
+ */
 const MilitarySymbolFavoriteTab = ({ onClickSymbol }: MilitarySymbolFavoriteTabProps) => {
-	const { favoriteSymbols } = useFavoriteMilSymbolStore();
+	const { favoriteSymbols, removeAllFavoriteSymbols } = useFavoriteMilSymbolStore();
 
 	return (
 		<Root>
-			<Typography variant="body1" sx={{ fontWeight: 600 }}>
-				자주쓰는 군대부호
-			</Typography>
+			<TitleWrapper>
+				<Typography variant="body1" sx={{ fontWeight: 600 }}>
+					자주쓰는 군대부호
+				</Typography>
+				<TextButton
+					title="모두 지우기"
+					disabled={favoriteSymbols.length === 0}
+					onClick={() => removeAllFavoriteSymbols()}
+				/>
+			</TitleWrapper>
+
 			{favoriteSymbols.length === 0 ? (
 				<Centered>
 					<Typography variant="body2" sx={{ fontWeight: 600 }} gutterBottom>
@@ -42,11 +56,17 @@ const Root = styled("div")(() => ({
 
 const Centered = styled("div")(() => ({
 	textAlign: "center",
-	marginTop: "5%",
+	marginTop: "3%",
 }));
 
 const SymbolsWrapper = styled("div")(() => ({
-	marginTop: "5%",
+	marginTop: "3%",
 	display: "flex",
 	flexFlow: "wrap",
+}));
+
+const TitleWrapper = styled("div")(() => ({
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "space-between",
 }));

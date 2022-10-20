@@ -155,5 +155,5 @@ const MilitarySymbolSearchTab = ({
 export default MilitarySymbolSearchTab;
 
 const SingleSymbolWrapper = styled("div")(() => ({
-	marginTop: 20,
+	marginTop: "1%",
 }));

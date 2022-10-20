@@ -30,7 +30,7 @@ const SingleMilitarySymbolBox = ({
 	return (
 		<Root>
 			<HeaderWrapper>
-				<Typography variant="body2" sx={{ fontWeight: 600 }}>
+				<Typography variant={simplified ? "subtitle2" : "body2"} sx={{ fontWeight: 600 }}>
 					{symbol.name}
 				</Typography>
 				{checkCurrentSymbolIsFavorite ? (
@@ -71,7 +71,7 @@ const SingleMilitarySymbolBox = ({
 			</Typography>
 			<SymbolWrapper onClick={onClick}>
 				<img
-					style={{ width: simplified ? 40 : 55, height: simplified ? 40 : 55 }}
+					style={{ width: simplified ? 38 : 55, height: simplified ? 38 : 55 }}
 					src={symbolImage?.imgURL}
 				/>
 				{!simplified && (
@@ -87,10 +87,10 @@ const SingleMilitarySymbolBox = ({
 export default SingleMilitarySymbolBox;
 
 const Root = styled("div")(({ theme }) => ({
-	width: "30%",
+	width: "31.32%",
 	backgroundColor: theme.palette.background.default,
 	marginTop: 10,
-	marginRight: "3%",
+	marginRight: "2%",
 	padding: 10,
 	display: "flex",
 	flexDirection: "column",

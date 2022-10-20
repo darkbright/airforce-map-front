@@ -5,6 +5,7 @@ interface FavoriteMilSymbolState {
 	favoriteSymbols: ModifiedMilSymboListType[];
 	addToFavoriteSymbols: (favoriteSymbol: ModifiedMilSymboListType) => void;
 	removeFavoriteSymbol: (cd: string) => void;
+	removeAllFavoriteSymbols: () => void;
 }
 
 const mode = window.localStorage.getItem("favSymbols");
@@ -14,6 +15,7 @@ const mode = window.localStorage.getItem("favSymbols");
  * - favoriteSymbols: 즐찬된 군대부호 목록 불러오기
  * - addToFavoriteSymbols: 즐찾 목록에 추가
  * - removeFavoriteSymbol:즐찾에서 제거
+ * -
  */
 const useFavoriteMilSymbolStore = create<FavoriteMilSymbolState>((set) => ({
 	favoriteSymbols: typeof mode === "string" ? JSON.parse(mode) : [],
@@ -34,6 +36,15 @@ const useFavoriteMilSymbolStore = create<FavoriteMilSymbolState>((set) => ({
 
 			return {
 				favoriteSymbols: filteredSymbols,
+			};
+		});
+	},
+	removeAllFavoriteSymbols: () => {
+		set(() => {
+			localStorage.setItem("favSymbols", JSON.stringify([]));
+
+			return {
+				favoriteSymbols: [],
 			};
 		});
 	},
