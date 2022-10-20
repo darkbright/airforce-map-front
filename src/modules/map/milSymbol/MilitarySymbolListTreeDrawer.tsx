@@ -6,6 +6,7 @@ import { MilSymbolTreeListType } from "../../../data/constants/milSymbolTreeList
 import { addMilSymbolOnMap } from "../../../libs/d2/mapSettings/draw/addMilSymbolOnMap";
 import MilitarySymbolFavoriteTab from "./MilitarySymbolFavoriteTab";
 import MilitarySymbolSearchTab from "./MilitarySymbolSearchTab";
+import MilitarySymbolTreeTab from "./MilitarySymbolTreeTab";
 
 interface MilitarySymbolListTreeDrawerProps {
 	open: boolean;
@@ -55,6 +56,7 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 				</TabPanel>
 				<TabPanel value={tabValue} index={1}>
 					<Root>
+						<MilitarySymbolTreeTab onSelectSymbol={handleSymbolToBeInMap} />
 						{/* d2에서 만든거 - 현재 필요없음 */}
 						{/* <div
 					id="d2map_milsymbolTree"

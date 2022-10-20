@@ -15,7 +15,7 @@ const mode = window.localStorage.getItem("favSymbols");
  * - favoriteSymbols: 즐찬된 군대부호 목록 불러오기
  * - addToFavoriteSymbols: 즐찾 목록에 추가
  * - removeFavoriteSymbol:즐찾에서 제거
- * -
+ * - removeAllFavoriteSymbols: 모든 즐찾된 내용을 제거
  */
 const useFavoriteMilSymbolStore = create<FavoriteMilSymbolState>((set) => ({
 	favoriteSymbols: typeof mode === "string" ? JSON.parse(mode) : [],

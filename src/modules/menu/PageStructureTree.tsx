@@ -40,7 +40,7 @@ const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 				</Root>
 				{isExpanded &&
 					menu.subMenu?.map((sub) => (
-						<div key={sub.id} style={{ paddingLeft: 15 }}>
+						<div key={sub.id} style={{ paddingLeft: 6 }}>
 							<PageStructureTree menu={sub} />
 						</div>
 					))}
@@ -52,7 +52,7 @@ const PageStructureTree = ({ menu }: PageStructureTreeProps) => {
 		<PageItem>
 			<WebAssetIcon fontSize="small" color="disabled" />
 			<Typography
-				variant="subtitle1"
+				variant="body2"
 				style={{
 					paddingLeft: 4,
 					cursor: isAlreadyChecked ? "not-allowed" : "pointer",
