@@ -74,7 +74,7 @@ const Wrapper = styled("div")(() => ({
 	paddingTop: "1.3em",
 	position: "absolute",
 	right: 0,
-	zIndex: 2000,
+	zIndex: 1000,
 	transition: "width ease-out 0.2s",
 }));
 
