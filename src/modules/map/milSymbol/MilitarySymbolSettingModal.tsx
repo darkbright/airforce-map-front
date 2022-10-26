@@ -13,7 +13,7 @@ interface MilitarySymbolSettingModalProps {
 const MilitarySymbolSettingModal = ({ open, setOpen, symbol }: MilitarySymbolSettingModalProps) => {
 	const symbolImage = getMilSymbolImage(symbol.cd);
 
-	console.log("symbol", symbol);
+	// console.log("symbol", symbol);
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
 			<BaseBlockTitleBox title="부호속성 설정" />

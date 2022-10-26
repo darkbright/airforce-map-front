@@ -51,7 +51,7 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 							onClickSingleSymbolBox={handleSymbolToBeInMap}
 						/>
 						<Divider sx={{ mt: 3, mb: 3 }} />
-						<MilitarySymbolFavoriteTab onClickSymbol={handleSymbolToBeInMap} />
+						<MilitarySymbolFavoriteTab onClickSymbol={() => setOpen(false)} />
 					</Root>
 				</TabPanel>
 				<TabPanel value={tabValue} index={1}>

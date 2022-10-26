@@ -1,6 +1,9 @@
 import { styled, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import TextButton from "../../../components/button/TextButton";
+import { addMilSymbolOnMap } from "../../../libs/d2/mapSettings/draw/addMilSymbolOnMap";
 import useFavoriteMilSymbolStore from "../../../stores/useFavoriteMilSymbolStore";
+import { ModifiedMilSymboListType } from "./MilitarySymbolListTreeDrawer";
 import SingleMilitarySymbolBox from "./SingleMilitarySymbolBox";
 
 interface MilitarySymbolFavoriteTabProps {
@@ -14,6 +17,12 @@ interface MilitarySymbolFavoriteTabProps {
  */
 const MilitarySymbolFavoriteTab = ({ onClickSymbol }: MilitarySymbolFavoriteTabProps) => {
 	const { favoriteSymbols, removeAllFavoriteSymbols } = useFavoriteMilSymbolStore();
+
+	const [selectedMilSymbol, setSelectedMilSymbol] = useState<ModifiedMilSymboListType | null>(null);
+
+	useEffect(() => {
+		if (selectedMilSymbol) addMilSymbolOnMap({ cd: selectedMilSymbol?.cd });
+	}, [selectedMilSymbol, setSelectedMilSymbol]);
 
 	return (
 		<Root>
@@ -40,7 +49,15 @@ const MilitarySymbolFavoriteTab = ({ onClickSymbol }: MilitarySymbolFavoriteTabP
 			) : (
 				<SymbolsWrapper>
 					{favoriteSymbols.map((s) => (
-						<SingleMilitarySymbolBox onClick={onClickSymbol} simplified symbol={s} key={s.cd} />
+						<SingleMilitarySymbolBox
+							onClick={() => {
+								setSelectedMilSymbol(s);
+								onClickSymbol();
+							}}
+							simplified
+							symbol={s}
+							key={s.cd}
+						/>
 					))}
 				</SymbolsWrapper>
 			)}

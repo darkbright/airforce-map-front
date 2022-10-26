@@ -30,7 +30,6 @@ const MilitarySymbolSearchTab = ({
 	milSymbolTreeList.map((m) => {
 		list.push(m.cd[1]);
 	});
-	console.log(Array.from(new Set(list)).sort());
 
 	const groupedSearchOptions = milSymbolTreeList.map((option) => {
 		// 그룹핑을 하기 위하여 심볼리스트에서 아이디 값이 1, 2와 같이 떨어지는 값의 이름을 찾고 대분류화함. 그 이름을 기준으로 그 하위에 속하는 모든 객체들을 그룹핑함
