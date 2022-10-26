@@ -1,5 +1,6 @@
 import { Outlet, matchPath, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import useFullScreenStore from "../../stores/useFullScreenStore";
 import useThemeStore from "../../stores/useThemeStore";
 import BaseMap from "../map/BaseMap";
 import BreadCrumbBar from "../nav/BreadCrumbBar";
@@ -32,6 +33,8 @@ const BaseLayout = () => {
 	const match = matchPath("/random/*", pathname);
 	const { isDark } = useThemeStore();
 
+	const { isFullScreenOpen } = useFullScreenStore();
+
 	return (
 		<>
 			<TopNav />
@@ -45,9 +48,9 @@ const BaseLayout = () => {
 						theme={isDark === "dark" ? "dark" : "light"}
 					/>
 				</div>
-				<LeftMenuBar />
-				<div style={{ width: "100%" }}>
-					<BreadCrumbBar />
+				<LeftMenuBar display={isFullScreenOpen ? "none" : "block"} />
+				<div style={{ width: "100%", height: "100vh" }}>
+					<BreadCrumbBar display={isFullScreenOpen ? "none" : "block"} />
 					<BaseMap show={match ? false : true}>
 						<Outlet />
 					</BaseMap>

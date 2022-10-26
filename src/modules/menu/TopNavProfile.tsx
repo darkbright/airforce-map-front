@@ -6,6 +6,7 @@ import Logout from "@mui/icons-material/Logout";
 
 interface TapNavProfileProps {
 	title: string;
+	display: "block" | "none";
 }
 
 /**
@@ -14,7 +15,7 @@ interface TapNavProfileProps {
  * @returns {JSX.Element} React Component(div)
  */
 
-const TopNavProfile = ({ title }: TapNavProfileProps) => {
+const TopNavProfile = ({ title, display }: TapNavProfileProps) => {
 	const [anchorOpen, setAnchorOpen] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorOpen);
 	const handleClose = () => setAnchorOpen(null);
@@ -23,7 +24,7 @@ const TopNavProfile = ({ title }: TapNavProfileProps) => {
 	};
 
 	return (
-		<div>
+		<div style={{ display }}>
 			<Root
 				id="profile-button"
 				aria-controls={open ? "profile-menu" : undefined}

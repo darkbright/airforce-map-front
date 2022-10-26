@@ -27,12 +27,17 @@ interface StyledTabProps {
 	label: string;
 }
 
+interface LeftMenuBarProps {
+	display: "block" | "none";
+}
+
 /**
  * 화면 좌측의 URL을 핸들링하는 메뉴 바의 구성
  * @returns {JSX.Element} React Component
  */
 
-const LeftMenuBar = () => {
+const LeftMenuBar = ({ display }: LeftMenuBarProps) => {
+	// 좌측 메뉴바가 있는 상태에서, 간략하게 보기 모드가 설정되었는지 확인
 	const { isBarOpen, setIsBarOpen } = useMenuBarStore();
 	const { isDark } = useThemeStore();
 	const location = useLocation();
@@ -99,7 +104,7 @@ const LeftMenuBar = () => {
 	const [tabValue, setTabValue] = useState(0);
 
 	return (
-		<Root>
+		<Root style={{ display }}>
 			<Paper width={isBarOpen ? 210 : 90}>
 				<div style={{ marginTop: "2%", textAlign: "right" }}>
 					<ShrinkBtn
@@ -179,6 +184,7 @@ export default LeftMenuBar;
 
 const Root = styled("div")(({ theme }) => ({
 	borderRight: `1px solid ${theme.palette.divider}`,
+	marginTop: "5em",
 	height: "99%",
 	background: theme.palette.background.paper,
 	"*::-webkit-scrollbar": {
@@ -190,7 +196,7 @@ const Paper = styled("div")(({ width }: { width: number }) => ({
 	width,
 	height: "97vh",
 	overflowY: "scroll",
-	transition: "width ease-out 0.1s",
+	transition: "display ease-out 0.1s",
 	paddingBottom: "80px",
 }));
 

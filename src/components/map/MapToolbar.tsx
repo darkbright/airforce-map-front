@@ -15,6 +15,7 @@ import DrawPanelToolbar from "./DrawPanelToolbar";
 import MapGridControlModal from "../../modules/map/MapGridControlModal";
 import MoveMapCenterByCoordDrawer from "../../modules/map/MoveMapCenterByCoordDrawer";
 import { setupCenterline } from "../../libs/d2/mapSettings/utils/setupCenterLine";
+import useFullScreenStore from "../../stores/useFullScreenStore";
 
 /**
  * 맵 Display에서 최상단에 위치한 다양한 이벤트를 수행할 수 있는 목록을 표현한 툴바임.
@@ -23,6 +24,7 @@ import { setupCenterline } from "../../libs/d2/mapSettings/utils/setupCenterLine
 const MapToolbar = () => {
 	const [alignment, setAlignment] = useState("select");
 	const [centerlineVisible, setCenterlineVisible] = useState(false);
+	const { isFullScreenOpen } = useFullScreenStore();
 
 	// 선택된 토글버튼에 강조주기
 	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
@@ -55,7 +57,15 @@ const MapToolbar = () => {
 
 	return (
 		<>
-			<div style={{ padding: ".5%", position: "absolute", top: "0.4em", left: 3, zIndex: 1500 }}>
+			<div
+				style={{
+					padding: ".5%",
+					position: "absolute",
+					top: isFullScreenOpen ? "0.8em" : "8.3em",
+					left: isFullScreenOpen ? "0.8em" : "0.3em",
+					zIndex: 1500,
+				}}
+			>
 				<ToggleButtonGroup
 					sx={{
 						marginLeft: "10px",

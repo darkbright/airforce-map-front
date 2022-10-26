@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { IconButton, Toolbar, Tooltip } from "@mui/material";
 import MoonIcon from "../../assets/icons/MoonIcon";
 import SunIcon from "../../assets/icons/SunIcon";
 import useThemeStore from "../../stores/useThemeStore";
@@ -17,9 +17,17 @@ const ToggleDarkMode = () => {
 	return (
 		<IconButton aria-label="dark-mode-handler" onClick={useThemeStore((state) => state.setIsDark)}>
 			{isDark === "dark" ? (
-				<SunIcon color={theme(isDark).palette.text.secondary} />
+				<Tooltip title="라이트모드로 전환">
+					<div>
+						<SunIcon color={theme(isDark).palette.text.secondary} />
+					</div>
+				</Tooltip>
 			) : (
-				<MoonIcon color={theme(isDark).palette.text.secondary} />
+				<Tooltip title="라이트모드로 전환">
+					<div>
+						<MoonIcon color={theme(isDark).palette.text.secondary} />
+					</div>
+				</Tooltip>
 			)}
 		</IconButton>
 	);

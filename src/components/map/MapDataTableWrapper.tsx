@@ -4,6 +4,7 @@ import useThemeStore from "../../stores/useThemeStore";
 import { theme } from "../../styles/theme";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import useFullScreenStore from "../../stores/useFullScreenStore";
 
 interface MapDataTableWrapperProps {
 	show: boolean;
@@ -28,23 +29,30 @@ const MapDataTableWrapper = ({
 	const { isDark } = useThemeStore();
 	const bgColor = theme(isDark).palette.background.paper;
 
+	const { isFullScreenOpen } = useFullScreenStore();
+
 	return (
 		<Root>
 			<Wrapper
 				style={{
 					width: show ? width : 0,
 					background: bgColor,
+					top: isFullScreenOpen ? 0 : 66,
 				}}
 			>
 				<ShrinkBtn style={{ background: bgColor }} onClick={() => setShow(!show)}>
 					<Centered>
 						{show ? (
 							<Tooltip title="정보패널 닫기">
-								<ArrowForwardIosIcon fontSize="small" color="secondary" />
+								<div>
+									<ArrowForwardIosIcon fontSize="small" color="secondary" />
+								</div>
 							</Tooltip>
 						) : (
 							<Tooltip title="정보패널 열기">
-								<ArrowBackIosIcon fontSize="small" color="secondary" />
+								<div>
+									<ArrowBackIosIcon fontSize="small" color="secondary" />
+								</div>
 							</Tooltip>
 						)}
 					</Centered>
@@ -63,10 +71,10 @@ const Root = styled("div")(() => ({
 
 const Wrapper = styled("div")(() => ({
 	height: "100vh",
+	paddingTop: "1.3em",
 	position: "absolute",
-	top: 0,
 	right: 0,
-	zIndex: 200,
+	zIndex: 2000,
 	transition: "width ease-out 0.2s",
 }));
 

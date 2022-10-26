@@ -1,6 +1,10 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
 
+interface ModeCodeToggleProps {
+	display: "block" | "none";
+}
+
 // 실제모드, 연습모드 ModeCode 토글 버튼
 /**
  * 화면 가장 윗단의 TopNav의 우측에 위치한 버튼으로,
@@ -8,7 +12,7 @@ import { useState } from "react";
  * @returns {JSX.Element} React Component(button group)
  */
 
-const ModeCodeToggle = () => {
+const ModeCodeToggle = ({ display }: ModeCodeToggleProps) => {
 	const [alignment, setAlignment] = useState("real");
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
@@ -17,7 +21,7 @@ const ModeCodeToggle = () => {
 
 	return (
 		<ToggleButtonGroup
-			sx={{ marginLeft: "10px" }}
+			sx={{ marginLeft: "10px", display }}
 			size="small"
 			color="primary"
 			value={alignment}

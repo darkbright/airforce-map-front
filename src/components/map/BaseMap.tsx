@@ -43,7 +43,11 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 				<div
 					id="map"
 					className="map"
-					style={{ width: "100%", height: "90vh", position: "relative" }}
+					style={{
+						width: "100%",
+						height: "100vh",
+						position: "relative",
+					}}
 				>
 					<MapToolbar />
 					{children}

@@ -1,5 +1,6 @@
 import { styled } from "@mui/material";
 import { useState } from "react";
+import ShortAlert from "../../../components/alert/ShortAlert";
 
 import { milSymbolTreeList } from "../../../data/constants/milSymbolTreeList";
 import { addMilSymbolOnMap } from "../../../libs/d2/mapSettings/draw/addMilSymbolOnMap";
@@ -47,13 +48,19 @@ const MilitarySymbolTreeTab = ({ onSelectSymbol }: MilitarySymbolTreeTabProps) =
 	return (
 		<>
 			<SymbolBoxWrapper>
-				{selectedSymbol && (
+				{selectedSymbol ? (
 					<SingleMilitarySymbolBox
 						symbol={selectedSymbol}
 						onClick={() => {
 							onSelectSymbol();
 							addMilSymbolOnMap({ cd: selectedSymbol.cd });
 						}}
+					/>
+				) : (
+					<ShortAlert
+						title="군대부호트리에서 부호선택"
+						severity="info"
+						text="부호를 선택하신 후 클릭하면 지도 위 아이콘이 + 모양이 되고 선택한 지점에 심볼을 배치할 수 있습니다."
 					/>
 				)}
 			</SymbolBoxWrapper>
