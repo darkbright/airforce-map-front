@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import mapSettings from "../../libs/d2/mapSettings";
 import RightClickFeatureBox from "../../modules/map/rightClick/RightClickFeatureBox";
+import useMenuBarStore from "../../stores/useMenuBarStore";
 import useRightClickStore from "../../stores/useRightClickStore";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
@@ -36,6 +37,8 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 	// 우클릭 핸들링
 	const { rightClickEnabled } = useRightClickStore();
 
+	const { isBarOpen } = useMenuBarStore();
+
 	return (
 		<div style={{ display: show ? "block" : "none" }}>
 			{loading && <Loading />}
@@ -44,7 +47,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 					id="map"
 					className="map"
 					style={{
-						width: "100vw",
+						width: isBarOpen ? "93.5vw" : "100vw",
 						height: "100vh",
 						position: "relative",
 					}}
