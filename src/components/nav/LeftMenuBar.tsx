@@ -196,7 +196,7 @@ const Paper = styled("div")(({ width }: { width: number }) => ({
 	width,
 	height: "97vh",
 	overflowY: "scroll",
-	transition: "display ease-out 0.1s",
+	transition: "all ease-out 0.1s",
 	paddingBottom: "80px",
 }));
 

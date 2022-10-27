@@ -61,8 +61,8 @@ const MapToolbar = () => {
 				style={{
 					padding: ".5%",
 					position: "absolute",
-					top: isFullScreenOpen ? "0.8em" : "8.3em",
-					left: isFullScreenOpen ? "0.8em" : "0.3em",
+					top: isFullScreenOpen === "f" ? "0.8em" : "8.3em",
+					left: isFullScreenOpen === "f" ? "0.8em" : "0.3em",
 					zIndex: 1500,
 				}}
 			>

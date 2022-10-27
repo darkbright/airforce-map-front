@@ -17,7 +17,7 @@ const TopNav = () => {
 	const { authUser } = useAuth();
 	const { isFullScreenOpen } = useFullScreenStore();
 
-	const display = isFullScreenOpen ? "none" : "block";
+	const display = isFullScreenOpen === "f" ? "none" : "block";
 
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -25,8 +25,9 @@ const TopNav = () => {
 				sx={{
 					boxShadow: 0,
 					borderBottom: (theme) =>
-						isFullScreenOpen ? "none" : `1px solid ${theme.palette.divider}`,
-					background: (theme) => (isFullScreenOpen ? "none" : theme.palette.background.paper),
+						isFullScreenOpen === "f" ? "none" : `1px solid ${theme.palette.divider}`,
+					background: (theme) =>
+						isFullScreenOpen === "f" ? "none" : theme.palette.background.paper,
 				}}
 				position="absolute"
 				// color="transparent"

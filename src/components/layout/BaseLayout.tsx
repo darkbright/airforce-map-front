@@ -48,9 +48,9 @@ const BaseLayout = () => {
 						theme={isDark === "dark" ? "dark" : "light"}
 					/>
 				</div>
-				<LeftMenuBar display={isFullScreenOpen ? "none" : "block"} />
+				<LeftMenuBar display={isFullScreenOpen === "f" ? "none" : "block"} />
 				<div style={{ width: "100%", height: "100vh" }}>
-					<BreadCrumbBar display={isFullScreenOpen ? "none" : "block"} />
+					<BreadCrumbBar display={isFullScreenOpen === "f" ? "none" : "block"} />
 					<BaseMap show={match ? false : true}>
 						<Outlet />
 					</BaseMap>

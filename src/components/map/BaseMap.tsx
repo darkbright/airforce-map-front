@@ -44,7 +44,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 					id="map"
 					className="map"
 					style={{
-						width: "100%",
+						width: "100vw",
 						height: "100vh",
 						position: "relative",
 					}}

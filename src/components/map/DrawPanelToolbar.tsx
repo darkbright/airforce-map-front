@@ -180,8 +180,8 @@ const DrawPanelToolbar = () => {
 					display: "flex",
 					alignItems: "center",
 					position: "absolute",
-					top: isFullScreenOpen ? "4em" : "11.3em",
-					left: isFullScreenOpen ? 10 : 5,
+					top: isFullScreenOpen === "f" ? "4em" : "11.3em",
+					left: isFullScreenOpen === "f" ? 10 : 5,
 					zIndex: 1500,
 				}}
 			>

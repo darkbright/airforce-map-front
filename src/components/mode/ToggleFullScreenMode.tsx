@@ -10,25 +10,28 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
  */
 
 const ToggleFullScreenMode = () => {
-	const { isFullScreenOpen } = useFullScreenStore();
+	const { isFullScreenOpen, setIsFullScreenOpen } = useFullScreenStore();
 
 	return (
 		<IconButton
 			aria-label="fullscreen-mode-handler"
-			onClick={useFullScreenStore((state) => {
-				return state.setIsFullScreenOpen;
-			})}
+			// onClick={useFullScreenStore((state) => {
+			// 	return state.setIsFullScreenOpen;
+			// })}
+			onClick={() => {
+				setIsFullScreenOpen();
+			}}
 		>
-			{isFullScreenOpen ? (
+			{isFullScreenOpen === "f" ? (
 				<Tooltip title="일반메뉴로 전환">
 					<div>
-						<FullscreenIcon color="inherit" />
+						<FullscreenExitIcon color="inherit" />
 					</div>
 				</Tooltip>
 			) : (
 				<Tooltip title="지도모드로 전환">
 					<div>
-						<FullscreenExitIcon color="inherit" />
+						<FullscreenIcon color="inherit" />
 					</div>
 				</Tooltip>
 			)}
