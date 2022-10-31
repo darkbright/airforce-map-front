@@ -26,8 +26,6 @@ export default async () => {
 		visible: true,
 	});
 
-	// FDB 심볼 이미지 경로 설정
-	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", `${URL_HEADER}/MVTCONF/GSSSymbol/`);
 	window.mapLayerManager.addLayer("overview-map", true, overViewWorldLayer);
 
 	// 오버뷰 생성 (작은 화면으로 전체 보이기 모드)

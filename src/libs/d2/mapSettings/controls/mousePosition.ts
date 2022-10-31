@@ -14,6 +14,7 @@ interface MousePositionProps {
 	showUTM?: boolean;
 	showGARS?: boolean;
 	showAltitude?: boolean;
+	showScale?: boolean;
 }
 
 /**
@@ -23,6 +24,7 @@ interface MousePositionProps {
  * @returns {string} 종류별 마우스 위치에 따른 종류별 좌표를 리턴함.
  */
 export const setMousePosition = ({
+	showScale = true,
 	showLonLat = true,
 	showMGRS = true,
 	showGeoRef = true,
@@ -46,12 +48,16 @@ export const setMousePosition = ({
 			const geoRefString = showGeoRef ? `GeoRef: ${geoRef} |` : "";
 			const garsString = showGARS ? `GARS:${gars}` : "";
 
+			const scale = window.spatialMath.getMapScale();
+			const scaleString = showScale ? `Scale: ${scale} |` : "";
+
 			// const altitudeString = showAltitude ? `Altitude: ${getAltitude()}` : "";
 
-			return `${lonlatString} ${mgrsString} ${utmString} ${geoRefString} ${garsString}`;
+			return ` ${scaleString} ${lonlatString} ${mgrsString} ${utmString} ${geoRefString} ${garsString}`;
 		},
 		projection: "EPSG:4326",
 		undefinedHTML: "",
+		className: "ol-mouse-position-custom",
 	});
 
 	return mousePosition;

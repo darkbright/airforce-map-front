@@ -37,8 +37,8 @@ const MapDataTableWrapper = ({
 				style={{
 					width: show ? width : 0,
 					background: bgColor,
-					top: isFullScreenOpen === "f" ? 0 : 66,
-					right: isFullScreenOpen === "f" ? 0 : 90,
+					top: isFullScreenOpen === "f" ? 0 : 99,
+					right: isFullScreenOpen === "f" ? 0 : 0,
 				}}
 			>
 				<ShrinkBtn style={{ background: bgColor }} onClick={() => setShow(!show)}>
@@ -74,7 +74,6 @@ const Wrapper = styled("div")(() => ({
 	height: "100vh",
 	paddingTop: "1.3em",
 	position: "absolute",
-
 	zIndex: 1000,
 	transition: "width ease-out 0.2s",
 }));

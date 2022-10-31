@@ -181,8 +181,8 @@ const DrawPanelToolbar = () => {
 					alignItems: "center",
 					position: "absolute",
 					top: isFullScreenOpen === "f" ? "4em" : "11.3em",
-					left: isFullScreenOpen === "f" ? 10 : 5,
-					zIndex: 1500,
+					left: isFullScreenOpen === "f" ? "0.8em" : "16em",
+					zIndex: 1000,
 				}}
 			>
 				<ToggleButtonGroup

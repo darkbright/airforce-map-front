@@ -10,11 +10,6 @@ import {
 	showDefaultMousePosition,
 } from "../../libs/d2/mapSettings/controls/mousePosition";
 import {
-	isScaleControlOn,
-	removeScaleInControls,
-	showScaleControl,
-} from "../../libs/d2/mapSettings/controls/scale";
-import {
 	isZoomControlOn,
 	removeZoomInControls,
 	showZoomControl,
@@ -44,9 +39,10 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModaPropsl
 		utm: true,
 		geoRef: true,
 		gars: true,
+		scale: true,
 	});
 
-	const { geo, mgrs, utm, geoRef, gars } = controlEl;
+	const { scale, geo, mgrs, utm, geoRef, gars } = controlEl;
 
 	// mouseControl 화면 토글
 	const handleMouseControl = (event: ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +67,7 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModaPropsl
 		removeMousePositionInControls();
 		window.map.addControl(
 			setMousePosition({
+				showScale: scale,
 				showLonLat: geo,
 				showMGRS: mgrs,
 				showUTM: utm,
@@ -95,20 +92,24 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModaPropsl
 		}
 	};
 
-	/*
+	/** 
+	 * @deprecated
      Scale Controls - 좌측 우측 하단 중 축적 설정
      */
-	const [showScale, setShowScale] = useState(isScaleControlOn() || true);
+	// const [showScale, setShowScale] = useState(isScaleControlOn() || true);
 
-	// scale 화면 토글
-	const handleScaleControl = (event: ChangeEvent<HTMLInputElement>) => {
-		setShowScale(event.target.checked);
-		if (isScaleControlOn()) {
-			removeScaleInControls();
-		} else {
-			showScaleControl();
-		}
-	};
+	/**
+	 * @deprecated
+	 * 스케일 화면 토글(OL에서 제공되는 기본 축적을 사용할 때 씀
+	 */
+	// const handleScaleControl = (event: ChangeEvent<HTMLInputElement>) => {
+	// 	setShowScale(event.target.checked);
+	// 	if (isScaleControlOn()) {
+	// 		removeScaleInControls();
+	// 	} else {
+	// 		showScaleControl();
+	// 	}
+	// };
 
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
@@ -131,6 +132,10 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModaPropsl
 			{mouseControlChecked && (
 				<FormControl>
 					<FormGroup sx={{ display: "flex", flexDirection: "row", mb: 4 }}>
+						<FormControlLabel
+							control={<Checkbox checked={scale} name="scale" onChange={handleMouseElChange} />}
+							label="축적"
+						/>
 						<FormControlLabel
 							control={<Checkbox checked={geo} name="geo" onChange={handleMouseElChange} />}
 							label="위경도 좌표(GEO)"
@@ -174,12 +179,12 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModaPropsl
 			</FormGroup>
 
 			<BaseBlockTitleBox title="축적(스케일) 설정" subtitle="축적 표시 여부를 설정합니다" />
-			<FormGroup sx={{ mb: 4 }}>
+			{/* <FormGroup sx={{ mb: 4 }}>
 				<FormControlLabel
 					control={<Switch checked={showScale} onChange={handleScaleControl} />}
 					label={showScale ? "표시" : "숨김"}
 				/>
-			</FormGroup>
+			</FormGroup> */}
 		</BaseModal>
 	);
 };

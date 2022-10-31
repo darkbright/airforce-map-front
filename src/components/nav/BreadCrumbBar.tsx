@@ -43,6 +43,7 @@ const BreadCrumbBar = ({ display }: BreadCrumbBarProps) => {
 				position: "absolute",
 				top: "5em",
 				zIndex: 200,
+				left: 210,
 				width: isBarOpen ? "89.7vw" : "96vw",
 			}}
 		>
@@ -84,6 +85,7 @@ const Root = styled("div")(({ theme }) => ({
 	flexDirection: "row",
 	justifyContent: "space-between",
 	borderBottom: `1px solid ${theme.palette.divider}`,
+	borderLeft: `1px solid ${theme.palette.divider}`,
 }));
 
 const RightWrapper = styled("div")(() => ({

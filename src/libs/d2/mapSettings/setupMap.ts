@@ -8,10 +8,11 @@ import {
 	trackerRotate,
 } from "../../../assets/d2/embeddedImages";
 import { setMousePosition } from "./controls/mousePosition";
-import { setScaleLineControl } from "./controls/scale";
 import { mapLayerList } from "../../../data/constants/mapLayerList";
 import { addMapLayer } from "./addLayers/addMapLayer";
 import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../data/constants/baseCoord";
+
+const URL_HEADER = process.env.REACT_APP_MAP_SERVER_URL;
 
 /**
  * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴
@@ -43,7 +44,8 @@ export default async () => {
 				// 좌측상단 zoom용 plus minus 버튼 보이게 할 것인지 여부
 				zoom: true,
 			})
-			.extend([fullScreen, setMousePosition({}), setScaleLineControl()]),
+			// 만약 OL에서 제공하는 기본 scaleLine(축적표시)을 사용하고 싶다면 setScaleLine({})을 extend array에 추가할 것.
+			.extend([fullScreen, setMousePosition({})]),
 		target: "map", // 지도 id
 		layers: defaultMapToLoad,
 		view: new ol.View({
@@ -107,4 +109,7 @@ export default async () => {
 	window.graphic.getSelectGraphicBoard().setName("Layer-01");
 	window.graphic.loadStdXSD(urlInfo.graphic.overlay); // 투명도 스키마
 	window.graphic.setCursor(cursor); // 커서 세팅
+
+	// FDB 벡터용 심볼 이미지를 모아놓은 경로 설정
+	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", `${URL_HEADER}/MVTCONF/GSSSymbol/`);
 };

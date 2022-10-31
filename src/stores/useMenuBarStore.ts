@@ -11,7 +11,7 @@ interface MenuBarState {
  * 현재 사용의 의미는 없으나, 추후 필요할 수도 있겠음 (아이프레임에 맵만 로드한다든지 하는 것들용으로)
  */
 const useMenuBarStore = create<MenuBarState>((set) => ({
-	isBarOpen: false,
+	isBarOpen: true,
 	setIsBarOpen: () =>
 		set((state) => {
 			return { isBarOpen: !state.isBarOpen };

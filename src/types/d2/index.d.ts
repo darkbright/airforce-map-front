@@ -15,6 +15,7 @@ declare global {
 		// tslint:disable-next-line
 
 		// d2Core를 통해 생성된 객체
+		Cesium: any;
 		Coordinate: any;
 		D2_CONSTANTS: d2Constants;
 		map: any;

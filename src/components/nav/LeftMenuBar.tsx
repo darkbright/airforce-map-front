@@ -1,8 +1,6 @@
-import { Divider, IconButton, List, styled, Tab, Tabs } from "@mui/material";
+import { Divider, List, styled, Tab, Tabs } from "@mui/material";
 import IconMenuItem from "../../modules/menu/IconMenuItem";
 import { menu } from "../../data/constants/menu";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import OperationSharingIcon from "../../assets/icons/OperationSharingIcon";
 import MapIcon from "../../assets/icons/MapIcon";
 import DefenseIcon from "../../assets/icons/DefenseIcon";
@@ -38,7 +36,7 @@ interface LeftMenuBarProps {
 
 const LeftMenuBar = ({ display }: LeftMenuBarProps) => {
 	// 좌측 메뉴바가 있는 상태에서, 간략하게 보기 모드가 설정되었는지 확인
-	const { isBarOpen, setIsBarOpen } = useMenuBarStore();
+	const { isBarOpen } = useMenuBarStore();
 	const { isDark } = useThemeStore();
 	const location = useLocation();
 	const rootRoute = location.pathname.split("/")[1];
@@ -106,7 +104,8 @@ const LeftMenuBar = ({ display }: LeftMenuBarProps) => {
 	return (
 		<Root style={{ display }}>
 			<Paper width={isBarOpen ? 210 : 90}>
-				<div style={{ marginTop: "2%", textAlign: "right" }}>
+				{/* 메뉴바를 줄이거나 키우는 버튼 부분임. 현재 전체 풀스크린 모드를 지원하므로, 메뉴 접었다 폈다 하는 것은 없애는 것으로 함 */}
+				{/* <div style={{ marginTop: "2%", textAlign: "right" }}>
 					<ShrinkBtn
 						isshrinked={String(isBarOpen)}
 						size="small"
@@ -122,7 +121,7 @@ const LeftMenuBar = ({ display }: LeftMenuBarProps) => {
 							<ArrowForwardIosIcon fontSize="small" color="secondary" />
 						)}
 					</ShrinkBtn>
-				</div>
+				</div> */}
 				<div>
 					{isBarOpen && (
 						<Tabs
@@ -190,6 +189,9 @@ const Root = styled("div")(({ theme }) => ({
 	"*::-webkit-scrollbar": {
 		display: "none",
 	},
+	position: "absolute",
+	left: 0,
+	zIndex: 1,
 }));
 
 const Paper = styled("div")(({ width }: { width: number }) => ({
@@ -200,12 +202,12 @@ const Paper = styled("div")(({ width }: { width: number }) => ({
 	paddingBottom: "80px",
 }));
 
-const ShrinkBtn = styled(IconButton)(({ isshrinked }: { isshrinked: string }) => ({
-	"&:hover": {
-		transform: isshrinked === "false" ? "translateX(+.3rem)" : "translateX(-.3rem)",
-		transition: "all .2s ease-in-out",
-	},
-}));
+// const ShrinkBtn = styled(IconButton)(({ isshrinked }: { isshrinked: string }) => ({
+// 	"&:hover": {
+// 		transform: isshrinked === "false" ? "translateX(+.3rem)" : "translateX(-.3rem)",
+// 		transition: "all .2s ease-in-out",
+// 	},
+// }));
 
 const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
 	({ theme }) => ({

@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import mapSettings from "../../libs/d2/mapSettings";
 import RightClickFeatureBox from "../../modules/map/rightClick/RightClickFeatureBox";
-import useMenuBarStore from "../../stores/useMenuBarStore";
+import useFullScreenStore from "../../stores/useFullScreenStore";
 import useRightClickStore from "../../stores/useRightClickStore";
 import Loading from "../loading/Loading";
 import MapToolbar from "./MapToolbar";
@@ -25,6 +25,8 @@ interface BaseMapProps {
 const BaseMap = ({ show = true, children }: BaseMapProps) => {
 	const [loading, setLoading] = useState(false);
 
+	const { isFullScreenOpen } = useFullScreenStore();
+
 	useEffect(() => {
 		// initializing d2 map module
 		setLoading(true);
@@ -37,8 +39,6 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 	// 우클릭 핸들링
 	const { rightClickEnabled } = useRightClickStore();
 
-	const { isBarOpen } = useMenuBarStore();
-
 	return (
 		<div style={{ display: show ? "block" : "none" }}>
 			{loading && <Loading />}
@@ -47,7 +47,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 					id="map"
 					className="map"
 					style={{
-						width: isBarOpen ? "93.5vw" : "100vw",
+						width: "100vw",
 						height: "100vh",
 						position: "relative",
 					}}
@@ -55,6 +55,9 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 					<MapToolbar />
 					{children}
 				</div>
+
+				<div className="ol-mouse-position-custom" />
+
 				<div id="d2map-coord-bottom" className="d2map-coord-bottom" />
 				{rightClickEnabled && <RightClickFeatureBox />}
 			</div>

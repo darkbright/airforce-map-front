@@ -3,7 +3,9 @@ import D2MapModule from "../../D2MapModule";
 const { ol } = D2MapModule;
 
 /**
+ * @deprecated
  * 스케일(축적)을 초기 맵 객체에 구동시키는 함수
+ * 현재 사용하지 않음 (window.spatialMath.getMapScale();)로 대체하여 사용.
  * @returns {object} 스케일 객체
  */
 export const setScaleLineControl = () => {
