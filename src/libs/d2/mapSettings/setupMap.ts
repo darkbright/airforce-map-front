@@ -38,7 +38,7 @@ export default async () => {
 		.map((layer) => addMapLayer({ addToMap: false, ...layer }));
 
 	// 최초 맵 객체 생성
-	window.map = new ol.Map({
+	window.map = await new ol.Map({
 		controls: ol.control
 			.defaults({
 				// 좌측상단 zoom용 plus minus 버튼 보이게 할 것인지 여부
@@ -62,6 +62,17 @@ export default async () => {
 			pinchZoom: false,
 		}),
 	});
+
+	await mapLayerList
+		.filter((m) => m.default && m.mapType === "MVT")
+		.map((layer) => {
+			window.map.getLayers().forEach((element: any) => {
+				if (element.get("name") === layer.name) {
+					console.log("element", element);
+					element.setVisible(true);
+				}
+			});
+		});
 
 	// 좌표 관리 모듈 생성
 	// Digital Elevation Model 생성을 통해 고도 관련 자료를 받아옴
@@ -95,6 +106,9 @@ export default async () => {
 
 	// 레이어 관리 모듈 생성
 	window.mapLayerManager = new D2MapModule.MapLayerManager(window.map);
+
+	// map 객체사 생성이 된 후, visible 활성화
+	console.log("window.map", window.mapLayerManager);
 
 	// 투명도 커서 정의
 	const cursor = {

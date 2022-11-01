@@ -57,7 +57,7 @@ export const addMapLayer = ({ addToMap, ...layer }: AddMapLayerType) => {
 			name: layer.name,
 			preload: layer.default ? "Infinity" : 0,
 			opacity: 1,
-			visible: true,
+			visible: layer.default ? false : true,
 			// extent: layer.extent || ?
 			minZoom: layer.minZoom,
 			maxZoom: (layer.maxZoom as number) + 1,
@@ -67,6 +67,7 @@ export const addMapLayer = ({ addToMap, ...layer }: AddMapLayerType) => {
 
 		if (addToMap) {
 			window.map.addLayer(createdMVTLayer);
+			window.mapLayerManager.addLayer(layer.name, false, createdMVTLayer);
 			window.mapLayerManager.addMVTLayer(layer.name, layer.mvtUrl, false, createdMVTLayer);
 		} else {
 			return createdMVTLayer;

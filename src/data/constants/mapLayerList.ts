@@ -11,9 +11,7 @@ import land100k from "../../assets/images/mapSample/land100k.png";
 import land250k from "../../assets/images/mapSample/land250k.png";
 import landAuto from "../../assets/images/mapSample/landAuto.png";
 import satelliteMap from "../../assets/images/mapSample/satelliteMap.png";
-import vectors from "../../assets/images/mapSample/vectors.png";
 import cop from "../../assets/images/mapSample/cop.png";
-import navyRaster from "../../assets/images/mapSample/navyRaster.png";
 
 /**
  * 지도 Layer 추가하기 위하여 넣어주어야 하는 기본 값
@@ -67,7 +65,7 @@ export interface MapLayerListType {
 }
 
 // 한번도 경계좌표, 해당 맵이 어디까지 표기가 되는 건지 나타냄.
-const koreaExtent = [13468850, 3748096, 15026241, 5349302];
+// const koreaExtent = [13468850, 3748096, 15026241, 5349302];
 
 /**
  * 로드할 수 있는 각종 지도의 종류 배열.

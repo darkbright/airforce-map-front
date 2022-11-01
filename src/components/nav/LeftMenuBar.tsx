@@ -191,7 +191,7 @@ const Root = styled("div")(({ theme }) => ({
 	},
 	position: "absolute",
 	left: 0,
-	zIndex: 1,
+	zIndex: 2,
 }));
 
 const Paper = styled("div")(({ width }: { width: number }) => ({
