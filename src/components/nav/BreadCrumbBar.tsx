@@ -3,7 +3,7 @@ import { useLocation, Link as RouterLink } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { flattenedMenu } from "../../data/constants/menu";
 import AddToFavoritePage from "../../modules/menu/AddToFavoritePage";
-import useMenuBarStore from "../../stores/useMenuBarStore";
+import { getWindowSize } from "../../styles/windowSize";
 
 interface LinkRouterProps extends LinkProps {
 	to: string;
@@ -34,7 +34,7 @@ const BreadCrumbBar = ({ display }: BreadCrumbBarProps) => {
 	const finalRouteInKorean = routeNameInKorean[routeNameInKorean.length - 1] || "";
 	const isNotMainPage = splitedRoute[0] !== "index";
 
-	const { isBarOpen } = useMenuBarStore();
+	const { width } = getWindowSize();
 
 	return (
 		<div
@@ -44,7 +44,8 @@ const BreadCrumbBar = ({ display }: BreadCrumbBarProps) => {
 				top: "5em",
 				zIndex: 200,
 				left: 210,
-				width: isBarOpen ? "89.7vw" : "96vw",
+				height: 32,
+				width: width - 210,
 			}}
 		>
 			<Root>
@@ -79,7 +80,7 @@ export default BreadCrumbBar;
 // styles
 
 const Root = styled("div")(({ theme }) => ({
-	padding: "8px 20px",
+	padding: "8px 1.5%",
 	background: theme.palette.background.paper,
 	display: "flex",
 	flexDirection: "row",

@@ -5,6 +5,7 @@ import { theme } from "../../styles/theme";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import useFullScreenStore from "../../stores/useFullScreenStore";
+import { getWindowSize } from "../../styles/windowSize";
 
 interface MapDataTableWrapperProps {
 	show: boolean;
@@ -31,14 +32,18 @@ const MapDataTableWrapper = ({
 
 	const { isFullScreenOpen } = useFullScreenStore();
 
+	const { height: windowHeight } = getWindowSize();
+
 	return (
 		<Root>
 			<Wrapper
 				style={{
 					width: show ? width : 0,
+					// 35: 맨 아래 좌표 표시 바 높이, 58: 헤더 높이, 32: breadCrumbBar 높이
+					height: isFullScreenOpen === "f" ? windowHeight - 35 : windowHeight - 35 - 58 - 32,
 					background: bgColor,
-					top: isFullScreenOpen === "f" ? 0 : 99,
-					right: isFullScreenOpen === "f" ? 0 : 0,
+					top: isFullScreenOpen === "f" ? 0 : 90,
+					right: 0,
 				}}
 			>
 				<ShrinkBtn style={{ background: bgColor }} onClick={() => setShow(!show)}>
@@ -71,7 +76,7 @@ const Root = styled("div")(() => ({
 }));
 
 const Wrapper = styled("div")(() => ({
-	height: "100vh",
+	// height: "96.5vh",
 	paddingTop: "1.3em",
 	position: "absolute",
 	zIndex: 1000,
