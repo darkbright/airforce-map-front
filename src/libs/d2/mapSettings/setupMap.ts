@@ -63,17 +63,6 @@ export default async () => {
 		}),
 	});
 
-	await mapLayerList
-		.filter((m) => m.default && m.mapType === "MVT")
-		.map((layer) => {
-			window.map.getLayers().forEach((element: any) => {
-				if (element.get("name") === layer.name) {
-					console.log("element", element);
-					element.setVisible(true);
-				}
-			});
-		});
-
 	// 좌표 관리 모듈 생성
 	// Digital Elevation Model 생성을 통해 고도 관련 자료를 받아옴
 	window.Coordinate = new Coordinate(urlInfo.dem);
