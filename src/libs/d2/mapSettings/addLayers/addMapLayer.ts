@@ -13,14 +13,15 @@ interface AddMapLayerType extends MapLayerListType {
  * 
  * addToMap은 최초 window.map 객체 생성 시(setupMap.ts) default로 맵을 깔아 주는 경우, window.map.addLayer의 행위를 하지 않아도 알아서 로딩되므로 addToMap을 false로 하면 됨.
  * 
- * 직접적으로 user에 의해 맵 불러오기 등을 핸들링하고자 하는 경우 addToMap을 true로 할 것.
+ * 그러나 d2의 mapLayerManager에도 등록을 해주기 위해서는 ol.map 객체가 먼저 생성되어야 함. 그런 뒤 레이어를 추가하여 맵을 등록하는 과정이 되므로 addToMap을 true로 할 것. 
+ * 마찬가지의 로직으로 직접적으로 user에 의해 맵 불러오기 등을 핸들링하고자 하는 경우 addToMap을 true로 할 것.
  * 
  * 유저가 핸들링하는 맵 추가/삭제 설정 변경 등은 modules/map/MapListItemOnDrawer에서 관리됨.
  * 
  * layer 객체는 MapLayerListType이 정의된 data/constants/mapLayerList에 배열 형태로 정리되어 있으며,
  * 신규 맵을 추가하고자 하는 경우, 해당 Map의 Property를 확인하여 배열에 추가하면 알아서 모든 맵 불러오기 및 삭제 등등이 구현됨.
 
- * @returns addToMap이 true인 경우 map에 산규 레이어를 등록해주고, false인 경우 layer 객체만 구성함.
+ * @returns addToMap이 true인 경우 map에 산규 레이어를 등록해주고, false인 경우 layer 객체만 구성함.(모두 true로 할 것)
  */
 
 export const addMapLayer = ({ addToMap, ...layer }: AddMapLayerType) => {

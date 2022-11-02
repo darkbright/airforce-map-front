@@ -28,15 +28,6 @@ export default async () => {
 	// fullScreen Button Load
 	const fullScreen = new ol.control.FullScreen();
 
-	/**
-	 * Default로 로드할 맵을 정하고 map 객체 생성 시 그 layer들을 넣어줌.
-	 * Default 선정은 data / constants / mapLayerList에서 관리할 것.
-	 */
-	const defaultMapToLoad = mapLayerList
-		.filter((m) => m.default === true)
-		.reverse()
-		.map((layer) => addMapLayer({ addToMap: false, ...layer }));
-
 	// 최초 맵 객체 생성
 	window.map = await new ol.Map({
 		controls: ol.control
@@ -47,7 +38,9 @@ export default async () => {
 			// 만약 OL에서 제공하는 기본 scaleLine(축적표시)을 사용하고 싶다면 setScaleLine({})을 extend array에 추가할 것.
 			.extend([fullScreen, setMousePosition({})]),
 		target: "map", // 지도 id
-		layers: defaultMapToLoad,
+		// 기본으로 뜨는 맵을 없앴음.
+		// 구조가 ol에 맵을 등록하고 d2 mapLayerManager에 등록을 해줘야하는데, mapLayerManager를 생성하려면 ol map이 필요해짐. 상호참조를 하고 있으니 미리 레이어를 달아주면 안되겠음.
+		// layers: defaultMapToLoad,
 		view: new ol.View({
 			center: olCenter,
 			zoom: 7,
@@ -95,6 +88,15 @@ export default async () => {
 
 	// 레이어 관리 모듈 생성
 	window.mapLayerManager = new D2MapModule.MapLayerManager(window.map);
+
+	/**
+	 * Default로 로드할 맵을 정하고 map 객체 생성 후 그 layer들을 넣어줌.
+	 * Default 선정은 data / constants / mapLayerList에서 관리할 것.
+	 */
+	await mapLayerList
+		.filter((m) => m.default === true)
+		.reverse()
+		.map((layer) => addMapLayer({ addToMap: true, ...layer }));
 
 	// map 객체사 생성이 된 후, visible 활성화
 	console.log("window.map", window.mapLayerManager);
