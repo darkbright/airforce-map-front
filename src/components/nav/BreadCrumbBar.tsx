@@ -1,7 +1,7 @@
 import { Breadcrumbs, Link, LinkProps, styled, Typography } from "@mui/material";
 import { useLocation, Link as RouterLink } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { flattenedMenu } from "../../data/constants/menu";
+import { flattenedMenu, menu } from "../../data/constants/menu";
 import AddToFavoritePage from "../../modules/menu/AddToFavoritePage";
 
 interface LinkRouterProps extends LinkProps {
@@ -27,9 +27,11 @@ const LinkRouter = (props: LinkRouterProps) => {
 const BreadCrumbBar = ({ display }: BreadCrumbBarProps) => {
 	const location = useLocation();
 	const splitedRoute = location.pathname.split("/").slice(1);
+
 	const routeNameInKorean = splitedRoute.map(
-		(route) => flattenedMenu().find((menu) => menu.path === route)?.korean,
+		(route) => flattenedMenu(menu).find((menu) => menu.path === route)?.korean,
 	);
+
 	const finalRouteInKorean = routeNameInKorean[routeNameInKorean.length - 1] || "";
 	const isNotMainPage = splitedRoute[0] !== "index";
 

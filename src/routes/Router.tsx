@@ -22,12 +22,13 @@ const Router = () => {
 			<Route element={<RequireAuth allowedGroups={["test1"]} />}>
 				<Route element={<BaseLayout />}>
 					<Route path="/index" element={<Main />} />
+
 					{menu.map((route) =>
 						route.subMenu?.map((subRoute) => {
 							return (
 								<Route
 									key={subRoute.id}
-									path={`/${route.id}/${subRoute.id}`}
+									path={`/${route.id}/*`}
 									// element={route.id === "UNUSSEDLEO" ? <Whatever /> : <Main />}
 									element={subRoute.element}
 								/>

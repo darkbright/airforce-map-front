@@ -13,7 +13,12 @@ interface IconMenuItemProps {
 	closeOpenedMenu: boolean;
 	id: string; // 영어아이디
 	name: string; // 한글이름
-	subMenu: { id: string; name: string; subMenu?: { id: string; name: string }[] }[];
+	subMenu: {
+		id: string;
+		name: string;
+		type: string;
+		subMenu?: { id: string; name: string; type: string }[];
+	}[];
 	color: string;
 }
 
@@ -64,12 +69,19 @@ const IconMenuItem = ({
 				<List component="div" disablePadding>
 					{subMenu.map((menu) => (
 						<div key={menu.id}>
-							<RouteStyleHandler to={`/${id}/${menu.id}`}>
-								<ListItemButton dense>
+							{menu.type === "dir" ? (
+								<ListItemButton disabled dense>
 									<CircleIcon sx={{ fontSize: ".5rem", margin: "0px 6px", opacity: 0.4 }} />
 									<ListItemText primary={menu.name} />
 								</ListItemButton>
-							</RouteStyleHandler>
+							) : (
+								<RouteStyleHandler to={`/${id}/${menu.id}`}>
+									<ListItemButton dense>
+										<CircleIcon sx={{ fontSize: ".5rem", margin: "0px 6px", opacity: 0.4 }} />
+										<ListItemText primary={menu.name} />
+									</ListItemButton>
+								</RouteStyleHandler>
+							)}
 							{menu.subMenu?.map((submenu) => (
 								<RouteStyleHandler key={submenu.id} to={`${id}/${menu.id}/${submenu.id}`}>
 									<ListItemButton dense>

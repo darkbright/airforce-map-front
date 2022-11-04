@@ -408,31 +408,18 @@ export const menu: MenuProps[] = [
 	},
 ];
 
-// 2depth 까지 이름 flatten시킴.
+// 메뉴들 이름 flatten시킴.
 // breadCrumb, 메누의 한국어명 찾기 등에 사용
-export const flattenedMenu = () => {
+export const flattenedMenu = (items: MenuProps[]) => {
 	const result: { path: string; korean: string }[] = [];
 
-	menu.map((m) => {
+	items.forEach((item) => {
 		result.push({
-			path: m.id,
-			korean: m.name,
+			path: item.id,
+			korean: item.name,
 		});
-		if (m.subMenu !== undefined) {
-			m.subMenu.map((sub) => {
-				result.push({
-					path: sub.id,
-					korean: sub.name,
-				});
-				if (sub.subMenu !== undefined) {
-					sub.subMenu.map((subsub) => {
-						result.push({
-							path: subsub.id,
-							korean: sub.name,
-						});
-					});
-				}
-			});
+		if (Array.isArray(item.subMenu) && item.subMenu.length > 0) {
+			result.push(...flattenedMenu(item.subMenu));
 		}
 	});
 

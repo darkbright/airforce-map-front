@@ -12,8 +12,6 @@ import { mapLayerList } from "../../../data/constants/mapLayerList";
 import { addMapLayer } from "./addLayers/addMapLayer";
 import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../data/constants/baseCoord";
 
-const URL_HEADER = process.env.REACT_APP_MAP_SERVER_URL;
-
 /**
  * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴
  */
@@ -116,5 +114,5 @@ export default async () => {
 	window.graphic.setCursor(cursor); // 커서 세팅
 
 	// FDB 벡터용 심볼 이미지를 모아놓은 경로 설정
-	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", `${URL_HEADER}/MVTCONF/GSSSymbol/`);
+	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", urlInfo.fdbSymbolPath);
 };

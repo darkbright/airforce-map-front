@@ -49,10 +49,19 @@ export default {
 		georef: `${URL_HEADER}/TARTMS/GRID_GeoRef_MVT/L{z}/{y}/{x}.pbf`,
 		mgrs: `${URL_HEADER}/TARTMS/GRID_MGRS_MVT/L{z}/{y}/{x}.pbf`,
 	},
-	// Digital Elevation Model
+	/**
+	 * Digital Elevation Model로 고도 자료를 불러오기 위한 기반 데이터
+	 */
 	dem: `${URL_HEADER}/tilesets/srtm/`,
+	/**
+	 * d2 Map Server 내 각종 군대부호와 관련된 심볼에 대한 규격이 정의된 json
+	 */
 	d2ms: `${URL_HEADER}/D2MS/Symbol/`,
 	d2ms_property: `${URL_HEADER}/D2MS/milsymbol-prop.json`,
+	/**
+	 * mvt 즉 벡터 데이터는 최초 생성 시 style이 없으면 보이는 것이 거의 없음.
+	 * 정의된 벡터 스타일을 지도 위에 얹어줘야 각종 요소들이 보이면서 작동함
+	 */
 	mvtStyle: {
 		worldMap: `${URL_HEADER}/MVTCONF_KJCCS/worldMap_Style.json`,
 		background: `${URL_HEADER}/MVTCONF_KJCCS/worldCOP_Style.json`,
@@ -64,12 +73,16 @@ export default {
 		kr4: `${URL_HEADER}/MVTCONF_KJCCS/FDB_KR4_Style.json`,
 		kr5: `${URL_HEADER}/MVTCONF_KJCCS/FDB_KR5_Style.json`,
 	},
+	/**
+	 * fdb(Feature Database, 도형 및 속성정보가 포함된 디지털지형정보로 각종 군사무기체계와 연계되는 기반공간자료) 즉, 벡터 지도 위에 올라가는 각종 요소들을 모아놓은 주소임(예를 들면 도로와 같은 선, 비행장과 같은 아이콘 등등)
+	 *  */
+	fdbSymbolPath: `${URL_HEADER}/MVTCONF_KJCCS/GSSSymbol/`,
 	fdbLayer: {
-		worldmap: `${URL_HEADER}/MVTCONF/worldMap_Visibility.xml`,
-		background: `${URL_HEADER}/MVTCONF/worldCOP_Visibility.xml`,
-		g25K: `${URL_HEADER}/MVTCONF/FDB_G25K_Visibility.xml`,
-		a250k: `${URL_HEADER}/MVTCONF/FDB_A250K_Visibility.xml`,
-		kr1: `${URL_HEADER}/MVTCONF/FDB_Navy_Visibility.xml`,
+		worldmap: `${URL_HEADER}/MVTCONF_KJCCS/worldMap_Visibility.xml`,
+		background: `${URL_HEADER}/MVTCONF_KJCCS/worldCOP_Visibility.xml`,
+		g25K: `${URL_HEADER}/MVTCONF_KJCCS/FDB_G25K_Visibility.xml`,
+		a250k: `${URL_HEADER}/MVTCONF_KJCCS/FDB_A250K_Visibility.xml`,
+		kr1: `${URL_HEADER}/MVTCONF_KJCCS/FDB_Navy_Visibility.xml`,
 	},
 	graphic: {
 		overlay: `${URL_HEADER}/GRAPHIC/Overlay.xsd`,
