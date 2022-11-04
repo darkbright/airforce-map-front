@@ -1,13 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 import BaseLayout from "../components/layout/BaseLayout";
 import LandingLayout from "../components/layout/LandingLayout";
-import { menu } from "../data/constants/menu";
+import { addSlugPath, flattedRoute, menu } from "../data/constants/menu";
 import Login from "../pages/auth/Login";
 import Landing from "../pages/Landing";
 import Main from "../pages/Main";
 import NotFound from "../pages/NotFound";
 import Unauthroized from "../pages/Unauthorized";
 import RequireAuth from "./RequireAuth";
+
+// url의 path 핸들링에 대한 기존 react-router v6 문법이 적용되기 어려워,
+// menu 리스트에서 부모를 찾고 이에 따라 slug를 합쳐준다음 일렬로 정렬하였음
+const expandedPath = addSlugPath(menu);
+const flatted = flattedRoute(expandedPath);
 
 const Router = () => {
 	return (
@@ -22,19 +27,9 @@ const Router = () => {
 			<Route element={<RequireAuth allowedGroups={["test1"]} />}>
 				<Route element={<BaseLayout />}>
 					<Route path="/index" element={<Main />} />
-
-					{menu.map((route) =>
-						route.subMenu?.map((subRoute) => {
-							return (
-								<Route
-									key={subRoute.id}
-									path={`/${route.id}/*`}
-									// element={route.id === "UNUSSEDLEO" ? <Whatever /> : <Main />}
-									element={subRoute.element}
-								/>
-							);
-						}),
-					)}
+					{flatted.map((route) => {
+						return <Route key={route.idPath} path={`/${route.idPath}`} element={route.element} />;
+					})}
 				</Route>
 			</Route>
 			<Route path="*" element={<NotFound />} />

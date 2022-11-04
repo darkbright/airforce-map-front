@@ -425,3 +425,38 @@ export const flattenedMenu = (items: MenuProps[]) => {
 
 	return result;
 };
+
+/**
+ * 메뉴 목록에서 개별 id 값을 부모의 url을 포함하는 방식으로 slug 재지정하는 로직임
+ * @param items  menu List를 넣으면 됨
+ * @param path 생략
+ * @returns idPath가 추가된 menuList
+ */
+export const addSlugPath = (items: MenuProps[], path = [] as any): any =>
+	items.map(({ id, subMenu, ...rest }, _, __, newPath = [...path, id]) => ({
+		...rest,
+		id,
+		idPath: newPath.join("/"),
+		...(subMenu ? { subMenu: addSlugPath(subMenu, newPath) } : {}),
+	}));
+
+/**
+ * Nested Route를 flat화 함
+ * @param items addSlugPath에서 받은 리턴값
+ * @returns { idPath: string, element: ReactNode} idPath는 전체 slug, 즉 상위 카테고리를 포괄하는 전체 url을 의미함
+ */
+export const flattedRoute = (items: any) => {
+	const result: { idPath: string; element: ReactNode }[] = [];
+
+	items.forEach((item: any) => {
+		result.push({
+			idPath: item.idPath,
+			element: item.element,
+		});
+		if (Array.isArray(item.subMenu) && item.subMenu.length > 0) {
+			result.push(...flattedRoute(item.subMenu));
+		}
+	});
+
+	return result;
+};

@@ -26,6 +26,8 @@ const Whatever = () => {
 	const [mapData, setMapData] = useState<OpenLayersStandardFeatureTypes[] | null | undefined>(null);
 	const { data: whateverData, isFetched: isWhateverDataFetched } = useWhateverAll();
 
+	console.log("whtaeverData", whateverData);
+
 	const { isDark } = useThemeStore();
 	const tableLineColor = `1px solid ${theme(isDark).palette.divider}`;
 
