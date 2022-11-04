@@ -23,6 +23,11 @@ declare global {
 		MilSymbol: any;
 		mapLayerManager: {
 			mapLayers: any;
+			mapMVTLayers: any;
+			mapOverviewLayers: any;
+			mapSymbolPath: any;
+			overviewMapControl: any;
+			interacation: any;
 			/**
 			 * mapLayerManager에 맵 레이어를 등록함.
 			 * - name: 레이어 이름 (string)

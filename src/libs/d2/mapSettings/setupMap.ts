@@ -96,9 +96,6 @@ export default async () => {
 		.reverse()
 		.map((layer) => addMapLayer({ addToMap: true, ...layer }));
 
-	// map 객체사 생성이 된 후, visible 활성화
-	console.log("window.map", window.mapLayerManager);
-
 	// 투명도 커서 정의
 	const cursor = {
 		default: "default",

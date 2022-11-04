@@ -34,6 +34,7 @@ export const addMapLayer = ({ addToMap, ...layer }: AddMapLayerType) => {
 				maxZoom: layer.maxZoom,
 			}),
 			name: layer.name,
+			type: layer.mapType,
 			opacity: 1,
 			visible: true,
 			preload: layer.default ? "Infinity" : 0,
@@ -60,6 +61,7 @@ export const addMapLayer = ({ addToMap, ...layer }: AddMapLayerType) => {
 			preload: layer.default ? "Infinity" : 0,
 			opacity: 1,
 			visible: true,
+			type: layer.mapType,
 			// extent: layer.extent || ?
 			minZoom: layer.minZoom,
 			maxZoom: (layer.maxZoom as number) + 1,
@@ -86,6 +88,7 @@ export const addMapLayer = ({ addToMap, ...layer }: AddMapLayerType) => {
 				maxZoom: layer.maxZoom,
 			}),
 			name: layer.name,
+			type: layer.mapType,
 			opacity: 1,
 			visible: true,
 			// extent: layer.extent || ?

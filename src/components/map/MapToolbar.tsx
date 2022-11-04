@@ -8,6 +8,7 @@ import PublicIcon from "@mui/icons-material/Public";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CategoryIcon from "@mui/icons-material/Category";
 import MultipleStopIcon from "@mui/icons-material/MultipleStop";
+import WallpaperIcon from "@mui/icons-material/Wallpaper";
 
 import MapTypeDrawer from "../../modules/map/MapTypeDrawer";
 import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
@@ -16,6 +17,7 @@ import MapGridControlModal from "../../modules/map/MapGridControlModal";
 import MoveMapCenterByCoordDrawer from "../../modules/map/MoveMapCenterByCoordDrawer";
 import { setupCenterline } from "../../libs/d2/mapSettings/utils/setupCenterLine";
 import useFullScreenStore from "../../stores/useFullScreenStore";
+import MapTopographyControlDrawer from "../../modules/map/MapTopographyControlDrawer";
 
 /**
  * 맵 Display에서 최상단에 위치한 다양한 이벤트를 수행할 수 있는 목록을 표현한 툴바임.
@@ -46,6 +48,8 @@ const MapToolbar = () => {
 
 	// 지도 종류 선택하기 Drawer
 	const [mapSelectOpen, setMapSelectOpen] = useState(false);
+	// 지형요소 검색 선택하기 Drawer
+	const [mapTopoOpen, setMapTopoOpen] = useState(false);
 	// 지도 컨트롤 설정 모달 선택하기
 	const [mapControlsOpen, setMapControlsOpen] = useState(false);
 	// 그리기 Toggle On/Off
@@ -115,13 +119,23 @@ const MapToolbar = () => {
 									display: "flex",
 									flexDirection: "row",
 									justifyContent: "space-between",
-									width: 65,
+									width: 62,
 									alignItems: "center",
 								}}
 							>
 								<PublicIcon fontSize="small" />
 								배경지도
 							</div>
+						</Tooltip>
+					</ToggleButton>
+					<ToggleButton
+						value="selectTopography"
+						onClick={() => {
+							setMapTopoOpen(true);
+						}}
+					>
+						<Tooltip title="지형요소검색">
+							<WallpaperIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
 					<ToggleButton value="mapConfig" onClick={() => setMapControlsOpen(true)}>
@@ -141,6 +155,14 @@ const MapToolbar = () => {
 				open={mapSelectOpen}
 				setOpen={() => {
 					setMapSelectOpen(false);
+					setAlignment("");
+				}}
+			/>
+			{/* 지형요소검색 Drawer */}
+			<MapTopographyControlDrawer
+				open={mapTopoOpen}
+				setOpen={() => {
+					setMapTopoOpen(false);
 					setAlignment("");
 				}}
 			/>
