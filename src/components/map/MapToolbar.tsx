@@ -9,6 +9,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import CategoryIcon from "@mui/icons-material/Category";
 import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
+import CropFreeIcon from "@mui/icons-material/CropFree";
 
 import MapTypeDrawer from "../../modules/map/MapTypeDrawer";
 import MapControlsSettingModal from "../../modules/map/MapControlsSettingModal";
@@ -17,6 +18,7 @@ import MapGridControlModal from "../../modules/map/MapGridControlModal";
 import MoveMapCenterByCoordDrawer from "../../modules/map/MoveMapCenterByCoordDrawer";
 import { setupCenterline } from "../../libs/d2/mapSettings/utils/setupCenterLine";
 import useFullScreenStore from "../../stores/useFullScreenStore";
+import { enlargeSelectedArea } from "../../libs/d2/mapSettings/tracker/enlargeSelectedArea";
 
 interface MapToolbarProps {
 	showMVTLayerControl: boolean;
@@ -103,7 +105,7 @@ const MapToolbar = ({ showMVTLayerControl, setShowMVTLayerControl }: MapToolbarP
 							<MultipleStopIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
-					<ToggleButton value="save" onClick={downloadPNG}>
+					<ToggleButton value="save" onClick={downloadPNG} disabled>
 						<Tooltip title="그림으로 지도 저장">
 							<SaveIcon fontSize="small" />
 						</Tooltip>
@@ -138,6 +140,11 @@ const MapToolbar = ({ showMVTLayerControl, setShowMVTLayerControl }: MapToolbarP
 					>
 						<Tooltip title="지형요소검색">
 							<WallpaperIcon fontSize="small" />
+						</Tooltip>
+					</ToggleButton>
+					<ToggleButton value="mapConfig" onClick={() => enlargeSelectedArea()}>
+						<Tooltip title="선택영역 도시비율확대">
+							<CropFreeIcon fontSize="small" />
 						</Tooltip>
 					</ToggleButton>
 					<ToggleButton value="mapConfig" onClick={() => setMapControlsOpen(true)}>
