@@ -190,7 +190,8 @@ const lightTheme = {
 		main: "#19857b",
 	},
 	background: {
-		default: "#eef6fa",
+		default: "#fafafa",
+		paper: "#eef6fa",
 	},
 	text: {
 		secondary: "rgba(0, 0, 0, 0.8)",

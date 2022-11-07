@@ -808,7 +808,7 @@ div.ol-custom-overviewmap,
 div.ol-custom-overviewmap.ol-uncollapsible {
 	top: auto;
 	left: auto;
-	bottom: 0;
+	bottom: 200;
 	right: 0;
 }
 div.ol-custom-overviewmap:not(.ol-collapsed) {

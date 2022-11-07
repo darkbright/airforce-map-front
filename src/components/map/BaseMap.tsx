@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import React, { ReactNode, useEffect, useState } from "react";
 import mapSettings from "../../libs/d2/mapSettings";
 import RightClickFeatureBox from "../../modules/map/rightClick/RightClickFeatureBox";
@@ -69,15 +70,14 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 							left: isFullScreenOpen === "nf" ? 220 : 30,
 							top: isFullScreenOpen === "nf" ? 160 : 70,
 							width: 300,
+							opacity: 0.95,
 							visibility: showMVTLayerControl ? "visible" : "hidden",
 						}}
 					>
-						<ul
-							id="d2map_mvtTree"
-							className="d2map_ztree"
-
-							// style={{ backgroundColor: background.default }}
-						></ul>
+						<Typography variant="subtitle2" gutterBottom sx={{ opacity: 0.5 }}>
+							COP 지도일때만 보임
+						</Typography>
+						<ul id="d2map_mvtTree" className="d2map_ztree"></ul>
 					</div>
 					{children}
 				</div>

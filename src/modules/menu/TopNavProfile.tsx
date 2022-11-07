@@ -1,8 +1,9 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { ListItemIcon, Menu, MenuItem, styled, Typography } from "@mui/material";
+import { Divider, ListItemIcon, Menu, MenuItem, styled, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import { useAuth } from "../../stores/useAuth";
 
 interface TapNavProfileProps {
 	title: string;
@@ -23,6 +24,8 @@ const TopNavProfile = ({ title, display }: TapNavProfileProps) => {
 		setAnchorOpen(event.currentTarget);
 	};
 
+	const { authUser } = useAuth();
+
 	return (
 		<div style={{ display }}>
 			<Root
@@ -42,6 +45,16 @@ const TopNavProfile = ({ title, display }: TapNavProfileProps) => {
 				onClose={handleClose}
 				MenuListProps={{ "aria-labelledby": "profile-button" }}
 			>
+				<UserInfoPanel>
+					<Typography variant="body1" gutterBottom>
+						{authUser?.name} {authUser?.position}
+					</Typography>
+					<Divider sx={{ mt: 1, mb: 1 }} />
+					<Typography variant="subtitle2">{authUser?.unit.name}</Typography>
+					<Typography variant="subtitle2">{authUser?.unit.code}</Typography>
+					<Typography variant="subtitle2">비밀등급: 쉿! 🤐</Typography>
+				</UserInfoPanel>
+				<Divider sx={{ mt: 1, mb: 1 }} />
 				<MenuItem onClick={handleClose}>
 					<ListItemIcon>
 						<Settings fontSize="small" />
@@ -69,4 +82,8 @@ const Root = styled("button")(() => ({
 	border: "none",
 	justifyContent: "space-between",
 	cursor: "pointer",
+}));
+
+const UserInfoPanel = styled("div")(() => ({
+	padding: "10%",
 }));
