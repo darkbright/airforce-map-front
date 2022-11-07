@@ -17,13 +17,17 @@ import MapGridControlModal from "../../modules/map/MapGridControlModal";
 import MoveMapCenterByCoordDrawer from "../../modules/map/MoveMapCenterByCoordDrawer";
 import { setupCenterline } from "../../libs/d2/mapSettings/utils/setupCenterLine";
 import useFullScreenStore from "../../stores/useFullScreenStore";
-import MapTopographyControlDrawer from "../../modules/map/MapTopographyControlDrawer";
+
+interface MapToolbarProps {
+	showMVTLayerControl: boolean;
+	setShowMVTLayerControl: (show: boolean) => void;
+}
 
 /**
  * 맵 Display에서 최상단에 위치한 다양한 이벤트를 수행할 수 있는 목록을 표현한 툴바임.
  * @returns {JSX.Element} React Component
  */
-const MapToolbar = () => {
+const MapToolbar = ({ showMVTLayerControl, setShowMVTLayerControl }: MapToolbarProps) => {
 	const [alignment, setAlignment] = useState("select");
 	const [centerlineVisible, setCenterlineVisible] = useState(false);
 	const { isFullScreenOpen } = useFullScreenStore();
@@ -48,8 +52,6 @@ const MapToolbar = () => {
 
 	// 지도 종류 선택하기 Drawer
 	const [mapSelectOpen, setMapSelectOpen] = useState(false);
-	// 지형요소 검색 선택하기 Drawer
-	const [mapTopoOpen, setMapTopoOpen] = useState(false);
 	// 지도 컨트롤 설정 모달 선택하기
 	const [mapControlsOpen, setMapControlsOpen] = useState(false);
 	// 그리기 Toggle On/Off
@@ -131,7 +133,7 @@ const MapToolbar = () => {
 					<ToggleButton
 						value="selectTopography"
 						onClick={() => {
-							setMapTopoOpen(true);
+							setShowMVTLayerControl(!showMVTLayerControl);
 						}}
 					>
 						<Tooltip title="지형요소검색">
@@ -155,14 +157,6 @@ const MapToolbar = () => {
 				open={mapSelectOpen}
 				setOpen={() => {
 					setMapSelectOpen(false);
-					setAlignment("");
-				}}
-			/>
-			{/* 지형요소검색 Drawer */}
-			<MapTopographyControlDrawer
-				open={mapTopoOpen}
-				setOpen={() => {
-					setMapTopoOpen(false);
 					setAlignment("");
 				}}
 			/>

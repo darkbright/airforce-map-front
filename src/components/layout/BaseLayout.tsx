@@ -48,7 +48,7 @@ const BaseLayout = () => {
 						theme={isDark === "dark" ? "dark" : "light"}
 					/>
 				</div>
-				<LeftMenuBar display={isFullScreenOpen === "f" ? "none" : "block"} />
+				<LeftMenuBar visibility={isFullScreenOpen === "f" ? "hidden" : "visible"} />
 				<div style={{ width: "100%", height: "100vh" }}>
 					<BreadCrumbBar display={isFullScreenOpen === "f" ? "none" : "block"} />
 					<BaseMap show={match ? false : true}>

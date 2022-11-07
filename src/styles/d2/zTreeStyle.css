@@ -266,7 +266,9 @@ select#d2map_unit-deploy-sub-explorer-affiliation option {
 #d2map_mvtTree.d2map_ztree li span {
 	line-height: 16px;
 	margin-right: 2px;
+	margin-left: 6px;
 	display: inline-block;
+	color: white;
 	border-top: 0;
 	border-bottom: 0;
 }
@@ -681,7 +683,9 @@ select#d2map_unit-deploy-sub-explorer-affiliation option {
 	padding-left: 0px;
 }
 #d2map_mvtTree.d2map_ztree {
-	background-color: #999999;
+	background-color: #263238;
+	border-radius: 4px;
+	padding: 15px;
 }
 #d2map_mvtTree.d2map_ztree li span.button.ico_open {
 	background-image: url("./img/zTreeStandard.gif");

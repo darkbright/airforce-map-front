@@ -27,6 +27,9 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 
 	const { isFullScreenOpen } = useFullScreenStore();
 
+	// 우클릭 핸들링
+	const { rightClickEnabled } = useRightClickStore();
+
 	useEffect(() => {
 		// initializing d2 map module
 		setLoading(true);
@@ -36,8 +39,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 		return () => window.map.setTarget(undefined);
 	}, []);
 
-	// 우클릭 핸들링
-	const { rightClickEnabled } = useRightClickStore();
+	const [showMVTLayerControl, setShowMVTLayerControl] = useState(false);
 
 	return (
 		<div style={{ display: show ? "block" : "none" }}>
@@ -52,7 +54,31 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 						position: "relative",
 					}}
 				>
-					<MapToolbar />
+					<MapToolbar
+						showMVTLayerControl={showMVTLayerControl}
+						setShowMVTLayerControl={setShowMVTLayerControl}
+					/>
+					{/* 지형요소검색 핸들링
+					지형요소 검색은 제이쿼리로 되어 있어 리액트로 핸들링 불가하여 컴포넌트 내에서 렌더링 할 수 없고, 전역으로 관리 불가하므로 여기서 관리 */}
+					<div
+						id="d2map_tree-container-mvt"
+						className="tree-container-mvt"
+						style={{
+							zIndex: 800,
+							position: "absolute",
+							left: isFullScreenOpen === "nf" ? 220 : 30,
+							top: isFullScreenOpen === "nf" ? 160 : 70,
+							width: 300,
+							visibility: showMVTLayerControl ? "visible" : "hidden",
+						}}
+					>
+						<ul
+							id="d2map_mvtTree"
+							className="d2map_ztree"
+
+							// style={{ backgroundColor: background.default }}
+						></ul>
+					</div>
 					{children}
 				</div>
 

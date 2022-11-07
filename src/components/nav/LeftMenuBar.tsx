@@ -26,7 +26,7 @@ interface StyledTabProps {
 }
 
 interface LeftMenuBarProps {
-	display: "block" | "none";
+	visibility: "hidden" | "visible";
 }
 
 /**
@@ -34,7 +34,7 @@ interface LeftMenuBarProps {
  * @returns {JSX.Element} React Component
  */
 
-const LeftMenuBar = ({ display }: LeftMenuBarProps) => {
+const LeftMenuBar = ({ visibility }: LeftMenuBarProps) => {
 	// 좌측 메뉴바가 있는 상태에서, 간략하게 보기 모드가 설정되었는지 확인
 	const { isBarOpen } = useMenuBarStore();
 	const { isDark } = useThemeStore();
@@ -102,7 +102,7 @@ const LeftMenuBar = ({ display }: LeftMenuBarProps) => {
 	const [tabValue, setTabValue] = useState(0);
 
 	return (
-		<Root style={{ display }}>
+		<Root style={{ visibility }}>
 			<Paper width={isBarOpen ? 210 : 90}>
 				{/* 메뉴바를 줄이거나 키우는 버튼 부분임. 현재 전체 풀스크린 모드를 지원하므로, 메뉴 접었다 폈다 하는 것은 없애는 것으로 함 */}
 				{/* <div style={{ marginTop: "2%", textAlign: "right" }}>

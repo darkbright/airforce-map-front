@@ -11,12 +11,13 @@ import { setMousePosition } from "./controls/mousePosition";
 import { mapLayerList } from "../../../data/constants/mapLayerList";
 import { addMapLayer } from "./addLayers/addMapLayer";
 import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../data/constants/baseCoord";
+import { loadMVTLayerTree } from "./mvtLayerHandling/MVTLayerTree";
 
 /**
  * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴
  */
 export default async () => {
-	const { ol, Coordinate, MilSymbol } = D2MapModule;
+	const { ol, Coordinate, MilSymbol, MapLayerManager } = D2MapModule;
 
 	/**
 	 * 초기 로딩 시 중심좌표를 어디로 잡을 것인지 설정. 현재는 대한민국 중심좌표로 설정되어 있음.
@@ -85,7 +86,7 @@ export default async () => {
 	window.MilSymbol.loadMilsymbolTree();
 
 	// 레이어 관리 모듈 생성
-	window.mapLayerManager = new D2MapModule.MapLayerManager(window.map);
+	window.mapLayerManager = new MapLayerManager(window.map);
 
 	/**
 	 * Default로 로드할 맵을 정하고 map 객체 생성 후 그 layer들을 넣어줌.
@@ -112,4 +113,6 @@ export default async () => {
 
 	// FDB 벡터용 심볼 이미지를 모아놓은 경로 설정
 	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", urlInfo.fdbSymbolPath);
+
+	loadMVTLayerTree();
 };
