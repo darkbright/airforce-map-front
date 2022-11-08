@@ -5,6 +5,7 @@ import PolylineIcon from "@mui/icons-material/Polyline";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import { measureDistance } from "../../libs/d2/mapSettings/measurement/measureDistance";
 import { measureExtent } from "../../libs/d2/mapSettings/measurement/measureExtent";
+import StopCircleIcon from "@mui/icons-material/StopCircle";
 
 /**
  * 측정과 관련된 동작들을 보여주는 Div로, MapToolbar에서 측정 버튼을 누르면 나온디
@@ -66,6 +67,19 @@ const MeasurePanelToolbar = () => {
 							<TextButtonWrapper>
 								<AspectRatioIcon fontSize="small" />
 								면적 측정
+							</TextButtonWrapper>
+						</Tooltip>
+					</ToggleButton>
+					<ToggleButton
+						sx={{ lineHeight: 1 }}
+						value="stopMeasure"
+						aria-label="stopMeasure"
+						onClick={() => window.eventManager.setMapMode("default")}
+					>
+						<Tooltip title="측정 중지">
+							<TextButtonWrapper>
+								<StopCircleIcon fontSize="small" />
+								측정 중지
 							</TextButtonWrapper>
 						</Tooltip>
 					</ToggleButton>
