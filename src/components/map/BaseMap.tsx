@@ -68,7 +68,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 							zIndex: 800,
 							position: "absolute",
 							left: isFullScreenOpen === "nf" ? 220 : 30,
-							top: isFullScreenOpen === "nf" ? 160 : 70,
+							top: isFullScreenOpen === "nf" ? 170 : 80,
 							width: 300,
 							opacity: 0.95,
 							visibility: showMVTLayerControl ? "visible" : "hidden",

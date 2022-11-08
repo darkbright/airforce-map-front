@@ -1,6 +1,9 @@
+import { Area } from "./Area";
 import { ClipboardOptions, LonLatType, MGRSType, UTMType, UTM_XYType } from "./Coords";
 import { d2Constants } from "./d2Constants";
 import { d2MapManager } from "./d2MapManager";
+import { Distance } from "./distance";
+import { EventManager } from "./eventManager";
 
 export {};
 
@@ -65,7 +68,7 @@ declare global {
 		};
 		graphic: any;
 		postComposeCtrl: any;
-		eventManager: any;
+		eventManager: EventManager;
 		exportImage: {
 			downloadPNG: () => void;
 		};
@@ -76,7 +79,8 @@ declare global {
 		// };
 		spatialMath: any;
 		CoordManager: any;
-
+		distance: Distance;
+		area: Area;
 		// d2Map.min.js 에서 추출된 값
 		D2: {
 			Core: {
@@ -182,6 +186,7 @@ declare global {
 				 */
 				D2MS: any;
 				D2MapManager: any;
+
 				Graphic: any;
 				// Graphic: {
 				// 	addGraphicAppBoard: any;

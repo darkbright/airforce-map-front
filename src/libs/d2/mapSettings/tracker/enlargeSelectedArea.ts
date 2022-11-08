@@ -14,7 +14,9 @@ export const enlargeSelectedArea = () => {
 
 		const mainExtent = window.map.getView().calculateExtent();
 		const ratio = (mainExtent[2] - mainExtent[0]) / (extent[2] - extent[0]);
+		//중심이동
 		window.map.getView().setCenter([(extent[0] + extent[2]) * 0.5, (extent[1] + extent[3]) * 0.5]);
+		// 배율계산
 		const scale = Number(window.spatialMath.getMapScale().replace(/,/g, "")) / ratio;
 		window.spatialMath.setMapScale(scale);
 		tracker.handlerClear();
