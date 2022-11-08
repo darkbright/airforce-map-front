@@ -4,6 +4,7 @@ import { d2Constants } from "./d2Constants";
 import { d2MapManager } from "./d2MapManager";
 import { Distance } from "./distance";
 import { EventManager } from "./eventManager";
+import { TerrainAnalysisManager } from "./TerrainAnalysisManager";
 
 export {};
 
@@ -81,6 +82,7 @@ declare global {
 		CoordManager: any;
 		distance: Distance;
 		area: Area;
+		TerrainAnalysisManager: TerrainAnalysisManager;
 		// d2Map.min.js 에서 추출된 값
 		D2: {
 			Core: {
