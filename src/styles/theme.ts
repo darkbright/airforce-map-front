@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme, Theme } from "@mui/material";
 import { blueGrey, lightBlue, lime, grey, red, yellow, green } from "@mui/material/colors";
 
 // noto sans kr load
@@ -123,6 +123,15 @@ const baseTheme = {
 		},
 	},
 	components: {
+		MuiButtonGroup: {
+			styleOverrides: {
+				grouped: ({ theme }: { theme: Theme }) => ({
+					":not(:last-of-type)": {
+						borderRight: `1px solid ${theme.palette.divider}`,
+					},
+				}),
+			},
+		},
 		MuiButton: {
 			styleOverrides: {
 				root: {

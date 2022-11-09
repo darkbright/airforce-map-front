@@ -12,10 +12,13 @@ export type TerrainAnalysisMode =
 	| "LineOfSight"
 	| "ViewShed";
 
+/**
+ * 자형분석 관리 도구
+ */
 export interface TerrainAnalysisManager {
 	/**
-	 * 지형분석 객체 초기화
-	 * 초기화 객체 대상으로는 clipboardCoordinate, distance, distanceElapseTime, slopeDistance, area, radiusCircle, radar, heightBillboard, CrossSection, lineofSight, viewShed 등이 포함된
+	 * 지형분석 객체 초기화. 지도 위에 만들어진 거 다 지우는 기능
+	 *
 	 */
 	clear: () => void;
 	/**
