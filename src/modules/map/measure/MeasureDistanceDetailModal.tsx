@@ -34,6 +34,8 @@ const MeasureDistanceDetailModal = ({ open, setOpen }: MeasureDistanceDetailModa
 	const [showBearing, setShowBearing] = useState(window.distance.getBearing());
 	const [speed, setSpeed] = useState(window.distance.getSpeed());
 
+	console.log("bearing", window.distance.getBearing());
+
 	const handleRefinedSetting = () => {
 		measureDistance({
 			unit,

@@ -14,7 +14,7 @@ export const measureDistance = ({ speed, bearing, unit }: MeasureDistanceType) =
 
 	window.eventManager.setMapMode("terrainAnalysis");
 	window.distance.createDistance();
-	window.distance.setSpeed(speed || 0);
-	window.distance.setBearing(bearing || true);
-	window.distance.setUnit(unit || "nauticalmile");
+	window.distance.setSpeed(speed);
+	window.distance.setBearing(bearing);
+	window.distance.setUnit(unit);
 };

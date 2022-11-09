@@ -10,5 +10,5 @@ interface MeasureExtentType {
 export const measureExtent = ({ unit }: MeasureExtentType) => {
 	window.eventManager.setMapMode("terrainAnalysis");
 	window.area.createArea();
-	window.area.setUnit(unit || "meter");
+	window.area.setUnit(unit);
 };

@@ -30,13 +30,13 @@ const MeasureAreaDetailModal = ({ open, setOpen }: MeasureDistanceDetailModalPro
 		<>
 			<BaseModal open={open} setOpen={setOpen}>
 				<BaseBlockTitleBox
-					title="거리 측정 옵셥"
-					subtitle="거리 측정에 표시할 내용들을 설정합니다."
+					title="면적 측정 옵셥"
+					subtitle="면적 측정에 표시할 내용들을 설정합니다."
 				/>
 				<ShortAlert
 					severity="warning"
 					title="세팅 전 주의"
-					text="이미 맵에 측정이 그려진 상태에서 거리 측정 세팅값을 바꾸면 기존 세팅이 초기화될 수도 있음"
+					text="이미 맵에 측정이 그려진 상태에서 면적 측정 세팅값을 바꾸면 기존 세팅이 초기화될 수도 있음"
 				/>
 				<FormControl sx={{ mt: 2, mb: 3 }}>
 					<FormLabel id="unit-type">단위</FormLabel>
