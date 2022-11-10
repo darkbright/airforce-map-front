@@ -1,3 +1,5 @@
+import { IGraphicObjectProp } from "../../../../types/d2/Core/IGraphicObjectProp";
+import { IGraphicObjectStyle } from "../../../../types/d2/Core/IGraphicObjectStyle";
 import D2MapModule from "../../D2MapModule";
 
 /**
@@ -56,7 +58,7 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 점
 		 */
 		case "point": {
-			const objProp = new GraphicObjectProp("point");
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("point");
 			graphic.createMode(objProp);
 			break;
 		}
@@ -64,9 +66,10 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 직선
 		 */
 		case "straightLine": {
-			const objProp = new GraphicObjectProp("polyline");
-			const objStyle = new GraphicObjectStyle();
-			objStyle.fill.color[3] = [0];
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			// polyline의 형태는 원래 채움 색을 가지고 있어, 그것을 투명하게 처리함으로써 직선을 구현하고 있음
+			objStyle.fill.color[3] = 0;
 			graphic.createMode(objProp, objStyle);
 			break;
 		}
@@ -74,9 +77,11 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 한쪽 화살표가 있는 직선
 		 */
 		case "straightLineWithOneArrow": {
-			const objProp = new GraphicObjectProp("polyline");
-			const objStyle = new GraphicObjectStyle();
-			objStyle.fill.color[3] = [0];
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			// polyline의 형태는 원래 채움 색을 가지고 있어, 그것을 투명하게 처리함으로써 직선을 구현하고 있음
+			objStyle.fill.color[3] = 0;
+			// 시작 부분에 화살표 형태로 넣기
 			objStyle.line.arrow.begin.type = "arrow";
 			graphic.createMode(objProp, objStyle);
 			break;
@@ -85,9 +90,9 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 양쪽 화살표가 있는 직선
 		 */
 		case "straigntLineWithTwoArrows": {
-			const objProp = new GraphicObjectProp("polyline");
-			const objStyle = new GraphicObjectStyle();
-			objStyle.fill.color[3] = [0];
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color[3] = 0;
 			objStyle.line.arrow.begin.type = "arrow";
 			objStyle.line.arrow.end.type = "arrow";
 			graphic.createMode(objProp, objStyle);
@@ -97,20 +102,18 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 연결선
 		 */
 		case "spline": {
-			const objProp = new GraphicObjectProp("polyline");
-			const objStyle = new GraphicObjectStyle();
-			objStyle.fill.color[3] = [0];
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color[3] = 0;
 			objProp.lineType = 1;
 			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**
 		 * 삼각형
-		 * TO_BE_CHECKED
-		 * 삼각형 작동 안함.  "graphic.createdMode is not a function"
 		 */
 		case "triangle": {
-			const objProp = new GraphicObjectProp("triangle");
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("triangle");
 			graphic.createMode(objProp);
 			break;
 		}
@@ -127,7 +130,7 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 사각형
 		 */
 		case "rectangle": {
-			const objProp = new GraphicObjectProp("rectangle");
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("rectangle");
 			graphic.createMode(objProp);
 			break;
 		}
@@ -135,7 +138,7 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 모서리가 둥근 사각형
 		 *  */
 		case "roundedRectangle": {
-			const objProp = new GraphicObjectProp("rectangle");
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("rectangle");
 			objProp.radius = 50;
 			graphic.createMode(objProp);
 			break;
@@ -144,7 +147,7 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 폴리곤(다각형)
 		 */
 		case "polygon": {
-			const objProp = new GraphicObjectProp("polyline");
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
 			objProp.close = 1;
 			graphic.createMode(objProp);
 			break;
@@ -153,17 +156,18 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 *  곡선으로 만든 도형(퍼거슨 스플라인, B-Spline) 형태의 아이콘
 		 */
 		case "BSpline": {
-			/**
-			 * TO_BE_CHECKED
-			 */
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objProp.lineType = 1;
+			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**
 		 *  오각형(5각형) 펜타곤
 		 */
 		case "pentagon": {
-			const objProp = new GraphicObjectProp("regularPolygon");
-			const objStyle = new GraphicObjectStyle();
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("regularPolygon");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			objProp.angleCount = 5;
 			graphic.createMode(objProp, objStyle);
 			break;
@@ -172,8 +176,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 육각형(6각형) 헥사곤
 		 */
 		case "hexagon": {
-			const objProp = new GraphicObjectProp("regularPolygon");
-			const objStyle = new GraphicObjectStyle();
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("regularPolygon");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			objProp.angleCount = 6;
 			graphic.createMode(objProp, objStyle);
 			break;
@@ -182,8 +186,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 원, 동그라미
 		 */
 		case "circle": {
-			const objProp = new GraphicObjectProp("ellipse");
-			const objStyle = new GraphicObjectStyle();
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("ellipse");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			graphic.createMode(objProp, objStyle);
 			break;
 		}
@@ -191,8 +195,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 부채꼴 형태의 아이콘
 		 */
 		case "fanShaped": {
-			const objProp = new GraphicObjectProp("arc");
-			const objStyle = new GraphicObjectStyle();
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("arc");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			objProp.lineType = 1;
 			objProp.fillType = 3;
 			graphic.createMode(objProp, objStyle);
@@ -202,8 +206,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 원호(arc) 모양
 		 */
 		case "arc": {
-			const objProp = new GraphicObjectProp("arc");
-			const objStyle = new GraphicObjectStyle();
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("arc");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			objProp.lineType = 1;
 			objProp.fillType = 3;
 			graphic.createMode(objProp, objStyle);

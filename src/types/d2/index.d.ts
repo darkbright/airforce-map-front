@@ -1,6 +1,8 @@
 import { Area } from "./Area";
 import { ClipboardOptions } from "./ClipboardOptions";
 import { CoordManager } from "./Core/CoordManager";
+import { IGraphicObjectProp } from "./Core/IGraphicObjectProp";
+import { IGraphicObjectStyle } from "./Core/IGraphicObjectStyle";
 import { d2Constants } from "./d2Constants";
 import { d2MapManager } from "./d2MapManager";
 import { Distance } from "./distance";
@@ -8,6 +10,7 @@ import { EventManager } from "./eventManager";
 import { Graphic } from "./Graphic";
 import { MapLayerManager } from "./MapLayerManager";
 import { PostComposeCtrl } from "./PostComposeCtrl";
+import { SpatialMath } from "./SpatialMath";
 import { TerrainAnalysisManager } from "./TerrainAnalysisManager";
 
 export {};
@@ -23,7 +26,6 @@ declare global {
 		// tslint:disable-next-line
 
 		// d2Core를 통해 생성된 객체
-		Cesium: any;
 		Coordinate: any;
 		D2_CONSTANTS: d2Constants;
 		map: any;
@@ -36,7 +38,7 @@ declare global {
 		exportImage: {
 			downloadPNG: () => void;
 		};
-		spatialMath: any;
+		spatialMath: SpatialMath;
 		CoordManager: any;
 		distance: Distance;
 		area: Area;
@@ -68,8 +70,8 @@ declare global {
 				D2MapManager: any;
 
 				Graphic: any;
-				GraphicObjectProp: any;
-				GraphicObjectStyle: any;
+				GraphicObjectProp: IGraphicObjectProp;
+				GraphicObjectStyle: IGraphicObjectStyle;
 				GraphicPopUpUI: any;
 				GraphicUtil: any;
 				Grid: any;
