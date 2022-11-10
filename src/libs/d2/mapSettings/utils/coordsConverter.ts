@@ -1,4 +1,4 @@
-import { MGRSType, UTMType } from "../../../../types/d2/Coords";
+import { MGRSType, UTMType } from "../../../../types/d2/Core/CoordManager";
 import D2MapModule from "../../D2MapModule";
 const { CoordManager } = D2MapModule;
 

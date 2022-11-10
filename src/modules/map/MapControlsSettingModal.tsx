@@ -178,7 +178,7 @@ const MapControlsSettingModal = ({ open, setOpen }: MapControlsSettingModaPropsl
 				/>
 			</FormGroup>
 
-			<BaseBlockTitleBox title="축적(스케일) 설정" subtitle="축적 표시 여부를 설정합니다" />
+			{/* <BaseBlockTitleBox title="축적(스케일) 설정" subtitle="축적 표시 여부를 설정합니다" /> */}
 			{/* <FormGroup sx={{ mb: 4 }}>
 				<FormControlLabel
 					control={<Switch checked={showScale} onChange={handleScaleControl} />}

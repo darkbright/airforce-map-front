@@ -12,12 +12,13 @@ import { mapLayerList } from "../../../data/constants/mapLayerList";
 import { addMapLayer } from "./addLayers/addMapLayer";
 import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../data/constants/baseCoord";
 import { loadMVTLayerTree } from "./mvtLayerHandling/MVTLayerTree";
+import { GraphicCursor } from "../../../types/d2/Graphic";
 
 /**
  * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴
  */
 export default async () => {
-	const { ol, Coordinate, MilSymbol, MapLayerManager } = D2MapModule;
+	const { ol, Coordinate, MilSymbol, MapLayerManager, Graphic } = D2MapModule;
 
 	/**
 	 * 초기 로딩 시 중심좌표를 어디로 잡을 것인지 설정. 현재는 대한민국 중심좌표로 설정되어 있음.
@@ -98,7 +99,7 @@ export default async () => {
 		.map((layer) => addMapLayer({ addToMap: true, ...layer }));
 
 	// 투명도 커서 정의
-	const cursor = {
+	const cursor: GraphicCursor = {
 		default: "default",
 		move: "move",
 		edit: "crosshair",
@@ -106,7 +107,7 @@ export default async () => {
 	};
 
 	// 투명도 레이어 모듈 설정
-	window.graphic = new D2MapModule.Graphic(window.map);
+	window.graphic = new Graphic(window.map);
 	window.graphic.getSelectGraphicBoard().setName("Layer-01");
 	window.graphic.loadStdXSD(urlInfo.graphic.overlay); // 투명도 스키마
 	window.graphic.setCursor(cursor); // 커서 세팅

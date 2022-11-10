@@ -111,7 +111,7 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 */
 		case "triangle": {
 			const objProp = new GraphicObjectProp("triangle");
-			graphic.createdMode(objProp);
+			graphic.createMode(objProp);
 			break;
 		}
 		/**
