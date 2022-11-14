@@ -90,7 +90,11 @@ const MapToolbar = ({ showMVTLayerControl, setShowMVTLayerControl }: MapToolbarP
 					value={alignment}
 					onChange={handleChange}
 				>
-					<ToggleButton value="select" aria-label="select">
+					<ToggleButton
+						value="select"
+						aria-label="select"
+						onClick={() => window.eventManager.setMapMode("default")}
+					>
 						<Tooltip title="기본 선택">
 							<NorthWestIcon fontSize="small" />
 						</Tooltip>

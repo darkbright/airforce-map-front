@@ -35,15 +35,15 @@ interface ShapesOnToolBarShaperProps {
 	tid: GraphicShapeType;
 }
 
+const graphic = window.graphic;
+const { GraphicObjectProp, GraphicObjectStyle, MSTacticalLineGraphics } = D2MapModule;
+
 /**
  * Map 내 DrawPaanelToolbar의 각종 도형들을 그릴 때 사용하는 함수임.
  * @param tid string 사용할 도형의 이름을 string으로 전달
  */
 
 export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
-	const graphic = window.graphic;
-	const { GraphicObjectProp, GraphicObjectStyle, MSTacticalLineGraphics } = D2MapModule;
-
 	window.eventManager.setMapMode("graphic");
 
 	switch (tid) {
@@ -223,7 +223,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			break;
 		}
 		/**
-		 * 전진축 - 화살표 모양의 전진 Line 모양
+		 * 일반 "전진축"이라는 말은 없음 지상전진축으로 사용
+		 * 지상전진축 - 화살표 모양의 전진 Line 모양
 		 */
 		case "forwardAxis": {
 			const MSTacticalObjProp = new MSTacticalLineGraphics();
@@ -232,7 +233,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			break;
 		}
 		/**
-		 * 다점전진축 - 다점전진축 - 화살표 모양의 전진 Line 모양
+		 * 다점전진축이라는 말은 없음 방위호형인듯
+		 * 방위호형 - 다점전진축 - 화살표 모양의 전진 Line 모양
 		 */
 		case "multiPointForwardAxis": {
 			const MSTacticalObjProp = new MSTacticalLineGraphics();
@@ -241,7 +243,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			break;
 		}
 		/**
-		 * 비행전진축 - 화살표 모양의 전진 Line 모양
+		 * 원래 비행전진축이라고 했는데 군대부호에는 그러한 것은 없음. 가장 비슷한 아군항공전진축으로 설정
+		 * 아군항공전진축 - 화살표 모양의 전진 Line 모양
 		 */
 		case "FlightForwradAxis": {
 			const MSTacticalObjProp = new MSTacticalLineGraphics();
@@ -254,15 +257,16 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 */
 		case "combatBoundary": {
 			const MSTacticalObjProp = new MSTacticalLineGraphics();
-			const milSymbolObject = MSTacticalObjProp.getMSObject("G*G*GLB---****X");
+			const milSymbolObject = MSTacticalObjProp.getMSObject("G*G*GL4---****X");
 			milSymbolObject.graphicObjProp.textExt = "Down";
 			milSymbolObject.graphicObjProp.textExt2 = "Up";
 			milSymbolObject.graphicObjProp.textExt4 = "I";
 			graphic.createMode(milSymbolObject.graphicObjProp, milSymbolObject.graphicObjStyle);
 			break;
 		}
-		case "image":
-			//subPopupMenu(thisId);
-			break;
+		// 이미지 인자를 받기 위해 별도로 DrawPanelToolbar에서 처리하겠음
+		// case "image": {
+		// 	break;
+		// }
 	}
 };

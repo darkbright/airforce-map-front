@@ -1,5 +1,5 @@
 import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
-import { ReactElement, useState } from "react";
+import { ChangeEvent, ReactElement, useRef, useState } from "react";
 import ArcIcon from "../../assets/icons/shapes/ArcIcon";
 import BSplineIcon from "../../assets/icons/shapes/BSplineIcon";
 import CircleIcon from "../../assets/icons/shapes/CircleIcon";
@@ -29,6 +29,9 @@ import {
 import MilSymbolIcon from "../../assets/icons/shapes/MilSymbolIcon";
 import MilitarySymbolListTreeDrawer from "../../modules/map/milSymbol/MilitarySymbolListTreeDrawer";
 import useFullScreenStore from "../../stores/useFullScreenStore";
+import { imageUploader } from "../../utils/imageUploader";
+import { IGraphicObjectProp } from "../../types/d2/Core/IGraphicObjectProp";
+import D2MapModule from "../../libs/d2/D2MapModule";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
@@ -130,29 +133,29 @@ const shapesList: ShapesListProps[] = [
 	},
 	{
 		value: "forwardAxis",
-		title: "전진축",
+		title: "지상전진축",
 		icon: <ForwardAxisIcon />,
 	},
 	{
 		value: "multiPointForwardAxis",
-		title: "다점전진축",
+		title: "방위호형",
 		icon: <MultiPointForwardAxisIcon />,
 	},
 	{
 		value: "FlightForwradAxis",
-		title: "비행점진축",
+		title: "아군항공전진축",
 		icon: <FlightForwradAxisIcon />,
 	},
 	{
 		value: "combatBoundary",
-		title: "전투지경선",
+		title: "전방전투지경선",
 		icon: <CombatBoundaryIcon />,
 	},
-	{
-		value: "image",
-		title: "이미지",
-		icon: <ImageIcon />,
-	},
+	// {
+	// 	value: "image",
+	// 	title: "이미지",
+	// 	icon: <ImageIcon />,
+	// },
 ];
 
 /**
@@ -171,6 +174,24 @@ const DrawPanelToolbar = () => {
 
 	// 군대부호 탐색기 열고 닫기
 	const [symbolListOpen, setSymbolListOpen] = useState(false);
+
+	/**
+	 * 이미지 핸들링
+	 */
+	const fileInput = useRef<HTMLInputElement>(null);
+	const { GraphicObjectProp } = D2MapModule;
+	const handleUploadImage = async (event: ChangeEvent<HTMLInputElement>) => {
+		const result = await imageUploader({
+			event,
+			imageSize: 1,
+		});
+		if (result?.base64) {
+			window.eventManager.setMapMode("graphic");
+			const graphicObject: IGraphicObjectProp = new GraphicObjectProp("image");
+			graphicObject.imgDataURL = result.base64;
+			await window.graphic.createMode(graphicObject);
+		}
+	};
 
 	return (
 		<>
@@ -213,6 +234,28 @@ const DrawPanelToolbar = () => {
 							</Tooltip>
 						</ToggleButton>
 					))}
+					<ToggleButton
+						sx={{ lineHeight: 1 }}
+						value="image"
+						onClick={() => {
+							if (fileInput.current) {
+								fileInput.current?.click();
+							}
+						}}
+					>
+						<input
+							ref={fileInput}
+							hidden
+							accept="image/*"
+							type="file"
+							onChange={handleUploadImage}
+						/>
+						<Tooltip title="이미지">
+							<div>
+								<ImageIcon />
+							</div>
+						</Tooltip>
+					</ToggleButton>
 				</ToggleButtonGroup>
 				<ToggleButton
 					sx={{

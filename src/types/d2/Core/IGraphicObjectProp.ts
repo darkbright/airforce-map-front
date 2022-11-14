@@ -31,7 +31,7 @@ export interface IGraphicObjectProp {
 	/**
 	 * 이미지 데이터
 	 */
-	imgDataURL: string;
+	imgDataURL: string | ArrayBuffer | null;
 	/**
 	 * polyline 라인 타입
 	 * - 0: 일반
