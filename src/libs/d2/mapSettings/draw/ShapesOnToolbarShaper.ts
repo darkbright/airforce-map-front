@@ -35,9 +35,6 @@ interface ShapesOnToolBarShaperProps {
 	tid: GraphicShapeType;
 }
 
-const graphic = window.graphic;
-const { GraphicObjectProp, GraphicObjectStyle, MSTacticalLineGraphics } = D2MapModule;
-
 /**
  * Map 내 DrawPaanelToolbar의 각종 도형들을 그릴 때 사용하는 함수임.
  * @param tid string 사용할 도형의 이름을 string으로 전달
@@ -45,6 +42,8 @@ const { GraphicObjectProp, GraphicObjectStyle, MSTacticalLineGraphics } = D2MapM
 
 export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 	window.eventManager.setMapMode("graphic");
+	const graphic = window.graphic;
+	const { GraphicObjectProp, GraphicObjectStyle, MSTacticalLineGraphics } = D2MapModule;
 
 	switch (tid) {
 		case "layer":
@@ -121,9 +120,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 글자
 		 */
 		case "text": {
-			/**
-			 * TO_BE_CHECKED
-			 */
+			// const objProp: IGraphicObjectProp = new GraphicObjectProp("textEditor");
+			// graphic.createMode(objProp);
 			break;
 		}
 		/**
