@@ -120,8 +120,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 * 글자
 		 */
 		case "text": {
-			// const objProp: IGraphicObjectProp = new GraphicObjectProp("textEditor");
-			// graphic.createMode(objProp);
+			const objProp: IGraphicObjectProp = new GraphicObjectProp("textEditor");
+			graphic.createMode(objProp);
 			break;
 		}
 		/**

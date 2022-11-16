@@ -1,4 +1,4 @@
-import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
+import { styled, ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
 import { ChangeEvent, ReactElement, useRef, useState } from "react";
 import ArcIcon from "../../assets/icons/shapes/ArcIcon";
 import BSplineIcon from "../../assets/icons/shapes/BSplineIcon";
@@ -21,7 +21,6 @@ import SplineIcon from "../../assets/icons/shapes/SplineIcon";
 import StraightLineIcon from "../../assets/icons/shapes/StraightLineIcon";
 import TextIcon from "../../assets/icons/shapes/TextIcon";
 import TriangleIcon from "../../assets/icons/shapes/TriangleIcon";
-
 import {
 	ShapesOnToolbarShaper,
 	GraphicShapeType,
@@ -32,6 +31,7 @@ import useFullScreenStore from "../../stores/useFullScreenStore";
 import { imageUploader } from "../../utils/imageUploader";
 import { IGraphicObjectProp } from "../../types/d2/Core/IGraphicObjectProp";
 import D2MapModule from "../../libs/d2/D2MapModule";
+import FeatureLayerHandler from "../../modules/map/layer/FeatureLayerHandler";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
@@ -175,6 +175,9 @@ const DrawPanelToolbar = () => {
 	// 군대부호 탐색기 열고 닫기
 	const [symbolListOpen, setSymbolListOpen] = useState(false);
 
+	// 레이어 핸들링 Div 열고 닫기
+	const [showLayerHandler, setShowLayerHandler] = useState(true);
+
 	/**
 	 * 이미지 핸들링
 	 */
@@ -195,95 +198,133 @@ const DrawPanelToolbar = () => {
 
 	return (
 		<>
-			<div
+			<Root
 				style={{
-					margin: ".5%",
-					display: "flex",
-					alignItems: "center",
-					position: "absolute",
 					top: isFullScreenOpen === "f" ? "4em" : "11.3em",
 					left: isFullScreenOpen === "f" ? "0.8em" : "16em",
-					zIndex: 1000,
 				}}
 			>
-				<ToggleButtonGroup
-					sx={{
-						marginLeft: "10px",
-						background: (theme) => theme.palette.background.default,
-						opacity: 0.9,
-					}}
-					size="small"
-					color="primary"
-					value={alignment}
-					exclusive
-					onChange={handleChange}
-				>
-					{shapesList.map((shape) => (
+				<FirstRow>
+					<ToggleButtonGroup
+						sx={{
+							marginLeft: "10px",
+							background: (theme) => theme.palette.background.default,
+							opacity: 0.9,
+						}}
+						size="small"
+						color="primary"
+						value={alignment}
+						exclusive
+						onChange={handleChange}
+					>
+						{shapesList.map((shape) => (
+							<ToggleButton
+								key={shape.value}
+								sx={{ lineHeight: 1 }}
+								value={shape.value}
+								onClick={() => {
+									ShapesOnToolbarShaper({
+										tid: shape.value,
+									});
+								}}
+							>
+								<Tooltip title={shape.title}>
+									<div>{shape.icon}</div>
+								</Tooltip>
+							</ToggleButton>
+						))}
 						<ToggleButton
-							key={shape.value}
 							sx={{ lineHeight: 1 }}
-							value={shape.value}
+							value="image"
 							onClick={() => {
-								ShapesOnToolbarShaper({
-									tid: shape.value,
-								});
+								if (fileInput.current) {
+									fileInput.current?.click();
+								}
 							}}
 						>
-							<Tooltip title={shape.title}>
-								<div>{shape.icon}</div>
+							<input
+								ref={fileInput}
+								hidden
+								accept="image/*"
+								type="file"
+								onChange={handleUploadImage}
+							/>
+							<Tooltip title="이미지">
+								<div>
+									<ImageIcon />
+								</div>
 							</Tooltip>
 						</ToggleButton>
-					))}
+					</ToggleButtonGroup>
 					<ToggleButton
-						sx={{ lineHeight: 1 }}
-						value="image"
+						sx={{
+							ml: 2,
+							background: (theme) => theme.palette.background.default,
+							opacity: 0.9,
+							"&:hover": { background: (theme) => theme.palette.background.paper },
+						}}
+						size="small"
+						color="primary"
+						value="military Symbol"
 						onClick={() => {
-							if (fileInput.current) {
-								fileInput.current?.click();
-							}
+							setSymbolListOpen(true);
 						}}
 					>
-						<input
-							ref={fileInput}
-							hidden
-							accept="image/*"
-							type="file"
-							onChange={handleUploadImage}
-						/>
-						<Tooltip title="이미지">
+						<Tooltip title="군대부호 탐색기">
 							<div>
-								<ImageIcon />
+								<MilSymbolIcon />
 							</div>
 						</Tooltip>
 					</ToggleButton>
-				</ToggleButtonGroup>
-				<ToggleButton
-					sx={{
-						ml: 2,
-						background: (theme) => theme.palette.background.default,
-						opacity: 0.9,
-						"&:hover": { background: (theme) => theme.palette.background.paper },
-					}}
-					size="small"
-					color="primary"
-					value="military Symbol"
-					onClick={() => {
-						setSymbolListOpen(true);
-					}}
-				>
-					<Tooltip title="군대부호 탐색기">
-						<div>
-							<MilSymbolIcon />
-						</div>
-					</Tooltip>
-				</ToggleButton>
-			</div>
+				</FirstRow>
+
+				<SecondRow>
+					<ToggleButton
+						sx={{
+							background: (theme) => theme.palette.background.default,
+							opacity: 0.9,
+							"&:hover": { background: (theme) => theme.palette.background.paper },
+						}}
+						size="small"
+						color="primary"
+						value="layer-manager"
+						onClick={() => {
+							setShowLayerHandler(!showLayerHandler);
+						}}
+					>
+						<Tooltip title="투명도 레이어 관리">
+							<div>투명도 관리</div>
+						</Tooltip>
+					</ToggleButton>
+				</SecondRow>
+			</Root>
+
 			<MilitarySymbolListTreeDrawer
 				open={symbolListOpen}
 				setOpen={() => setSymbolListOpen(false)}
 			/>
+			<FeatureLayerHandler show={showLayerHandler} setShow={() => setShowLayerHandler(false)} />
 		</>
 	);
 };
 
 export default DrawPanelToolbar;
+
+const Root = styled("div")(() => ({
+	margin: ".5%",
+
+	position: "absolute",
+	zIndex: 1000,
+}));
+
+const FirstRow = styled("div")(() => ({
+	display: "flex",
+	alignItems: "center",
+}));
+
+const SecondRow = styled("div")(() => ({
+	display: "flex",
+	alignItems: "center",
+	marginTop: "1%",
+	marginLeft: 10,
+}));

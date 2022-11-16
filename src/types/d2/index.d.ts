@@ -28,6 +28,7 @@ declare global {
 		// d2Core를 통해 생성된 객체
 		Coordinate: any;
 		D2_CONSTANTS: d2Constants;
+		CKEDITOR_BASEPATH: string;
 		map: any;
 		D2MapManager: d2MapManager;
 		MilSymbol: any;

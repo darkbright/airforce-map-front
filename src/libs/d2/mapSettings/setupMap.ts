@@ -116,4 +116,10 @@ export default async () => {
 	window.mapLayerManager.addMVTSymbolPath("MVTSymbolPath", urlInfo.fdbSymbolPath);
 
 	loadMVTLayerTree();
+
+	// 투명도 feature 중 text 관련 핸들링
+	// TO_BE_CHECKED
+	// window.CKEDITOR_BASEPATH = "src/libs/d2/d2editor";
+	// const textEditorUI = new TextEditorPopupUI();
+	// console.log("textEditorUI", textEditorUI);
 };
