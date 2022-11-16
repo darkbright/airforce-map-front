@@ -1,4 +1,5 @@
 export interface Graphic {
+	_graphicBoard: IGraphicBoard[];
 	/**
 	 * 그래픽 App보드 (레이어 추가)
 	 * @returns App보드의 인덱스를 반환함
@@ -45,6 +46,10 @@ export interface Graphic {
 	 * @returns Appboard 오브젝트
 	 */
 	getGraphicAppBoard: (index: number) => any;
+	/**
+	 * 선택한 그래픽 보드를 반환함
+	 */
+	getGraphicBoard: (index: number) => any;
 	/**
 	 * 그래픽 보드의 개수를 반환함
 	 */
@@ -151,4 +156,66 @@ export interface GraphicCursor {
 	 * cursor.rotate = "url(src/lib/image/icon/cursor-rotate.cur),auto";
 	 */
 	rotate: string;
+}
+
+/**
+ * 생성된 그래픽 보드 (투명도 레이어 )
+ */
+export interface IGraphicBoard {
+	editTime: string;
+	_attribute: any;
+	_author: string;
+	_createObject: any;
+	_defaultStyle: any;
+	_editTime: string;
+	_graphic: {
+		_autoCreateBoard: boolean;
+		_defaultStyle: any;
+		_graphicAppBoard: any[];
+		_graphicBoard: any[];
+		_graphicIndex: number;
+		_ketState: {
+			ctrl: boolean;
+			shift: boolean;
+		};
+		_layerCallback: any;
+		_map: any;
+		_mapScale: number;
+		_mode: string;
+		_msObjectCreator: any;
+		_postComposeCtrl: any;
+		_selectGraphicBoard: any;
+		_selectObjectManager: any;
+		_selectorLayer: any;
+		_selectorSource: any;
+		_stdXSDManager: any;
+		_styleCallback: any;
+		_trackerLayer: any;
+		_trackerLineLayer: any;
+		_trackerLineSource: any;
+		_trackerSource: any;
+	};
+	_graphicLayer: any;
+	_graphicSource: any;
+	_guid: string;
+	_interaction: any;
+	_ketState: any;
+	_map: any;
+	_mode: string;
+	_msObjectCreator: any;
+	_name: string;
+	_security: number;
+	_selectObjectManager: any;
+	_selectorLayer: any;
+	_selectorSource: any;
+	_shiftPosition: any;
+	_si: boolean;
+	_source: string;
+	_trackerLayer: any;
+	_trackerLineLayer: any;
+	_trackerLineSource: any;
+	_undoRedo: any;
+	getVisible: () => boolean;
+	getName: () => string;
+	getCreateTime: () => string;
 }
