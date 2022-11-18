@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, styled, Typography } from "@mui/material";
+import { styled } from "@mui/material";
 import { Dispatch, SetStateAction, SyntheticEvent, useEffect, useState } from "react";
 import BaseBlockTitleBox from "../../../components/box/textBox/BaseBlockTitleBox";
 import CloseButton from "../../../components/button/CloseButton";
@@ -6,9 +6,9 @@ import useFullScreenStore from "../../../stores/useFullScreenStore";
 import useThemeStore from "../../../stores/useThemeStore";
 import { theme } from "../../../styles/theme";
 import { getWindowSize } from "../../../styles/windowSize";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextButton from "../../../components/button/TextButton";
 import { IGraphicBoard, IGraphicObject } from "../../../types/d2/Graphic";
+import FeatureSingleLayer from "./FeatureSingleLayer";
 
 interface FeatureLayerHandlerProps {
 	show: boolean;
@@ -67,7 +67,6 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 		graphic.setSelectGraphicBoard(index);
 		const addedLayer = graphic.getGraphicBoard(index);
 		setLayers((prev) => [...prev.filter((p) => p._guid !== addedLayer._guid), addedLayer]);
-		console.log(graphic._graphicBoard);
 	};
 
 	return (
@@ -96,34 +95,17 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 
 				<div>
 					{layers.map((layer, index: number) => (
-						<Accordion
-							expanded={expanded === index}
-							onChange={handleChange(index)}
-							disableGutters
-							sx={{
-								mb: 1,
-							}}
+						<FeatureSingleLayer
 							key={layer._guid}
-							onClick={() => {
+							layer={layer}
+							expanded={expanded === index}
+							handleAccordionChange={handleChange(index)}
+							onClickAccordion={() => {
 								graphic.setSelectGraphicBoard(index);
 								handleSelectLayer();
 							}}
-						>
-							<AccordionSummary
-								expandIcon={<ExpandMoreIcon />}
-								aria-controls={layer._name}
-								id={layer._name}
-							>
-								<Typography> {layer._name} </Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								{features
-									?.filter((featureLayer) => featureLayer._graphicBoard._name === layer._name)
-									?.map((feature) => (
-										<div key={feature._prop.guid}>{feature._prop.name}</div>
-									))}
-							</AccordionDetails>
-						</Accordion>
+							features={features}
+						/>
 					))}
 				</div>
 			</Wrapper>

@@ -196,9 +196,11 @@ export interface IGraphicBoard {
 	_trackerLineSource: any;
 	_undoRedo: any;
 	getVisible: () => boolean;
+	setVisible: (visible: boolean) => void;
 	getName: () => string;
+	setName: (name: string) => void;
 	getCreateTime: () => string;
-	getParentObjectList: () => any;
+	getParentObjectList: () => IGraphicObject[];
 }
 
 interface _IGraphic {
