@@ -13,6 +13,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import SingleLayerHandlerModal from "./SingleLayerHandlerModal";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import SingleFeatureBox from "./SingleFeatureBox";
 
 interface FeatureSingLayerProps {
 	expanded: boolean;
@@ -100,7 +101,11 @@ const FeatureSingleLayer = ({
 						{features
 							?.filter((featureLayer) => featureLayer._graphicBoard._name === layer._name)
 							?.map((feature) => (
-								<div key={feature._prop.guid}>{feature._prop.name}</div>
+								<SingleFeatureBox
+									key={feature._prop.guid}
+									feature={feature}
+									parentVisibility={visible}
+								/>
 							))}
 					</AccordionDetails>
 				</Accordion>

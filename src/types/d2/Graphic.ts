@@ -385,7 +385,9 @@ export interface IGraphicObject {
 	_trackerLineLayer: any;
 	_trackerLineSource: any;
 	_trackerSource: any;
-	_visiblity: any;
+	_visiblity: boolean;
+	setVisible: (visible: boolean) => void;
+	getVisible: () => boolean;
 }
 
 /**
