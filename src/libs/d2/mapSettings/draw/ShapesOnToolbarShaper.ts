@@ -70,6 +70,7 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			// polyline의 형태는 원래 채움 색을 가지고 있어, 그것을 투명하게 처리함으로써 직선을 구현하고 있음
 			objStyle.fill.color[3] = 0;
 			graphic.createMode(objProp, objStyle);
+
 			break;
 		}
 		/**

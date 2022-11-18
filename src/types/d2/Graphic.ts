@@ -1,3 +1,6 @@
+/**
+ * 투명도 관련 모든 속성으로, 레이어 설정 및 값들
+ */
 export interface Graphic {
 	_graphicBoard: IGraphicBoard[];
 	/**
@@ -168,38 +171,15 @@ export interface IGraphicBoard {
 	_createObject: any;
 	_defaultStyle: any;
 	_editTime: string;
-	_graphic: {
-		_autoCreateBoard: boolean;
-		_defaultStyle: any;
-		_graphicAppBoard: any[];
-		_graphicBoard: any[];
-		_graphicIndex: number;
-		_ketState: {
-			ctrl: boolean;
-			shift: boolean;
-		};
-		_layerCallback: any;
-		_map: any;
-		_mapScale: number;
-		_mode: string;
-		_msObjectCreator: any;
-		_postComposeCtrl: any;
-		_selectGraphicBoard: any;
-		_selectObjectManager: any;
-		_selectorLayer: any;
-		_selectorSource: any;
-		_stdXSDManager: any;
-		_styleCallback: any;
-		_trackerLayer: any;
-		_trackerLineLayer: any;
-		_trackerLineSource: any;
-		_trackerSource: any;
-	};
+	_graphic: _IGraphic;
 	_graphicLayer: any;
 	_graphicSource: any;
 	_guid: string;
 	_interaction: any;
-	_ketState: any;
+	_ketState: {
+		shift: boolean;
+		ctrl: boolean;
+	};
 	_map: any;
 	_mode: string;
 	_msObjectCreator: any;
@@ -218,4 +198,204 @@ export interface IGraphicBoard {
 	getVisible: () => boolean;
 	getName: () => string;
 	getCreateTime: () => string;
+	getParentObjectList: () => any;
+}
+
+interface _IGraphic {
+	_autoCreateBoard: boolean;
+	_defaultStyle: any;
+	_graphicAppBoard: any[];
+	_graphicBoard: any[];
+	_graphicIndex: number;
+	_ketState: {
+		ctrl: boolean;
+		shift: boolean;
+	};
+	_layerCallback: any;
+	_map: any;
+	_mapScale: number;
+	_mode: string;
+	_msObjectCreator: any;
+	_postComposeCtrl: any;
+	_selectGraphicBoard: any;
+	_selectObjectManager: any;
+	_selectorLayer: any;
+	_selectorSource: any;
+	_stdXSDManager: any;
+	_styleCallback: any;
+	_trackerLayer: any;
+	_trackerLineLayer: any;
+	_trackerLineSource: any;
+	_trackerSource: any;
+}
+
+/**
+ * 생성된 레이어 내 개별 Feature(도형, 군대부호 등)의 속성값
+ */
+export interface IGraphicFeature {
+	dispatching_: any;
+	disposed: boolean;
+	eventTarget: any;
+	geometryChangeKey_: any;
+	geometryName_: string;
+	graphicObj: IGraphicObject;
+}
+
+export interface IGraphicObject {
+	_edit: {
+		bound: {
+			minX: number;
+			maxX: number;
+			minY: number;
+			maxY: number;
+		};
+		pixelPositions: any[];
+		positions: any[];
+	};
+	_feature: any;
+	_graphic: _IGraphic;
+	_graphicBoard: IGraphicBoard;
+	_graphicLayer: any;
+	_graphicSource: any;
+	_interaction: any;
+	_map: any;
+	_parent: any;
+	_prop: {
+		attribute: any;
+		bound: {
+			maxX: number;
+			maxY: number;
+			minX: number;
+			minY: number;
+		};
+		createTime: string;
+		editTime: string;
+		guid: string;
+		links: any;
+		lock: boolean;
+		name: string;
+		pixelPositions: number[][];
+		positions: number[][];
+		radius: number;
+		rotate: number;
+		sameRatio: boolean;
+		scaleLimit: boolean;
+		scaleLower: number;
+		scaleUpper: number;
+		screenAnchor: number[];
+		screenMode: boolean;
+		text: string;
+		trackerRotate: any[];
+		type: string;
+	};
+	_rotateCtrlPt: number[];
+	_selectObjectManager: any;
+	_showTracker: boolean;
+	_style: {
+		fill: {
+			/**
+			 * rgba
+			 */
+			color: number[];
+			gradient: IGradient;
+			stopPoint: number[];
+			type: string;
+		};
+		pattern: string;
+		patternColor: number[][];
+		type: string;
+		useFillColor: boolean;
+	};
+	line: {
+		alphaHex: any;
+		arrow: {
+			begin: {
+				type: string;
+				width: number;
+				height: number;
+			};
+			end: {
+				type: string;
+				width: number;
+				height: number;
+			};
+		};
+		color: number[];
+		dash: any;
+		dashOffset: number;
+		doubleLine: any;
+		fill: {
+			gradient: IGradient;
+			pattern: string;
+			patternColor: number[][];
+			type: string;
+		};
+		lineCap: string;
+		lineJoin: string;
+		type: string;
+		useLinColor: boolean;
+		width: number;
+	};
+	marker: {
+		imgUrl: string | null;
+		size: number;
+	};
+	point: {
+		type: string;
+		size: number;
+	};
+	text: {
+		backgroundColor: number[];
+		bold: boolean;
+		color: number[];
+		directionRightToLeft: boolean;
+		directionVertical: boolean;
+		font: string;
+		fontSize: number;
+		italic: boolean;
+		offsetX: number;
+		offsetY: number;
+		outlineColor: number[];
+		outlineWidth: number;
+		placement: string;
+		rotation: number;
+		showBackground: boolean;
+		textAlign: "left" | "center" | "right";
+		textBaseline: "top" | "bottom" | "middle" | "aphabetic" | "hanging" | "ideographic";
+		zIndex: number;
+	};
+	_textFeature: {
+		_dispatching: any;
+		disposed: boolean;
+		eventTarget: any;
+		geometryChangeKey: any;
+		graphicObj: IGraphicFeature;
+		id_: any;
+		listeners: any;
+		ol_uid: string;
+		pendingRemovals_: any;
+		revision_: number;
+		styleFunction_: any;
+		style_: any;
+		values_: any;
+	};
+	_trackerLayer: any;
+	_trackerLineLayer: any;
+	_trackerLineSource: any;
+	_trackerSource: any;
+	_visiblity: any;
+}
+
+/**
+ * 그라디언트 속성
+ */
+interface IGradient {
+	type: string;
+	/**
+	 * rgba array
+	 */
+	color: number[][];
+	stdXML_BlendFactors: any;
+	stdXML_FocusScale: any;
+	stdXML_InterpolationColors: any;
 }
