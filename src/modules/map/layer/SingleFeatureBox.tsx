@@ -1,8 +1,9 @@
-import { styled, Tooltip, Typography } from "@mui/material";
-import { useState } from "react";
+import { Menu, MenuItem, styled, Tooltip, Typography } from "@mui/material";
+import { MouseEvent, useState } from "react";
 import { IGraphicObject } from "../../../types/d2/Graphic";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Draggable } from "react-beautiful-dnd";
+import FeaturePropertyHandlerModal from "./featurePropertyHandler/FeaturePropertyHandlerModal";
 
 interface SingleFeatureBoxProps {
 	feature: IGraphicObject;
@@ -17,52 +18,88 @@ interface SingleFeatureBoxProps {
  */
 const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBoxProps) => {
 	const [visible, setVisible] = useState(feature.getVisible());
+	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+
+	const menuOpen = Boolean(anchorEl);
+
+	const [propertyModalOpen, setPropertyModalOpen] = useState(false);
 
 	// 이거 아직 따라 적지 마세요
-	// const handleRightClick = (event: MouseEvent<HTMLDivElement>) => {
-	// 	event.preventDefault();
+	const handleRightClick = (event: MouseEvent<HTMLDivElement>) => {
+		event.preventDefault();
+		setAnchorEl(event.currentTarget);
 
-	// 	const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
-	// 	const objList = board.getParentObjectList();
-	// 	if (objList.length === 0) return;
-	// 	const objectList = board.getObjectList();
-	// 	console.log("boardObjectList", board.getObjectList());
+		// const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
+		// const objList = board.getParentObjectList();
+		// if (objList.length === 0) return;
+		// const objectList = board.getObjectList();
+		// console.log("boardObjectList", board.getObjectList());
 
-	// 	for (let i = 0; i < objectList.length; i++) {
-	// 		const srcIndex = objectList[i].getZIndex();
-	// 		console.log("srcIndex", srcIndex);
-	// 		objectList[i].setZIndex(0);
-	// 		objectList[i]._graphicBoard.changeOrder(objectList[i], false, srcIndex, 0);
-	// 	}
-	// };
+		// for (let i = 0; i < objectList.length; i++) {
+		// 	const srcIndex = objectList[i].getZIndex();
+		// 	console.log("srcIndex", srcIndex);
+		// 	objectList[i].setZIndex(0);
+		// 	objectList[i]._graphicBoard.changeOrder(objectList[i], false, srcIndex, 0);
+		// }
+	};
 
 	return (
-		<Draggable draggableId={feature._prop.guid} index={index}>
-			{(provided) => (
-				<Root ref={provided.innerRef} {...provided.draggableProps}>
-					<Wrapper>
-						<Tooltip title={visible ? "숨기기" : "보이기"}>
-							<VisibilityWrapper
-								onClick={() => {
-									if (parentVisibility) {
-										setVisible(!visible);
-										feature.setVisible(!visible);
-									}
-								}}
-							>
-								<VisibilityIcon
-									sx={{ fontSize: "0.9rem", opacity: visible && parentVisibility ? 1 : 0.2 }}
-								/>
-							</VisibilityWrapper>
-						</Tooltip>
+		<>
+			<Draggable draggableId={feature._prop.guid} index={index}>
+				{(provided) => (
+					<Root
+						ref={provided.innerRef}
+						{...provided.draggableProps}
+						onContextMenu={handleRightClick}
+					>
+						<Wrapper>
+							<Tooltip title={visible ? "숨기기" : "보이기"}>
+								<VisibilityWrapper
+									onClick={() => {
+										if (parentVisibility) {
+											setVisible(!visible);
+											feature.setVisible(!visible);
+										}
+									}}
+								>
+									<VisibilityIcon
+										sx={{ fontSize: "0.9rem", opacity: visible && parentVisibility ? 1 : 0.2 }}
+									/>
+								</VisibilityWrapper>
+							</Tooltip>
 
-						<Typography sx={{ ml: 1 }} variant="body2" {...provided.dragHandleProps}>
-							{feature._prop.name}
-						</Typography>
-					</Wrapper>
-				</Root>
-			)}
-		</Draggable>
+							<Typography sx={{ ml: 1 }} variant="body2" {...provided.dragHandleProps}>
+								{feature._prop.name}
+							</Typography>
+						</Wrapper>
+					</Root>
+				)}
+			</Draggable>
+			<Menu
+				id="feature-menu"
+				open={menuOpen}
+				anchorEl={anchorEl}
+				onClose={() => setAnchorEl(null)}
+				MenuListProps={{
+					"aria-labelledby": "basic-button",
+				}}
+			>
+				<MenuItem dense onClick={() => setPropertyModalOpen(true)}>
+					속성 변경
+				</MenuItem>
+				<MenuItem dense onClick={() => console.log("dfs")}>
+					삭제
+				</MenuItem>
+				<MenuItem dense onClick={() => console.log("dfs")}>
+					아이템 복사
+				</MenuItem>
+			</Menu>
+			<FeaturePropertyHandlerModal
+				open={propertyModalOpen}
+				setOpen={() => setPropertyModalOpen(false)}
+				feature={feature}
+			/>
+		</>
 	);
 };
 
