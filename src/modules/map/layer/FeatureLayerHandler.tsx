@@ -74,17 +74,18 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 	const onDragEnd = ({ destination, source }: DropResult) => {
 		if (!destination) return;
 		if (features) {
+			// 화면에서 보여줄 인덱스
 			const reorderedFeatures = reorder(features, source.index, destination.index);
-
 			setFeatures(reorderedFeatures);
-			console.log("reorderedFeatures", reorderedFeatures);
-			const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
-			const objList = board.getParentObjectList();
-			console.log("objlist", objList);
-
-			// 현재 이 논리를 알 수가 없음 개별 도형에 대하여 실행해 본 후 다시 트라이
-
-			board.undoRedoSave();
+			// graphic 객체에 반영
+			const board: IGraphicBoard = graphic.getSelectGraphicBoard();
+			const objectList = board.getObjectList();
+			objectList.map((obj) => {
+				const sameIndex = reorderedFeatures.find((re) => re._prop.guid === obj._prop.guid);
+				if (sameIndex) {
+					obj.setZIndex(reorderedFeatures.indexOf(sameIndex));
+				}
+			});
 		}
 	};
 

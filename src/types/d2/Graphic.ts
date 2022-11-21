@@ -489,6 +489,8 @@ export interface IGraphicObject {
 	_visiblity: boolean;
 	setVisible: (visible: boolean) => void;
 	getVisible: () => boolean;
+	getZIndex: () => number;
+	setZIndex: (index: number) => void;
 }
 
 /**

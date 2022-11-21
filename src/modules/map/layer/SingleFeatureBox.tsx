@@ -18,6 +18,24 @@ interface SingleFeatureBoxProps {
 const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBoxProps) => {
 	const [visible, setVisible] = useState(feature.getVisible());
 
+	// 이거 아직 따라 적지 마세요
+	// const handleRightClick = (event: MouseEvent<HTMLDivElement>) => {
+	// 	event.preventDefault();
+
+	// 	const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
+	// 	const objList = board.getParentObjectList();
+	// 	if (objList.length === 0) return;
+	// 	const objectList = board.getObjectList();
+	// 	console.log("boardObjectList", board.getObjectList());
+
+	// 	for (let i = 0; i < objectList.length; i++) {
+	// 		const srcIndex = objectList[i].getZIndex();
+	// 		console.log("srcIndex", srcIndex);
+	// 		objectList[i].setZIndex(0);
+	// 		objectList[i]._graphicBoard.changeOrder(objectList[i], false, srcIndex, 0);
+	// 	}
+	// };
+
 	return (
 		<Draggable draggableId={feature._prop.guid} index={index}>
 			{(provided) => (
