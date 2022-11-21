@@ -2,10 +2,12 @@ import { styled, Tooltip, Typography } from "@mui/material";
 import { useState } from "react";
 import { IGraphicObject } from "../../../types/d2/Graphic";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { Draggable } from "react-beautiful-dnd";
 
 interface SingleFeatureBoxProps {
 	feature: IGraphicObject;
 	parentVisibility: boolean;
+	index: number;
 }
 
 /**
@@ -13,32 +15,36 @@ interface SingleFeatureBoxProps {
  * @param SingleFeatureBoxProps SingleFeatureBoxProps
  * @returns {JSX.Element} div
  */
-const SingleFeatureBox = ({ feature, parentVisibility }: SingleFeatureBoxProps) => {
+const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBoxProps) => {
 	const [visible, setVisible] = useState(feature.getVisible());
 
 	return (
-		<Root>
-			<Wrapper>
-				<Tooltip title={visible ? "숨기기" : "보이기"}>
-					<VisibilityWrapper
-						onClick={() => {
-							if (parentVisibility) {
-								setVisible(!visible);
-								feature.setVisible(!visible);
-							}
-						}}
-					>
-						<VisibilityIcon
-							sx={{ fontSize: "0.9rem", opacity: visible && parentVisibility ? 1 : 0.2 }}
-						/>
-					</VisibilityWrapper>
-				</Tooltip>
+		<Draggable draggableId={feature._prop.guid} index={index}>
+			{(provided) => (
+				<Root ref={provided.innerRef} {...provided.draggableProps}>
+					<Wrapper>
+						<Tooltip title={visible ? "숨기기" : "보이기"}>
+							<VisibilityWrapper
+								onClick={() => {
+									if (parentVisibility) {
+										setVisible(!visible);
+										feature.setVisible(!visible);
+									}
+								}}
+							>
+								<VisibilityIcon
+									sx={{ fontSize: "0.9rem", opacity: visible && parentVisibility ? 1 : 0.2 }}
+								/>
+							</VisibilityWrapper>
+						</Tooltip>
 
-				<Typography sx={{ ml: 1 }} variant="body2">
-					{feature._prop.name}
-				</Typography>
-			</Wrapper>
-		</Root>
+						<Typography sx={{ ml: 1 }} variant="body2" {...provided.dragHandleProps}>
+							{feature._prop.name}
+						</Typography>
+					</Wrapper>
+				</Root>
+			)}
+		</Draggable>
 	);
 };
 
@@ -46,7 +52,7 @@ export default SingleFeatureBox;
 
 const Root = styled("div")(({ theme }) => ({
 	background: theme.palette.background.default,
-	padding: "2% 5%",
+	padding: 8,
 	marginBottom: "1%",
 }));
 

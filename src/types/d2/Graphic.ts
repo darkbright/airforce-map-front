@@ -1,5 +1,8 @@
 /**
- * 투명도 관련 모든 속성으로, 레이어 설정 및 값들
+ * 투명도 관련 모든 속성으로, 레이어 설정 및 feature 값들을 저장 관리 수정 등 모든 것을 관할함
+ * - GraphicBoard: n개의 Board가 합쳐진 개념으로, 이 Board들의 zIndex 등을 바꿀 수 있음.
+ * - Board: 하나의 Layer 개념으로 n개의 feature들을 가지고 있움. (말하자면 파워포인트에서 슬라이드 한장, 일러스트레이터에서의 그룹의 개념이라고 간력하게 이해할 수도 있겠음 - 여기서 파워포인트와 다른 것은, 파워포인트에서 한 장의 슬라이드의 투명도를 50%로 낮춘다고 다음 슬라이드 위에 중첩되어 보이진 않으나, 여기서는 가능함. 즉, 여러 개의 Board는 중첩된 채로 실제 "LAYER"를 구성하여 Stack되고 그것들이 화면에 모두 보여질 수 있다는 의미임)
+ * - ObjectProp / Object / Feature: 서로 다르게 부르고 있지만 모두 하나의 Board 안에 종속된  개별 도형/군대부호들을 나타냄. Board 내에 List로 저장되며 도형들의 ZIndex를 변경하여 표시된 순서를 바꿀 수 있음. 따라서 앞으로/뒤로/맨뒤로/맨앞으로 등의 순서 조절이 가능해짐.
  */
 export interface Graphic {
 	_graphicBoard: IGraphicBoard[];
@@ -115,6 +118,10 @@ export interface Graphic {
 	 */
 	selectedObjectToGroup: () => void;
 	/**
+	 * 선택된 그래픽 객체의 그룹 해제
+	 */
+	selectedObjectToUnGroup: () => void;
+	/**
 	 * 그래픽(투명도) 객체의 선택 모드로 설정함. 선택된 객체는 편집과 이동 등이 가능해짐
 	 */
 	selectMode: () => void;
@@ -185,7 +192,7 @@ export interface IGraphicBoard {
 	_msObjectCreator: any;
 	_name: string;
 	_security: number;
-	_selectObjectManager: any;
+	_selectObjectManager: ISelectObjectManager;
 	_selectorLayer: any;
 	_selectorSource: any;
 	_shiftPosition: any;
@@ -195,12 +202,105 @@ export interface IGraphicBoard {
 	_trackerLineLayer: any;
 	_trackerLineSource: any;
 	_undoRedo: any;
+	/**
+	 * 현재 보여지는지 여부 반환
+	 */
 	getVisible: () => boolean;
+	/**
+	 * 숨길지 말지 설정
+	 */
 	setVisible: (visible: boolean) => void;
+	/**
+	 * 보드 이름 가쟈옴
+	 */
 	getName: () => string;
+	/**
+	 * 보드 이름 설정
+	 */
 	setName: (name: string) => void;
+	/**
+	 * 생성 시간 로드
+	 */
 	getCreateTime: () => string;
+	/**
+	 * 수정 시간 로드
+	 */
+	getEditTime: () => string;
+	/**
+	 * 그래픽 객체를 배열로 리턴
+	 */
+	getObjectList: () => IGraphicObject[];
+	/**
+	 * 최상위 그래픽 객체(그룹)을 배열로 리턴
+	 */
 	getParentObjectList: () => IGraphicObject[];
+	/**
+	 * 그룹 객체 리턴
+	 */
+	getGroupObjectList: () => IGraphicObject[];
+	/**
+	 * 모두 삭제
+	 */
+	destroy: () => void;
+	/**
+	 * zIndex 설정
+	 */
+	setIndex: (index: number) => void;
+	/**
+	 * zIndex 리턴
+	 */
+	getIndex: () => number;
+	/**
+	 * 오브젝트 순서 조절 (ZIndex를 변경하는 것임)
+	 */
+	changeOrder: (
+		reference: IGraphicObject,
+		forward: boolean,
+		srcIndex: number,
+		dstIndex: number,
+	) => void;
+	/**
+	 * 객체 정보 로드
+	 */
+	importJSON: (
+		layer: {
+			name: string;
+			createTime: string;
+			editTime: string;
+			author: string;
+			exercise: any;
+			security: any;
+			si: any;
+			source: any;
+			attribute: any;
+		},
+		sendMsg?: any,
+	) => void;
+	/**
+	 * stdXML 로드
+	 */
+	importStdXML: (stdXML: any, sendMsg: any) => void;
+	/**
+	 * 객체정보를 JSON 파일로 변환
+	 */
+	exportJSON: () => string;
+	/**
+	 * 표준 xml 형식으로 지정
+	 */
+	exportStdXML: () => any;
+	/**
+	 * 해상도 변경 시 객체 업데이트
+	 */
+	resolutionUpdate: () => any;
+	/**
+	 * 그래픽 객체의 zIndex 정렬
+	 */
+	sortZIndex: () => void;
+	undo: () => void;
+	redo: () => void;
+	undoRedoLoad: (layer: any) => void;
+	undoRedoSave: (vertexEditingGUID?: string) => void;
+	getGUID: () => string;
 }
 
 interface _IGraphic {
@@ -220,7 +320,7 @@ interface _IGraphic {
 	_msObjectCreator: any;
 	_postComposeCtrl: any;
 	_selectGraphicBoard: any;
-	_selectObjectManager: any;
+	_selectObjectManager: ISelectObjectManager;
 	_selectorLayer: any;
 	_selectorSource: any;
 	_stdXSDManager: any;
@@ -291,7 +391,7 @@ export interface IGraphicObject {
 		type: string;
 	};
 	_rotateCtrlPt: number[];
-	_selectObjectManager: any;
+	_selectObjectManager: ISelectObjectManager;
 	_showTracker: boolean;
 	_style: {
 		fill: {
@@ -302,70 +402,71 @@ export interface IGraphicObject {
 			gradient: IGradient;
 			stopPoint: number[];
 			type: string;
-		};
-		pattern: string;
-		patternColor: number[][];
-		type: string;
-		useFillColor: boolean;
-	};
-	line: {
-		alphaHex: any;
-		arrow: {
-			begin: {
-				type: string;
-				width: number;
-				height: number;
-			};
-			end: {
-				type: string;
-				width: number;
-				height: number;
-			};
-		};
-		color: number[];
-		dash: any;
-		dashOffset: number;
-		doubleLine: any;
-		fill: {
-			gradient: IGradient;
 			pattern: string;
 			patternColor: number[][];
-			type: string;
+			useFillColor: boolean;
 		};
-		lineCap: string;
-		lineJoin: string;
-		type: string;
-		useLinColor: boolean;
-		width: number;
-	};
-	marker: {
-		imgUrl: string | null;
-		size: number;
-	};
-	point: {
-		type: string;
-		size: number;
-	};
-	text: {
-		backgroundColor: number[];
-		bold: boolean;
-		color: number[];
-		directionRightToLeft: boolean;
-		directionVertical: boolean;
-		font: string;
-		fontSize: number;
-		italic: boolean;
-		offsetX: number;
-		offsetY: number;
-		outlineColor: number[];
-		outlineWidth: number;
-		placement: string;
-		rotation: number;
-		showBackground: boolean;
-		textAlign: "left" | "center" | "right";
-		textBaseline: "top" | "bottom" | "middle" | "aphabetic" | "hanging" | "ideographic";
+		line: {
+			alphaHex: any;
+			arrow: {
+				begin: {
+					type: string;
+					width: number;
+					height: number;
+				};
+				end: {
+					type: string;
+					width: number;
+					height: number;
+				};
+			};
+			color: number[];
+			dash: any;
+			dashOffset: number;
+			doubleLine: any;
+			fill: {
+				gradient: IGradient;
+				pattern: string;
+				patternColor: number[][];
+				type: string;
+			};
+			lineCap: string;
+			lineJoin: string;
+			type: string;
+			useLinColor: boolean;
+			width: number;
+		};
+		marker: {
+			imgUrl: string | null;
+			size: number;
+		};
+		point: {
+			type: string;
+			size: number;
+		};
+		text: {
+			backgroundColor: number[];
+			bold: boolean;
+			color: number[];
+			directionRightToLeft: boolean;
+			directionVertical: boolean;
+			font: string;
+			fontSize: number;
+			italic: boolean;
+			offsetX: number;
+			offsetY: number;
+			outlineColor: number[];
+			outlineWidth: number;
+			placement: string;
+			rotation: number;
+			showBackground: boolean;
+			textAlign: "left" | "center" | "right";
+			textBaseline: "top" | "bottom" | "middle" | "aphabetic" | "hanging" | "ideographic";
+			zIndex: number;
+		};
 		zIndex: number;
 	};
+
 	_textFeature: {
 		_dispatching: any;
 		disposed: boolean;
@@ -402,4 +503,126 @@ interface IGradient {
 	stdXML_BlendFactors: any;
 	stdXML_FocusScale: any;
 	stdXML_InterpolationColors: any;
+}
+
+interface ISelectObjectManager {
+	_graphic: _IGraphic;
+	_map: any;
+	_graphicLayer: any;
+	_graphicSource: any;
+	_trackerLayer: any;
+	_trackerSource: any;
+	_trackerLineLayer: any;
+	_trackerLineSource: any;
+	_objectList: any[];
+	_copyObjectList: any[];
+	_interaction: any;
+	_shiftPosition: any;
+	/**
+	 * 선택된 오브젝트 리스트 반환
+	 */
+	getSelectObjectList: () => any;
+	/**
+	 * 추가
+	 */
+	add: (obj: any) => void;
+	/**
+	 * 선택된 객체 삭제
+	 */
+	remove: () => void;
+	/**
+	 * MBR 좌표로 객체 선택
+	 */
+	select: (extend: any, objects: any) => void;
+	/**
+	 *선택된 객체를 선택모드로 설정
+	 */
+	selectObject: (sendMsg: any) => void;
+	/**
+	 * 선택된 객체가 맞는지 검사
+	 */
+	findObject: (findObj: any) => any;
+	/**
+	 * 객체의 선택여부 반전
+	 */
+	inverseObject: (obj: any) => void;
+	/**
+	 * 선택된 객체 이동
+	 */
+	move: () => void;
+	/**
+	 * 선택된 객체를 copyObjectList에 복사
+	 */
+	copy: () => void;
+	/**
+	 * copyObjectList 를 붙여넣음
+	 */
+	paste: () => void;
+	/**
+	 * objectList 갯수 반환
+	 */
+	getCount: () => number;
+	/**
+	 * objectList 초기화
+	 */
+	clear: () => void;
+	/**
+	 * 트래커 삭제
+	 */
+	clearTracker: () => void;
+	/**
+	 * interaction handler 제거
+	 */
+	handleClear: () => void;
+	/**
+	 * 선택된 객체를 최상위로 설정
+	 */
+	selectedObjectToTop: () => void;
+	/**
+	 * 선택된 객체를 최하위로 설정
+	 */
+	selectedObjectToBottom: () => void;
+	/**
+	 * 선택된 객체를 한단계 위로 설정
+	 *  */
+	selectedObjectToForward: () => void;
+	/**
+	 * 선택된 객체를 한단계 아래로 설정
+	 */
+	selectedObjectToBackward: () => void;
+	/**
+	 * 선택된 객체 그룹화
+	 */
+	selectedObjectToGroup: () => void;
+	/**
+	 * 선택된 객체 그룹해제
+	 */
+	selectedObjectToUnGroup: () => void;
+	/**
+	 * 그룹 가능 여부 반환
+	 */
+	selectedObjectIsGrouping: () => boolean;
+	/**
+	 * 선택된 객체 정렬
+	 */
+	selectedObjectAlign: (
+		alignment: "top" | "middle" | "bottom" | "left" | "center" | "right",
+	) => void;
+	startScaleEditing: () => void;
+	/**
+	 * 선택된 도형 확대/축소
+	 */
+	drawScaleEditing: (index: any, tX: any, tY: any, update: any) => void;
+	/**
+	 * 선택된 도형 회전
+	 */
+	drawRotateEditing: (rotateInfo: any, depth: any) => void;
+	/**
+	 * 스케일 메트릭스 계산
+	 */
+	makeScaleMatrix: (index: any, tX: any, tY: any, bound: any, sameRatio: any) => void;
+	/**
+	 * 객체들의 수정일시 수정
+	 */
+	changeEditTime: () => void;
 }

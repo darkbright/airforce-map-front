@@ -9,6 +9,8 @@ import { getWindowSize } from "../../../styles/windowSize";
 import TextButton from "../../../components/button/TextButton";
 import { IGraphicBoard, IGraphicObject } from "../../../types/d2/Graphic";
 import FeatureSingleLayer from "./FeatureSingleLayer";
+import { DropResult } from "react-beautiful-dnd";
+import { reorder } from "../../../utils/reorder";
 
 interface FeatureLayerHandlerProps {
 	show: boolean;
@@ -69,6 +71,23 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 		setLayers((prev) => [...prev.filter((p) => p._guid !== addedLayer._guid), addedLayer]);
 	};
 
+	const onDragEnd = ({ destination, source }: DropResult) => {
+		if (!destination) return;
+		if (features) {
+			const reorderedFeatures = reorder(features, source.index, destination.index);
+
+			setFeatures(reorderedFeatures);
+			console.log("reorderedFeatures", reorderedFeatures);
+			const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
+			const objList = board.getParentObjectList();
+			console.log("objlist", objList);
+
+			// 현재 이 논리를 알 수가 없음 개별 도형에 대하여 실행해 본 후 다시 트라이
+
+			board.undoRedoSave();
+		}
+	};
+
 	return (
 		<Root
 			style={{
@@ -97,6 +116,7 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 					{layers.map((layer, index: number) => (
 						<FeatureSingleLayer
 							key={layer._guid}
+							onDragEnd={onDragEnd}
 							layer={layer}
 							expanded={expanded === index}
 							handleAccordionChange={handleChange(index)}
