@@ -2,6 +2,7 @@ import { Box, styled, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import BaseModal from "../../../../components/modal/BaseModal";
 import TabPanel from "../../../../components/tab/TabPanel";
+import { typesOfShape } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicObject } from "../../../../types/d2/Graphic";
 import FeatureFillHandler from "./FeatureFillHandler";
 import FeatureLineHandler from "./FeatureLineHandler";
@@ -35,6 +36,10 @@ const FeaturePropertyHandlerModal = ({
 		};
 	}
 
+	//현재 선택된 도형의 종류를 찾아옴.
+	// 선택된 도형의 종류에 따라 설정 가능한 tab 및 바꿀 수 있는 property가 바뀌기 때문임.
+	const typeOfFeature = typesOfShape.find((shape) => shape.id === feature._prop.type)!.type;
+
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
 			<Box sx={{ flexGrow: 1, bgColor: "background.paper", display: "flex", height: 260 }}>
@@ -48,12 +53,14 @@ const FeaturePropertyHandlerModal = ({
 				>
 					<Tab label="선" {...a11yProps(0)} />
 					<Tab label="채움" {...a11yProps(1)} />
-					<Tab label="텍스트" {...a11yProps(2)} />
-					<Tab label="속성" {...a11yProps(3)} />
+					{typeOfFeature === "polyline" && <Tab label="화살표" {...a11yProps(2)} />}
+
+					<Tab label="텍스트" {...a11yProps(3)} />
+					<Tab label="속성" {...a11yProps(4)} />
 				</Tabs>
 				<TabPanel value={tabValue} index={0}>
 					<TabPanelRoot>
-						<FeatureLineHandler feature={feature} />
+						<FeatureLineHandler feature={feature} typeOfFeature={typeOfFeature} />
 					</TabPanelRoot>
 				</TabPanel>
 				<TabPanel value={tabValue} index={1}>
@@ -62,9 +69,16 @@ const FeaturePropertyHandlerModal = ({
 					</TabPanelRoot>
 				</TabPanel>
 				<TabPanel value={tabValue} index={2}>
-					<TabPanelRoot></TabPanelRoot>
+					<TabPanelRoot>
+						<FeatureFillHandler feature={feature} />
+					</TabPanelRoot>
 				</TabPanel>
-				<TabPanel value={tabValue} index={3}>
+				{typeOfFeature === "polyline" && (
+					<TabPanel value={tabValue} index={3}>
+						<TabPanelRoot></TabPanelRoot>
+					</TabPanel>
+				)}
+				<TabPanel value={tabValue} index={4}>
 					<TabPanelRoot></TabPanelRoot>
 				</TabPanel>
 			</Box>

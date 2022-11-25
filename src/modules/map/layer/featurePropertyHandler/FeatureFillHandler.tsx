@@ -9,7 +9,7 @@ import {
 } from "../../../../components/colorPicker/BaseColorPicker";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
 import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
-import { IGraphicBoard, IGraphicObject } from "../../../../types/d2/Graphic";
+import { IGraphicObject } from "../../../../types/d2/Graphic";
 
 interface FeatureLineHandlerProps {
 	feature: IGraphicObject;
@@ -21,7 +21,7 @@ const { GraphicUtil } = D2MapModule;
  * @returns {JSX.Element} div
  */
 const FeatureFillHandler = ({ feature }: FeatureLineHandlerProps) => {
-	const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
+	const board = window.graphic.getSelectGraphicBoard();
 	const objectList = board.getObjectList();
 	const initialColor = objectList.find((obj) => obj._prop.guid === feature._prop.guid)!._style.fill
 		.color;
@@ -37,7 +37,6 @@ const FeatureFillHandler = ({ feature }: FeatureLineHandlerProps) => {
 		objectList.map((obj) => {
 			const sameIndex = objectList.find((re) => re._prop.guid === feature._prop.guid);
 			if (sameIndex) {
-				console.log("1", obj._style);
 				obj._style.fill.color = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}

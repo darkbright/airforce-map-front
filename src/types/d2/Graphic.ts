@@ -64,7 +64,7 @@ export interface Graphic {
 	 * 선택된 그래픽 보드를 반환함
 	 * @returns GraphicBoard
 	 */
-	getSelectGraphicBoard: () => any;
+	getSelectGraphicBoard: () => IGraphicBoard;
 	/**
 	 * 선택된 그래픽 객체를 배열로 반환함
 	 */
@@ -421,7 +421,14 @@ export interface IGraphicObject {
 				};
 			};
 			color: number[];
-			dash: any;
+			/**
+			 * 라인의 타입이 dash일 때, 아래와 같이 설정
+			 * - dash : [10, 10]
+			 * - dash dot: [10, 10, 0, 10]
+			 * - dash dot dot: [10, 10, 0, 10, 0, 10]
+			 * - undefined: dash가 아닌 경우
+			 */
+			dash: [10, 10] | [10, 10, 0, 10] | [10, 10, 0, 10, 0, 10] | undefined;
 			dashOffset: number;
 			doubleLine: any;
 			fill: {
@@ -432,7 +439,7 @@ export interface IGraphicObject {
 			};
 			lineCap: string;
 			lineJoin: string;
-			type: string;
+			type: "simple" | "arrow" | "dash";
 			useLinColor: boolean;
 			width: number;
 		};
