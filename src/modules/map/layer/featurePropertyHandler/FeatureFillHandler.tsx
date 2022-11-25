@@ -17,28 +17,28 @@ interface FeatureLineHandlerProps {
 
 const { GraphicUtil } = D2MapModule;
 /**
- * 도형(Feature)의 선을 관리할 수 있도록 하는 모달 내 요소
+ * 도형(Feature)의 채움을 관리할 수 있도록 하는 모달 내 요소
  * @returns {JSX.Element} div
  */
-const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
+const FeatureFillHandler = ({ feature }: FeatureLineHandlerProps) => {
 	const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
 	const objectList = board.getObjectList();
-	const initialColor = objectList.find((obj) => obj._prop.guid === feature._prop.guid)!._style.line
+	const initialColor = objectList.find((obj) => obj._prop.guid === feature._prop.guid)!._style.fill
 		.color;
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
 
-	const [lineColor, setLineColor] = useColor("hex", graphicUtil.rgb2hex(initialColor));
+	const [fillColor, setFillColor] = useColor("hex", GraphicUtil.rgb2hex(initialColor));
 	const [openColorPicker, setOpenColorPicker] = useState(false);
 
-	// 생성된 도형의 선 색상을 변경함
+	// 생성된 도형의 채움(fill) 색상을 변경함
 	const changeLineColor = (color: Color) => {
-		setLineColor(color);
-
+		setFillColor(color);
 		objectList.map((obj) => {
 			const sameIndex = objectList.find((re) => re._prop.guid === feature._prop.guid);
 			if (sameIndex) {
-				obj._style.line.color = graphicUtil.hex2rgb(color.hex);
+				console.log("1", obj._style);
+				obj._style.fill.color = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
 		});
@@ -46,10 +46,10 @@ const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
 
 	return (
 		<Root>
-			<BaseBlockTitleBox title="선 속성" />
-			<SpaceBetweenTextBox title="선 색상">
+			<BaseBlockTitleBox title="채움 속성" />
+			<SpaceBetweenTextBox title="채움(Fill) 색상">
 				<BaseColorPickerShowDot
-					color={lineColor.hex}
+					color={fillColor.hex}
 					clickable
 					circleSize="large"
 					onClick={() => setOpenColorPicker(true)}
@@ -58,14 +58,14 @@ const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
 			<BaseColorPicker
 				openColorPicker={openColorPicker}
 				setOpenColorPicker={() => setOpenColorPicker(false)}
-				color={lineColor}
+				color={fillColor}
 				onColorChange={changeLineColor}
 			/>
 		</Root>
 	);
 };
 
-export default FeatureLineHandler;
+export default FeatureFillHandler;
 
 const Root = styled("div")(() => ({
 	width: "100%",

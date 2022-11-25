@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import { Dispatch, SetStateAction, SyntheticEvent, useEffect, useState } from "react";
 import BaseBlockTitleBox from "../../../components/box/textBox/BaseBlockTitleBox";
 import CloseButton from "../../../components/button/CloseButton";
@@ -49,7 +49,7 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 	 */
 	const handleSelectLayer = () => {
 		const board: IGraphicBoard = graphic.getSelectGraphicBoard();
-		const objList = board.getParentObjectList();
+		const objList: IGraphicObject[] = board.getParentObjectList();
 		return setFeatures(objList);
 	};
 
@@ -111,6 +111,7 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 						textPosition="right"
 						onClick={handleAddLayer}
 					/>
+					<Button onClick={() => console.log("features", features)}>클릭</Button>
 				</AddLayerWrapper>
 
 				<div>

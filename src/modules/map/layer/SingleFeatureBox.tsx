@@ -24,23 +24,9 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 
 	const [propertyModalOpen, setPropertyModalOpen] = useState(false);
 
-	// 이거 아직 따라 적지 마세요
 	const handleRightClick = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		setAnchorEl(event.currentTarget);
-
-		// const board: IGraphicBoard = window.graphic.getSelectGraphicBoard();
-		// const objList = board.getParentObjectList();
-		// if (objList.length === 0) return;
-		// const objectList = board.getObjectList();
-		// console.log("boardObjectList", board.getObjectList());
-
-		// for (let i = 0; i < objectList.length; i++) {
-		// 	const srcIndex = objectList[i].getZIndex();
-		// 	console.log("srcIndex", srcIndex);
-		// 	objectList[i].setZIndex(0);
-		// 	objectList[i]._graphicBoard.changeOrder(objectList[i], false, srcIndex, 0);
-		// }
 	};
 
 	return (
@@ -84,7 +70,13 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 					"aria-labelledby": "basic-button",
 				}}
 			>
-				<MenuItem dense onClick={() => setPropertyModalOpen(true)}>
+				<MenuItem
+					dense
+					onClick={() => {
+						setPropertyModalOpen(true);
+						setAnchorEl(null);
+					}}
+				>
 					속성 변경
 				</MenuItem>
 				<MenuItem dense onClick={() => console.log("dfs")}>

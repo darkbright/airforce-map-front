@@ -68,7 +68,7 @@ export interface Graphic {
 	/**
 	 * 선택된 그래픽 객체를 배열로 반환함
 	 */
-	getSelectObjectList: () => [];
+	getSelectObjectList: () => any[];
 	/**
 	 * 투명도 표준 XSD(스키마) 파일의 URL을 설정함.
 	 * 표준 XML을 열거나 저장 시 스키마 정보로 기본값을 설정함

@@ -3,6 +3,7 @@ import { useState } from "react";
 import BaseModal from "../../../../components/modal/BaseModal";
 import TabPanel from "../../../../components/tab/TabPanel";
 import { IGraphicObject } from "../../../../types/d2/Graphic";
+import FeatureFillHandler from "./FeatureFillHandler";
 import FeatureLineHandler from "./FeatureLineHandler";
 
 interface FeaturePropertyHandlerModalProps {
@@ -28,6 +29,9 @@ const FeaturePropertyHandlerModal = ({
 		return {
 			id: `tabpanel-${index}`,
 			"aria-controls": `tab-${index}`,
+			sx: {
+				width: 100,
+			},
 		};
 	}
 
@@ -40,7 +44,7 @@ const FeaturePropertyHandlerModal = ({
 					value={tabValue}
 					aria-label="feature-proertyHandler"
 					onChange={(event, newValue: number) => setTabValue(newValue)}
-					sx={{ bordierRight: 1, borderColor: "divider" }}
+					sx={{ borderRight: 1, borderColor: "divider" }}
 				>
 					<Tab label="선" {...a11yProps(0)} />
 					<Tab label="채움" {...a11yProps(1)} />
@@ -49,11 +53,13 @@ const FeaturePropertyHandlerModal = ({
 				</Tabs>
 				<TabPanel value={tabValue} index={0}>
 					<TabPanelRoot>
-						<FeatureLineHandler />
+						<FeatureLineHandler feature={feature} />
 					</TabPanelRoot>
 				</TabPanel>
 				<TabPanel value={tabValue} index={1}>
-					<TabPanelRoot></TabPanelRoot>
+					<TabPanelRoot>
+						<FeatureFillHandler feature={feature} />
+					</TabPanelRoot>
 				</TabPanel>
 				<TabPanel value={tabValue} index={2}>
 					<TabPanelRoot></TabPanelRoot>
@@ -69,5 +75,5 @@ const FeaturePropertyHandlerModal = ({
 export default FeaturePropertyHandlerModal;
 
 const TabPanelRoot = styled("div")(() => ({
-	padding: 10,
+	padding: "0px 20px",
 }));

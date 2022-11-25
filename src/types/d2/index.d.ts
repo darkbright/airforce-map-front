@@ -3,6 +3,7 @@ import { ClipboardOptions } from "./ClipboardOptions";
 import { CoordManager } from "./Core/CoordManager";
 import { IGraphicObjectProp } from "./Core/IGraphicObjectProp";
 import { IGraphicObjectStyle } from "./Core/IGraphicObjectStyle";
+import { IGraphicUtil } from "./Core/IGraphicUtil";
 import { d2Constants } from "./d2Constants";
 import { d2MapManager } from "./d2MapManager";
 import { Distance } from "./distance";
@@ -74,7 +75,7 @@ declare global {
 				GraphicObjectProp: IGraphicObjectProp;
 				GraphicObjectStyle: IGraphicObjectStyle;
 				GraphicPopUpUI: any;
-				GraphicUtil: any;
+				GraphicUtil: IGraphicUtil;
 				Grid: any;
 				MSTacticalLineGraphics: any;
 				MSTacticalPolygonGraphics: any;
