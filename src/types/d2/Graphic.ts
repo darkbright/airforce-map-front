@@ -401,8 +401,8 @@ export interface IGraphicObject {
 			color: number[];
 			gradient: IGradient;
 			stopPoint: number[];
-			type: string;
-			pattern: string;
+			type: IFeatureFillType;
+			pattern: IPatternType;
 			patternColor: number[][];
 			useFillColor: boolean;
 		};
@@ -421,21 +421,14 @@ export interface IGraphicObject {
 				};
 			};
 			color: number[];
-			/**
-			 * 라인의 타입이 dash일 때, 아래와 같이 설정
-			 * - dash : [10, 10]
-			 * - dash dot: [10, 10, 0, 10]
-			 * - dash dot dot: [10, 10, 0, 10, 0, 10]
-			 * - undefined: dash가 아닌 경우
-			 */
-			dash: [10, 10] | [10, 10, 0, 10] | [10, 10, 0, 10, 0, 10] | undefined;
+			dash: IDashLineType;
 			dashOffset: number;
 			doubleLine: any;
 			fill: {
 				gradient: IGradient;
-				pattern: string;
+				pattern: IPatternType;
 				patternColor: number[][];
-				type: string;
+				type: IFeatureFillType;
 			};
 			lineCap: string;
 			lineJoin: string;
@@ -504,7 +497,7 @@ export interface IGraphicObject {
  * 그라디언트 속성
  */
 interface IGradient {
-	type: string;
+	type: "horizontal" | "forwardDiagonal" | "vertical" | "backwardDiagonal" | "path" | "radial";
 	/**
 	 * rgba array
 	 */
@@ -635,3 +628,73 @@ interface ISelectObjectManager {
 	 */
 	changeEditTime: () => void;
 }
+
+/**
+ * 라인의 타입이 dash일 때, 아래와 같이 설정
+ * - dash : [10, 10]
+ * - dash dot: [10, 10, 0, 10]
+ * - dash dot dot: [10, 10, 0, 10, 0, 10]
+ * - undefined: dash가 아닌 경우
+ */
+export type IDashLineType = [10, 10] | [10, 10, 0, 10] | [10, 10, 0, 10, 0, 10] | undefined;
+
+/**
+ * 음영 또는 도형의 패턴 설정 시 패턴에 해당하는 항목들
+ */
+export type IPatternType =
+	| "horizontal"
+	| "vertical"
+	| "forwardDiagonal"
+	| "backwardDiagonal"
+	| "cross"
+	| "diagonalCross"
+	| "percent05"
+	| "percent10"
+	| "percent20"
+	| "percent25"
+	| "percent30"
+	| "percent40"
+	| "percent50"
+	| "percent60"
+	| "percent70"
+	| "percent75"
+	| "percent80"
+	| "percent90"
+	| "lightDownwardDiagonal"
+	| "lightUpwardDiagonal"
+	| "darkDownwardDiagonal"
+	| "darkUpwardDiagonal"
+	| "wideDownwardDiagonal"
+	| "wideUpwardDiagonal"
+	| "lightVertical"
+	| "lightHorizontal"
+	| "narrowVertical"
+	| "narrowHorizontal"
+	| "darkVertical"
+	| "darkHorizontal"
+	| "dashedDownwardDiagonal"
+	| "dashedUpwardDiagonal"
+	| "dashedHorizontal"
+	| "dashedVertical"
+	| "smallConfetti"
+	| "zigZag"
+	| "wave"
+	| "diagonalBrick"
+	| "horizontalBrick"
+	| "weave"
+	| "plaid"
+	| "divot"
+	| "DottedGrid"
+	| "dottedDiamond"
+	| "shingle"
+	| "trellis"
+	| "sphere"
+	| "smallGrid"
+	| "smallCheckerBoard"
+	| "outlinedDiamond"
+	| "solidDiamond";
+
+/**
+ * 선 또는 도형의 채움 타입
+ */
+export type IFeatureFillType = "simple" | "pattern" | "gradient";

@@ -5,6 +5,7 @@ interface SpaceBetweenTextBoxProps {
 	title: string;
 	children: ReactNode;
 	marginBottom?: number;
+	childrenWidth?: string;
 }
 
 /**
@@ -14,11 +15,16 @@ interface SpaceBetweenTextBoxProps {
  * @param {SpaceBetweenTextBoxProps} SpaceBetweenTextBoxProps
  * @returns {JSX.Element} React Component
  */
-const SpaceBetweenTextBox = ({ title, children, marginBottom = 0 }: SpaceBetweenTextBoxProps) => {
+const SpaceBetweenTextBox = ({
+	title,
+	children,
+	marginBottom = 0,
+	childrenWidth = "",
+}: SpaceBetweenTextBoxProps) => {
 	return (
 		<Root style={{ marginBottom }}>
 			<Typography variant="body1">{title}</Typography>
-			<div>{children}</div>
+			<div style={{ width: childrenWidth }}>{children}</div>
 		</Root>
 	);
 };

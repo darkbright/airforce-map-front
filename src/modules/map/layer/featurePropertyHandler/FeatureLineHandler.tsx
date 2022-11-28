@@ -15,18 +15,24 @@ import TextInput from "../../../../components/form/TextInput";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
 import { TypesOfShapeType } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
-import { IGraphicObject } from "../../../../types/d2/Graphic";
+import { IDashLineType, IGraphicObject } from "../../../../types/d2/Graphic";
 import { isArrayEqual } from "../../../../utils/compareArray";
 
 interface FeatureLineHandlerProps {
-	feature: IGraphicObject;
+	// 리액트 상태 관리용
+	feature?: IGraphicObject;
+	// window.graphic 내의 객체
+	foundFeature: IGraphicObject;
+	// 도형의 종류
 	typeOfFeature?: TypesOfShapeType;
+	// 전체 objectList
+	objectList: IGraphicObject[];
 }
 
 const { GraphicUtil } = D2MapModule;
 
 // dashLine 종류
-const dashLineTypes = [
+const dashLineTypes: { id: string; type: IDashLineType }[] = [
 	{ id: "dot", type: [10, 10] },
 	{ id: "dash dot", type: [10, 10, 0, 10] },
 	{ id: "dash dot dot", type: [10, 10, 0, 10, 0, 10] },
@@ -36,21 +42,17 @@ const dashLineTypes = [
  * 도형(Feature)의 선을 관리할 수 있도록 하는 모달 내 요소
  * @returns {JSX.Element} div
  */
-const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
-	const board = window.graphic.getSelectGraphicBoard();
-	const objectList = board.getObjectList();
-
-	const initialProp = objectList.find((obj) => obj._prop.guid === feature._prop.guid)!;
+const FeatureLineHandler = ({ objectList, foundFeature }: FeatureLineHandlerProps) => {
 	const {
 		color: initialColor,
 		width: initialWidth,
 		type: initialLineType,
 		dash: initialDashLineArray,
-	} = initialProp._style.line;
+	} = foundFeature!._style.line;
 
 	const initialDashLineType =
 		(initialDashLineArray &&
-			dashLineTypes.find((d) => isArrayEqual(d.type, initialDashLineArray))?.id) ||
+			dashLineTypes.find((d) => isArrayEqual(d.type as number[], initialDashLineArray))?.id) ||
 		undefined;
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
@@ -68,10 +70,8 @@ const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
 	// 생성된 도형의 선 색상을 변경함
 	const changeLineColor = (color: Color) => {
 		setLineColor(color);
-
-		objectList.map((obj) => {
-			const sameIndex = objectList.find((re) => re._prop.guid === feature._prop.guid);
-			if (sameIndex) {
+		objectList!.map((obj) => {
+			if (foundFeature._prop.guid === obj._prop.guid) {
 				obj._style.line.color = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -81,9 +81,8 @@ const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
 	// 생성된 도형의 선 굵기를 변경함
 	const changeLineWidth = (event: ChangeEvent<HTMLInputElement>) => {
 		setLineWidth(Number(event.target.value));
-		objectList.map((obj) => {
-			const sameIndex = objectList.find((re) => re._prop.guid === feature._prop.guid);
-			if (sameIndex) {
+		objectList!.map((obj) => {
+			if (foundFeature._prop.guid === obj._prop.guid) {
 				obj._style.line.width = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -92,15 +91,12 @@ const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
 
 	// 생성된 도형의 종류를 변경함
 	const changeLineType = (event: MouseEvent<HTMLElement>, selected: "simple" | "dash") => {
-		objectList.map((obj) => {
-			const sameIndex = objectList.find((re) => re._prop.guid === feature._prop.guid);
-			if (sameIndex) {
+		objectList!.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
 				obj._style.line.type = selected;
-
 				setLineType(selected);
 				if (selected === "dash") {
 					obj._style.line.dash = [10, 10];
-
 					setDashLineType("dot");
 				}
 				graphicUtil.setFeatureStyle(obj);
@@ -113,8 +109,14 @@ const FeatureLineHandler = ({ feature }: FeatureLineHandlerProps) => {
 		event: MouseEvent<HTMLElement>,
 		selected: "dot" | "dash dot" | "dash dot dot",
 	) => {
-		setDashLineType(selected);
-		// 아직 안함
+		objectList!.map((obj) => {
+			if (foundFeature._prop.guid === obj._prop.guid) {
+				obj._style.line.dash =
+					dashLineTypes.find((dash) => dash.id === selected)?.type || undefined;
+				setDashLineType(selected);
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
 	};
 
 	return (
