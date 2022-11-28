@@ -696,5 +696,8 @@ export type IPatternType =
 
 /**
  * 선 또는 도형의 채움 타입
+ * - simple : 단색
+ * - pattern: 패턴
+ * - gradient: 그라디언트
  */
 export type IFeatureFillType = "simple" | "pattern" | "gradient";

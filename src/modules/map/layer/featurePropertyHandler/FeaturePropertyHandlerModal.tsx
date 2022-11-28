@@ -54,7 +54,7 @@ const FeaturePropertyHandlerModal = ({
 			<Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
 				{feature._prop.name} 속성 관리
 			</Typography>
-			<Box sx={{ flexGrow: 1, bgColor: "background.paper", display: "flex", height: 260 }}>
+			<Box sx={{ flexGrow: 1, bgColor: "background.paper", display: "flex", height: 400 }}>
 				<Tabs
 					orientation="vertical"
 					variant="scrollable"
