@@ -1,29 +1,14 @@
-import {
-	FormControl,
-	MenuItem,
-	Select,
-	SelectChangeEvent,
-	Slider,
-	styled,
-	ToggleButton,
-	ToggleButtonGroup,
-} from "@mui/material";
-import { useState } from "react";
+import { SelectChangeEvent, styled } from "@mui/material";
+import { MouseEvent, useState } from "react";
 import { Color, useColor } from "react-color-palette";
 import BaseBlockTitleBox from "../../../../components/box/textBox/BaseBlockTitleBox";
-import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
-import {
-	BaseColorPicker,
-	BaseColorPickerShowDot,
-} from "../../../../components/colorPicker/BaseColorPicker";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
 import { TypesOfShapeType } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
 import { IFeatureFillType, IGraphicObject, IPatternType } from "../../../../types/d2/Graphic";
-import SquareIcon from "@mui/icons-material/Square";
-import TextureIcon from "@mui/icons-material/Texture";
-import GradientIcon from "@mui/icons-material/Gradient";
-import { featurePatternList } from "../../../../data/constants/featurePatternList";
+import FeaturePatternHandler from "./\bcomponents/FeaturePatternHandler";
+import FeatureFillTypeHandler from "./\bcomponents/FeatureFillTypeHandler";
+import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler";
 
 interface FeatureFillHandlerProps {
 	// 리액트 상태 관리용
@@ -55,9 +40,20 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 	// simple, pattern, gradient
 	const [alignment, setAlignment] = useState<IFeatureFillType | null>(initialFillType);
 
+	const onFillTypeChange = (event: MouseEvent<HTMLElement>, newAlignment: IFeatureFillType) => {
+		setAlignment(newAlignment);
+		// 신규 값으로 바뀌면 fill의 type(IFeatureFillType - 단색이냐, 그라디언트냐 )도 그에 맞추어 변경됨.
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.type = newAlignment;
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
 	// 생성된 단색 도형의 채움(fill) 색상을 변경함
 	const [fillColor, setFillColor] = useColor("hex", GraphicUtil.rgb2hex(initialColor));
-	const [openColorPicker, setOpenColorPicker] = useState(false);
+	// const [openColorPicker, setOpenColorPicker] = useState(false);
 	const changeFillColor = (color: Color) => {
 		setFillColor(color);
 		objectList.map((obj) => {
@@ -99,7 +95,6 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 		"hex",
 		GraphicUtil.rgb2hex(initialPatternColor[0]),
 	);
-	const [openPatternBgPicker, setOpenPatternBgPicker] = useState(false);
 	const changePatternBgColor = (color: Color) => {
 		setFillPatternBgColor(color);
 		objectList.map((obj) => {
@@ -128,7 +123,6 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 		"hex",
 		GraphicUtil.rgb2hex(initialPatternColor[1]),
 	);
-	const [openPatternFgPicker, setOpenPatternFgPicker] = useState(false);
 	const changePatternFgColor = (color: Color) => {
 		setFillPatternFgColor(color);
 		objectList.map((obj) => {
@@ -155,142 +149,33 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 	return (
 		<Root>
 			<BaseBlockTitleBox title="채움 속성" />
-			<ToggleButtonGroup
-				sx={{
-					mb: 2,
-				}}
-				size="small"
-				exclusive
-				color="primary"
-				value={alignment}
-				onChange={(event, newAlignment: IFeatureFillType) => {
-					setAlignment(newAlignment);
-					// 신규 값으로 바뀌면 fill의 type(IFeatureFillType - 단색이냐, 그라디언트냐 )도 그에 맞추어 변경됨.
-					objectList.map((obj) => {
-						if (foundFeature!._prop.guid === obj._prop.guid) {
-							obj._style.fill.type = newAlignment;
-							graphicUtil.setFeatureStyle(obj);
-						}
-					});
-				}}
-			>
-				<ToggleButton value="simple" aria-label="simple">
-					<SquareIcon fontSize="small" sx={{ mr: 1 }} />
-					단색
-				</ToggleButton>
-				<ToggleButton value="pattern" aria-label="pattern">
-					<TextureIcon fontSize="small" sx={{ mr: 1 }} />
-					패턴
-				</ToggleButton>
-				<ToggleButton value="gradient" aria-label="gradient">
-					<GradientIcon fontSize="small" sx={{ mr: 1 }} />
-					그라디언트
-				</ToggleButton>
-			</ToggleButtonGroup>
+			<FeatureFillTypeHandler alignment={alignment} onFillTypeChange={onFillTypeChange} />
 			{/* 단색일 경우 */}
 			{alignment === "simple" && (
-				<>
-					<SpaceBetweenTextBox title="채움(Fill) 색상" marginBottom={14}>
-						<BaseColorPickerShowDot
-							color={fillColor.hex}
-							clickable
-							circleSize="large"
-							onClick={() => setOpenColorPicker(true)}
-						/>
-					</SpaceBetweenTextBox>
-					<SpaceBetweenTextBox title="불투명도" childrenWidth="50%" marginBottom={10}>
-						<Slider
-							sx={{ mt: 1, width: "95%" }}
-							value={fillOpacity}
-							aria-label="fill opacity"
-							size="small"
-							color="secondary"
-							onChange={handleOpacityRate}
-							valueLabelDisplay="auto"
-						/>
-					</SpaceBetweenTextBox>
-				</>
+				<FeatureSimpleColorHandler
+					title="채움(Fill)색상"
+					color={fillColor}
+					opacity={fillOpacity}
+					handleOpacityRate={handleOpacityRate}
+					changeColor={changeFillColor}
+				/>
 			)}
 			{/* 패턴일 경우 */}
 			{alignment === "pattern" && (
-				<>
-					<SpaceBetweenTextBox title="패턴 타입" marginBottom={16}>
-						<FormControl fullWidth>
-							<Select
-								size="small"
-								labelId="fill-pattern-select"
-								id="fill-pattern-select"
-								value={fillPattern}
-								onChange={handleFillPattern}
-							>
-								{featurePatternList.map((pattern) => (
-									<MenuItem key={pattern.value} value={pattern.value}>
-										{pattern.eName}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-					</SpaceBetweenTextBox>
-					<SpaceBetweenTextBox title="배경 색상" marginBottom={14}>
-						<BaseColorPickerShowDot
-							color={fillPatternBgColor.hex}
-							clickable
-							circleSize="large"
-							onClick={() => setOpenPatternBgPicker(true)}
-						/>
-					</SpaceBetweenTextBox>
-					<SpaceBetweenTextBox title="배경 불투명도" childrenWidth="50%" marginBottom={10}>
-						<Slider
-							sx={{ mt: 1, width: "95%" }}
-							value={patternBgOpacity}
-							aria-label="fill-pattern-bg-opacity"
-							size="small"
-							color="secondary"
-							onChange={handlePatternBgOpacity}
-							valueLabelDisplay="auto"
-						/>
-					</SpaceBetweenTextBox>
-					<SpaceBetweenTextBox title="전경 색상" marginBottom={14}>
-						<BaseColorPickerShowDot
-							color={fillPatternFgColor.hex}
-							clickable
-							circleSize="large"
-							onClick={() => setOpenPatternFgPicker(true)}
-						/>
-					</SpaceBetweenTextBox>
-					<SpaceBetweenTextBox title="전경 불투명도" childrenWidth="50%" marginBottom={10}>
-						<Slider
-							sx={{ mt: 1, width: "95%" }}
-							value={patternFgOpacity}
-							aria-label="fill-pattern-fg-opacity"
-							size="small"
-							color="secondary"
-							onChange={handlePatternFgOpacity}
-							valueLabelDisplay="auto"
-						/>
-					</SpaceBetweenTextBox>
-				</>
+				<FeaturePatternHandler
+					fillPattern={fillPattern}
+					handleFillPattern={handleFillPattern}
+					fillPatternBgColor={fillPatternBgColor}
+					patternBgOpacity={patternBgOpacity}
+					handlePatternBgOpacity={handlePatternBgOpacity}
+					fillPatternFgColor={fillPatternFgColor}
+					patternFgOpacity={patternFgOpacity}
+					handlePatternFgOpacity={handlePatternFgOpacity}
+					changePatternBgColor={changePatternBgColor}
+					changePatternFgColor={changePatternFgColor}
+				/>
 			)}
 			{/* 그라디언트일 경우 */}
-
-			<BaseColorPicker
-				openColorPicker={openColorPicker}
-				setOpenColorPicker={() => setOpenColorPicker(false)}
-				color={fillColor}
-				onColorChange={changeFillColor}
-			/>
-			<BaseColorPicker
-				openColorPicker={openPatternBgPicker}
-				setOpenColorPicker={() => setOpenPatternBgPicker(false)}
-				color={fillPatternBgColor}
-				onColorChange={changePatternBgColor}
-			/>
-			<BaseColorPicker
-				openColorPicker={openPatternFgPicker}
-				setOpenColorPicker={() => setOpenPatternFgPicker(false)}
-				color={fillPatternFgColor}
-				onColorChange={changePatternFgColor}
-			/>
 		</Root>
 	);
 };

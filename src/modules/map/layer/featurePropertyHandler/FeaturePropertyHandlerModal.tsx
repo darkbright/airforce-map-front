@@ -51,10 +51,10 @@ const FeaturePropertyHandlerModal = ({
 
 	return (
 		<BaseModal open={open} setOpen={setOpen}>
-			<Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+			<Typography variant="body2" gutterBottom sx={{ mb: 2 }}>
 				{feature._prop.name} 속성 관리
 			</Typography>
-			<Box sx={{ flexGrow: 1, bgColor: "background.paper", display: "flex", height: 400 }}>
+			<Box sx={{ flexGrow: 1, bgColor: "background.paper", display: "flex", height: 480 }}>
 				<Tabs
 					orientation="vertical"
 					variant="scrollable"

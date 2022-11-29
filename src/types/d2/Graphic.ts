@@ -403,6 +403,10 @@ export interface IGraphicObject {
 			stopPoint: number[];
 			type: IFeatureFillType;
 			pattern: IPatternType;
+			/**
+			 * - 배경 패턴 patternColor[0]
+			 * - 전경 패턴 patternColor[1]
+			 */
 			patternColor: number[][];
 			useFillColor: boolean;
 		};
@@ -423,10 +427,14 @@ export interface IGraphicObject {
 			color: number[];
 			dash: IDashLineType;
 			dashOffset: number;
-			doubleLine: any;
+			doubleLine: IMultiLineType;
 			fill: {
 				gradient: IGradient;
 				pattern: IPatternType;
+				/**
+				 * - 배경 패턴 patternColor[0]
+				 * - 전경 패턴 patternColor[1]
+				 */
 				patternColor: number[][];
 				type: IFeatureFillType;
 			};
@@ -637,6 +645,21 @@ interface ISelectObjectManager {
  * - undefined: dash가 아닌 경우
  */
 export type IDashLineType = [10, 10] | [10, 10, 0, 10] | [10, 10, 0, 10, 0, 10] | undefined;
+
+/**
+ * 라인의 줄 수가 몇 개인지를 설정
+ * - 1개: undefined
+ * - 2개: [0.00, 0.30, 0.70, 1.00]
+ * - 3개: [0.00, 0.50, 0.75, 1.00]
+ * - 4개: [0.00, 0.25, 0.50, 1.00]
+ * - 5개: [0.00, 0.15, 0.30, 0.70, 0.85, 1.00]
+ */
+export type IMultiLineType =
+	| [0.0, 0.3, 0.7, 1.0]
+	| [0.0, 0.5, 0.75, 1.0]
+	| [0.0, 0.25, 0.5, 1.0]
+	| [0.0, 0.15, 0.3, 0.7, 0.85, 1.0]
+	| undefined;
 
 /**
  * 음영 또는 도형의 패턴 설정 시 패턴에 해당하는 항목들
