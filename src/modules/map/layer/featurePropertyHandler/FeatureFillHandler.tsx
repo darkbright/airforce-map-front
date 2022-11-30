@@ -1,14 +1,21 @@
-import { SelectChangeEvent, styled } from "@mui/material";
+import { FormControl, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import { Color, useColor } from "react-color-palette";
 import BaseBlockTitleBox from "../../../../components/box/textBox/BaseBlockTitleBox";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
 import { TypesOfShapeType } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
-import { IFeatureFillType, IGraphicObject, IPatternType } from "../../../../types/d2/Graphic";
+import {
+	IFeatureFillType,
+	IGradient,
+	IGraphicObject,
+	IPatternType,
+} from "../../../../types/d2/Graphic";
 import FeaturePatternHandler from "./\bcomponents/FeaturePatternHandler";
 import FeatureFillTypeHandler from "./\bcomponents/FeatureFillTypeHandler";
 import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler";
+import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
+import { FeatureGradientList } from "../../../../data/constants/gradient";
 
 interface FeatureFillHandlerProps {
 	// 리액트 상태 관리용
@@ -32,6 +39,7 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 		patternColor: initialPatternColor,
 		type: initialFillType,
 		pattern: initialPatternType,
+		gradient: initialGradientType,
 	} = foundFeature._style.fill;
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
@@ -146,6 +154,18 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 		setPatternFgOpacity(newValue as number);
 	};
 
+	// 생성된 도형이 그라데이션일 때, 그라데이션의 유형을 설정
+	const [gradientType, setGradientType] = useState(initialGradientType.type);
+	const handleGradientType = (event: SelectChangeEvent) => {
+		setGradientType(event.target.value as IGradient["type"]);
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.type = event.target.value as IGradient["type"];
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
 	return (
 		<Root>
 			<BaseBlockTitleBox title="채움 속성" />
@@ -176,6 +196,25 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 				/>
 			)}
 			{/* 그라디언트일 경우 */}
+			{alignment === "gradient" && (
+				<SpaceBetweenTextBox title="그라데이션 유형" marginBottom={16}>
+					<FormControl fullWidth>
+						<Select
+							size="small"
+							labelId="fill-pattern-select"
+							id="fill-pattern-select"
+							value={gradientType}
+							onChange={handleGradientType}
+						>
+							{FeatureGradientList.map((g) => (
+								<MenuItem key={g.value} value={g.value}>
+									{g.kName}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</SpaceBetweenTextBox>
+			)}
 		</Root>
 	);
 };

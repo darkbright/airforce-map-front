@@ -504,12 +504,30 @@ export interface IGraphicObject {
 /**
  * 그라디언트 속성
  */
-interface IGradient {
+export interface IGradient {
+	/**
+	 * - horizontal: 수평
+	 * - forwardDiagonal: 전방사선
+	 * - vertical: 수직
+	 * - backwardDiagonal: 후방사선
+	 * - path: 경로형
+	 * - radial: 방사형
+	 */
 	type: "horizontal" | "forwardDiagonal" | "vertical" | "backwardDiagonal" | "path" | "radial";
 	/**
-	 * rgba array
+	 * rgba array 두 개 이상의 색상의 배열
 	 */
 	color: number[][];
+	/**
+	 * 중지점
+	 * @example [0, 0.2, 1];
+	 */
+	stopPoint: number[];
+	/**
+	 * 중심점
+	 * @example  [0.5, 0.5];
+	 */
+	anchor: number[];
 	stdXML_BlendFactors: any;
 	stdXML_FocusScale: any;
 	stdXML_InterpolationColors: any;
@@ -700,6 +718,7 @@ export type IPatternType =
 	| "dashedHorizontal"
 	| "dashedVertical"
 	| "smallConfetti"
+	| "largeConfetti"
 	| "zigZag"
 	| "wave"
 	| "diagonalBrick"
@@ -707,13 +726,14 @@ export type IPatternType =
 	| "weave"
 	| "plaid"
 	| "divot"
-	| "DottedGrid"
+	| "dottedGrid"
 	| "dottedDiamond"
 	| "shingle"
 	| "trellis"
 	| "sphere"
 	| "smallGrid"
 	| "smallCheckerBoard"
+	| "largeCheckerBoard"
 	| "outlinedDiamond"
 	| "solidDiamond";
 

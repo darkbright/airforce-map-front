@@ -7,6 +7,7 @@
 
 > 본 문서를 편하게 보시려면, `VsCode` 좌측 패널의 디렉터리에서 본 파일명을 우클릭하시고
 > `Open Preview` 버튼을 눌러 보시길 바랍니다.
+> 아울러, 본 문서의 각종 표 및 그래프는 `mermaid`를 이용하고 있습니다. `Vscode`의 extension 항목에서 `Markdown Preview Mermaid Support`를 다운 받으시거나, 폐쇄망 안이라면 cd로 구워서 들고 오세요.
 
 <br>
 <br>
@@ -93,6 +94,7 @@ Nas에서 `EsLint` 및 `Prettier`을 다운받으신 후 **\*** 폴더에 붙여
 - ES7_React/Redux/React-native snippets: React 관련 신규 파일 생성 시 default로 사용해야 하는 코드를 자동으로 생성해주어 귀찮게 똑같은 코드를 입력하는 것을 방지해줌
 - Live Server: d2 Map Sample을 보시고자 하시는 분들에게 해당함.
 - Material Icon Theme: 디렉토리 트리에서 각 파일 확장명에 맞는 해당 언어/파일의 로고를 보여주어 보다 빨리 파일을 찾을 수 있음.
+- Markdown Preview Mermaid Support: 본 문서 및 하위 설명서를 읽으실 때, 표나 각종 그래프가 필요한 경우 mermaid를 활용하고 있으므로 이를 볼 수 있음.
 
 <br>
 <br>
@@ -134,6 +136,34 @@ root 폴더에서 `package.json` 파일을 열어주세요. 그리고 다음과 
 <br>
 
 ---
+
+<br>
+<br>
+
+## 용어 설명
+
+- 구 시스템: 군대 내에서 사용하고 있는 AFCCS 옛날 시스템(우리가 바꿔야 하는 대상)을 의미하며, 앞으로 `구 시스템`이라고 하면 기존 사이트를 의미함.
+
+<br>
+<br>
+
+## Acronyms
+
+- OGC: Open Geospatial Consortium (맵서비스 인증 컨소시움으로 map 표준 인증 담당)
+- WMS: Web Map Service
+- MVT: Mapbox Vector Tiles
+- TMS: Tile Map Service
+- FDB: Feature Database
+- COP: Common Operation map (공통작전 지도)
+- MGRS: 좌표계의 한 형식
+- GARS: Global Area Reference System
+- UTM: Universal Transverse Mercator
+- DEM: Digital Elevation Model (고도 관련)
+
+---
+
+<br>
+<br>
 
 ## 디렉터리 구조
 
@@ -331,6 +361,7 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 
 <br>
 <br>
+
 13. `types` Directory
 
 - 타입스크립트 전용 타입들을 적어놓은 디렉토리입니다.
@@ -344,11 +375,35 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 
 - 자주 사용되는 유용한 함수들을 모아둔 디렉토리입니다.
 - `consonant`와 같은 경우, 한글 받침의 여부에 따라 "을를" 등과 같이 조사가 바뀌는 것을 자동으로 감지해주는 기능입니다.
-- `coordConversion`의 경우 Database에서 받은 좌표 형식을 경위도 형식으로 뱉어줍니다.
 - `reorder`은 배열의 순서를 바꿀 때 사용합니다
-- `time`은 다양한 형식의 날짜시간관련 내용을 원하는 방식으로 바꿔 출력해주는 함수입니다.
+- `time`은 `dayjs`를 활용하여 다양한 형식의 날짜시간관련 내용을 원하는 방식으로 바꿔 출력해주는 함수입니다.
+- `imageUploader`는 이미지를 업로드할 때 쓰는 기능입니다. 이미지는 base64 형태로 변환됩니다.
+- `milColorHandler`는 구 시스템에서 사용하는 각종 컬러를 뜻하는 약어들을 우리가 사용하는 hex값으로 바꿔주는 함수입니다.
+- `regex`는 자주 사용될 수 있는 정규표현식을 모아놓았습니다.
+- `sortColor`는 구 시스템에서 특정한 컬러값에 대하여 높은 값과 낮은 값이 있다고 보고 그 컬러코드에 맞추어 높은 숫자값 순서대로 정렬해주는 기능을 의미합니다.
 
 <br>
+<br>
+
+<br>
+<br>
+
+## 하위문서 목록
+
+---
+
+<br>  
+<br>
+
+> 아래의 링크를 클릭하시면 개별 기능에 대한 설명을 확인하실 수 있습니다.
+
+<br>  
+<br>
+
+[지도 전반](README/MAP.md) : 지도 모듈의 로드 및 각종 지도구현과 관련된 내용
+<br>
+
+[군대부호](README/MILSYMBOL.md)
 <br>
 
 <br>
@@ -357,17 +412,3 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 ## 할 일 중 해소해야 할 것을 적어놓은 주석 시작 문구
 
 `TO_BE_CHECKED`
-
-## Acronyms
-
-- OGC: Open Geospatial Consortium (맵서비스 인증 컨소시움으로 map 표준 인증 담당)
-- WMS: Web Map Service
-- MVT: Mapbox Vector Tiles
-- TMS: Tile Map Service
-- FDB: Feature Database
-- OSM: OpenStreetMap ?
-- COP: Common Operation map (공통작전 지도)
-- MGRS: 좌표계의 한 형식
-- GARS: Global Area Reference System
-- UTM: Universal Transverse Mercator
-- DEM: Digital Elevation Model (고도 관련)

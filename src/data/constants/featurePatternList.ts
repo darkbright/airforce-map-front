@@ -8,7 +8,7 @@ interface FeaturePatternListType {
 
 export const featurePatternList: FeaturePatternListType[] = [
 	{
-		value: "DottedGrid",
+		value: "dottedGrid",
 		eName: "Dotted Grid",
 	},
 	{
@@ -172,8 +172,16 @@ export const featurePatternList: FeaturePatternListType[] = [
 		eName: "Small CheckerBoard",
 	},
 	{
+		value: "largeCheckerBoard",
+		eName: "Large CheckerBoard",
+	},
+	{
 		value: "smallConfetti",
 		eName: "Small Confetti",
+	},
+	{
+		value: "largeConfetti",
+		eName: "Large Confetti",
 	},
 	{
 		value: "smallGrid",

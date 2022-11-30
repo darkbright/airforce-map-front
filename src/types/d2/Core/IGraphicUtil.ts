@@ -129,7 +129,7 @@ export interface IGraphicUtil {
 	 * @param dist 거리(m) 단위
 	 * @param degree 회전 각도(진북 기준, 0-360도)
 	 */
-	getTargePosition: (coordinate: number[], dist: number, degree: number) => void;
+	getTargetPosition: (coordinate: number[], dist: number, degree: number) => void;
 	/**
 	 * 두 점 사이의 각도를 구함 (배열)
 	 * @returns number array
@@ -215,7 +215,7 @@ export interface IGraphicUtil {
 	/**
 	 * 빈 스타일 반환
 	 */
-	getEmptySyle: (isFill: boolean) => any;
+	getEmptyStyle: (isFill: boolean) => any;
 	toXml: (json: string, stdXSDManager: any) => any;
 	toJson: (xml: string, stdXSDManager: any, callbacks: () => void) => any;
 	/**

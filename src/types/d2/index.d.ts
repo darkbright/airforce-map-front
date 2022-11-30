@@ -45,7 +45,6 @@ declare global {
 		distance: Distance;
 		area: Area;
 		TerrainAnalysisManager: TerrainAnalysisManager;
-		// d2Map.min.js 에서 추출된 값
 		D2: {
 			Core: {
 				/**
@@ -70,7 +69,6 @@ declare global {
 				 */
 				D2MS: any;
 				D2MapManager: any;
-
 				Graphic: any;
 				GraphicObjectProp: IGraphicObjectProp;
 				GraphicObjectStyle: IGraphicObjectStyle;
