@@ -54,7 +54,7 @@ interface FeaturePatternHandlerProps {
 
 /**
  * 선 또는 채움(fill)에서 패턴 관련 내용을 핸들링함
- * @params FeaturePatternHandlerProps FeaturePatternHandlerProps
+ * @param FeaturePatternHandlerProps FeaturePatternHandlerProps
  * @returns {JSX.Element} div
  */
 const FeaturePatternHandler = ({

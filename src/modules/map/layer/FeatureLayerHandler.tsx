@@ -48,8 +48,8 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 	 * @returns features
 	 */
 	const handleSelectLayer = () => {
-		const board: IGraphicBoard = graphic.getSelectGraphicBoard();
-		const objList: IGraphicObject[] = board.getParentObjectList();
+		const board = graphic.getSelectGraphicBoard();
+		const objList = board.getParentObjectList();
 		return setFeatures(objList);
 	};
 

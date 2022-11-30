@@ -8,7 +8,7 @@ import {
 	Tooltip,
 } from "@mui/material";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { Color, useColor } from "react-color-palette";
+import { Color, toColor, useColor } from "react-color-palette";
 import DashDotDotLineIcon from "../../../../assets/icons/lineTypes/DashDotDotLineIcon";
 import DashDotLineIcon from "../../../../assets/icons/lineTypes/DashDotLineIcon";
 import DashLineIcon from "../../../../assets/icons/lineTypes/DashLineIcon";
@@ -22,6 +22,7 @@ import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
 import {
 	IDashLineType,
 	IFeatureFillType,
+	IGradient,
 	IGraphicObject,
 	IMultiLineType,
 	IPatternType,
@@ -35,6 +36,8 @@ import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FeatureFillTypeHandler from "./\bcomponents/FeatureFillTypeHandler";
 import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler";
 import FeaturePatternHandler from "./\bcomponents/FeaturePatternHandler";
+import FeatureGradientTypeHandler from "./\bcomponents/FeatureGradientTypeHandler";
+import { toastShow } from "../../../../components/alert/ToastMessage";
 
 interface FeatureLineHandlerProps {
 	// 리액트 상태 관리용
@@ -190,6 +193,113 @@ const FeatureLineHandler = ({ objectList, foundFeature }: FeatureLineHandlerProp
 		setPatternFgOpacity(newValue as number);
 	};
 
+	/**
+	 * 그라데이션 핸들링 시작
+	 */
+	// 생성된 도형이 그라데이션일 때, 그라데이션의 유형을 설정
+	const [gradientType, setGradientType] = useState(initialFillType.gradient.type);
+	const handleGradientType = (event: SelectChangeEvent) => {
+		setGradientType(event.target.value as IGradient["type"]);
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.type = event.target.value as IGradient["type"];
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 생성된 도형이 그라데이션일 때, 그라데이션으로 표출할 색상들을 선정하여 담아줌
+	const [gradientColors, setGradientColors] = useState(initialFillType.gradient.color);
+	const [stopPoints, setStopPoints] = useState(initialFillType.gradient.stopPoint);
+	const [selectedGradient, setSelectedGradient] = useState(0);
+
+	const handleStopPoint = (event: Event, newValue: number | number[]) => {
+		const arr = [...stopPoints];
+		arr[selectedGradient] = (newValue as number) / 100;
+		setStopPoints(arr);
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.line.fill.gradient.stopPoint = arr;
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 그라디언트 컬러를 더 추가할 때 씀
+	const handleAddGradientColor = () => {
+		const defaultColor = [0, 0, 0, 0.85];
+		setGradientColors((colors) => [...colors, defaultColor]);
+		setStopPoints((points) => [...points, 1]);
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.line.fill.gradient.stopPoint.push(1);
+				obj._style.line.fill.gradient.color.push(defaultColor);
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 생성된 그라디언트 칩을 지울 때 사용함
+	const handleDeleteGradientColor = () => {
+		if (gradientColors.length < 2) {
+			return toastShow({
+				title: "삭제 불가",
+				message: "그라디언트 색상은 최소 한개 이상입니다.",
+				type: "error",
+			});
+		}
+		setGradientColors((colors) => colors.filter((s, i) => i !== selectedGradient));
+		setStopPoints((points) => points.filter((s, i) => i !== selectedGradient));
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.line.fill.gradient.stopPoint.filter((s, i) => i !== selectedGradient);
+				obj._style.line.fill.gradient.color.filter((s, i) => i !== selectedGradient);
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 선택된 그라디언트의 컬러를 핸들링함
+	const [selectedGradientColor, setSelectedGradientColor] = useColor(
+		"hex",
+		GraphicUtil.rgb2hex(initialFillType.gradient.color[0]),
+	);
+	const handleGradientColor = (color: Color) => {
+		setSelectedGradientColor(color);
+		const arr = [...gradientColors];
+		arr[selectedGradient] = graphicUtil.hex2rgb(color.hex);
+		setGradientColors(arr);
+
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.line.fill.gradient.color = arr;
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 그라디언트 중 한개의 색상에 대한 불투명도 핸들링
+	const [selectedGradientOpacity, setSelectedGradientOpacity] = useState(
+		initialFillType.gradient.color[0][3] * 100,
+	);
+	const handleGradientOpacity = (event: Event, newValue: number | number[]) => {
+		const arr = [...gradientColors];
+		arr[selectedGradient][3] = (newValue as number) / 100;
+		setGradientColors(arr);
+
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.color = arr;
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+		setSelectedGradientOpacity(newValue as number);
+	};
+
+	/**
+	 * 그라데이션 핸들링 종료
+	 */
+
 	// 선 굵기 관련
 	const [lineWidth, setLineWidth] = useState(initialWidth);
 
@@ -299,6 +409,32 @@ const FeatureLineHandler = ({ objectList, foundFeature }: FeatureLineHandlerProp
 					changePatternFgColor={changePatternFgColor}
 				/>
 			)}
+			{alignment === "gradient" && (
+				<FeatureGradientTypeHandler
+					gradientType={gradientType}
+					handleGradientType={handleGradientType}
+					handleAddGradientColor={handleAddGradientColor}
+					gradientColors={gradientColors}
+					graphicUtil={graphicUtil}
+					onClickChip={(index: number) => {
+						const colorToShow = toColor("hex", graphicUtil.rgb2hex(gradientColors[index]));
+						setSelectedGradientColor(colorToShow);
+						setSelectedGradient(index);
+						setSelectedGradientOpacity(gradientColors[index][3] * 100);
+					}}
+					onDeleteChip={(index: number) => {
+						setSelectedGradient(index);
+						handleDeleteGradientColor();
+					}}
+					selectedGradient={selectedGradient}
+					selectedGradientColor={selectedGradientColor}
+					stopPoints={stopPoints}
+					handleStopPoint={handleStopPoint}
+					selectedGradientOpacity={selectedGradientOpacity}
+					handleGradientOpacity={handleGradientOpacity}
+					handleGradientColor={handleGradientColor}
+				/>
+			)}
 			<Divider sx={{ mt: 2, mb: 2 }} />
 			<SpaceBetweenTextBox title="선 굵기" marginBottom={10}>
 				<TextInput
@@ -377,6 +513,7 @@ const FeatureLineHandler = ({ objectList, foundFeature }: FeatureLineHandlerProp
 					onChange={changeMultiLine}
 					aria-label="multi-line-alignment"
 					size="small"
+					sx={{ mb: 4 }}
 				>
 					<ToggleButton sx={{ lineHeight: 1 }} value="line-1" aria-label="단선">
 						<Tooltip title="단선">

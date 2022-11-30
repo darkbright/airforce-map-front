@@ -1,6 +1,6 @@
-import { FormControl, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material";
+import { SelectChangeEvent, styled } from "@mui/material";
 import { MouseEvent, useState } from "react";
-import { Color, useColor } from "react-color-palette";
+import { Color, toColor, useColor } from "react-color-palette";
 import BaseBlockTitleBox from "../../../../components/box/textBox/BaseBlockTitleBox";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
 import { TypesOfShapeType } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
@@ -14,8 +14,8 @@ import {
 import FeaturePatternHandler from "./\bcomponents/FeaturePatternHandler";
 import FeatureFillTypeHandler from "./\bcomponents/FeatureFillTypeHandler";
 import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler";
-import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
-import { FeatureGradientList } from "../../../../data/constants/gradient";
+import { toastShow } from "../../../../components/alert/ToastMessage";
+import FeatureGradientTypeHandler from "./\bcomponents/FeatureGradientTypeHandler";
 
 interface FeatureFillHandlerProps {
 	// 리액트 상태 관리용
@@ -86,6 +86,10 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 		setFillOpacity(newValue as number);
 	};
 
+	/**
+	 * 아래부터 패턴 핸들링
+	 */
+
 	// 생성된 도형이 패턴일 때, 패턴의 타입 설정
 	const [fillPattern, setFillPattern] = useState<IPatternType>(initialPatternType);
 	const handleFillPattern = (event: SelectChangeEvent) => {
@@ -154,6 +158,10 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 		setPatternFgOpacity(newValue as number);
 	};
 
+	/**
+	 * 아래부터 그라데이션 핸들링
+	 */
+
 	// 생성된 도형이 그라데이션일 때, 그라데이션의 유형을 설정
 	const [gradientType, setGradientType] = useState(initialGradientType.type);
 	const handleGradientType = (event: SelectChangeEvent) => {
@@ -164,6 +172,94 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 				graphicUtil.setFeatureStyle(obj);
 			}
 		});
+	};
+
+	// 생성된 도형이 그라데이션일 때, 그라데이션으로 표출할 색상들을 선정하여 담아줌
+	const [gradientColors, setGradientColors] = useState(initialGradientType.color);
+	const [stopPoints, setStopPoints] = useState(initialGradientType.stopPoint);
+	const [selectedGradient, setSelectedGradient] = useState(0);
+
+	const handleStopPoint = (event: Event, newValue: number | number[]) => {
+		const arr = [...stopPoints];
+		arr[selectedGradient] = (newValue as number) / 100;
+		setStopPoints(arr);
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.stopPoint = arr;
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 그라디언트 컬러를 더 추가할 때 씀
+	const handleAddGradientColor = () => {
+		const defaultColor = [0, 0, 0, 0.85];
+		setGradientColors((colors) => [...colors, defaultColor]);
+		setStopPoints((points) => [...points, 1]);
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.stopPoint.push(1);
+				obj._style.fill.gradient.color.push(defaultColor);
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 생성된 그라디언트 칩을 지울 때 사용함
+	const handleDeleteGradientColor = () => {
+		if (gradientColors.length < 2) {
+			return toastShow({
+				title: "삭제 불가",
+				message: "그라디언트 색상은 최소 한개 이상입니다.",
+				type: "error",
+			});
+		}
+		setGradientColors((colors) => colors.filter((s, i) => i !== selectedGradient));
+		setStopPoints((points) => points.filter((s, i) => i !== selectedGradient));
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.stopPoint.filter((s, i) => i !== selectedGradient);
+				obj._style.fill.gradient.color.filter((s, i) => i !== selectedGradient);
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 선택된 그라디언트의 컬러를 핸들링함
+	const [selectedGradientColor, setSelectedGradientColor] = useColor(
+		"hex",
+		GraphicUtil.rgb2hex(initialGradientType.color[0]),
+	);
+	const handleGradientColor = (color: Color) => {
+		setSelectedGradientColor(color);
+		const arr = [...gradientColors];
+		arr[selectedGradient] = graphicUtil.hex2rgb(color.hex);
+		setGradientColors(arr);
+
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.color = arr;
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
+	// 그라디언트 중 한개의 색상에 대한 불투명도 핸들링
+	const [selectedGradientOpacity, setSelectedGradientOpacity] = useState(
+		initialGradientType.color[0][3] * 100,
+	);
+	const handleGradientOpacity = (event: Event, newValue: number | number[]) => {
+		const arr = [...gradientColors];
+		arr[selectedGradient][3] = (newValue as number) / 100;
+		setGradientColors(arr);
+
+		objectList.map((obj) => {
+			if (foundFeature!._prop.guid === obj._prop.guid) {
+				obj._style.fill.gradient.color = arr;
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+		setSelectedGradientOpacity(newValue as number);
 	};
 
 	return (
@@ -197,23 +293,30 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 			)}
 			{/* 그라디언트일 경우 */}
 			{alignment === "gradient" && (
-				<SpaceBetweenTextBox title="그라데이션 유형" marginBottom={16}>
-					<FormControl fullWidth>
-						<Select
-							size="small"
-							labelId="fill-pattern-select"
-							id="fill-pattern-select"
-							value={gradientType}
-							onChange={handleGradientType}
-						>
-							{FeatureGradientList.map((g) => (
-								<MenuItem key={g.value} value={g.value}>
-									{g.kName}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-				</SpaceBetweenTextBox>
+				<FeatureGradientTypeHandler
+					gradientType={gradientType}
+					handleGradientType={handleGradientType}
+					handleAddGradientColor={handleAddGradientColor}
+					gradientColors={gradientColors}
+					graphicUtil={graphicUtil}
+					onClickChip={(index: number) => {
+						const colorToShow = toColor("hex", graphicUtil.rgb2hex(gradientColors[index]));
+						setSelectedGradientColor(colorToShow);
+						setSelectedGradient(index);
+						setSelectedGradientOpacity(gradientColors[index][3] * 100);
+					}}
+					onDeleteChip={(index: number) => {
+						setSelectedGradient(index);
+						handleDeleteGradientColor();
+					}}
+					selectedGradient={selectedGradient}
+					selectedGradientColor={selectedGradientColor}
+					stopPoints={stopPoints}
+					handleStopPoint={handleStopPoint}
+					selectedGradientOpacity={selectedGradientOpacity}
+					handleGradientOpacity={handleGradientOpacity}
+					handleGradientColor={handleGradientColor}
+				/>
 			)}
 		</Root>
 	);
