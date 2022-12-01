@@ -207,6 +207,23 @@ D2에서는 레이어의 종류를  `맵 레이어`, `투명도`, `응용 레이
 마지막으로, 백엔드 API로 받은 데이터로 보여주는 feature가 속한 layer와 유저가 투명도를 그려서 만든 레이어가 공존할 때, 어떤 것이 더 위에 있어야 할까요? 정답은 모른다입니다. 현재는 백엔드API로 받은 데이터가 도형 보다 위에 있도록 zIndex가 설정되어 있습니다. 만약, 그것을 뒤집고 싶다면 zIndex를 수정해 보시길 바랍니다.
 <br>
 <br>
+앞서 말씀드린 내용을 개념적으로 종합하면 다음과 같습니다.
+<br>
+<br>
+(2022년 12월 초 기준으로 현재까지 발견된 레이어)
+<br>
+<br>
+
+| Layer Type   | 하는 일                         | Layer 호출 Class                           | 파일                                   | ZIndex    |
+| ------------ | ------------------------------- | ------------------------------------------ | -------------------------------------- | --------- |
+| MapLayer     | Tile, Vector 지도를 생성        | new ol.layer.Tile, new ol.layer.VectorTile | libs/d2/mapSettings/addLayers          | 0 ~100    |
+| 투명도 Layer | 투명도 그리기                   | graphic.addGraphicBoard();                 | modules/map/layer/FeatureLanderHandler | 300 - 499 |
+| API Layer    | 백엔드에서 데이터를 가져와 뿌림 | new ol.layer.Vector                        | libs/d2/mapSettings/pages              | 500 ~     |
+| Grid Layer   | 지도 위 선을 그어 보여줌        | new ol.layer.VectorTile                    | libs/d2/mapSettings/grid               | 101 ~ 200 |
+
+<br>
+주: 투명도 레이어만 불러오는 방식이 다른 이유는, D2에서 제작한 graphic.addGraphicBoard 내에서 ol 핸들링을 자체적으로 처리하기 때문으로 이해함.
+
 <br>
 <br>
 3. Feature
