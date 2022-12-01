@@ -4,6 +4,7 @@ import BaseModal from "../../../../components/modal/BaseModal";
 import TabPanel from "../../../../components/tab/TabPanel";
 import { typesOfShape } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicObject } from "../../../../types/d2/Graphic";
+import FeatureArrowHandler from "./FeatureArrowHandler";
 import FeatureFillHandler from "./FeatureFillHandler";
 import FeatureLineHandler from "./FeatureLineHandler";
 
@@ -97,14 +98,21 @@ const FeaturePropertyHandlerModal = ({
 						/>
 					</TabPanelRoot>
 				</TabPanel>
-				<TabPanel value={tabValue} index={2}>
-					<TabPanelRoot>ddd</TabPanelRoot>
-				</TabPanel>
 				{typeOfFeature === "polyline" && (
-					<TabPanel value={tabValue} index={3}>
-						<TabPanelRoot></TabPanelRoot>
+					<TabPanel value={tabValue} index={2}>
+						<TabPanelRoot>
+							<FeatureArrowHandler
+								feature={feature}
+								foundFeature={foundFeature}
+								objectList={objectList}
+							/>
+						</TabPanelRoot>
 					</TabPanel>
 				)}
+				<TabPanel value={tabValue} index={3}>
+					<TabPanelRoot>ddd</TabPanelRoot>
+				</TabPanel>
+
 				<TabPanel value={tabValue} index={4}>
 					<TabPanelRoot></TabPanelRoot>
 				</TabPanel>

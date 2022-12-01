@@ -214,12 +214,12 @@ D2에서는 레이어의 종류를  `맵 레이어`, `투명도`, `응용 레이
 <br>
 <br>
 
-| Layer Type   | 하는 일                         | Layer 호출 Class                           | 파일                                   | ZIndex    |
-| ------------ | ------------------------------- | ------------------------------------------ | -------------------------------------- | --------- |
-| MapLayer     | Tile, Vector 지도를 생성        | new ol.layer.Tile, new ol.layer.VectorTile | libs/d2/mapSettings/addLayers          | 0 ~100    |
-| 투명도 Layer | 투명도 그리기                   | graphic.addGraphicBoard();                 | modules/map/layer/FeatureLanderHandler | 300 - 499 |
-| API Layer    | 백엔드에서 데이터를 가져와 뿌림 | new ol.layer.Vector                        | libs/d2/mapSettings/pages              | 500 ~     |
-| Grid Layer   | 지도 위 선을 그어 보여줌        | new ol.layer.VectorTile                    | libs/d2/mapSettings/grid               | 101 ~ 200 |
+| Layer Type   | 하는 일                         | Layer 생성 Class                           | 파일                                  | ZIndex    |
+| ------------ | ------------------------------- | ------------------------------------------ | ------------------------------------- | --------- |
+| MapLayer     | Tile, Vector 지도를 생성        | new ol.layer.Tile, new ol.layer.VectorTile | libs/d2/mapSettings/addLayers         | 0 ~100    |
+| 투명도 Layer | 투명도 그리기                   | graphic.addGraphicBoard();                 | modules/map/layer/FeatureLayerHandler | 300 - 499 |
+| API Layer    | 백엔드에서 데이터를 가져와 뿌림 | new ol.layer.Vector                        | libs/d2/mapSettings/pages             | 500 ~     |
+| Grid Layer   | 지도 위 선을 그어 보여줌        | new ol.layer.VectorTile                    | libs/d2/mapSettings/grid              | 101 ~ 200 |
 
 <br>
 주: 투명도 레이어만 불러오는 방식이 다른 이유는, D2에서 제작한 graphic.addGraphicBoard 내에서 ol 핸들링을 자체적으로 처리하기 때문으로 이해함.

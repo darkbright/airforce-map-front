@@ -6,6 +6,10 @@ interface FeaturePatternListType {
 	value: IPatternType;
 }
 
+/**
+ * 도형이나 선등의 무늬 /패턴을 정리한 리스트
+ * 상호운용성 평가를 받은 거라고 하니 더 추가하거나 그런건 불가능함.
+ */
 export const featurePatternList: FeaturePatternListType[] = [
 	{
 		value: "dottedGrid",

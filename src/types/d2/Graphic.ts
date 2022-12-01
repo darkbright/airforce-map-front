@@ -414,12 +414,12 @@ export interface IGraphicObject {
 			alphaHex: any;
 			arrow: {
 				begin: {
-					type: string;
+					type: IArrowType;
 					width: number;
 					height: number;
 				};
 				end: {
-					type: string;
+					type: IArrowType;
 					width: number;
 					height: number;
 				};
@@ -744,3 +744,44 @@ export type IPatternType =
  * - gradient: 그라디언트
  */
 export type IFeatureFillType = "simple" | "pattern" | "gradient";
+
+/**
+ * polyLine(선) 종류에서 선의 끝 점의 타입을 표시함 (일반적으로 화살표 등 선 끝에 붙이는거)
+ */
+export type IArrowType =
+	| "none"
+	| "arrow"
+	| "arrowL"
+	| "arrowR"
+	| "tail"
+	| "tailL"
+	| "tailR"
+	| "tailF"
+	| "tailLF"
+	| "tailRF"
+	| "tentL"
+	| "tentR"
+	| "tentLF"
+	| "tentRF"
+	| "slashL"
+	| "slashR"
+	| "cross"
+	| "triangle"
+	| "triangleF"
+	| "triangleL"
+	| "triangleLF"
+	| "triangleR"
+	| "triangleRF"
+	| "rectangle"
+	| "rectangleF"
+	| "circle"
+	| "circleF"
+	| "diamond"
+	| "diamondF"
+	| "thick"
+	| "doubleArrow"
+	| "doubleArrowL"
+	| "doubleArrowR"
+	| "doubleTail"
+	| "doubleTailL"
+	| "doubleTailR";
