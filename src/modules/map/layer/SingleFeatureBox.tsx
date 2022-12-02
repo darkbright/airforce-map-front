@@ -4,6 +4,8 @@ import { IGraphicObject } from "../../../types/d2/Graphic";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Draggable } from "react-beautiful-dnd";
 import FeaturePropertyHandlerModal from "./featurePropertyHandler/FeaturePropertyHandlerModal";
+import LockIcon from "@mui/icons-material/Lock";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 
 interface SingleFeatureBoxProps {
 	feature: IGraphicObject;
@@ -19,6 +21,8 @@ interface SingleFeatureBoxProps {
 const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBoxProps) => {
 	const [visible, setVisible] = useState(feature.getVisible());
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+
+	const [isLocked, setIsLocked] = useState(feature.getLock());
 
 	const menuOpen = Boolean(anchorEl);
 
@@ -38,26 +42,42 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 						{...provided.draggableProps}
 						onContextMenu={handleRightClick}
 					>
-						<Wrapper>
-							<Tooltip title={visible ? "숨기기" : "보이기"}>
+						<AlignWrapper>
+							<Wrapper>
+								<Tooltip title={visible ? "숨기기" : "보이기"}>
+									<VisibilityWrapper
+										onClick={() => {
+											if (parentVisibility) {
+												setVisible(!visible);
+												feature.setVisible(!visible);
+											}
+										}}
+									>
+										<VisibilityIcon
+											sx={{ fontSize: "0.9rem", opacity: visible && parentVisibility ? 1 : 0.2 }}
+										/>
+									</VisibilityWrapper>
+								</Tooltip>
+
+								<Typography sx={{ ml: 1 }} variant="body2" {...provided.dragHandleProps}>
+									{feature._prop.name}
+								</Typography>
+							</Wrapper>
+							<Tooltip title={isLocked ? "위치잠김" : "위치이동가능"}>
 								<VisibilityWrapper
 									onClick={() => {
-										if (parentVisibility) {
-											setVisible(!visible);
-											feature.setVisible(!visible);
-										}
+										setIsLocked(!isLocked);
+										feature.setLock(!isLocked);
 									}}
 								>
-									<VisibilityIcon
-										sx={{ fontSize: "0.9rem", opacity: visible && parentVisibility ? 1 : 0.2 }}
-									/>
+									{isLocked ? (
+										<LockIcon sx={{ fontSize: "0.9rem", opacity: 0.7 }} />
+									) : (
+										<LockOpenIcon sx={{ fontSize: "0.9rem", opacity: 0.2 }} />
+									)}
 								</VisibilityWrapper>
 							</Tooltip>
-
-							<Typography sx={{ ml: 1 }} variant="body2" {...provided.dragHandleProps}>
-								{feature._prop.name}
-							</Typography>
-						</Wrapper>
+						</AlignWrapper>
 					</Root>
 				)}
 			</Draggable>
@@ -101,6 +121,12 @@ const Root = styled("div")(({ theme }) => ({
 	background: theme.palette.background.default,
 	padding: 8,
 	marginBottom: "1%",
+}));
+
+const AlignWrapper = styled("div")(() => ({
+	display: "flex",
+	justifyContent: "space-between",
+	alignItems: "center",
 }));
 
 const Wrapper = styled("div")(() => ({

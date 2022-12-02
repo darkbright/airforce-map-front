@@ -505,6 +505,17 @@ export interface IGraphicObject {
 	_trackerLineSource: any;
 	_trackerSource: any;
 	_visiblity: boolean;
+	getGUID: () => string;
+	/**
+	 * ol feature 반환
+	 */
+	getFeature: () => any;
+	copyFeature: (obj: IGraphicFeature) => void;
+	pasteFeature: (obj: IGraphicFeature, shiftPosition: { resolution: any; count: number }) => void;
+	/**
+	 * interaction handler 초기화
+	 */
+	handleClear: (tracker: any) => void;
 	setVisible: (visible: boolean) => void;
 	getVisible: () => boolean;
 	getZIndex: () => number;
@@ -516,6 +527,9 @@ export interface IGraphicObject {
 	setScaleLimit: (scaleLimit: boolean, upper: number, lower: number) => void;
 	getScaleLower: () => number;
 	getScaleUpper: () => number;
+	/**
+	 * 현재 축척에 따른 도시상태 조절
+	 */
 	scaleLimitChange: () => void;
 	/**
 	 * 회전 각도 설정
@@ -525,6 +539,23 @@ export interface IGraphicObject {
 	 * 내부적으로 setFeatureStyle을 하는거같은데, 이걸로 바꾸든지 해야댐
 	 */
 	updateStyle: () => void;
+	/**
+	 * 좌표열 업데이트
+	 */
+	getUpdateVertex: (matrixEdit: number[][], update: boolean) => number[][];
+	/**
+	 * 트래커에서 선택된 객체를 표시
+	 */
+	select: () => void;
+	/**
+	 * 잠금상태 설정
+	 */
+	setLock: (lock: boolean) => void;
+	getLock: () => boolean;
+	setScreenMode: (mode: boolean) => void;
+	getScreenMode: () => boolean;
+	getCreateTime: () => string;
+	getEditTime: () => string;
 }
 
 /**

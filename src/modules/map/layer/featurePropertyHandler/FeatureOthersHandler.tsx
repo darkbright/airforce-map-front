@@ -25,6 +25,7 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 		scaleLimit: initialScaleLimit,
 		scaleLower: initialScaleLower,
 		scaleUpper: initialScaleUpper,
+		screenMode: initialScreenMode,
 	} = foundFeature._prop;
 
 	const [rotationDegree, setRotationDegree] = useState<number>(initialRotate);
@@ -46,7 +47,7 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 		setIsLocked(event.target.checked);
 		objectList.map((obj) => {
 			if (foundFeature._prop.guid === obj._prop.guid) {
-				obj._prop.lock = event.target.checked;
+				obj.setLock(event.target.checked);
 				graphicUtil.setFeatureStyle(obj);
 			}
 		});
@@ -90,6 +91,18 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 		});
 	};
 
+	// 화면좌표에 도형을 고정시키기 (지도가 움직여도 도형 위치가 변하지 않음)
+	const [screenMode, setScreenMode] = useState<boolean>(initialScreenMode);
+	const handleScreenMode = (event: ChangeEvent<HTMLInputElement>) => {
+		setScreenMode(event.target.checked);
+		objectList.map((obj) => {
+			if (foundFeature._prop.guid === obj._prop.guid) {
+				obj.setScreenMode(event.target.checked);
+				graphicUtil.setFeatureStyle(obj);
+			}
+		});
+	};
+
 	return (
 		<Root>
 			<Typography variant="body2" gutterBottom sx={{ mt: 1, mb: 2, fontWeight: 600 }}>
@@ -125,6 +138,7 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 						onChange={handleScaleLower}
 					/>
 					<TextInput
+						style={{ marginLeft: 4 }}
 						type="number"
 						variant="outlined"
 						label="축척상한"
@@ -134,6 +148,9 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 					/>
 				</div>
 			)}
+			<SpaceBetweenTextBox title="화면에 고정" marginBottom={10}>
+				<Checkbox checked={screenMode} name="screenMode" onChange={handleScreenMode} />
+			</SpaceBetweenTextBox>
 		</Root>
 	);
 };
