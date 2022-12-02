@@ -509,6 +509,22 @@ export interface IGraphicObject {
 	getVisible: () => boolean;
 	getZIndex: () => number;
 	setZIndex: (index: number) => void;
+	getScaleLimit: () => boolean;
+	/**
+	 * 축척 제한 설정
+	 */
+	setScaleLimit: (scaleLimit: boolean, upper: number, lower: number) => void;
+	getScaleLower: () => number;
+	getScaleUpper: () => number;
+	scaleLimitChange: () => void;
+	/**
+	 * 회전 각도 설정
+	 */
+	setRotate: (angle: number) => void;
+	/**
+	 * 내부적으로 setFeatureStyle을 하는거같은데, 이걸로 바꾸든지 해야댐
+	 */
+	updateStyle: () => void;
 }
 
 /**

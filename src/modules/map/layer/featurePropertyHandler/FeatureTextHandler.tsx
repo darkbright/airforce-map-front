@@ -45,6 +45,11 @@ interface FeatureTextHandlerProp {
 
 const { GraphicUtil } = D2MapModule;
 
+/**
+ * 투명도 내 도형 및 선들에 입힐 텍스트 및 텍스트의 속성을 핸들링함
+ * @param FeatureTextHandlerProp FeatureTextHandlerProp
+ * @returns {JSX.Element} div
+ */
 const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHandlerProp) => {
 	const graphicUtil: IGraphicUtil = GraphicUtil;
 	const {

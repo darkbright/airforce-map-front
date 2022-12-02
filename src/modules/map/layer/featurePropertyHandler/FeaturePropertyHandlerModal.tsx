@@ -7,6 +7,7 @@ import { IGraphicObject } from "../../../../types/d2/Graphic";
 import FeatureArrowHandler from "./FeatureArrowHandler";
 import FeatureFillHandler from "./FeatureFillHandler";
 import FeatureLineHandler from "./FeatureLineHandler";
+import FeatureOthersHandler from "./FeatureOthersHandler";
 import FeatureTextHandler from "./FeatureTextHandler";
 
 interface FeaturePropertyHandlerModalProps {
@@ -118,7 +119,13 @@ const FeaturePropertyHandlerModal = ({
 				</TabPanel>
 
 				<TabPanel value={tabValue} index={typeOfFeature === "polyline" ? 4 : 3}>
-					<TabPanelRoot></TabPanelRoot>
+					<TabPanelRoot>
+						<FeatureOthersHandler
+							feature={feature}
+							foundFeature={foundFeature}
+							objectList={objectList}
+						/>
+					</TabPanelRoot>
 				</TabPanel>
 			</Box>
 		</BaseModal>
