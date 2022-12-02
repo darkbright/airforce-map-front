@@ -91,7 +91,7 @@ const FeatureGradientTypeHandler = ({
 				mb={2}
 				direction="row"
 				spacing={0}
-				sx={{ flexWrap: "wrap", gap: 1, width: 400 }}
+				sx={{ flexWrap: "wrap", gap: 1, width: 340 }}
 			>
 				{gradientColors.map((color, index) => (
 					<Chip

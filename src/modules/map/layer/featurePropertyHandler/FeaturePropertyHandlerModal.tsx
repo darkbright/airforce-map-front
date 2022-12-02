@@ -1,4 +1,4 @@
-import { Box, styled, Tab, Tabs, Typography } from "@mui/material";
+import { Box, styled, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import BaseModal from "../../../../components/modal/BaseModal";
 import TabPanel from "../../../../components/tab/TabPanel";
@@ -7,6 +7,7 @@ import { IGraphicObject } from "../../../../types/d2/Graphic";
 import FeatureArrowHandler from "./FeatureArrowHandler";
 import FeatureFillHandler from "./FeatureFillHandler";
 import FeatureLineHandler from "./FeatureLineHandler";
+import FeatureTextHandler from "./FeatureTextHandler";
 
 interface FeaturePropertyHandlerModalProps {
 	open: boolean;
@@ -51,16 +52,14 @@ const FeaturePropertyHandlerModal = ({
 	const typeOfFeature = typesOfShape.find((shape) => shape.id === feature._prop.type)!.type;
 
 	return (
-		<BaseModal open={open} setOpen={setOpen}>
-			<Typography variant="body2" gutterBottom sx={{ mb: 2 }}>
-				{feature._prop.name} 속성 관리
-			</Typography>
+		<BaseModal open={open} setOpen={setOpen} padding="2%" minWidth={500}>
 			<Box
 				sx={{
 					flexGrow: 1,
 					bgColor: "background.paper",
 					display: "flex",
-					height: 480,
+					height: 440,
+					pt: 1,
 				}}
 			>
 				<Tabs
@@ -69,14 +68,13 @@ const FeaturePropertyHandlerModal = ({
 					value={tabValue}
 					aria-label="feature-proertyHandler"
 					onChange={(event, newValue: number) => setTabValue(newValue)}
-					sx={{ borderRight: 1, borderColor: "divider" }}
+					sx={{ borderRight: 1, borderColor: "divider", width: 110 }}
 				>
 					<Tab label="선" {...a11yProps(0)} />
 					<Tab label="채움" {...a11yProps(1)} />
 					{typeOfFeature === "polyline" && <Tab label="화살표" {...a11yProps(2)} />}
-
-					<Tab label="텍스트" {...a11yProps(3)} />
-					<Tab label="속성" {...a11yProps(4)} />
+					<Tab label="텍스트" {...a11yProps(typeOfFeature === "polyline" ? 3 : 2)} />
+					<Tab label="속성" {...a11yProps(typeOfFeature === "polyline" ? 4 : 3)} />
 				</Tabs>
 				<TabPanel value={tabValue} index={0}>
 					<TabPanelRoot>
@@ -109,11 +107,17 @@ const FeaturePropertyHandlerModal = ({
 						</TabPanelRoot>
 					</TabPanel>
 				)}
-				<TabPanel value={tabValue} index={3}>
-					<TabPanelRoot>ddd</TabPanelRoot>
+				<TabPanel value={tabValue} index={typeOfFeature === "polyline" ? 3 : 2}>
+					<TabPanelRoot>
+						<FeatureTextHandler
+							feature={feature}
+							foundFeature={foundFeature}
+							objectList={objectList}
+						/>
+					</TabPanelRoot>
 				</TabPanel>
 
-				<TabPanel value={tabValue} index={4}>
+				<TabPanel value={tabValue} index={typeOfFeature === "polyline" ? 4 : 3}>
 					<TabPanelRoot></TabPanelRoot>
 				</TabPanel>
 			</Box>

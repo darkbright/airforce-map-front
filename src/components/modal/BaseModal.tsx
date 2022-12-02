@@ -5,6 +5,8 @@ interface BaseModalProps {
 	open: boolean;
 	setOpen: (value: boolean) => void;
 	children: ReactNode;
+	padding?: string;
+	minWidth?: number;
 }
 
 /**
@@ -12,10 +14,10 @@ interface BaseModalProps {
  * @param {BaseModalProps}  BaseModalProps
  * @returns {JSX.Element} React Component
  */
-const BaseModal = ({ open, setOpen, children }: BaseModalProps) => {
+const BaseModal = ({ open, setOpen, padding = "5%", minWidth = 600, children }: BaseModalProps) => {
 	return (
-		<Dialog maxWidth="lg" onClose={setOpen} open={open}>
-			<Root>{children}</Root>
+		<Dialog maxWidth="lg" onClose={setOpen} open={open} sx={{ padding }}>
+			<Root style={{ minWidth, padding }}>{children}</Root>
 		</Dialog>
 	);
 };
@@ -23,6 +25,5 @@ const BaseModal = ({ open, setOpen, children }: BaseModalProps) => {
 export default BaseModal;
 
 const Root = styled("div")(() => ({
-	minWidth: 600,
-	padding: "5%",
+	// minWidth: 580,
 }));

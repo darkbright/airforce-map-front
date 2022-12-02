@@ -85,7 +85,7 @@ const FeatureSingleLayer = ({
 								}}
 								key={layer._guid}
 								onClick={onClickAccordion}
-								onDoubleClick={() => setOpenModal(true)}
+								// onDoubleClick={() => setOpenModal(true)}
 							>
 								<AccordionSummary
 									expandIcon={<ExpandMoreIcon />}

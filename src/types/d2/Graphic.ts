@@ -1,3 +1,5 @@
+import { FeatureFontFamilies } from "../../data/constants/featureFontFamilyList";
+
 /**
  * 투명도 관련 모든 속성으로, 레이어 설정 및 feature 값들을 저장 관리 수정 등 모든 것을 관할함
  * - GraphicBoard: n개의 Board가 합쳐진 개념으로, 이 Board들의 zIndex 등을 바꿀 수 있음.
@@ -386,6 +388,9 @@ export interface IGraphicObject {
 		scaleUpper: number;
 		screenAnchor: number[];
 		screenMode: boolean;
+		/**
+		 * 도형에 글자를 넣었을 때 들어가는 글자 value 부분
+		 */
 		text: string;
 		trackerRotate: any[];
 		type: string;
@@ -458,18 +463,23 @@ export interface IGraphicObject {
 			color: number[];
 			directionRightToLeft: boolean;
 			directionVertical: boolean;
-			font: string;
+			font: IFeatureFontFamily;
 			fontSize: number;
 			italic: boolean;
 			offsetX: number;
 			offsetY: number;
 			outlineColor: number[];
 			outlineWidth: number;
-			placement: string;
+			/**
+			 * 텍스트 정렬
+			 * - point: 도형중심위치
+			 * - line: 도형선에 위치
+			 */
+			placement: "point" | "line";
 			rotation: number;
 			showBackground: boolean;
-			textAlign: "left" | "center" | "right";
-			textBaseline: "top" | "bottom" | "middle" | "aphabetic" | "hanging" | "ideographic";
+			textAlign: IFeatureTextAlign;
+			textBaseline: IFeatureTextVerticalALign;
 			zIndex: number;
 		};
 		zIndex: number;
@@ -785,3 +795,24 @@ export type IArrowType =
 	| "doubleTail"
 	| "doubleTailL"
 	| "doubleTailR";
+
+/**
+ * 폰트패밀리 타입
+ */
+export type IFeatureFontFamily = typeof FeatureFontFamilies[number];
+
+/**
+ * 텍스트에서 좌, 중 , 우 정렬
+ */
+export type IFeatureTextAlign = "left" | "center" | "right";
+
+/**
+ * 텍스트에서 세로 정렬
+ */
+export type IFeatureTextVerticalALign =
+	| "top"
+	| "bottom"
+	| "middle"
+	| "aphabetic"
+	| "hanging"
+	| "ideographic";

@@ -6,9 +6,9 @@ import {
 	Select,
 	SelectChangeEvent,
 	styled,
+	Typography,
 } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import BaseBlockTitleBox from "../../../../components/box/textBox/BaseBlockTitleBox";
 import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
 import TextInput from "../../../../components/form/TextInput";
 import { lineArrowList } from "../../../../data/constants/lineArrowList";
@@ -29,7 +29,7 @@ const { GraphicUtil } = D2MapModule;
  * @param FeatureArrowHandlerProps FeatureArrowHandlerProps
  * @returns {JSX.Element} div
  */
-const FeatureArrowHandler = ({ foundFeature, objectList }: FeatureArrowHandlerProps) => {
+const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrowHandlerProps) => {
 	const { begin: initialBeginArrow, end: initialEndArrow } = foundFeature._style.line.arrow;
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
@@ -112,7 +112,9 @@ const FeatureArrowHandler = ({ foundFeature, objectList }: FeatureArrowHandlerPr
 
 	return (
 		<Root>
-			<BaseBlockTitleBox title="화살표 속성" />
+			<Typography variant="body2" gutterBottom sx={{ mt: 1, mb: 2, fontWeight: 600 }}>
+				{feature?._prop.name} 화살표 속성
+			</Typography>
 			<SpaceBetweenTextBox title="시작 화살표 타입" marginBottom={16}>
 				<FormControl fullWidth>
 					<Select

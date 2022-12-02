@@ -1,7 +1,6 @@
-import { SelectChangeEvent, styled } from "@mui/material";
+import { SelectChangeEvent, styled, Typography } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import { Color, toColor, useColor } from "react-color-palette";
-import BaseBlockTitleBox from "../../../../components/box/textBox/BaseBlockTitleBox";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
 import { TypesOfShapeType } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
@@ -33,7 +32,7 @@ const { GraphicUtil } = D2MapModule;
  * 도형(Feature)의 채움을 관리할 수 있도록 하는 모달 내 요소
  * @returns {JSX.Element} div
  */
-const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProps) => {
+const FeatureFillHandler = ({ feature, foundFeature, objectList }: FeatureFillHandlerProps) => {
 	const {
 		color: initialColor,
 		patternColor: initialPatternColor,
@@ -264,7 +263,9 @@ const FeatureFillHandler = ({ foundFeature, objectList }: FeatureFillHandlerProp
 
 	return (
 		<Root>
-			<BaseBlockTitleBox title="채움 속성" />
+			<Typography variant="body2" gutterBottom sx={{ mt: 1, mb: 2, fontWeight: 600 }}>
+				{feature?._prop.name} 채움 속성
+			</Typography>
 			<FeatureFillTypeHandler alignment={alignment} onFillTypeChange={onFillTypeChange} />
 			{/* 단색일 경우 */}
 			{alignment === "simple" && (

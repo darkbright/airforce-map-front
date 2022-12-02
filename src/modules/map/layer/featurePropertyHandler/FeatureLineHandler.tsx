@@ -6,6 +6,7 @@ import {
 	ToggleButton,
 	ToggleButtonGroup,
 	Tooltip,
+	Typography,
 } from "@mui/material";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { Color, toColor, useColor } from "react-color-palette";
@@ -13,7 +14,6 @@ import DashDotDotLineIcon from "../../../../assets/icons/lineTypes/DashDotDotLin
 import DashDotLineIcon from "../../../../assets/icons/lineTypes/DashDotLineIcon";
 import DashLineIcon from "../../../../assets/icons/lineTypes/DashLineIcon";
 import OneLineIcon from "../../../../assets/icons/lineTypes/OneLineIcon";
-import BaseBlockTitleBox from "../../../../components/box/textBox/BaseBlockTitleBox";
 import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
 import TextInput from "../../../../components/form/TextInput";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
@@ -71,7 +71,7 @@ const multiLineTypes: { id: string; type: IMultiLineType }[] = [
  * 도형(Feature)의 선을 관리할 수 있도록 하는 모달 내 요소
  * @returns {JSX.Element} div
  */
-const FeatureLineHandler = ({ objectList, foundFeature }: FeatureLineHandlerProps) => {
+const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHandlerProps) => {
 	const {
 		color: initialColor,
 		width: initialWidth,
@@ -383,7 +383,9 @@ const FeatureLineHandler = ({ objectList, foundFeature }: FeatureLineHandlerProp
 
 	return (
 		<Root>
-			<BaseBlockTitleBox title="선 속성" />
+			<Typography variant="body2" gutterBottom sx={{ mt: 1, mb: 2, fontWeight: 600 }}>
+				{feature?._prop.name} 선 속성
+			</Typography>
 			<FeatureFillTypeHandler alignment={alignment} onFillTypeChange={onFillTypeChange} />
 
 			{alignment === "simple" && (
@@ -506,14 +508,13 @@ const FeatureLineHandler = ({ objectList, foundFeature }: FeatureLineHandlerProp
 					</ToggleButtonGroup>
 				</SpaceBetweenTextBox>
 			)}
-			<SpaceBetweenTextBox title="겹선 종류" marginBottom={10}>
+			<SpaceBetweenTextBox title="겹선 종류" marginBottom={15}>
 				<ToggleButtonGroup
 					value={multiLine}
 					exclusive
 					onChange={changeMultiLine}
 					aria-label="multi-line-alignment"
 					size="small"
-					sx={{ mb: 4 }}
 				>
 					<ToggleButton sx={{ lineHeight: 1 }} value="line-1" aria-label="단선">
 						<Tooltip title="단선">
@@ -560,4 +561,5 @@ export default FeatureLineHandler;
 
 const Root = styled("div")(() => ({
 	width: "100%",
+	paddingBottom: 20,
 }));
