@@ -36,6 +36,7 @@ import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
 import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
 import VerticalAlignCenterIcon from "@mui/icons-material/VerticalAlignCenter";
 import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
+import { inputEnterCounter } from "../../../../utils/inputEnterCounter";
 
 interface FeatureTextHandlerProp {
 	feature?: IGraphicObject;
@@ -68,8 +69,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 
 	// 문자열 핸들링
 	const [textMessage, setTextMessage] = useState<string>(initialText);
+	const [entersCount, setEntersCount] = useState<number>(inputEnterCounter(initialText));
 	const handleTextMessage = (event: ChangeEvent<HTMLInputElement>) => {
 		setTextMessage(event.target.value);
+		setEntersCount(inputEnterCounter(event.target.value));
 		objectList!.map((obj) => {
 			if (foundFeature._prop.guid === obj._prop.guid) {
 				obj._prop.text = event.target.value;
@@ -218,6 +221,7 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				</Typography>
 				<TextInput
 					type="text"
+					multiline
 					variant="outlined"
 					value={textMessage}
 					size="small"
@@ -375,10 +379,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 								checked={isTextReversed}
 								name="textItalic"
 								onChange={handleTextReversed}
-								disabled={textMessage.length === 0}
+								disabled={isTextVertical === false || entersCount < 2 || textMessage.length === 0}
 							/>
 						}
-						label="우에서 좌로"
+						label="우철 세로쓰기"
 					/>
 					<FormControlLabel
 						control={
