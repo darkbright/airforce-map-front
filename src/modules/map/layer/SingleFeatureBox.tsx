@@ -63,7 +63,7 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 									{feature._prop.name}
 								</Typography>
 							</Wrapper>
-							<Tooltip title={isLocked ? "위치잠김" : "위치이동가능"}>
+							<Tooltip title={isLocked ? "위치이동가능" : "위치잠그기"}>
 								<VisibilityWrapper
 									onClick={() => {
 										setIsLocked(!isLocked);

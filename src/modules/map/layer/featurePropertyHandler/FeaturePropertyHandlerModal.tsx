@@ -8,6 +8,7 @@ import FeatureArrowHandler from "./FeatureArrowHandler";
 import FeatureFillHandler from "./FeatureFillHandler";
 import FeatureLineHandler from "./FeatureLineHandler";
 import FeatureOthersHandler from "./FeatureOthersHandler";
+import FeaturePointHandler from "./FeaturePointHandler";
 import FeatureTextHandler from "./FeatureTextHandler";
 
 interface FeaturePropertyHandlerModalProps {
@@ -50,7 +51,20 @@ const FeaturePropertyHandlerModal = ({
 
 	//현재 선택된 도형의 종류를 찾아옴.
 	// 선택된 도형의 종류에 따라 설정 가능한 tab 및 바꿀 수 있는 property가 바뀌기 때문임.(예를 들어 선 종류인 "polyline"일 경우에만 양쪽 끝점에 화살표가 생김)
-	const typeOfFeature = typesOfShape.find((shape) => shape.id === feature._prop.type)!.type;
+	// 각각의 도형에 대한 특성은 typesOfShape에 정리되어 있음
+	const typeOfFeature = typesOfShape.find((shape) => shape.id === feature._prop.type)!;
+	const { isPoint, hasLine, hasFill, hasArrow, hasText, hasOthers } = typeOfFeature;
+
+	const modifiedTitles = (): { id: string; name: string }[] => {
+		const tabHeadTitles: { id: string; name: string }[] = [];
+		if (isPoint) tabHeadTitles.push({ id: "point", name: "점" });
+		if (hasLine) tabHeadTitles.push({ id: "polyline", name: "선" });
+		if (hasFill) tabHeadTitles.push({ id: "fill", name: "채움" });
+		if (hasArrow) tabHeadTitles.push({ id: "arrow", name: "화살표" });
+		if (hasText) tabHeadTitles.push({ id: "text", name: "텍스트" });
+		if (hasOthers) tabHeadTitles.push({ id: "others", name: "속성" });
+		return tabHeadTitles;
+	};
 
 	return (
 		<BaseModal open={open} setOpen={setOpen} padding="2%" minWidth={500}>
@@ -71,34 +85,59 @@ const FeaturePropertyHandlerModal = ({
 					onChange={(event, newValue: number) => setTabValue(newValue)}
 					sx={{ borderRight: 1, borderColor: "divider", width: 110 }}
 				>
-					<Tab label="선" {...a11yProps(0)} />
-					<Tab label="채움" {...a11yProps(1)} />
-					{typeOfFeature === "polyline" && <Tab label="화살표" {...a11yProps(2)} />}
-					<Tab label="텍스트" {...a11yProps(typeOfFeature === "polyline" ? 3 : 2)} />
-					<Tab label="속성" {...a11yProps(typeOfFeature === "polyline" ? 4 : 3)} />
+					{modifiedTitles().map((title, index) => (
+						<Tab label={title.name} key={index} {...a11yProps(index)} />
+					))}
 				</Tabs>
-				<TabPanel value={tabValue} index={0}>
-					<TabPanelRoot>
-						<FeatureLineHandler
-							feature={feature}
-							typeOfFeature={typeOfFeature}
-							foundFeature={foundFeature}
-							objectList={objectList}
-						/>
-					</TabPanelRoot>
-				</TabPanel>
-				<TabPanel value={tabValue} index={1}>
-					<TabPanelRoot>
-						<FeatureFillHandler
-							feature={feature}
-							typeOfFeature={typeOfFeature}
-							foundFeature={foundFeature}
-							objectList={objectList}
-						/>
-					</TabPanelRoot>
-				</TabPanel>
-				{typeOfFeature === "polyline" && (
-					<TabPanel value={tabValue} index={2}>
+				{isPoint && (
+					<TabPanel
+						value={tabValue}
+						index={modifiedTitles().findIndex((title) => title.id === "point")}
+					>
+						<TabPanelRoot>
+							<FeaturePointHandler
+								feature={feature}
+								foundFeature={foundFeature}
+								objectList={objectList}
+							/>
+						</TabPanelRoot>
+					</TabPanel>
+				)}
+				{hasLine && (
+					<TabPanel
+						value={tabValue}
+						index={modifiedTitles().findIndex((title) => title.id === "polyline")}
+					>
+						<TabPanelRoot>
+							<FeatureLineHandler
+								feature={feature}
+								typeOfFeature={typeOfFeature.id}
+								foundFeature={foundFeature}
+								objectList={objectList}
+							/>
+						</TabPanelRoot>
+					</TabPanel>
+				)}
+				{hasFill && (
+					<TabPanel
+						value={tabValue}
+						index={modifiedTitles().findIndex((title) => title.id === "fill")}
+					>
+						<TabPanelRoot>
+							<FeatureFillHandler
+								feature={feature}
+								typeOfFeature={typeOfFeature.id}
+								foundFeature={foundFeature}
+								objectList={objectList}
+							/>
+						</TabPanelRoot>
+					</TabPanel>
+				)}
+				{hasArrow && (
+					<TabPanel
+						value={tabValue}
+						index={modifiedTitles().findIndex((title) => title.id === "arrow")}
+					>
 						<TabPanelRoot>
 							<FeatureArrowHandler
 								feature={feature}
@@ -108,25 +147,34 @@ const FeaturePropertyHandlerModal = ({
 						</TabPanelRoot>
 					</TabPanel>
 				)}
-				<TabPanel value={tabValue} index={typeOfFeature === "polyline" ? 3 : 2}>
-					<TabPanelRoot>
-						<FeatureTextHandler
-							feature={feature}
-							foundFeature={foundFeature}
-							objectList={objectList}
-						/>
-					</TabPanelRoot>
-				</TabPanel>
-
-				<TabPanel value={tabValue} index={typeOfFeature === "polyline" ? 4 : 3}>
-					<TabPanelRoot>
-						<FeatureOthersHandler
-							feature={feature}
-							foundFeature={foundFeature}
-							objectList={objectList}
-						/>
-					</TabPanelRoot>
-				</TabPanel>
+				{hasText && (
+					<TabPanel
+						value={tabValue}
+						index={modifiedTitles().findIndex((title) => title.id === "text")}
+					>
+						<TabPanelRoot>
+							<FeatureTextHandler
+								feature={feature}
+								foundFeature={foundFeature}
+								objectList={objectList}
+							/>
+						</TabPanelRoot>
+					</TabPanel>
+				)}
+				{hasOthers && (
+					<TabPanel
+						value={tabValue}
+						index={modifiedTitles().findIndex((title) => title.id === "others")}
+					>
+						<TabPanelRoot>
+							<FeatureOthersHandler
+								feature={feature}
+								foundFeature={foundFeature}
+								objectList={objectList}
+							/>
+						</TabPanelRoot>
+					</TabPanel>
+				)}
 			</Box>
 		</BaseModal>
 	);

@@ -1,11 +1,20 @@
-import { SelectChangeEvent, styled, Typography } from "@mui/material";
-import { MouseEvent, useState } from "react";
+import {
+	FormControl,
+	InputAdornment,
+	MenuItem,
+	Select,
+	SelectChangeEvent,
+	styled,
+	Typography,
+} from "@mui/material";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import { Color, toColor, useColor } from "react-color-palette";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
-import { TypesOfShapeType } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
+
 import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
 import {
 	IFeatureFillType,
+	IFeatureType,
 	IGradient,
 	IGraphicObject,
 	IPatternType,
@@ -15,6 +24,8 @@ import FeatureFillTypeHandler from "./\bcomponents/FeatureFillTypeHandler";
 import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler";
 import { toastShow } from "../../../../components/alert/ToastMessage";
 import FeatureGradientTypeHandler from "./\bcomponents/FeatureGradientTypeHandler";
+import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
+import TextInput from "../../../../components/form/TextInput";
 
 interface FeatureFillHandlerProps {
 	// 리액트 상태 관리용
@@ -22,7 +33,7 @@ interface FeatureFillHandlerProps {
 	// window.graphic 내의 객체
 	foundFeature: IGraphicObject;
 	// 도형의 종류
-	typeOfFeature?: TypesOfShapeType;
+	typeOfFeature?: IFeatureType;
 	// 전체 objectList
 	objectList: IGraphicObject[];
 }
@@ -32,7 +43,12 @@ const { GraphicUtil } = D2MapModule;
  * 도형(Feature)의 채움을 관리할 수 있도록 하는 모달 내 요소
  * @returns {JSX.Element} div
  */
-const FeatureFillHandler = ({ feature, foundFeature, objectList }: FeatureFillHandlerProps) => {
+const FeatureFillHandler = ({
+	feature,
+	foundFeature,
+	objectList,
+	typeOfFeature,
+}: FeatureFillHandlerProps) => {
 	const {
 		color: initialColor,
 		patternColor: initialPatternColor,
@@ -40,6 +56,11 @@ const FeatureFillHandler = ({ feature, foundFeature, objectList }: FeatureFillHa
 		pattern: initialPatternType,
 		gradient: initialGradientType,
 	} = foundFeature._style.fill;
+	const {
+		radius: initialRadius,
+		lineType: initialArcLineType,
+		fillType: initialArcFillType,
+	} = foundFeature._prop;
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
 
@@ -261,6 +282,46 @@ const FeatureFillHandler = ({ feature, foundFeature, objectList }: FeatureFillHa
 		setSelectedGradientOpacity(newValue as number);
 	};
 
+	// 사각형일 때 모서리를 둥글게 함
+	const [radius, setRadius] = useState(initialRadius);
+
+	const handleRadius = (event: ChangeEvent<HTMLInputElement>) => {
+		setRadius(Number(event.target.value));
+		objectList!.map((obj) => {
+			if (foundFeature._prop.guid === obj._prop.guid) {
+				obj._prop.radius = Number(event.target.value);
+				obj.updateFeature();
+			}
+		});
+	};
+
+	// 도형이 arc 일 때 모양을 지정할 수 있음
+	const returnArcValues = [
+		{ id: 0, line: 1, fill: 2, name: "Type 1" },
+		{ id: 1, line: 1, fill: 3, name: "Type 2" },
+		{ id: 2, line: 2, fill: 2, name: "Type 3" },
+		{ id: 3, line: 3, fill: 2, name: "Type 4" },
+	];
+
+	const [arcType, setArcType] = useState<number>(
+		returnArcValues.find((re) => re.line === initialArcLineType && re.fill === initialArcFillType)
+			?.id || 0,
+	);
+	const handleArcType = (event: SelectChangeEvent) => {
+		const value = Number(event.target.value);
+
+		const found = returnArcValues.find((re) => re.id === value);
+		setArcType(value);
+		objectList!.map((obj) => {
+			if (foundFeature._prop.guid === obj._prop.guid) {
+				obj._prop.lineType = found?.line;
+				obj._prop.fillType = found?.fill;
+
+				obj.updateFeature();
+			}
+		});
+	};
+
 	return (
 		<Root>
 			<Typography variant="body2" gutterBottom sx={{ mt: 1, mb: 2, fontWeight: 600 }}>
@@ -318,6 +379,39 @@ const FeatureFillHandler = ({ feature, foundFeature, objectList }: FeatureFillHa
 					handleGradientOpacity={handleGradientOpacity}
 					handleGradientColor={handleGradientColor}
 				/>
+			)}
+			{typeOfFeature === "rectangle" && (
+				<SpaceBetweenTextBox title="모서리 반경(Radius)" marginBottom={10}>
+					<TextInput
+						type="number"
+						variant="outlined"
+						value={radius}
+						size="small"
+						onChange={handleRadius}
+						InputProps={{
+							endAdornment: <InputAdornment position="end">px</InputAdornment>,
+						}}
+					/>
+				</SpaceBetweenTextBox>
+			)}
+			{typeOfFeature === "arc" && (
+				<SpaceBetweenTextBox title="원호 모양" marginBottom={16}>
+					<FormControl fullWidth>
+						<Select
+							size="small"
+							labelId="arc-type-select"
+							id="arc-type-select"
+							value={String(arcType)}
+							onChange={handleArcType}
+						>
+							{returnArcValues.map((a) => (
+								<MenuItem key={a.id} value={a.id}>
+									{a.name}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</SpaceBetweenTextBox>
 			)}
 		</Root>
 	);

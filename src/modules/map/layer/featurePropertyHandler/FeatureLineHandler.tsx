@@ -17,11 +17,11 @@ import OneLineIcon from "../../../../assets/icons/lineTypes/OneLineIcon";
 import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
 import TextInput from "../../../../components/form/TextInput";
 import D2MapModule from "../../../../libs/d2/D2MapModule";
-import { TypesOfShapeType } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
 import {
 	IDashLineType,
 	IFeatureFillType,
+	IFeatureType,
 	IGradient,
 	IGraphicObject,
 	IMultiLineType,
@@ -45,7 +45,7 @@ interface FeatureLineHandlerProps {
 	// window.graphic 내의 객체
 	foundFeature: IGraphicObject;
 	// 도형의 종류
-	typeOfFeature?: TypesOfShapeType;
+	typeOfFeature?: IFeatureType;
 	// 전체 objectList
 	objectList: IGraphicObject[];
 }
@@ -87,6 +87,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		undefined;
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
+
+	// 만약 도형이 점(Point)라면 점 속성 추가
 
 	// 선의 채움 종류 설정
 	// simple, pattern, gradient

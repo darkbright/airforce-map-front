@@ -378,6 +378,14 @@ export interface IGraphicObject {
 		links: any;
 		lock: boolean;
 		name: string;
+		/**
+		 * lineType은 도형의 속성이 arc일 때에만 나타남
+		 */
+		lineType?: number;
+		/**
+		 * fillType은 도형의 속성이 arc일 때에만 나타남
+		 */
+		fillType?: number;
 		pixelPositions: number[][];
 		positions: number[][];
 		radius: number;
@@ -393,7 +401,7 @@ export interface IGraphicObject {
 		 */
 		text: string;
 		trackerRotate: any[];
-		type: string;
+		type: IFeatureType;
 	};
 	_rotateCtrlPt: number[];
 	_selectObjectManager: ISelectObjectManager;
@@ -454,7 +462,7 @@ export interface IGraphicObject {
 			size: number;
 		};
 		point: {
-			type: string;
+			type: IFeaturePointType;
 			size: number;
 		};
 		text: {
@@ -556,6 +564,7 @@ export interface IGraphicObject {
 	getScreenMode: () => boolean;
 	getCreateTime: () => string;
 	getEditTime: () => string;
+	updateFeature: () => void;
 }
 
 /**
@@ -712,6 +721,18 @@ interface ISelectObjectManager {
 	changeEditTime: () => void;
 }
 
+export type IFeatureType =
+	| "point"
+	| "polyline"
+	| "triangle"
+	| "rectangle"
+	| "regularPolygon"
+	| "ellipse"
+	| "arc"
+	| "text"
+	| "milSymbol"
+	| "image";
+
 /**
  * 라인의 타입이 dash일 때, 아래와 같이 설정
  * - dash : [10, 10]
@@ -863,3 +884,5 @@ export type IFeatureTextVerticalALign =
 	| "aphabetic"
 	| "hanging"
 	| "ideographic";
+
+export type IFeaturePointType = "circle" | "rectangle" | "rhombus" | "triangle" | "invertTriangle";

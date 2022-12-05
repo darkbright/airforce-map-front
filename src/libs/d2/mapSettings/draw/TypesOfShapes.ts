@@ -1,14 +1,25 @@
-/**
- * - 내부를 채울 면적이 있다면 hasFill
- * - 선종류라면 lineOnly
- * - 군대부호 종류라면 milSymbol
- * - 이미지 종류라면 image
- */
-export type TypesOfShapeType = "normal" | "polyline" | "milSymbol" | "image";
+import { IFeatureType } from "../../../../types/d2/Graphic";
 
+/**
+ * hasLine: 선이 존재하는가 (거의 모든 도형이 그러함)
+ * hasFill: 채움이 존재하는가
+ * hasText: 도형위에 글씨를 쓸 수 있는가
+ * hasArrow: polyline은 화살표가 가능함
+ * hasOthers: 기타 속성. 모든 도형에 다 들어감
+ * isPoint: 점 종류인가
+ * isArc: 원호 종류인가
+ * isRectangle: 사각형인가. 사각형인 경우 모서리를 둥글게 할 수 있음.
+ */
 interface TypesOfShapeProp {
-	id: string;
-	type: TypesOfShapeType;
+	id: IFeatureType;
+	hasLine: boolean;
+	hasFill: boolean;
+	hasText: boolean;
+	hasArrow: boolean;
+	hasOthers: boolean;
+	isPoint: boolean;
+	isArc: boolean;
+	isRectangle: boolean;
 }
 
 /**
@@ -20,7 +31,14 @@ interface TypesOfShapeProp {
 export const typesOfShape: TypesOfShapeProp[] = [
 	{
 		id: "point",
-		type: "normal",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: true,
+		isArc: false,
+		isRectangle: false,
 	},
 	/**
 	 * 폴리라인은 꽉 채워진 도형인데, 투명도가 0일 뿐임
@@ -28,38 +46,90 @@ export const typesOfShape: TypesOfShapeProp[] = [
 	 */
 	{
 		id: "polyline",
-		type: "polyline",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: true,
+		isPoint: false,
+		isArc: false,
+		isRectangle: false,
 	},
 	{
 		id: "rectangle",
-		type: "normal",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: false,
+		isRectangle: true,
 	},
 	{
 		id: "triangle",
-		type: "normal",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: false,
+		isRectangle: false,
 	},
 	{
 		id: "ellipse",
-		type: "normal",
-	},
-	{
-		id: "polygon",
-		type: "normal",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: false,
+		isRectangle: false,
 	},
 	{
 		id: "regularPolygon",
-		type: "normal",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: false,
+		isRectangle: false,
 	},
 	{
 		id: "arc",
-		type: "normal",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: true,
+		isRectangle: false,
 	},
 	{
 		id: "milSymbol",
-		type: "milSymbol",
+		hasLine: false,
+		hasFill: false,
+		hasText: false,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: false,
+		isRectangle: false,
 	},
 	{
 		id: "image",
-		type: "image",
+		hasLine: false,
+		hasFill: false,
+		hasText: false,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: false,
+		isRectangle: false,
 	},
 ];
