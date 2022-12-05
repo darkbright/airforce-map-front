@@ -8,6 +8,7 @@ import { FeatureFontFamilies } from "../../data/constants/featureFontFamilyList"
  */
 export interface Graphic {
 	_graphicBoard: IGraphicBoard[];
+	_selectObjectManager: ISelectObjectManager;
 	/**
 	 * 그래픽 App보드 (레이어 추가)
 	 * @returns App보드의 인덱스를 반환함
@@ -129,6 +130,11 @@ export interface Graphic {
 	selectMode: () => void;
 	/**
 	 * 선택된 객체를 삭제함
+	 * - 아래처럼 작성을 해야 저게 작동이 되는 것임. this._objectList 안에 지울 놈을 지정을 해주어야만 한다는 것임.
+	 * @example
+	 * window.graphic._selectObjectManager.clear();
+	 * window.graphic._selectObjectManager.add(obj);
+	 * window.graphic.selectObjectRemove();
 	 */
 	selectObjectRemove: () => void;
 	/**
@@ -615,11 +621,11 @@ interface ISelectObjectManager {
 	/**
 	 * 선택된 오브젝트 리스트 반환
 	 */
-	getSelectObjectList: () => any;
+	getSelectObjectList: () => IGraphicObject[];
 	/**
-	 * 추가
+	 * _objectList에 특정한 IGraphicObject 형태를 추가. 다른 메소드들을 사용을 하려면 일단 _objectList에 필요한 obj를 추가해 넣어야 그 다음작업이 가능해지는 식의 구조임
 	 */
-	add: (obj: any) => void;
+	add: (obj: IGraphicObject) => void;
 	/**
 	 * 선택된 객체 삭제
 	 */
@@ -627,11 +633,11 @@ interface ISelectObjectManager {
 	/**
 	 * MBR 좌표로 객체 선택
 	 */
-	select: (extend: any, objects: any) => void;
+	select: (extend?: any, objects?: any) => void;
 	/**
 	 *선택된 객체를 선택모드로 설정
 	 */
-	selectObject: (sendMsg: any) => void;
+	selectObject: (sendMsg?: any) => void;
 	/**
 	 * 선택된 객체가 맞는지 검사
 	 */
@@ -657,7 +663,12 @@ interface ISelectObjectManager {
 	 */
 	getCount: () => number;
 	/**
-	 * objectList 초기화
+	 * objectList 초기화.
+	 * 초기화를 해주는 이유는 이 ISelectObjectManager에서 수행되는 각종 기능들의 param 값 그 자체가 _objectList가 되고, 따라서 더하든지 지우든지 어떤 작업을 수행하든 그 수행되어야 할 대상은 _objectList에 담겨야 함.
+	 *  그래서 이 것이 전체 ISelectObjectManager의 param 그 자체이므로, 한번 저장된 후 초기화를 시켜주고 다시 넣어주고 하는 것을 반복해야 하는 것임.
+	 * 다시 말해 본 문서에서 move, copy, paste, select, selectedObjToBottom...... 등등은 param값이 존재하질 않음. 도대체 무엇을 더해주고 복사해주고 한다는 것일까?
+	 * 이를 내부적으로 살펴보면 _objectList가 param값을 해주고 있다는 것임.
+	 * - 왜 이렇게 만들었는지는...이해를 못하고 헤맨 내가 이상한걸지도..
 	 */
 	clear: () => void;
 	/**

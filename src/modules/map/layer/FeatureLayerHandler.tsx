@@ -7,7 +7,7 @@ import useThemeStore from "../../../stores/useThemeStore";
 import { theme } from "../../../styles/theme";
 import { getWindowSize } from "../../../styles/windowSize";
 import TextButton from "../../../components/button/TextButton";
-import { IGraphicBoard, IGraphicObject } from "../../../types/d2/Graphic";
+import { IGraphicObject } from "../../../types/d2/Graphic";
 import FeatureSingleLayer from "./FeatureSingleLayer";
 import { DropResult } from "react-beautiful-dnd";
 import { reorder } from "../../../utils/reorder";
@@ -35,7 +35,7 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 		setExpanded(newExpanded ? panel : false);
 	};
 
-	const graphic = window.graphic;
+	const { graphic } = window;
 
 	const defaultLayerList = graphic._graphicBoard;
 	const [layers, setLayers] = useState(defaultLayerList);
@@ -52,6 +52,15 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 		const objList = board.getParentObjectList();
 		return setFeatures(objList);
 	};
+
+	/**
+	 *  이게 도대체 뭔지를 모르겠음...
+	 * 일단 샘플에서는 군대부호 로딩하는 함수에 addGraphicAppBoard가 있고 다른데는 없는데,
+	 * 이게 초기 로딩이 되면서 이미 저걸 하나 추가해놓는 것 같음 그래서 군대부호를 로딩을 안해도 저거가 항상 붙어있는데, 왜 붙어있는지 저게 뭔지 이해할 수가 없음
+	 */
+	useEffect(() => {
+		graphic.addGraphicAppBoard();
+	}, []);
 
 	/**
 	 * 도형 생성 시 createMode는 그 도형을 생성할 준비가 된 것이지, 실제로 생성한 상태가 아님.
@@ -78,7 +87,7 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 			const reorderedFeatures = reorder(features, source.index, destination.index);
 			setFeatures(reorderedFeatures);
 			// graphic 객체에 반영
-			const board: IGraphicBoard = graphic.getSelectGraphicBoard();
+			const board = graphic.getSelectGraphicBoard();
 			const objectList = board.getObjectList();
 			objectList.map((obj) => {
 				const sameIndex = reorderedFeatures.find((re) => re._prop.guid === obj._prop.guid);

@@ -33,6 +33,15 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 		setAnchorEl(event.currentTarget);
 	};
 
+	// 선택된 board, 즉 선택된 Layer를 확인하고
+	const board = window.graphic.getSelectGraphicBoard();
+	// 선택된 board(layer) 내에 들어있는 도형이나 군대부호같은 각종 feature(or object)들의 리스트들을 불러옴.
+	const objectList = board.getObjectList();
+	// 그 중에서 현재 선택된 object가 무엇인지를 찾아야함.
+	// 왜냐하면 react 내에서 찾은 feature는 window.graphic의 복제품이기 때문임.
+	// 이렇게 한 이유는 window 객체를 context화 했을 때 D2 라이브러리와의 충돌이 가능할 수도 있어서 그렇게 할 수 밖에 없었던 것임.
+	const foundFeature = objectList.find((obj) => obj._prop.guid === feature._prop.guid)!;
+
 	return (
 		<>
 			<Draggable draggableId={feature._prop.guid} index={index}>
@@ -99,7 +108,23 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 				>
 					속성 변경
 				</MenuItem>
-				<MenuItem dense onClick={() => console.log("dfs")}>
+				<MenuItem
+					dense
+					onClick={() => {
+						objectList.map((obj) => {
+							if (foundFeature!._prop.guid === obj._prop.guid) {
+								// 전체 graphic 객체 내 ObjectManager라고 하는 것의 _objectList를 모두 지워줌
+								window.graphic._selectObjectManager.clear();
+								// 거기에 선택한 obj를 추가함
+								window.graphic._selectObjectManager.add(obj);
+								// 위를 추가하면 그 obj가 선택되어 있는 상태라는 것임. 그래서 그것을 삭제할 수 있게 됨.
+								return window.graphic.selectObjectRemove();
+								// 아래 주석친 것은 특정 도형을 선택하는 것인데 작동을 하는건지 아닌건지 도대체가 알 수가 없음.
+								// window.graphic._selectObjectManager.selectObject();
+							}
+						});
+					}}
+				>
 					삭제
 				</MenuItem>
 				<MenuItem dense onClick={() => console.log("dfs")}>
@@ -110,6 +135,8 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 				open={propertyModalOpen}
 				setOpen={() => setPropertyModalOpen(false)}
 				feature={feature}
+				objectList={objectList}
+				foundFeature={foundFeature}
 			/>
 		</>
 	);
