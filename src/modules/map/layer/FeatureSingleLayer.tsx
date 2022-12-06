@@ -15,6 +15,8 @@ import SingleLayerHandlerModal from "./SingleLayerHandlerModal";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import SingleFeatureBox from "./SingleFeatureBox";
 import { DragDropContext, Droppable, DropResult, ResponderProvided } from "react-beautiful-dnd";
+import TextButton from "../../../components/button/TextButton";
+import { downloadLayerAsXml } from "../../../libs/d2/mapSettings/draw/downloadXML";
 
 interface FeatureSingLayerProps {
 	expanded: boolean;
@@ -116,6 +118,13 @@ const FeatureSingleLayer = ({
 										))}
 									{provided.placeholder}
 								</AccordionDetails>
+								<BottomButtonWrapper>
+									<TextButton
+										title="파일로 저장"
+										type="button"
+										onClick={() => downloadLayerAsXml()}
+									/>
+								</BottomButtonWrapper>
 							</Accordion>
 						</Root>
 					)}
@@ -138,4 +147,8 @@ const Root = styled("div")(() => ({
 	display: "flex",
 	alignItems: "center",
 	marginBottom: "2.5%",
+}));
+
+const BottomButtonWrapper = styled("div")(() => ({
+	paddingLeft: 20,
 }));

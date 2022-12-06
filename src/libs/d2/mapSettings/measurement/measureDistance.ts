@@ -10,8 +10,6 @@ interface MeasureDistanceType {
  * 거리 재기
  */
 export const measureDistance = ({ speed, bearing, unit }: MeasureDistanceType) => {
-	console.log(window.distance.getLineColor());
-
 	window.eventManager.setMapMode("terrainAnalysis");
 	window.distance.createDistance();
 	window.distance.setSpeed(speed);

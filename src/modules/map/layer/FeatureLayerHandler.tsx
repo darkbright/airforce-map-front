@@ -1,4 +1,4 @@
-import { Button, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import { Dispatch, SetStateAction, SyntheticEvent, useEffect, useState } from "react";
 import BaseBlockTitleBox from "../../../components/box/textBox/BaseBlockTitleBox";
 import CloseButton from "../../../components/button/CloseButton";
@@ -58,9 +58,9 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 	 * 일단 샘플에서는 군대부호 로딩하는 함수에 addGraphicAppBoard가 있고 다른데는 없는데,
 	 * 이게 초기 로딩이 되면서 이미 저걸 하나 추가해놓는 것 같음 그래서 군대부호를 로딩을 안해도 저거가 항상 붙어있는데, 왜 붙어있는지 저게 뭔지 이해할 수가 없음
 	 */
-	useEffect(() => {
-		graphic.addGraphicAppBoard();
-	}, []);
+	// useEffect(() => {
+	// 	graphic.addGraphicAppBoard();
+	// }, []);
 
 	/**
 	 * 도형 생성 시 createMode는 그 도형을 생성할 준비가 된 것이지, 실제로 생성한 상태가 아님.
@@ -120,7 +120,6 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 						textPosition="right"
 						onClick={handleAddLayer}
 					/>
-					<Button onClick={() => console.log("features", features)}>클릭</Button>
 				</AddLayerWrapper>
 
 				<div>

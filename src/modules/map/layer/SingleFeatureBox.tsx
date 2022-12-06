@@ -113,10 +113,13 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 					onClick={() => {
 						objectList.map((obj) => {
 							if (foundFeature!._prop.guid === obj._prop.guid) {
+								const objList = window.graphic.getSelectGraphicBoard().getParentObjectList();
+								const objec = objList[objList.length - 1];
+								console.log("window", window.graphic);
 								// 전체 graphic 객체 내 ObjectManager라고 하는 것의 _objectList를 모두 지워줌
 								window.graphic._selectObjectManager.clear();
 								// 거기에 선택한 obj를 추가함
-								window.graphic._selectObjectManager.add(obj);
+								window.graphic._selectObjectManager.add(objec);
 								// 위를 추가하면 그 obj가 선택되어 있는 상태라는 것임. 그래서 그것을 삭제할 수 있게 됨.
 								return window.graphic.selectObjectRemove();
 								// 아래 주석친 것은 특정 도형을 선택하는 것인데 작동을 하는건지 아닌건지 도대체가 알 수가 없음.

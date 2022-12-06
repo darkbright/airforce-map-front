@@ -222,6 +222,7 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				<TextInput
 					type="text"
 					multiline
+					maxRows={4}
 					variant="outlined"
 					value={textMessage}
 					size="small"

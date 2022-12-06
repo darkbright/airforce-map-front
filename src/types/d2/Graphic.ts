@@ -3,7 +3,7 @@ import { FeatureFontFamilies } from "../../data/constants/featureFontFamilyList"
 /**
  * 투명도 관련 모든 속성으로, 레이어 설정 및 feature 값들을 저장 관리 수정 등 모든 것을 관할함
  * - GraphicBoard: n개의 Board가 합쳐진 개념으로, 이 Board들의 zIndex 등을 바꿀 수 있음.
- * - Board: 하나의 Layer 개념으로 n개의 feature들을 가지고 있움. (말하자면 파워포인트에서 슬라이드 한장, 일러스트레이터에서의 그룹의 개념이라고 간력하게 이해할 수도 있겠음 - 여기서 파워포인트와 다른 것은, 파워포인트에서 한 장의 슬라이드의 투명도를 50%로 낮춘다고 다음 슬라이드 위에 중첩되어 보이진 않으나, 여기서는 가능함. 즉, 여러 개의 Board는 중첩된 채로 실제 "LAYER"를 구성하여 Stack되고 그것들이 화면에 모두 보여질 수 있다는 의미임)
+ * - Board: 하나의 Layer 개념으로 n개의 feature들을 가지고 있움. (말하자면 파워포인트에서 슬라이드 한장, 일러스트레이터에서의 layer 개념이라고 간력하게 이해할 수도 있겠음 - 여기서 파워포인트와 다른 것은, 파워포인트에서 한 장의 슬라이드의 투명도를 50%로 낮춘다고 다음 슬라이드 위에 중첩되어 보이진 않으나, 여기서는 가능함. 즉, 여러 개의 Board는 중첩된 채로 실제 "LAYER"를 구성하여 Stack되고 그것들이 화면에 모두 보여질 수 있다는 의미임)
  * - ObjectProp / Object / Feature: 서로 다르게 부르고 있지만 모두 하나의 Board 안에 종속된  개별 도형/군대부호들을 나타냄. Board 내에 List로 저장되며 도형들의 ZIndex를 변경하여 표시된 순서를 바꿀 수 있음. 따라서 앞으로/뒤로/맨뒤로/맨앞으로 등의 순서 조절이 가능해짐.
  */
 export interface Graphic {
@@ -294,8 +294,11 @@ export interface IGraphicBoard {
 	exportJSON: () => string;
 	/**
 	 * 표준 xml 형식으로 지정
+	 * - exportStdXML(true)이면 군대부호에 적용된 모든 태그를 xml에 저장
+	 * - exportStdXML(false)이면 군대부호 UI에서 변경된 태그만 xml에 저장
+	 * - exportStdXML()의 디폴트값은 false
 	 */
-	exportStdXML: () => any;
+	exportStdXML: (all?: boolean) => any;
 	/**
 	 * 해상도 변경 시 객체 업데이트
 	 */
@@ -605,6 +608,9 @@ export interface IGradient {
 	stdXML_InterpolationColors: any;
 }
 
+/**
+ * objectList를 관리하는 것이 주요 기능임
+ */
 interface ISelectObjectManager {
 	_graphic: _IGraphic;
 	_map: any;
