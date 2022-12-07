@@ -43,7 +43,7 @@ export const imageUploader = ({ event, imageSize }: ImageUploaderProps) => {
 		if (file.size > validImageSize) {
 			toastShow({
 				type: "error",
-				message: "이미지는 1mb를 초과할 수 없습니다.",
+				message: `이미지는 ${imageSize}mb를 초과할 수 없습니다.`,
 				title: "이미지 용량이 너무 큽니다",
 			});
 		}

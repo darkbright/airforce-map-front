@@ -58,7 +58,7 @@ export interface Graphic {
 	/**
 	 * 선택한 그래픽 보드를 반환함
 	 */
-	getGraphicBoard: (index: number) => any;
+	getGraphicBoard: (index: number) => IGraphicBoard;
 	/**
 	 * 그래픽 보드의 개수를 반환함
 	 */
@@ -287,7 +287,7 @@ export interface IGraphicBoard {
 	/**
 	 * stdXML 로드
 	 */
-	importStdXML: (stdXML: any, sendMsg: any) => void;
+	importStdXML: (stdXML: Document, sendMsg?: any) => void;
 	/**
 	 * 객체정보를 JSON 파일로 변환
 	 */

@@ -21,7 +21,7 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 	const graphicUtil: IGraphicUtil = GraphicUtil;
 	const {
 		rotate: initialRotate,
-		lock: initialLock,
+		// lock: initialLock,
 		scaleLimit: initialScaleLimit,
 		scaleLower: initialScaleLower,
 		scaleUpper: initialScaleUpper,
@@ -42,16 +42,16 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 	};
 
 	// 잠금 기능. 잠그면 이동도 안되고 그러는듯
-	const [isLocked, setIsLocked] = useState<boolean>(initialLock);
-	const handleLock = (event: ChangeEvent<HTMLInputElement>) => {
-		setIsLocked(event.target.checked);
-		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
-				obj.setLock(event.target.checked);
-				graphicUtil.setFeatureStyle(obj);
-			}
-		});
-	};
+	// const [isLocked, setIsLocked] = useState<boolean>(initialLock);
+	// const handleLock = (event: ChangeEvent<HTMLInputElement>) => {
+	// 	setIsLocked(event.target.checked);
+	// 	objectList.map((obj) => {
+	// 		if (foundFeature._prop.guid === obj._prop.guid) {
+	// 			obj.setLock(event.target.checked);
+	// 			graphicUtil.setFeatureStyle(obj);
+	// 		}
+	// 	});
+	// };
 
 	// 축척 설정 기능. 뭘 어떻게 한다는건지 난 잘 모르겠음
 	const [isScaleLimited, setIsScaleLimited] = useState<boolean>(initialScaleLimit);
@@ -120,9 +120,11 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 					}}
 				/>
 			</SpaceBetweenTextBox>
-			<SpaceBetweenTextBox title="위치 잠금" marginBottom={10}>
+			{/* 아래 기능은 global sharing이 안되고 있어 일단 중지 */}
+			{/* TO_BE_CHECKED */}
+			{/* <SpaceBetweenTextBox title="위치 잠금" marginBottom={10}>
 				<Checkbox checked={isLocked} name="lock" onChange={handleLock} />
-			</SpaceBetweenTextBox>
+			</SpaceBetweenTextBox> */}
 			<SpaceBetweenTextBox title="축척 설정" marginBottom={10}>
 				<Checkbox checked={isScaleLimited} name="textBold" onChange={handleScaleLimit} />
 			</SpaceBetweenTextBox>
