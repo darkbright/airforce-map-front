@@ -7,7 +7,7 @@ import {
 	Tooltip,
 	Typography,
 } from "@mui/material";
-import { MouseEventHandler, SyntheticEvent, useState } from "react";
+import { MouseEventHandler, SyntheticEvent, useEffect, useState } from "react";
 import { IGraphicBoard, IGraphicObject } from "../../../types/d2/Graphic";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -15,8 +15,10 @@ import SingleLayerHandlerModal from "./SingleLayerHandlerModal";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import SingleFeatureBox from "./SingleFeatureBox";
 import { DragDropContext, Droppable, DropResult, ResponderProvided } from "react-beautiful-dnd";
-import TextButton from "../../../components/button/TextButton";
 import { downloadLayerAsXml } from "../../../libs/d2/mapSettings/draw/downloadXML";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 interface FeatureSingLayerProps {
 	expanded: boolean;
@@ -27,6 +29,7 @@ interface FeatureSingLayerProps {
 	onClickAccordion: MouseEventHandler<HTMLDivElement> | undefined;
 	features: IGraphicObject[] | null;
 	onDragEnd: (result: DropResult, provided: ResponderProvided) => void;
+	handleDeleteLayer: () => void;
 }
 
 /**
@@ -42,6 +45,7 @@ const FeatureSingleLayer = ({
 	onClickAccordion,
 	features,
 	onDragEnd,
+	handleDeleteLayer,
 }: FeatureSingLayerProps) => {
 	/**
 	 * 레이어 및 해당 레이어에 속하는 도형들을 지도에서 보여줄지 말지 결정함
@@ -54,7 +58,12 @@ const FeatureSingleLayer = ({
 	const [openModal, setOpenModal] = useState(false);
 
 	// 레이어 이름 설정
-	const [layerName, setLayerName] = useState(layer._name);
+	const [layerName, setLayerName] = useState(layer.getName());
+
+	// 레이어를 로컬 등에서 불러왔을 때 layer의 이름이 업데이트 되지 않는 현상 때문에 어코디언을 클릭 했을 때 이름을 다시 설정토록 조치
+	useEffect(() => {
+		setLayerName(layer.getName());
+	}, [layer, onClickAccordion]);
 
 	return (
 		<>
@@ -87,7 +96,6 @@ const FeatureSingleLayer = ({
 								}}
 								key={layer._guid}
 								onClick={onClickAccordion}
-								// onDoubleClick={() => setOpenModal(true)}
 							>
 								<AccordionSummary
 									expandIcon={<ExpandMoreIcon />}
@@ -119,11 +127,35 @@ const FeatureSingleLayer = ({
 									{provided.placeholder}
 								</AccordionDetails>
 								<BottomButtonWrapper>
-									<TextButton
-										title="파일로 저장"
-										type="button"
+									<IconButton
+										aria-label="layer-setting"
+										size="small"
+										onClick={() => setOpenModal(true)}
+									>
+										<Tooltip title="레이어 설정">
+											<div>
+												<SettingsIcon fontSize="small" sx={{ opacity: 0.5 }} />
+											</div>
+										</Tooltip>
+									</IconButton>
+									<IconButton
+										aria-label="save-as-xml"
+										size="small"
 										onClick={() => downloadLayerAsXml()}
-									/>
+									>
+										<Tooltip title="파일로 저장">
+											<div>
+												<SaveIcon fontSize="small" sx={{ opacity: 0.5 }} />
+											</div>
+										</Tooltip>
+									</IconButton>
+									<IconButton aria-label="delete-layer" size="small" onClick={handleDeleteLayer}>
+										<Tooltip title="현재 레이어 삭제">
+											<div>
+												<DeleteIcon fontSize="small" sx={{ opacity: 0.5 }} />
+											</div>
+										</Tooltip>
+									</IconButton>
 								</BottomButtonWrapper>
 							</Accordion>
 						</Root>
@@ -150,5 +182,7 @@ const Root = styled("div")(() => ({
 }));
 
 const BottomButtonWrapper = styled("div")(() => ({
-	paddingLeft: 20,
+	display: "flex",
+	justifyContent: "flex-end",
+	paddingRight: 14,
 }));

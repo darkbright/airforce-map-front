@@ -46,7 +46,7 @@ const SingleLayerHandlerModal = ({
 						value={layerName}
 						onChange={(event) => {
 							setLayerName(event.target.value);
-							layer.setName(event.target.value);
+							window.graphic.getSelectGraphicBoard().setName(event.target.value);
 						}}
 						type="text"
 					/>

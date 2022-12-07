@@ -21,6 +21,7 @@ import { reorder } from "../../../utils/reorder";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { uploadLayerAsXML } from "../../../libs/d2/mapSettings/draw/loadXML";
+import { toastShow } from "../../../components/alert/ToastMessage";
 
 interface FeatureLayerHandlerProps {
 	show: boolean;
@@ -164,6 +165,19 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 								handleSelectLayer();
 							}}
 							features={features}
+							handleDeleteLayer={() => {
+								if (graphic.getGraphicBoardCount() <= 1) {
+									return toastShow({
+										type: "error",
+										title: "삭제할 수 없음",
+										message: "최소 한개 이상의 레이어는 존재해야 합니다.",
+									});
+								}
+								const currentBoard = graphic.getSelectGraphicBoard();
+								graphic.removeGraphicBoard(index);
+								graphic.setSelectGraphicBoard(0);
+								setLayers((prev) => prev.filter((p) => p._guid !== currentBoard._guid));
+							}}
 						/>
 					))}
 				</div>
