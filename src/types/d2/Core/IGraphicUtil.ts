@@ -1,4 +1,4 @@
-import { IGraphicFeature } from "../Graphic";
+import { IGraphicFeature, IGraphicObject } from "../Graphic";
 
 export interface IGraphicUtil {
 	cursor: {
@@ -43,7 +43,7 @@ export interface IGraphicUtil {
 	/**
 	 * 그래픽 객체의 스타일 설정
 	 */
-	setFeatureStyle: (obj: any) => void;
+	setFeatureStyle: (obj: IGraphicObject) => void;
 	/**
 	 * 화살표 생성, 폴리라인 안으로 이동 고려
 	 */

@@ -108,7 +108,7 @@ export default async () => {
 
 	// 투명도 레이어 모듈 설정
 	window.graphic = new Graphic(window.map);
-	window.graphic.getSelectGraphicBoard().setName("Layer-01");
+	window.graphic.getSelectGraphicBoard().setName("Layer-1");
 	window.graphic.loadStdXSD(urlInfo.graphic.overlay); // 투명도 스키마
 	window.graphic.setCursor(cursor); // 커서 세팅
 

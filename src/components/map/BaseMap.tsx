@@ -79,6 +79,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 						</Typography>
 						<ul id="d2map_mvtTree" className="d2map_ztree"></ul>
 					</div>
+
 					{children}
 				</div>
 

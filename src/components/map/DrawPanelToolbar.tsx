@@ -1,5 +1,5 @@
 import { styled, ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
-import { ChangeEvent, ReactElement, useRef, useState } from "react";
+import { ChangeEvent, ReactElement, useEffect, useRef, useState } from "react";
 import ArcIcon from "../../assets/icons/shapes/ArcIcon";
 import BSplineIcon from "../../assets/icons/shapes/BSplineIcon";
 import CircleIcon from "../../assets/icons/shapes/CircleIcon";
@@ -32,6 +32,8 @@ import { imageUploader } from "../../utils/imageUploader";
 import { IGraphicObjectProp } from "../../types/d2/Core/IGraphicObjectProp";
 import D2MapModule from "../../libs/d2/D2MapModule";
 import FeatureLayerHandler from "../../modules/map/layer/FeatureLayerHandler";
+import useRightClickStore from "../../stores/useRightClickStore";
+import FeatureRightClickHandler from "../../modules/map/layer/FeatureRightClickHandler";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
@@ -151,11 +153,6 @@ const shapesList: ShapesListProps[] = [
 		title: "전방전투지경선",
 		icon: <CombatBoundaryIcon />,
 	},
-	// {
-	// 	value: "image",
-	// 	title: "이미지",
-	// 	icon: <ImageIcon />,
-	// },
 ];
 
 /**
@@ -195,6 +192,45 @@ const DrawPanelToolbar = () => {
 			await window.graphic.createMode(graphicObject);
 		}
 	};
+
+	const { rightClickEnabled } = useRightClickStore();
+
+	const [showFeatureContextMenu, setShowFeatureContextMenu] = useState(false);
+	const [featureContextPosition, setFeatureContextPosition] = useState({
+		x: 0,
+		y: 0,
+	});
+
+	const handleContextMenu = (e: any) => {
+		document.addEventListener("contextmenu", (e) => {
+			e.preventDefault();
+		});
+
+		setFeatureContextPosition({ x: e.pixel[0], y: e.pixel[1] });
+		const selectObjList = window.graphic.getSelectObjectList();
+		if (selectObjList.length > 0) {
+			setShowFeatureContextMenu(true);
+		} else {
+			return null;
+		}
+	};
+
+	// feature를 클릭했을 시 contextMenu 나타남
+	useEffect(() => {
+		if (rightClickEnabled) {
+			window.map.on("contextmenu", handleContextMenu);
+			return () => window.map.un("contextmenu", handleContextMenu);
+		}
+	}, [window.map, handleContextMenu]);
+
+	// 지도 위에 아무데나 왼쪽 클릭 시 featureContextMenu 사라짐
+	useEffect(() => {
+		if (rightClickEnabled) {
+			window.map.on("click", () => setShowFeatureContextMenu(false));
+			return () => window.map.un("click", () => setShowFeatureContextMenu(false));
+		}
+	}),
+		[window.map];
 
 	return (
 		<>
@@ -304,6 +340,12 @@ const DrawPanelToolbar = () => {
 				setOpen={() => setSymbolListOpen(false)}
 			/>
 			<FeatureLayerHandler show={showLayerHandler} setShow={() => setShowLayerHandler(false)} />
+			<FeatureRightClickHandler
+				show={showFeatureContextMenu}
+				setShow={() => setShowFeatureContextMenu(false)}
+				positionX={featureContextPosition.x}
+				positionY={featureContextPosition.y}
+			/>
 		</>
 	);
 };

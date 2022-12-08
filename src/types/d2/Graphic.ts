@@ -7,8 +7,31 @@ import { FeatureFontFamilies } from "../../data/constants/featureFontFamilyList"
  * - ObjectProp / Object / Feature: 서로 다르게 부르고 있지만 모두 하나의 Board 안에 종속된  개별 도형/군대부호들을 나타냄. Board 내에 List로 저장되며 도형들의 ZIndex를 변경하여 표시된 순서를 바꿀 수 있음. 따라서 앞으로/뒤로/맨뒤로/맨앞으로 등의 순서 조절이 가능해짐.
  */
 export interface Graphic {
+	_autoCreateBoard: boolean;
+	_defaultStyle: IFeatureStyle;
+	_graphicAppBoard: any[];
 	_graphicBoard: IGraphicBoard[];
+	_graphicIndex: number;
+	_ketState: {
+		shift: boolean;
+		ctrl: boolean;
+	};
+	_layerCallback: any;
+	_map: any;
+	_mapScale: number;
+	_mode: string;
+	_msObjectCreator: any;
+	_postComposeCtrl: any;
+	_selectGraphicBoard: IGraphicBoard;
 	_selectObjectManager: ISelectObjectManager;
+	_selectorLayer: any;
+	_selectorSource: any;
+	_stdXSDManager: any;
+	_styleCallback: any;
+	_trackerLayer: any;
+	_trackerLineLayer: any;
+	_trackerLineSource: any;
+	_trackerSource: any;
 	/**
 	 * 그래픽 App보드 (레이어 추가)
 	 * @returns App보드의 인덱스를 반환함
@@ -180,11 +203,10 @@ export interface GraphicCursor {
  * 생성된 그래픽 보드 (투명도 레이어 )
  */
 export interface IGraphicBoard {
-	editTime: string;
 	_attribute: any;
 	_author: string;
 	_createObject: any;
-	_defaultStyle: any;
+	_defaultStyle: IFeatureStyle;
 	_editTime: string;
 	_graphic: _IGraphic;
 	_graphicLayer: any;
@@ -235,11 +257,11 @@ export interface IGraphicBoard {
 	 */
 	getEditTime: () => string;
 	/**
-	 * 그래픽 객체를 배열로 리턴
+	 * 그래픽 Features들을 배열로 리턴
 	 */
 	getObjectList: () => IGraphicObject[];
 	/**
-	 * 최상위 그래픽 객체(그룹)을 배열로 리턴
+	 * 만약 어떤 보드 내 feature들이 그룹화가 되어 있다면, 그 그룹의 head(parent)가 되는 객체들만(그 하위에 있는 애들을 빼고) 불러온다는 의미같음
 	 */
 	getParentObjectList: () => IGraphicObject[];
 	/**
@@ -307,7 +329,13 @@ export interface IGraphicBoard {
 	 * 그래픽 객체의 zIndex 정렬
 	 */
 	sortZIndex: () => void;
+	/**
+	 * 실행 취소 (도형같은걸 그렸다가 다시 없애기)
+	 */
 	undo: () => void;
+	/**
+	 * 다시 실행 (도형같은걸 지웠다가 다시 살리기)
+	 */
 	redo: () => void;
 	undoRedoLoad: (layer: any) => void;
 	undoRedoSave: (vertexEditingGUID?: string) => void;
@@ -316,9 +344,9 @@ export interface IGraphicBoard {
 
 interface _IGraphic {
 	_autoCreateBoard: boolean;
-	_defaultStyle: any;
+	_defaultStyle: IFeatureStyle;
 	_graphicAppBoard: any[];
-	_graphicBoard: any[];
+	_graphicBoard: IGraphicBoard[];
 	_graphicIndex: number;
 	_ketState: {
 		ctrl: boolean;
@@ -415,93 +443,7 @@ export interface IGraphicObject {
 	_rotateCtrlPt: number[];
 	_selectObjectManager: ISelectObjectManager;
 	_showTracker: boolean;
-	_style: {
-		fill: {
-			/**
-			 * rgba
-			 */
-			color: number[];
-			gradient: IGradient;
-			stopPoint: number[];
-			type: IFeatureFillType;
-			pattern: IPatternType;
-			/**
-			 * - 배경 패턴 patternColor[0]
-			 * - 전경 패턴 patternColor[1]
-			 */
-			patternColor: number[][];
-			useFillColor: boolean;
-		};
-		line: {
-			alphaHex: any;
-			arrow: {
-				begin: {
-					type: IArrowType;
-					width: number;
-					height: number;
-				};
-				end: {
-					type: IArrowType;
-					width: number;
-					height: number;
-				};
-			};
-			color: number[];
-			dash: IDashLineType;
-			dashOffset: number;
-			doubleLine: IMultiLineType;
-			fill: {
-				gradient: IGradient;
-				pattern: IPatternType;
-				/**
-				 * - 배경 패턴 patternColor[0]
-				 * - 전경 패턴 patternColor[1]
-				 */
-				patternColor: number[][];
-				type: IFeatureFillType;
-			};
-			lineCap: string;
-			lineJoin: string;
-			type: "simple" | "arrow" | "dash";
-			useLinColor: boolean;
-			width: number;
-		};
-		marker: {
-			imgUrl: string | null;
-			size: number;
-		};
-		point: {
-			type: IFeaturePointType;
-			size: number;
-		};
-		text: {
-			backgroundColor: number[];
-			bold: boolean;
-			color: number[];
-			directionRightToLeft: boolean;
-			directionVertical: boolean;
-			font: IFeatureFontFamily;
-			fontSize: number;
-			italic: boolean;
-			offsetX: number;
-			offsetY: number;
-			outlineColor: number[];
-			outlineWidth: number;
-			/**
-			 * 텍스트 정렬
-			 * - point: 도형중심위치
-			 * - line: 도형선에 위치
-			 */
-			placement: "point" | "line";
-			rotation: number;
-			showBackground: boolean;
-			textAlign: IFeatureTextAlign;
-			textBaseline: IFeatureTextVerticalALign;
-			zIndex: number;
-		};
-		zIndex: number;
-	};
-
+	_style: IFeatureStyle;
 	_textFeature: {
 		_dispatching: any;
 		disposed: boolean;
@@ -736,6 +678,93 @@ interface ISelectObjectManager {
 	 * 객체들의 수정일시 수정
 	 */
 	changeEditTime: () => void;
+}
+
+export interface IFeatureStyle {
+	fill: {
+		/**
+		 * rgba
+		 */
+		color: number[];
+		gradient: IGradient;
+		stopPoint: number[];
+		type: IFeatureFillType;
+		pattern: IPatternType;
+		/**
+		 * - 배경 패턴 patternColor[0]
+		 * - 전경 패턴 patternColor[1]
+		 */
+		patternColor: number[][];
+		useFillColor: boolean;
+	};
+	line: {
+		alphaHex: any;
+		arrow: {
+			begin: {
+				type: IArrowType;
+				width: number;
+				height: number;
+			};
+			end: {
+				type: IArrowType;
+				width: number;
+				height: number;
+			};
+		};
+		color: number[];
+		dash: IDashLineType;
+		dashOffset: number;
+		doubleLine: IMultiLineType;
+		fill: {
+			gradient: IGradient;
+			pattern: IPatternType;
+			/**
+			 * - 배경 패턴 patternColor[0]
+			 * - 전경 패턴 patternColor[1]
+			 */
+			patternColor: number[][];
+			type: IFeatureFillType;
+		};
+		lineCap: string;
+		lineJoin: string;
+		type: "simple" | "arrow" | "dash";
+		useLinColor: boolean;
+		width: number;
+	};
+	marker: {
+		imgUrl: string | null;
+		size: number;
+	};
+	point: {
+		type: IFeaturePointType;
+		size: number;
+	};
+	text: {
+		backgroundColor: number[];
+		bold: boolean;
+		color: number[];
+		directionRightToLeft: boolean;
+		directionVertical: boolean;
+		font: IFeatureFontFamily;
+		fontSize: number;
+		italic: boolean;
+		offsetX: number;
+		offsetY: number;
+		outlineColor: number[];
+		outlineWidth: number;
+		/**
+		 * 텍스트 정렬
+		 * - point: 도형중심위치
+		 * - line: 도형선에 위치
+		 */
+		placement: "point" | "line";
+		rotation: number;
+		showBackground: boolean;
+		textAlign: IFeatureTextAlign;
+		textBaseline: IFeatureTextVerticalALign;
+		zIndex: number;
+	};
+	zIndex: number;
 }
 
 export type IFeatureType =
