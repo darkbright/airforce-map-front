@@ -36,15 +36,17 @@ export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTy
 		const properties = feature.getProperties();
 		// 매칭되는 심볼을 symbolListByCoord 내의 DB에서 받은 좌표값으로 찾음
 		const symbol = symbolListByCoord.find((sym) => sym.baseCoord === properties.originLonlat);
+		console.log("symbol", symbol);
 		if (type === "simplified") {
 			const symbolStyle = basicPointStyle(feature, 10, 1);
 			feature.setStyle([symbolStyle, textStyle]);
 		}
 		if (type === "basic") {
 			const matchedSymbol = symbol?.basicSymbol;
+			const rotation = symbol?.rotation ?? 0;
 			// 매칭되는 심볼이 존재하지 않는다면 N/A로 표기
 			const foundSymbol = matchedSymbol ? matchedSymbol : notApplicableSymbol;
-			const symbolStyle = basicSymbolStyle(feature, foundSymbol, 1, 0.55);
+			const symbolStyle = basicSymbolStyle(feature, foundSymbol, rotation, 1, 0.55);
 			feature.setStyle([symbolStyle, textStyle]);
 		}
 		if (type === "military") {

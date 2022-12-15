@@ -30,6 +30,10 @@ interface coordType {
 	 */
 	basicSymbol: string;
 	/**
+	 * 기본부호일 때 각도 (0~359) 시계방향 (기지같은류의 활주로 뱡향을 바꾸고 싶을 때 사용하십쇼)
+	 */
+	rotation: number;
+	/**
 	 * 군대부호 svg
 	 */
 	milSymbol?: string;
@@ -50,6 +54,7 @@ export const symbolListByCoord: coordType[] = [
 		baseCoord: "350733N1264835E",
 		basicSymbol: baseSymbol,
 		milSymbol: "SFG*USTA--*****",
+		rotation: 0,
 	},
 	{
 		unitNm: "재경단",
@@ -60,6 +65,7 @@ export const symbolListByCoord: coordType[] = [
 		baseCoord: "373023N1265545E",
 		basicSymbol: baseSymbol,
 		milSymbol: "SFG*USTA--*****",
+		rotation: 26,
 	},
 	{
 		unitNm: "3훈비",
@@ -69,6 +75,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "사천",
 		baseCoord: "350519N1280413E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "5비",
@@ -78,6 +85,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "김해",
 		baseCoord: "351426N1285313E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "8전비",
@@ -87,6 +95,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "원주",
 		baseCoord: "372617N1275737E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "10전비",
@@ -96,6 +105,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "수원",
 		baseCoord: "371422N270025E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "11전비",
@@ -106,6 +116,7 @@ export const symbolListByCoord: coordType[] = [
 		baseCoord: "355339N1283932E",
 		basicSymbol: baseSymbol,
 		milSymbol: "SFG*USTA--*****",
+		rotation: 90,
 	},
 	{
 		unitNm: "15비",
@@ -115,6 +126,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "서울",
 		baseCoord: "372645N1270650E",
 		basicSymbol: satelliteDishSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "16전비",
@@ -124,6 +136,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "예천",
 		baseCoord: "363755N1282117E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "17전비",
@@ -133,6 +146,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "청주",
 		baseCoord: "364257N1272959E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "18전비",
@@ -142,6 +156,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "강릉",
 		baseCoord: "374513N1285637E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "19전비",
@@ -151,6 +166,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "중원",
 		baseCoord: "370148N1275307E",
 		basicSymbol: satelliteDishSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "20전비",
@@ -160,6 +176,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "서산",
 		baseCoord: "364215N262910E",
 		basicSymbol: satelliteDishSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "35전대",
@@ -169,6 +186,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "서울",
 		baseCoord: "372645N1270650E",
 		basicSymbol: satelliteDishSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "38전대",
@@ -178,6 +196,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "군산",
 		baseCoord: "355414N1263657E",
 		basicSymbol: rocketSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "2여단",
@@ -187,6 +206,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "오산",
 		baseCoord: "370526N1270147E",
 		basicSymbol: rocketSymbol,
+		rotation: 0,
 	},
 
 	{
@@ -197,6 +217,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "김해",
 		baseCoord: "351423N1285313E",
 		basicSymbol: rocketSymbol,
+		rotation: 140,
 	},
 	{
 		unitNm: "작근단",
@@ -206,6 +227,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "오산",
 		baseCoord: "370526N1270147E",
 		basicSymbol: rocketSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "공본",
@@ -215,6 +237,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "계룡대",
 		baseCoord: "3618630N1271411E",
 		basicSymbol: rocketSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "82창",
@@ -224,6 +247,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "서산",
 		baseCoord: "346215N1262910E",
 		basicSymbol: satelliteDishSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "1관제대",
@@ -233,6 +257,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "중원",
 		baseCoord: "360113N1284154E",
 		basicSymbol: rocketSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "2관제대",
@@ -242,6 +267,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "대성산",
 		baseCoord: "365620N1262708E",
 		basicSymbol: rocketSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "3관제대",
@@ -251,6 +277,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "파평산",
 		baseCoord: "354111N1263553E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "5관제대",
@@ -260,6 +287,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "별립산",
 		baseCoord: "331418N1261528E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "302관제대대",
@@ -269,6 +297,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "팔공산",
 		baseCoord: "381350N1273234E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "305관제대대",
@@ -278,6 +307,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "망일산",
 		baseCoord: "375425N1265229E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "307관제대대",
@@ -287,6 +317,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "의상봉",
 		baseCoord: "373024N1305238E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "308관제대대",
@@ -296,6 +327,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "제주도",
 		baseCoord: "374628N1262231E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "309관제대대",
@@ -305,6 +337,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "백령도",
 		baseCoord: "345934N1275210E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "311관제대대",
@@ -314,6 +347,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "일월산",
 		baseCoord: "385515N1242029E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "312관제대대",
@@ -323,6 +357,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "용문산",
 		baseCoord: "393447N1281009E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "313관제대대",
@@ -332,6 +367,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "수리산",
 		baseCoord: "375400N1272450E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "314관제대대",
@@ -341,6 +377,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "황병산",
 		baseCoord: "382515N1242029E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "315관제대대",
@@ -350,6 +387,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "화악산",
 		baseCoord: "365353N1275708E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "316관제대대",
@@ -359,6 +397,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "평성산",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "317관제대대",
@@ -368,6 +407,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "성거산",
 		baseCoord: "355259N1281800E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "318관제대대",
@@ -377,6 +417,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "금오산",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "319관제대대",
@@ -386,6 +427,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "울릉도",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "316관제대대",
@@ -395,6 +437,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "평성산",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "316관제대대",
@@ -404,6 +447,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "평성산",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "316관제대대",
@@ -413,6 +457,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "평성산",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "316관제대대",
@@ -422,6 +467,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "평성산",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "316관제대대",
@@ -431,6 +477,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "평성산",
 		baseCoord: "370500N1270200E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "부대1",
@@ -440,6 +487,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "부대1",
 		baseCoord: "372200N1283600E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "부대2",
@@ -449,6 +497,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "부대2",
 		baseCoord: "360500N1275900E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "부대3",
@@ -458,6 +507,7 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "부대3",
 		baseCoord: "361900N1264400E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
 		unitNm: "부대4",
@@ -467,14 +517,16 @@ export const symbolListByCoord: coordType[] = [
 		baseNm: "부대4",
 		baseCoord: "360100N1275300E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 	{
-		unitNm: "부대53",
+		unitNm: "부대5",
 		unitCd: "7100000009",
 		unitTp: "AD",
 		baseCd: "A08",
 		baseNm: "부대53",
 		baseCoord: "360000N1285000E",
 		basicSymbol: baseSymbol,
+		rotation: 0,
 	},
 ];

@@ -101,11 +101,10 @@ export const customizeSymbol = ({
 
 			// 심볼 정보
 			const properties = feature.getProperties();
-			const symbol = symbolListByCoord.find(
-				(sym) => sym.baseCoord === properties.originLonlat,
-			)?.basicSymbol;
+			const symbol = symbolListByCoord.find((sym) => sym.baseCoord === properties.originLonlat);
 			// 매칭되는 심볼이 존재하지 않는다면 N/A로 표기
-			const foundSymbol = symbol ? symbol : notApplicableSymbol;
+			const foundSymbol = symbol ? symbol.basicSymbol : notApplicableSymbol;
+			const rotation = symbol?.rotation ?? 0;
 
 			// 축소 시 사이즈가 너무 작아지는 것을 방지하기 위하여 7을 기본값을 정했음.
 			const preventSizeToZero = changedSize() < 0.3 ? 0.3 : changedSize();
@@ -115,7 +114,7 @@ export const customizeSymbol = ({
 
 			// newStyle 지정 시, point 스타일이 먼저 나오고, text 스타일이 나중에 들어가야 함. 이를 어기면 배열이 꼬임
 			const newStyle = [
-				basicSymbolStyle(feature, foundSymbol, adjustedOpacity, preventSizeToZero),
+				basicSymbolStyle(feature, foundSymbol, rotation, adjustedOpacity, preventSizeToZero),
 				basicTextStyle(feature, changedTextOpacity),
 			];
 			return feature.setStyle(newStyle);

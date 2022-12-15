@@ -66,6 +66,7 @@ export const basicPointStyle = (feature: any, radius: number, opacity: number) =
  * ol feature 객체를 생성핳고 이에 해당하는 기본부호를 svg로 생성함
  * @param feature 생성된 ol feature객체
  * @param symbolSvg assets/symbols에 정리된 공군 기본심볼 중 하나를 택일함
+ * @param rotation 기본부호 일 때 만약 그게 기지라면 활주로가 있고 그 활주로가 어떤 방향으로 향하고 있는지 표시해야 할 수도 있음.
  * @param opacity 불투명도 (기본은 1)
  *  @param scale 크기 (기본은 0.55)
  * @returns 해당 ol 객체의 스타일 객체를 리턴함
@@ -73,6 +74,7 @@ export const basicPointStyle = (feature: any, radius: number, opacity: number) =
 export const basicSymbolStyle = (
 	feature: any,
 	symbolSvg: string,
+	rotation: number,
 	opacity: number,
 	scale: number,
 ) => {
@@ -88,14 +90,15 @@ export const basicSymbolStyle = (
 			src: "data:image/svg+xml;utf8," + encodeURIComponent(symbolSvg),
 			// svg 이미지 크기 (기본은 0.55)
 			scale,
+			rotation,
 			// offset 현재 좌표에서 [좌측, 위측] 으로 이동
-			offset: [0, -8],
+			offset: [0, 0],
 			offsetOrigin: "bottom-left",
 			// anchor: Array.<number> (defaults to [0.5, 0.5])	Anchor. Default value is the icon center.
 			// anchor 현재 중심에서 [좌측,위측]으로 이동
 			// anchorXUnits: "pixels",
 			// anchorYUnits: "pixels",
-			anchor: [0, 0],
+			anchor: [0.2, 0.3],
 		}),
 	});
 
