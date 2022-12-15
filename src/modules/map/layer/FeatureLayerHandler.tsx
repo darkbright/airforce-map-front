@@ -14,7 +14,6 @@ import useFullScreenStore from "../../../stores/useFullScreenStore";
 import useThemeStore from "../../../stores/useThemeStore";
 import { theme } from "../../../styles/theme";
 import { getWindowSize } from "../../../styles/windowSize";
-import { IGraphicObject } from "../../../types/d2/Graphic";
 import FeatureSingleLayer from "./FeatureSingleLayer";
 import { DropResult } from "react-beautiful-dnd";
 import { reorder } from "../../../utils/reorder";

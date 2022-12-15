@@ -34,6 +34,7 @@ import D2MapModule from "../../libs/d2/D2MapModule";
 import FeatureLayerHandler from "../../modules/map/layer/FeatureLayerHandler";
 import useRightClickStore from "../../stores/useRightClickStore";
 import FeatureRightClickHandler from "../../modules/map/layer/FeatureRightClickHandler";
+import DrawerPanelSubToolbar from "./DrawerPanelSubToolbar";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
@@ -315,23 +316,10 @@ const DrawPanelToolbar = () => {
 				</FirstRow>
 
 				<SecondRow>
-					<ToggleButton
-						sx={{
-							background: (theme) => theme.palette.background.default,
-							opacity: 0.9,
-							"&:hover": { background: (theme) => theme.palette.background.paper },
-						}}
-						size="small"
-						color="primary"
-						value="layer-manager"
-						onClick={() => {
-							setShowLayerHandler(!showLayerHandler);
-						}}
-					>
-						<Tooltip title="투명도 레이어 관리">
-							<div>투명도 관리</div>
-						</Tooltip>
-					</ToggleButton>
+					<DrawerPanelSubToolbar
+						openDrawPanel={showLayerHandler}
+						setOpenDrawPanel={() => setShowLayerHandler(!showLayerHandler)}
+					/>
 				</SecondRow>
 			</Root>
 

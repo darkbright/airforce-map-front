@@ -129,6 +129,7 @@ const baseTheme = {
 					":not(:last-of-type)": {
 						borderRight: `1px solid ${theme.palette.divider}`,
 					},
+					minWidth: 30,
 				}),
 			},
 		},

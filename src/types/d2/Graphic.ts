@@ -271,7 +271,7 @@ export interface IGraphicBoard {
 	 */
 	getGroupObjectList: () => IGraphicObject[];
 	/**
-	 * 모두 삭제
+	 * 모두 삭제 - 이거 뭔가 문제가 있음 사용하지 말것
 	 */
 	destroy: () => void;
 	/**
