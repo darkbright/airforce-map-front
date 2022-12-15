@@ -22,6 +22,7 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { uploadLayerAsXML } from "../../../libs/d2/mapSettings/draw/loadXML";
 import { toastShow } from "../../../components/alert/ToastMessage";
+import useGraphicFeatureStore from "../../../stores/useGraphicFeatureStore";
 
 interface FeatureLayerHandlerProps {
 	show: boolean;
@@ -52,7 +53,8 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 	const [layers, setLayers] = useState(defaultLayerList);
 
 	// features
-	const [features, setFeatures] = useState<IGraphicObject[] | null>(null);
+	// const [features, setFeatures] = useState<IGraphicObject[] | null>(null);
+	const { features, setFeatures } = useGraphicFeatureStore();
 
 	/**
 	 * 선택된 레이어의 하위에 속하는 feature들을 가지고 옴

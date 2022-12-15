@@ -92,9 +92,11 @@ export interface Graphic {
 	 */
 	getSelectGraphicBoard: () => IGraphicBoard;
 	/**
-	 * 선택된 그래픽 객체를 배열로 반환함
+	 * - 맵에서 도형을 클릭하면, 그 도형의 property가 배열에 담기게 되며, 보통 1개 선택 시 1개가 담김.
+	 * - 따라서 클릭을 통한 1개의 도형이 리스트에 담기면 0번째 내용을 선택했다고 봐주면 됨.
+	 * - 만약 ctrl 키를 이용하여 두 개를 선택하면 두개의 오브젝트가 배열로 담김
 	 */
-	getSelectObjectList: () => any[];
+	getSelectObjectList: () => IGraphicObject[];
 	/**
 	 * 투명도 표준 XSD(스키마) 파일의 URL을 설정함.
 	 * 표준 XML을 열거나 저장 시 스키마 정보로 기본값을 설정함
