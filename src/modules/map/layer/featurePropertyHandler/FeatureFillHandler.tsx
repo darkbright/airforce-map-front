@@ -78,14 +78,14 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.type = newAlignment;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
 
 	// 생성된 단색 도형의 채움(fill) 색상을 변경함
 	const [fillColor, setFillColor] = useColor("hex", GraphicUtil.rgb2hex(initialColor));
-	// const [openColorPicker, setOpenColorPicker] = useState(false);
 	const changeFillColor = (color: Color) => {
 		setFillColor(color);
 		objectList.map((obj) => {
@@ -94,7 +94,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.color = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -110,7 +111,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.color[3] = opacityNumber;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setFillOpacity(newValue as number);
@@ -130,7 +132,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.pattern = event.target.value as IPatternType;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -148,7 +151,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.patternColor[0] = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -163,7 +167,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.patternColor[0][3] = opacityNumber;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setPatternBgOpacity(newValue as number);
@@ -182,7 +187,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.patternColor[1] = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -197,7 +203,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.patternColor[1][3] = opacityNumber;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setPatternFgOpacity(newValue as number);
@@ -217,7 +224,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.gradient.type = event.target.value as IGradient["type"];
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -237,7 +245,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.gradient.stopPoint = arr;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -254,7 +263,8 @@ const FeatureFillHandler = ({
 			) {
 				obj._style.fill.gradient.stopPoint.push(1);
 				obj._style.fill.gradient.color.push(defaultColor);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -277,7 +287,8 @@ const FeatureFillHandler = ({
 			) {
 				obj._style.fill.gradient.stopPoint.filter((s, i) => i !== selectedGradient);
 				obj._style.fill.gradient.color.filter((s, i) => i !== selectedGradient);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -299,7 +310,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.gradient.color = arr;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -319,7 +331,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.gradient.color = arr;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setSelectedGradientOpacity(newValue as number);
@@ -336,7 +349,8 @@ const FeatureFillHandler = ({
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._prop.radius = Number(event.target.value);
-				obj.updateFeature();
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -366,7 +380,8 @@ const FeatureFillHandler = ({
 				obj._prop.lineType = found?.line;
 				obj._prop.fillType = found?.fill;
 
-				obj.updateFeature();
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};

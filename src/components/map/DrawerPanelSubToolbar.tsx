@@ -50,9 +50,7 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 						size="small"
 						aria-label="draw-toolbar-sub-undo"
 						disableElevation
-						onClick={() => {
-							window.graphic.getSelectGraphicBoard().undo();
-						}}
+						onClick={() => window.graphic.getSelectGraphicBoard().undo()}
 					>
 						<Tooltip title="실행 취소(ctrl+z)">
 							<UndoIcon fontSize="small" />

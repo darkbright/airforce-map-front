@@ -79,7 +79,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._prop.text = event.target.value;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -95,7 +96,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.color = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -114,7 +116,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.outlineColor = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -129,7 +132,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.font = event.target.value as IFeatureFontFamily;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -144,7 +148,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.fontSize = Number(event.target.value);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -159,7 +164,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.bold = event.target.checked;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -175,7 +181,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.directionRightToLeft = event.target.checked;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -190,7 +197,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.italic = event.target.checked;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -205,7 +213,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.text.directionVertical = event.target.checked;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -220,7 +229,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 			) {
 				obj._style.text.textAlign = selected;
 				setTextAlign(selected);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -238,7 +248,8 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 			) {
 				obj._style.text.textBaseline = selected;
 				setTextVerticalAlign(selected);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};

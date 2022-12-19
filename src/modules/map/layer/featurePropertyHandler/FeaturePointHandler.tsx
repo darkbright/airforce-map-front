@@ -9,8 +9,6 @@ import {
 } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
-import D2MapModule from "../../../../libs/d2/D2MapModule";
-import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
 import { IFeaturePointType, IGraphicObject } from "../../../../types/d2/Graphic";
 
 import { featurePointTypeList } from "../../../../data/constants/featurePointTypeList";
@@ -25,15 +23,12 @@ interface FeaturePointHandlerProps {
 	objectList: IGraphicObject[];
 }
 
-const { GraphicUtil } = D2MapModule;
-
 /**
  * 도형이 점 타입인 경우 점의 사이즈와 종류를 핸들링함
  * @param FeaturePointHandlerProps FeaturePointHandlerProps
  * @returns {JSX.Element} div
  */
 const FeaturePointHandler = ({ feature, foundFeature, objectList }: FeaturePointHandlerProps) => {
-	const graphicUtil: IGraphicUtil = GraphicUtil;
 	const { type: initialType, size: initialSize } = foundFeature._style.point;
 
 	const [pointType, setPointType] = useState(initialType);
@@ -45,7 +40,8 @@ const FeaturePointHandler = ({ feature, foundFeature, objectList }: FeaturePoint
 			) {
 				obj._style.point.type = event.target.value as IFeaturePointType;
 				setPointType(event.target.value as IFeaturePointType);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -59,7 +55,8 @@ const FeaturePointHandler = ({ feature, foundFeature, objectList }: FeaturePoint
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.point.size = Number(event.target.value);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};

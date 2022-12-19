@@ -12,8 +12,6 @@ import { ChangeEvent, useState } from "react";
 import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
 import TextInput from "../../../../components/form/TextInput";
 import { lineArrowList } from "../../../../data/constants/lineArrowList";
-import D2MapModule from "../../../../libs/d2/D2MapModule";
-import { IGraphicUtil } from "../../../../types/d2/Core/IGraphicUtil";
 import { IArrowType, IGraphicObject } from "../../../../types/d2/Graphic";
 
 interface FeatureArrowHandlerProps {
@@ -22,8 +20,6 @@ interface FeatureArrowHandlerProps {
 	objectList: IGraphicObject[];
 }
 
-const { GraphicUtil } = D2MapModule;
-
 /**
  * Polyline 선의 화살표 끝 점의 타입 및 그 크기를 설정
  * @param FeatureArrowHandlerProps FeatureArrowHandlerProps
@@ -31,8 +27,6 @@ const { GraphicUtil } = D2MapModule;
  */
 const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrowHandlerProps) => {
 	const { begin: initialBeginArrow, end: initialEndArrow } = foundFeature._style.line.arrow;
-
-	const graphicUtil: IGraphicUtil = GraphicUtil;
 
 	// 시작 화살표 핸들링
 	const [startArrowType, setStartArrowType] = useState<IArrowType>(initialBeginArrow.type);
@@ -44,7 +38,8 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.arrow.begin.type = event.target.value as IArrowType;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -60,7 +55,8 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.arrow.begin.width = Number(event.target.value);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -76,7 +72,8 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.arrow.begin.height = Number(event.target.value);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -91,7 +88,8 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.arrow.end.type = event.target.value as IArrowType;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -107,7 +105,8 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.arrow.end.width = Number(event.target.value);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -123,7 +122,8 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.arrow.end.height = Number(event.target.value);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};

@@ -102,7 +102,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.type = newAlignment;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -121,7 +122,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.color[3] = opacityNumber;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setLineOpacity(newValue as number);
@@ -139,7 +141,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.pattern = event.target.value as IPatternType;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -157,7 +160,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.patternColor[0] = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -174,7 +178,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.patternColor[0][3] = opacityNumber;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setPatternBgOpacity(newValue as number);
@@ -193,7 +198,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.patternColor[1] = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -210,7 +216,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.patternColor[1][3] = opacityNumber;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setPatternFgOpacity(newValue as number);
@@ -229,7 +236,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.gradient.type = event.target.value as IGradient["type"];
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -249,7 +257,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.gradient.stopPoint = arr;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -266,7 +275,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 			) {
 				obj._style.line.fill.gradient.stopPoint.push(1);
 				obj._style.line.fill.gradient.color.push(defaultColor);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -289,7 +299,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 			) {
 				obj._style.line.fill.gradient.stopPoint.filter((s, i) => i !== selectedGradient);
 				obj._style.line.fill.gradient.color.filter((s, i) => i !== selectedGradient);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -311,7 +322,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.fill.gradient.color = arr;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -331,7 +343,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.fill.gradient.color = arr;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 		setSelectedGradientOpacity(newValue as number);
@@ -357,7 +370,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.color = graphicUtil.hex2rgb(color.hex);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -371,7 +385,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._style.line.width = Number(event.target.value);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -389,7 +404,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 					obj._style.line.dash = [10, 10];
 					setDashLineType("dot");
 				}
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -407,7 +423,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				obj._style.line.dash =
 					dashLineTypes.find((dash) => dash.id === selected)?.type || undefined;
 				setDashLineType(selected);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -432,7 +449,8 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				} else {
 					setMultiLine(foundMultiline);
 				}
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};

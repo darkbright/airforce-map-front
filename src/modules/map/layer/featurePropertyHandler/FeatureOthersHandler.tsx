@@ -66,7 +66,8 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj._prop.scaleLimit = event.target.checked;
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -82,7 +83,8 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 			) {
 				// 이것의 동작원리 및 뭘 하는건지는 난 모르겠음
 				obj.setScaleLimit(isScaleLimited, scaleUpper, Number(event.target.value));
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -98,7 +100,8 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 			) {
 				// 이것의 동작원리 및 뭘 하는건지는 난 모르겠음
 				obj.setScaleLimit(isScaleLimited, Number(event.target.value), scaleLower);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};
@@ -113,7 +116,8 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
 				obj.setScreenMode(event.target.checked);
-				graphicUtil.setFeatureStyle(obj);
+				obj.updateStyle(true);
+				window.graphic.getSelectGraphicBoard().undoRedoSave();
 			}
 		});
 	};

@@ -342,6 +342,10 @@ export interface IGraphicBoard {
 	 */
 	redo: () => void;
 	undoRedoLoad: (layer: any) => void;
+	/**
+	 * 특정한 액션(도형의 위치이동, 도형 추가/삭제, 도형의 스타일 업데이트 등)이 이루어졌을 때 이를 _undoRedo에 등록하여 실행취소/재실행 등을 가능하게 함
+	 * @returns void
+	 */
 	undoRedoSave: (vertexEditingGUID?: string) => void;
 	getGUID: () => string;
 }
@@ -505,7 +509,7 @@ export interface IGraphicObject {
 	/**
 	 * 내부적으로 setFeatureStyle을 하는거같은데, 이걸로 바꾸든지 해야댐
 	 */
-	updateStyle: () => void;
+	updateStyle: (update: boolean) => void;
 	/**
 	 * 좌표열 업데이트
 	 */
