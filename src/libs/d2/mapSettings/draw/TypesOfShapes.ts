@@ -132,4 +132,42 @@ export const typesOfShape: TypesOfShapeProp[] = [
 		isArc: false,
 		isRectangle: false,
 	},
+	{
+		id: "group",
+		hasLine: true,
+		hasFill: true,
+		hasText: true,
+		hasOthers: true,
+		hasArrow: true,
+		isPoint: true,
+		isArc: true,
+		isRectangle: true,
+	},
 ];
+
+/**
+ * 타입이 그룹일 때, 하위에 속하는 도형들의 어떤 속성을 나타내 줄 것인지 소팅하는 작업으로,
+ * 둘 중 하나라도 true 값을 가지고 있으면 true, 아니면 false로 리턴
+ *
+ * @param TypesOfShapeProp[] TypesOfShapeProp[]
+ * @returns TypesOfShapeProp
+ */
+export const mergedGroupProps = (array: TypesOfShapeProp[]) =>
+	array.reduce(
+		(acc, { isPoint, hasLine, hasFill, hasArrow, hasText, hasOthers, isArc, isRectangle }) => {
+			acc.isPoint = acc.isPoint || isPoint;
+			acc.hasLine = acc.hasLine || hasLine;
+			acc.hasFill = acc.hasFill || hasFill;
+			acc.hasArrow = acc.hasArrow || hasArrow;
+			acc.hasText = acc.hasText || hasText;
+			acc.hasOthers = acc.hasOthers || hasOthers;
+			acc.isArc = acc.isArc || isArc;
+			acc.isRectangle = acc.isRectangle || isRectangle;
+			acc.id = "group";
+
+			return acc;
+		},
+		{
+			...array[0],
+		},
+	);

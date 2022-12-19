@@ -74,7 +74,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 		setTextMessage(event.target.value);
 		setEntersCount(inputEnterCounter(event.target.value));
 		objectList!.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._prop.text = event.target.value;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -87,7 +90,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleTextColor = (color: Color) => {
 		setTextColor(color);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.color = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -103,7 +109,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleOutlineTextColor = (color: Color) => {
 		setTextOutlineColor(color);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.outlineColor = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -115,7 +124,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleFontFamily = (event: SelectChangeEvent) => {
 		setTextFontFamily(event.target.value as IFeatureFontFamily);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.font = event.target.value as IFeatureFontFamily;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -127,7 +139,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleTextSize = (event: ChangeEvent<HTMLInputElement>) => {
 		setTextSize(Number(event.target.value));
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.fontSize = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -139,7 +154,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleTextBold = (event: ChangeEvent<HTMLInputElement>) => {
 		setIsTextBold(event.target.checked);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.bold = event.target.checked;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -152,7 +170,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleTextReversed = (event: ChangeEvent<HTMLInputElement>) => {
 		setIsTextReversed(event.target.checked);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.directionRightToLeft = event.target.checked;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -164,7 +185,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleTextItalic = (event: ChangeEvent<HTMLInputElement>) => {
 		setIsTextItalic(event.target.checked);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.italic = event.target.checked;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -176,7 +200,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const handleTextVertical = (event: ChangeEvent<HTMLInputElement>) => {
 		setIsTextVertical(event.target.checked);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.directionVertical = event.target.checked;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -187,7 +214,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 	const [textAlign, setTextAlign] = useState<IFeatureTextAlign>(initialTextAlign);
 	const handleTextAlign = (event: MouseEvent<HTMLElement>, selected: IFeatureTextAlign) => {
 		objectList!.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.textAlign = selected;
 				setTextAlign(selected);
 				graphicUtil.setFeatureStyle(obj);
@@ -202,7 +232,10 @@ const FeatureTextHandler = ({ feature, foundFeature, objectList }: FeatureTextHa
 		selected: IFeatureTextVerticalALign,
 	) => {
 		objectList!.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.text.textBaseline = selected;
 				setTextVerticalAlign(selected);
 				graphicUtil.setFeatureStyle(obj);

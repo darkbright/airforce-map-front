@@ -30,7 +30,7 @@ import TextInput from "../../../../components/form/TextInput";
 interface FeatureFillHandlerProps {
 	// 리액트 상태 관리용
 	feature?: IGraphicObject;
-	// window.graphic 내의 객체
+	// window.graphic 내의 객체 (그룹의 속성을 가질 수 있음)
 	foundFeature: IGraphicObject;
 	// 도형의 종류
 	typeOfFeature?: IFeatureType;
@@ -71,8 +71,12 @@ const FeatureFillHandler = ({
 	const onFillTypeChange = (event: MouseEvent<HTMLElement>, newAlignment: IFeatureFillType) => {
 		setAlignment(newAlignment);
 		// 신규 값으로 바뀌면 fill의 type(IFeatureFillType - 단색이냐, 그라디언트냐 )도 그에 맞추어 변경됨.
+
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.type = newAlignment;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -85,7 +89,10 @@ const FeatureFillHandler = ({
 	const changeFillColor = (color: Color) => {
 		setFillColor(color);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.color = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -98,7 +105,10 @@ const FeatureFillHandler = ({
 		// slider의 value 값은 0~100까지이고, css opacity는 0~1 까지이므로 0.1 단위로 변환하여 지도에 적용해야 함.
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.color[3] = opacityNumber;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -115,7 +125,10 @@ const FeatureFillHandler = ({
 	const handleFillPattern = (event: SelectChangeEvent) => {
 		setFillPattern(event.target.value as IPatternType);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.pattern = event.target.value as IPatternType;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -130,7 +143,10 @@ const FeatureFillHandler = ({
 	const changePatternBgColor = (color: Color) => {
 		setFillPatternBgColor(color);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.patternColor[0] = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -142,7 +158,10 @@ const FeatureFillHandler = ({
 	const handlePatternBgOpacity = (event: Event, newValue: number | number[]) => {
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.patternColor[0][3] = opacityNumber;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -158,7 +177,10 @@ const FeatureFillHandler = ({
 	const changePatternFgColor = (color: Color) => {
 		setFillPatternFgColor(color);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.patternColor[1] = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -170,7 +192,10 @@ const FeatureFillHandler = ({
 	const handlePatternFgOpacity = (event: Event, newValue: number | number[]) => {
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.patternColor[1][3] = opacityNumber;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -187,7 +212,10 @@ const FeatureFillHandler = ({
 	const handleGradientType = (event: SelectChangeEvent) => {
 		setGradientType(event.target.value as IGradient["type"]);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.type = event.target.value as IGradient["type"];
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -204,7 +232,10 @@ const FeatureFillHandler = ({
 		arr[selectedGradient] = (newValue as number) / 100;
 		setStopPoints(arr);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.stopPoint = arr;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -217,7 +248,10 @@ const FeatureFillHandler = ({
 		setGradientColors((colors) => [...colors, defaultColor]);
 		setStopPoints((points) => [...points, 1]);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.stopPoint.push(1);
 				obj._style.fill.gradient.color.push(defaultColor);
 				graphicUtil.setFeatureStyle(obj);
@@ -237,7 +271,10 @@ const FeatureFillHandler = ({
 		setGradientColors((colors) => colors.filter((s, i) => i !== selectedGradient));
 		setStopPoints((points) => points.filter((s, i) => i !== selectedGradient));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.stopPoint.filter((s, i) => i !== selectedGradient);
 				obj._style.fill.gradient.color.filter((s, i) => i !== selectedGradient);
 				graphicUtil.setFeatureStyle(obj);
@@ -257,7 +294,10 @@ const FeatureFillHandler = ({
 		setGradientColors(arr);
 
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.color = arr;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -274,7 +314,10 @@ const FeatureFillHandler = ({
 		setGradientColors(arr);
 
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.color = arr;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -288,7 +331,10 @@ const FeatureFillHandler = ({
 	const handleRadius = (event: ChangeEvent<HTMLInputElement>) => {
 		setRadius(Number(event.target.value));
 		objectList!.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._prop.radius = Number(event.target.value);
 				obj.updateFeature();
 			}
@@ -313,7 +359,10 @@ const FeatureFillHandler = ({
 		const found = returnArcValues.find((re) => re.id === value);
 		setArcType(value);
 		objectList!.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._prop.lineType = found?.line;
 				obj._prop.fillType = found?.fill;
 

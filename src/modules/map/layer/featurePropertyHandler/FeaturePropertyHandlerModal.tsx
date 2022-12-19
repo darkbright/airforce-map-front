@@ -2,7 +2,7 @@ import { Box, styled, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import BaseModal from "../../../../components/modal/BaseModal";
 import TabPanel from "../../../../components/tab/TabPanel";
-import { typesOfShape } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
+import { mergedGroupProps, typesOfShape } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicObject } from "../../../../types/d2/Graphic";
 import FeatureArrowHandler from "./FeatureArrowHandler";
 import FeatureFillHandler from "./FeatureFillHandler";
@@ -15,8 +15,9 @@ interface FeaturePropertyHandlerModalProps {
 	open: boolean;
 	setOpen: () => void;
 	feature: IGraphicObject;
-	foundFeature: IGraphicObject;
-	objectList: IGraphicObject[];
+	/**
+	 * 여기서 foundFeature는 parentObjectList에서 추출한 것이므로 "group"의 속성을 가지고 있음
+	 */
 }
 
 /**
@@ -30,8 +31,6 @@ const FeaturePropertyHandlerModal = ({
 	open,
 	setOpen,
 	feature,
-	foundFeature,
-	objectList,
 }: FeaturePropertyHandlerModalProps) => {
 	const [tabValue, setTabValue] = useState(0);
 	function a11yProps(index: number) {
@@ -50,14 +49,40 @@ const FeaturePropertyHandlerModal = ({
 	const typeOfFeature = typesOfShape.find((shape) => shape.id === feature._prop.type)!;
 	const { isPoint, hasLine, hasFill, hasArrow, hasText, hasOthers } = typeOfFeature;
 
+	// 선택된 board, 즉 선택된 Layer를 확인하고
+	const board = window.graphic.getSelectGraphicBoard();
+	// 선택된 board(layer) 내에 들어있는 도형이나 군대부호같은 각종 feature(or object)들의 리스트들을 불러옴.
+	const objectList = board.getObjectList();
+	// foundFeature는 group의 속성을 가지고 있는 상태로 들고 다녀야 함
+	const parentObjectList = board.getParentObjectList();
+	const foundFeature =
+		parentObjectList.find((obj) => obj._prop.guid === feature?._prop?.guid) ?? null;
+
 	const modifiedTitles = (): { id: string; name: string }[] => {
 		const tabHeadTitles: { id: string; name: string }[] = [];
-		if (isPoint) tabHeadTitles.push({ id: "point", name: "점" });
-		if (hasLine) tabHeadTitles.push({ id: "polyline", name: "선" });
-		if (hasFill) tabHeadTitles.push({ id: "fill", name: "채움" });
-		if (hasArrow) tabHeadTitles.push({ id: "arrow", name: "화살표" });
-		if (hasText) tabHeadTitles.push({ id: "text", name: "텍스트" });
-		if (hasOthers) tabHeadTitles.push({ id: "others", name: "속성" });
+		if (typeOfFeature.id === "group") {
+			// group 안에 포함된 도형들을 출력
+			const objectsInGroup = feature._objectList;
+
+			const sorted = typesOfShape.filter((shape) =>
+				objectsInGroup?.some((object) => object._prop.type === shape.id),
+			);
+			const merged = mergedGroupProps(sorted);
+			if (merged.isPoint) tabHeadTitles.push({ id: "point", name: "점" });
+			if (merged.hasLine) tabHeadTitles.push({ id: "polyline", name: "선" });
+			if (merged.hasFill) tabHeadTitles.push({ id: "fill", name: "채움" });
+			if (merged.hasArrow) tabHeadTitles.push({ id: "arrow", name: "화살표" });
+			if (merged.hasText) tabHeadTitles.push({ id: "text", name: "텍스트" });
+			if (merged.hasOthers) tabHeadTitles.push({ id: "others", name: "속성" });
+		} else {
+			if (isPoint) tabHeadTitles.push({ id: "point", name: "점" });
+			if (hasLine) tabHeadTitles.push({ id: "polyline", name: "선" });
+			if (hasFill) tabHeadTitles.push({ id: "fill", name: "채움" });
+			if (hasArrow) tabHeadTitles.push({ id: "arrow", name: "화살표" });
+			if (hasText) tabHeadTitles.push({ id: "text", name: "텍스트" });
+			if (hasOthers) tabHeadTitles.push({ id: "others", name: "속성" });
+		}
+
 		return tabHeadTitles;
 	};
 
@@ -92,7 +117,7 @@ const FeaturePropertyHandlerModal = ({
 						<TabPanelRoot>
 							<FeaturePointHandler
 								feature={feature}
-								foundFeature={foundFeature}
+								foundFeature={foundFeature!}
 								objectList={objectList}
 							/>
 						</TabPanelRoot>
@@ -107,7 +132,7 @@ const FeaturePropertyHandlerModal = ({
 							<FeatureLineHandler
 								feature={feature}
 								typeOfFeature={typeOfFeature.id}
-								foundFeature={foundFeature}
+								foundFeature={foundFeature!}
 								objectList={objectList}
 							/>
 						</TabPanelRoot>
@@ -122,7 +147,7 @@ const FeaturePropertyHandlerModal = ({
 							<FeatureFillHandler
 								feature={feature}
 								typeOfFeature={typeOfFeature.id}
-								foundFeature={foundFeature}
+								foundFeature={foundFeature!}
 								objectList={objectList}
 							/>
 						</TabPanelRoot>
@@ -136,7 +161,7 @@ const FeaturePropertyHandlerModal = ({
 						<TabPanelRoot>
 							<FeatureArrowHandler
 								feature={feature}
-								foundFeature={foundFeature}
+								foundFeature={foundFeature!}
 								objectList={objectList}
 							/>
 						</TabPanelRoot>
@@ -150,7 +175,7 @@ const FeaturePropertyHandlerModal = ({
 						<TabPanelRoot>
 							<FeatureTextHandler
 								feature={feature}
-								foundFeature={foundFeature}
+								foundFeature={foundFeature!}
 								objectList={objectList}
 							/>
 						</TabPanelRoot>
@@ -164,7 +189,7 @@ const FeaturePropertyHandlerModal = ({
 						<TabPanelRoot>
 							<FeatureOthersHandler
 								feature={feature}
-								foundFeature={foundFeature}
+								foundFeature={foundFeature!}
 								objectList={objectList}
 							/>
 						</TabPanelRoot>

@@ -39,7 +39,10 @@ const FeaturePointHandler = ({ feature, foundFeature, objectList }: FeaturePoint
 	const [pointType, setPointType] = useState(initialType);
 	const handlePointType = (event: SelectChangeEvent) => {
 		objectList!.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.point.type = event.target.value as IFeaturePointType;
 				setPointType(event.target.value as IFeaturePointType);
 				graphicUtil.setFeatureStyle(obj);
@@ -51,7 +54,10 @@ const FeaturePointHandler = ({ feature, foundFeature, objectList }: FeaturePoint
 	const handlePointSize = (event: ChangeEvent<HTMLInputElement>) => {
 		setPointSize(Number(event.target.value));
 		objectList!.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.point.size = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}

@@ -97,7 +97,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		setAlignment(newAlignment);
 		// 신규 값으로 바뀌면 fill의 type(IFeatureFillType - 단색이냐, 그라디언트냐 )도 그에 맞추어 변경됨.
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.type = newAlignment;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -113,7 +116,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		// slider의 value 값은 0~100까지이고, css opacity는 0~1 까지이므로 0.1 단위로 변환하여 지도에 적용해야 함.
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.color[3] = opacityNumber;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -128,7 +134,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const handleFillPattern = (event: SelectChangeEvent) => {
 		setFillPattern(event.target.value as IPatternType);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.pattern = event.target.value as IPatternType;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -143,7 +152,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const changePatternBgColor = (color: Color) => {
 		setFillPatternBgColor(color);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.patternColor[0] = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -157,7 +169,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const handlePatternBgOpacity = (event: Event, newValue: number | number[]) => {
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.patternColor[0][3] = opacityNumber;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -173,7 +188,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const changePatternFgColor = (color: Color) => {
 		setFillPatternFgColor(color);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.patternColor[1] = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -187,7 +205,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const handlePatternFgOpacity = (event: Event, newValue: number | number[]) => {
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.patternColor[1][3] = opacityNumber;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -203,7 +224,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const handleGradientType = (event: SelectChangeEvent) => {
 		setGradientType(event.target.value as IGradient["type"]);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.type = event.target.value as IGradient["type"];
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -220,7 +244,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		arr[selectedGradient] = (newValue as number) / 100;
 		setStopPoints(arr);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.gradient.stopPoint = arr;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -233,7 +260,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		setGradientColors((colors) => [...colors, defaultColor]);
 		setStopPoints((points) => [...points, 1]);
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.gradient.stopPoint.push(1);
 				obj._style.line.fill.gradient.color.push(defaultColor);
 				graphicUtil.setFeatureStyle(obj);
@@ -253,7 +283,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		setGradientColors((colors) => colors.filter((s, i) => i !== selectedGradient));
 		setStopPoints((points) => points.filter((s, i) => i !== selectedGradient));
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.gradient.stopPoint.filter((s, i) => i !== selectedGradient);
 				obj._style.line.fill.gradient.color.filter((s, i) => i !== selectedGradient);
 				graphicUtil.setFeatureStyle(obj);
@@ -273,7 +306,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		setGradientColors(arr);
 
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.fill.gradient.color = arr;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -290,7 +326,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		setGradientColors(arr);
 
 		objectList.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.fill.gradient.color = arr;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -313,7 +352,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const changeLineColor = (color: Color) => {
 		setLineColor(color);
 		objectList!.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.color = graphicUtil.hex2rgb(color.hex);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -324,7 +366,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	const changeLineWidth = (event: ChangeEvent<HTMLInputElement>) => {
 		setLineWidth(Number(event.target.value));
 		objectList!.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.width = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -334,7 +379,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 	// 생성된 도형의 종류를 변경함
 	const changeLineType = (event: MouseEvent<HTMLElement>, selected: "simple" | "dash") => {
 		objectList!.map((obj) => {
-			if (foundFeature!._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.type = selected;
 				setLineType(selected);
 				if (selected === "dash") {
@@ -352,7 +400,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		selected: "dot" | "dash dot" | "dash dot dot",
 	) => {
 		objectList!.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.dash =
 					dashLineTypes.find((dash) => dash.id === selected)?.type || undefined;
 				setDashLineType(selected);
@@ -368,7 +419,10 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 		selected: "line-1" | "line-2" | "line-3" | "line-4" | "line-5",
 	) => {
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				const foundMultiline =
 					multiLineTypes.find((multi) => multi.id === selected)?.type || undefined;
 				obj._style.line.doubleLine = foundMultiline;

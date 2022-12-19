@@ -52,7 +52,7 @@ const FeatureLayerHandler = ({ show, setShow }: FeatureLayerHandlerProps) => {
 	const [layers, setLayers] = useState(defaultLayerList);
 
 	// features
-	// const [features, setFeatures] = useState<IGraphicObject[] | null>(null);
+	// 전역으로 관리
 	const { features, setFeatures } = useGraphicFeatureStore();
 
 	/**

@@ -39,7 +39,10 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 	const handleStartArrowType = (event: SelectChangeEvent) => {
 		setStartArrowType(event.target.value as IArrowType);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.arrow.begin.type = event.target.value as IArrowType;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -52,7 +55,10 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 		// TO_BE_CHECKED 디투에서는 5를 못넘게 처리하던데 왜그런지 모르곘음
 		setStartArrowWidth(Number(event.target.value));
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.arrow.begin.width = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -65,7 +71,10 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 		// TO_BE_CHECKED 디투에서는 5를 못넘게 처리하던데 왜그런지 모르곘음
 		setStartArrowHeight(Number(event.target.value));
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.arrow.begin.height = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -77,7 +86,10 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 	const handleEndArrowType = (event: SelectChangeEvent) => {
 		setEndArrowType(event.target.value as IArrowType);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.arrow.end.type = event.target.value as IArrowType;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -90,7 +102,10 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 		// TO_BE_CHECKED 디투에서는 5를 못넘게 처리하던데 왜그런지 모르곘음
 		setEndArrowWidth(Number(event.target.value));
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.arrow.end.width = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -103,7 +118,10 @@ const FeatureArrowHandler = ({ feature, foundFeature, objectList }: FeatureArrow
 		// TO_BE_CHECKED 디투에서는 5를 못넘게 처리하던데 왜그런지 모르곘음
 		setEndArrowHeight(Number(event.target.value));
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._style.line.arrow.end.height = Number(event.target.value);
 				graphicUtil.setFeatureStyle(obj);
 			}

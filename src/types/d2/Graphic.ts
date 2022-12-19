@@ -123,6 +123,7 @@ export interface Graphic {
 	/**
 	 * 선택된 객체가 그룹이 가능한 것인지 확인함.
 	 * 지리좌표 객체와 화면좌표 객체는 그룹이 불가능함.
+	 * 유저가 지도 위에서 ctrl 또는 shift를 누르고 두 개 이상의 오브젝트를 선택하고 있으면 true가 뜸
 	 */
 	selectedObjectIsGrouping: () => boolean;
 	/**
@@ -259,11 +260,12 @@ export interface IGraphicBoard {
 	 */
 	getEditTime: () => string;
 	/**
-	 * 그래픽 Features들을 배열로 리턴
+	 * 그래픽 Features들을 배열로 리턴 (parent가 아니므로 그룹으로 묶인 오브젝트들도 모두 펼쳐져서 나타남)
 	 */
 	getObjectList: () => IGraphicObject[];
 	/**
-	 * 만약 어떤 보드 내 feature들이 그룹화가 되어 있다면, 그 그룹의 head(parent)가 되는 객체들만(그 하위에 있는 애들을 빼고) 불러온다는 의미같음
+	 * 만약 어떤 보드 내 feature들이 그룹화가 되어 있다면, 그 그룹의 head(parent)가 되는 객체들만(그 하위에 있는 것은 넣지 않음) 불러옴
+	 * 예) 만약 2개 이상의 도형을 두개로 묶으면 type이 "group"이 됨. 만약 그룹으로 묶인게 있고, 안묶인 사각형이 있다면 그룹된 거 1개, 사각형 1개 이런 식으로 출력됨
 	 */
 	getParentObjectList: () => IGraphicObject[];
 	/**
@@ -402,7 +404,11 @@ export interface IGraphicObject {
 	_graphicSource: any;
 	_interaction: any;
 	_map: any;
-	_parent: any;
+	_parent: IGraphicObject;
+	/**
+	 * _objectList는 prop.type이  "group"일 경우에만 보임
+	 */
+	_objectList?: IGraphicObject[];
 	_prop: {
 		attribute: any;
 		bound: {
@@ -565,9 +571,15 @@ interface ISelectObjectManager {
 	_trackerLineLayer: any;
 	_trackerLineSource: any;
 	_objectList: any[];
-	_copyObjectList: any[];
+	/**
+	 * 도형을 복사 copy 했을 때 해당 리스트에 담김
+	 */
+	_copyObjectList: IGraphicObject[];
 	_interaction: any;
-	_shiftPosition: any;
+	_shiftPosition: {
+		count: number;
+		resolution: number;
+	};
 	/**
 	 * 선택된 오브젝트 리스트 반환
 	 */
@@ -779,7 +791,8 @@ export type IFeatureType =
 	| "arc"
 	| "text"
 	| "milSymbol"
-	| "image";
+	| "image"
+	| "group";
 
 /**
  * 라인의 타입이 dash일 때, 아래와 같이 설정

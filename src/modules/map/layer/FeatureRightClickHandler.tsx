@@ -1,4 +1,4 @@
-import { ListItemText, MenuItem, MenuList, styled, Typography } from "@mui/material";
+import { Divider, ListItemText, MenuItem, MenuList, styled, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import useGraphicFeatureStore from "../../../stores/useGraphicFeatureStore";
 import { IGraphicObject } from "../../../types/d2/Graphic";
@@ -24,7 +24,7 @@ const FeatureRightClickHandler = ({
 }: FeatureRightclickHandlerProps) => {
 	// 스타일링
 	const { innerWidth, innerHeight } = window;
-	const [divHeight, setDivHeight] = useState(330);
+	const [divHeight, setDivHeight] = useState(380);
 	const divWidth = 120;
 
 	// 전역 feature 관리
@@ -34,13 +34,13 @@ const FeatureRightClickHandler = ({
 	useEffect(() => {
 		const selectedObject = window.graphic?.getSelectObjectList()[0];
 		setFeature(selectedObject);
-		selectedObject?._prop?.type === "milSymbol" ? setDivHeight(350) : setDivHeight(330);
+		selectedObject?._prop?.type === "milSymbol" ? setDivHeight(390) : setDivHeight(380);
 	}, [show, setShow]);
 
 	// 선택된 board, 즉 선택된 Layer를 확인하고
 	const board = window.graphic.getSelectGraphicBoard();
 	// 선택된 board(layer) 내에 들어있는 도형이나 군대부호같은 각종 feature(or object)들의 리스트들을 불러옴.
-	const objectList = board.getObjectList();
+	const objectList = board.getParentObjectList();
 	// 그 중에서 현재 선택된 object가 무엇인지를 찾아야함.
 	const foundFeature = objectList.find((obj) => obj._prop.guid === feature?._prop?.guid) ?? null;
 
@@ -49,131 +49,165 @@ const FeatureRightClickHandler = ({
 	return (
 		// 스타일링: 윈도우 너비 높이를 계산하고, 현재 feature의 position을 잡아서 만약 feature가 화면 너무 아래쪽이나 우측이나 그렇게 됐을 때 메뉴가 나오는 방향을 설정해주도록 함
 		<>
-			<Root
-				style={{
-					display: show ? "block" : "none",
-					top: positionY >= innerHeight - divHeight ? positionY - divHeight : positionY,
-					left:
-						positionX >= innerWidth - divWidth - 350 ? positionX - divWidth - 20 : positionX + 20,
-					height: divHeight,
-					width: divWidth,
-				}}
-			>
-				<MenuList dense>
-					<MenuItem
-						onClick={async () => {
-							window.graphic.copyObject();
-							window.graphic.pasteObject();
-							setShow(false);
-						}}
-					>
-						<ListItemText>복제</ListItemText>
-					</MenuItem>
-					<MenuItem
-						onClick={() => {
-							window.graphic.copyObject();
-							setShow(false);
-						}}
-					>
-						<ListItemText>복사</ListItemText>
-						<Typography variant="subtitle2" color="text.secondary">
-							ctrl+c
-						</Typography>
-					</MenuItem>
-					{window.graphic?._selectObjectManager?._copyObjectList?.length ? (
+			{feature?._prop?.type && (
+				<Root
+					style={{
+						display: show ? "block" : "none",
+						top: positionY >= innerHeight - divHeight ? positionY - divHeight : positionY,
+						left:
+							positionX >= innerWidth - divWidth - 350 ? positionX - divWidth - 20 : positionX + 20,
+						height: divHeight,
+						width: divWidth,
+					}}
+				>
+					<MenuList dense>
 						<MenuItem
-							onClick={() => {
+							onClick={async () => {
+								window.graphic.copyObject();
 								window.graphic.pasteObject();
 								setShow(false);
 							}}
 						>
-							<ListItemText>붙여넣기</ListItemText>
+							<ListItemText>복제</ListItemText>
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								window.graphic.copyObject();
+								setShow(false);
+							}}
+						>
+							<ListItemText>복사</ListItemText>
 							<Typography variant="subtitle2" color="text.secondary">
-								ctrl+v
+								ctrl+c
 							</Typography>
 						</MenuItem>
-					) : (
-						""
-					)}
-					<MenuItem
-						onClick={() => {
-							window.graphic.copyObject();
-							window.graphic.selectObjectRemove();
-							const board = window.graphic.getSelectGraphicBoard();
-							const objList = board.getParentObjectList();
-							setFeatures(objList);
-							setShow(false);
-						}}
-					>
-						<ListItemText>잘라내기</ListItemText>
-						<Typography variant="subtitle2" color="text.secondary">
-							ctrl+x
-						</Typography>
-					</MenuItem>
-					<MenuItem
-						onClick={() => {
-							window.graphic.selectObjectRemove();
-							const board = window.graphic.getSelectGraphicBoard();
-							const objList = board.getParentObjectList();
-							setFeatures(objList);
-							setShow(false);
-						}}
-					>
-						<ListItemText>삭제</ListItemText>
-						<Typography variant="subtitle2" color="text.secondary">
-							del
-						</Typography>
-					</MenuItem>
+						{window.graphic?._selectObjectManager?._copyObjectList?.length ? (
+							<MenuItem
+								onClick={() => {
+									window.graphic.pasteObject();
+									setShow(false);
+								}}
+							>
+								<ListItemText>붙여넣기</ListItemText>
+								<Typography variant="subtitle2" color="text.secondary">
+									ctrl+v
+								</Typography>
+							</MenuItem>
+						) : (
+							""
+						)}
+						<MenuItem
+							onClick={() => {
+								window.graphic.copyObject();
+								window.graphic.selectObjectRemove();
+								const board = window.graphic.getSelectGraphicBoard();
+								const objList = board.getParentObjectList();
+								setFeatures(objList);
+								setShow(false);
+							}}
+						>
+							<ListItemText>잘라내기</ListItemText>
+							<Typography variant="subtitle2" color="text.secondary">
+								ctrl+x
+							</Typography>
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								window.graphic.selectObjectRemove();
+								const board = window.graphic.getSelectGraphicBoard();
+								const objList = board.getParentObjectList();
+								setFeatures(objList);
+								setShow(false);
+							}}
+						>
+							<ListItemText>삭제</ListItemText>
+							<Typography variant="subtitle2" color="text.secondary">
+								del
+							</Typography>
+						</MenuItem>
+						{window.graphic.selectedObjectIsGrouping() && (
+							<MenuItem
+								onClick={() => {
+									window.graphic.selectedObjectToGroup();
+									setShow(false);
+								}}
+							>
+								<ListItemText>그룹으로 묶기</ListItemText>
+							</MenuItem>
+						)}
 
-					<MenuItem
-						onClick={() => {
-							window.graphic.selectedObjectToTop();
-							setShow(false);
-						}}
-					>
-						<ListItemText>맨 앞으로 가져오기</ListItemText>
-					</MenuItem>
-					<MenuItem
-						onClick={() => {
-							window.graphic.selectedObjectToBottom();
-							setShow(false);
-						}}
-					>
-						<ListItemText>맨 뒤로 보내기</ListItemText>
-					</MenuItem>
-					<MenuItem
-						onClick={() => {
-							window.graphic.selectedObjectToForward();
-							setShow(false);
-						}}
-					>
-						<ListItemText>앞으로 가져오기</ListItemText>
-					</MenuItem>
-					<MenuItem
-						onClick={() => {
-							window.graphic.selectedObjectToBackward();
-							setShow(false);
-						}}
-					>
-						<ListItemText>뒤로 보내기</ListItemText>
-					</MenuItem>
-					<MenuItem
-						onClick={() => {
-							setShow(false);
-							setOpenPropertyModal(true);
-						}}
-					>
-						<ListItemText>속성</ListItemText>
-					</MenuItem>
-				</MenuList>
-			</Root>
+						{feature?._prop.type === "group" && (
+							<MenuItem
+								onClick={() => {
+									window.graphic.selectedObjectToUnGroup();
+									setShow(false);
+									const board = window.graphic.getSelectGraphicBoard();
+									const objList = board.getParentObjectList();
+									setFeatures(objList);
+								}}
+							>
+								<ListItemText>그룹해제</ListItemText>
+							</MenuItem>
+						)}
+
+						<Divider sx={{ mb: 1, mt: 1 }} />
+						<MenuItem
+							onClick={() => {
+								window.graphic.selectedObjectToTop();
+								setShow(false);
+							}}
+						>
+							<ListItemText>맨 앞으로 가져오기</ListItemText>
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								window.graphic.selectedObjectToBottom();
+								setShow(false);
+							}}
+						>
+							<ListItemText>맨 뒤로 보내기</ListItemText>
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								window.graphic.selectedObjectToForward();
+								setShow(false);
+							}}
+						>
+							<ListItemText>앞으로 가져오기</ListItemText>
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								window.graphic.selectedObjectToBackward();
+								setShow(false);
+							}}
+						>
+							<ListItemText>뒤로 보내기</ListItemText>
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								setShow(false);
+								setOpenPropertyModal(true);
+							}}
+						>
+							<ListItemText>속성</ListItemText>
+						</MenuItem>
+						{feature?._prop.type === "milSymbol" && (
+							<MenuItem
+								onClick={() => {
+									console.log("여기서 군대심볼");
+								}}
+							>
+								<ListItemText>군대부호 속성</ListItemText>
+							</MenuItem>
+						)}
+					</MenuList>
+				</Root>
+			)}
 			{feature?._prop && foundFeature ? (
 				<FeaturePropertyHandlerModal
 					open={openPropertyModal}
 					setOpen={() => setOpenPropertyModal(false)}
 					feature={feature}
-					foundFeature={foundFeature}
-					objectList={objectList}
 				/>
 			) : (
 				""

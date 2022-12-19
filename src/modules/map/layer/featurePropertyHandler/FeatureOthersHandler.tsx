@@ -33,7 +33,10 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 		const degree = Math.floor(Number(event.target.value));
 		setRotationDegree(degree);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._prop.rotate = degree;
 				obj.setRotate(degree);
 				graphicUtil.setFeatureStyle(obj);
@@ -58,7 +61,10 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 	const handleScaleLimit = (event: ChangeEvent<HTMLInputElement>) => {
 		setIsScaleLimited(event.target.checked);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj._prop.scaleLimit = event.target.checked;
 				graphicUtil.setFeatureStyle(obj);
 			}
@@ -70,7 +76,10 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 	const handleScaleLower = (event: ChangeEvent<HTMLInputElement>) => {
 		setScaleLower(Number(event.target.value));
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				// 이것의 동작원리 및 뭘 하는건지는 난 모르겠음
 				obj.setScaleLimit(isScaleLimited, scaleUpper, Number(event.target.value));
 				graphicUtil.setFeatureStyle(obj);
@@ -83,7 +92,10 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 	const handleScaleUpper = (event: ChangeEvent<HTMLInputElement>) => {
 		setScaleUpper(Number(event.target.value));
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				// 이것의 동작원리 및 뭘 하는건지는 난 모르겠음
 				obj.setScaleLimit(isScaleLimited, Number(event.target.value), scaleLower);
 				graphicUtil.setFeatureStyle(obj);
@@ -96,7 +108,10 @@ const FeatureOthersHandler = ({ feature, foundFeature, objectList }: FeatureOthe
 	const handleScreenMode = (event: ChangeEvent<HTMLInputElement>) => {
 		setScreenMode(event.target.checked);
 		objectList.map((obj) => {
-			if (foundFeature._prop.guid === obj._prop.guid) {
+			if (
+				foundFeature!._prop.guid === obj._prop.guid ||
+				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
+			) {
 				obj.setScreenMode(event.target.checked);
 				graphicUtil.setFeatureStyle(obj);
 			}
