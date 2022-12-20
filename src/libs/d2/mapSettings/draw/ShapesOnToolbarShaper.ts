@@ -1,3 +1,4 @@
+import { GraphicFeaturefavColorProps } from "../../../../stores/useGraphicFeatureColorStore";
 import { IGraphicObjectProp } from "../../../../types/d2/Core/IGraphicObjectProp";
 import { IGraphicObjectStyle } from "../../../../types/d2/Core/IGraphicObjectStyle";
 import D2MapModule from "../../D2MapModule";
@@ -33,6 +34,7 @@ export type GraphicShapeType =
 
 interface ShapesOnToolBarShaperProps {
 	tid: GraphicShapeType;
+	favColor: GraphicFeaturefavColorProps;
 }
 
 /**
@@ -40,10 +42,13 @@ interface ShapesOnToolBarShaperProps {
  * @param tid string 사용할 도형의 이름을 string으로 전달
  */
 
-export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
+export const ShapesOnToolbarShaper = ({ tid, favColor }: ShapesOnToolBarShaperProps) => {
 	window.eventManager.setMapMode("graphic");
 	const graphic = window.graphic;
 	const { GraphicObjectProp, GraphicObjectStyle, MSTacticalLineGraphics } = D2MapModule;
+	const { fc: fillColor, lc: lineColor, lw: lineWidth } = favColor;
+
+	// const { favColor } = useGraphicFeatureColorStore();
 
 	switch (tid) {
 		case "layer":
@@ -58,7 +63,11 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 */
 		case "point": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("point");
-			graphic.createMode(objProp);
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
+			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**
@@ -69,6 +78,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			// polyline의 형태는 원래 채움 색을 가지고 있어, 그것을 투명하게 처리함으로써 직선을 구현하고 있음
 			objStyle.fill.color[3] = 0;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			graphic.createMode(objProp, objStyle);
 
 			break;
@@ -81,6 +92,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			// polyline의 형태는 원래 채움 색을 가지고 있어, 그것을 투명하게 처리함으로써 직선을 구현하고 있음
 			objStyle.fill.color[3] = 0;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			// 시작 부분에 화살표 형태로 넣기
 			objStyle.line.arrow.begin.type = "arrow";
 			graphic.createMode(objProp, objStyle);
@@ -93,6 +106,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			objStyle.fill.color[3] = 0;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			objStyle.line.arrow.begin.type = "arrow";
 			objStyle.line.arrow.end.type = "arrow";
 			graphic.createMode(objProp, objStyle);
@@ -106,6 +121,8 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			objStyle.fill.color[3] = 0;
 			objProp.lineType = 1;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			graphic.createMode(objProp, objStyle);
 			break;
 		}
@@ -114,7 +131,11 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 */
 		case "triangle": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("triangle");
-			graphic.createMode(objProp);
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
+			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**
@@ -130,7 +151,11 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 */
 		case "rectangle": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("rectangle");
-			graphic.createMode(objProp);
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
+			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**
@@ -138,8 +163,12 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 *  */
 		case "roundedRectangle": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("rectangle");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			objProp.radius = 50;
-			graphic.createMode(objProp);
+			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**
@@ -147,8 +176,12 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		 */
 		case "polygon": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
 			objProp.close = 1;
-			graphic.createMode(objProp);
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
+			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**
@@ -157,6 +190,9 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		case "BSpline": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("polyline");
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			objProp.lineType = 1;
 			graphic.createMode(objProp, objStyle);
 			break;
@@ -167,6 +203,9 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		case "pentagon": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("regularPolygon");
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			objProp.angleCount = 5;
 			graphic.createMode(objProp, objStyle);
 			break;
@@ -177,6 +216,9 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		case "hexagon": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("regularPolygon");
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			objProp.angleCount = 6;
 			graphic.createMode(objProp, objStyle);
 			break;
@@ -187,6 +229,9 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		case "circle": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("ellipse");
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			graphic.createMode(objProp, objStyle);
 			break;
 		}
@@ -196,6 +241,9 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		case "fanShaped": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("arc");
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			objProp.lineType = 1;
 			objProp.fillType = 3;
 			graphic.createMode(objProp, objStyle);
@@ -207,6 +255,9 @@ export const ShapesOnToolbarShaper = ({ tid }: ShapesOnToolBarShaperProps) => {
 		case "arc": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("arc");
 			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = fillColor;
+			objStyle.line.color = lineColor;
+			objStyle.line.width = lineWidth;
 			objProp.lineType = 1;
 			objProp.fillType = 3;
 			graphic.createMode(objProp, objStyle);

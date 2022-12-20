@@ -1,9 +1,17 @@
-import { Button, ButtonGroup, styled, Tooltip } from "@mui/material";
+import { Button, ButtonGroup, Popover, Slider, styled, Tooltip } from "@mui/material";
 import WebAssetIcon from "@mui/icons-material/WebAsset";
 import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
-// import RestartAltIcon from "@mui/icons-material/RestartAlt";
-// import YesNoSelectionModal from "../../modules/modal/YesNoSelectionModal";
+import AdjustIcon from "@mui/icons-material/Adjust";
+import { toastShow } from "../alert/ToastMessage";
+import SquareIcon from "@mui/icons-material/Square";
+import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
+import useGraphicFeatureColorStore from "../../stores/useGraphicFeatureColorStore";
+import { Color, useColor } from "react-color-palette";
+import { IGraphicUtil } from "../../types/d2/Core/IGraphicUtil";
+import D2MapModule from "../../libs/d2/D2MapModule";
+import { BaseColorPicker } from "../colorPicker/BaseColorPicker";
+import { useState } from "react";
 
 interface DrawerPaenlSubToolbarProps {
 	openDrawPanel: boolean;
@@ -14,12 +22,58 @@ interface DrawerPaenlSubToolbarProps {
  * - 관리창 열고 닫기
  * - 실행 취소
  * - 재실행
+ * - 도형을 지도의 중심에 놓기
  * 등을 수행함
  * @param DrawerPaenlSubToolbarProps DrawerPaenlSubToolbarProps
  * @returns {JSX.Element} div
  */
 const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlSubToolbarProps) => {
-	// const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+	const { GraphicUtil } = D2MapModule;
+
+	const graphicUtil: IGraphicUtil = GraphicUtil;
+	const { favColor, setFavColor } = useGraphicFeatureColorStore();
+
+	/**
+	 * 칠 색상 변경
+	 */
+	const [openFillColorPicker, setOpenFillColorPicker] = useState(false);
+	const [fillColor, setFillColor] = useColor("hex", graphicUtil.rgb2hex(favColor.fc));
+	const changeFillColor = (color: Color) => {
+		const selectedObject = window.graphic.getSelectObjectList()[0];
+		setFillColor(color);
+		setFavColor({ ...favColor, fc: graphicUtil.hex2rgb(color.hex) });
+		selectedObject._style.fill.color = graphicUtil.hex2rgb(color.hex);
+		selectedObject.updateStyle(true);
+		window.graphic.getSelectGraphicBoard().undoRedoSave();
+	};
+
+	/**
+	 * 라인 색상 변경
+	 */
+	const [openLineColorPicker, setOpenLineColorPicker] = useState(false);
+	const [lineColor, setLineColor] = useColor("hex", graphicUtil.rgb2hex(favColor.lc));
+	const changeLineColor = (color: Color) => {
+		const selectedObject = window.graphic.getSelectObjectList()[0];
+		setLineColor(color);
+		setFavColor({ ...favColor, lc: graphicUtil.hex2rgb(color.hex) });
+		selectedObject._style.line.color = graphicUtil.hex2rgb(color.hex);
+		selectedObject.updateStyle(true);
+		window.graphic.getSelectGraphicBoard().undoRedoSave();
+	};
+
+	/**
+	 * 라인 굵기 변경
+	 */
+	const [lineWidth, setLineWidth] = useState(favColor.lw);
+	const [lineWidthEl, setLineWidthEl] = useState<HTMLButtonElement | null>(null);
+	const changeLineWidth = (event: Event, newValue: number | number[]) => {
+		const selectedObject = window.graphic.getSelectObjectList()[0];
+		setLineWidth(newValue as number);
+		setFavColor({ ...favColor, lw: newValue as number });
+		selectedObject._style.line.width = newValue as number;
+		selectedObject.updateStyle(true);
+		window.graphic.getSelectGraphicBoard().undoRedoSave();
+	};
 
 	return (
 		<>
@@ -28,7 +82,7 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 					size="small"
 					variant="contained"
 					color="inherit"
-					aria-label="measurement button group"
+					aria-label="draw-subpanel-button-group1"
 					disableElevation
 					sx={{ opacity: 0.85 }}
 				>
@@ -70,35 +124,147 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 							<RedoIcon fontSize="small" />
 						</Tooltip>
 					</ItemButton>
-					{/* 모두 지우기를 하면 지워는 지지만(destroy 호출 시) 현재, 그 다음에 도형을 생성 시 뭔가가 엄청 이상해짐. 디투에 물어보든지 파악 필요 */}
-					{/* <ItemButton
+
+					<ItemButton
 						color="inherit"
 						variant="contained"
 						size="small"
-						aria-label="draw-toolbar-sub-undo"
+						aria-label="draw-toolbar-sub-move-coordinate"
 						disableElevation
 						onClick={() => {
-							const objectList = window.graphic.getSelectGraphicBoard().getParentObjectList();
-							console.log(window.graphic.getSelectGraphicBoard().getParentObjectList());
-							if (objectList.length > 0) {
-								setConfirmModalOpen(true);
-							} else return;
+							const selectedObject = window.graphic.getSelectObjectList()[0];
+							if (!selectedObject) {
+								return toastShow({
+									type: "warning",
+									title: "이동시킬 도형이 없음",
+									message: "도형을 선택해주세요",
+								});
+							}
+							window.graphic._map.getView().animate(
+								{
+									zoom: window.graphic._map.getView().getZoom(),
+								},
+								{ center: selectedObject._prop.getCenter() },
+								{ duration: 1000 },
+							);
 						}}
 					>
-						<Tooltip title="초기화(모든도형삭제)">
-							<RestartAltIcon fontSize="small" />
+						<Tooltip title="선택된 도형을 지도 중심에 위치">
+							<AdjustIcon fontSize="small" />
 						</Tooltip>
-					</ItemButton> */}
+					</ItemButton>
+				</ButtonGroup>
+				<ButtonGroup
+					size="small"
+					variant="contained"
+					color="inherit"
+					aria-label="draw-subpanel-button-group1"
+					disableElevation
+					sx={{ opacity: 0.85, ml: 1 }}
+				>
+					<ItemButton
+						color="inherit"
+						sx={{ width: 66 }}
+						variant="contained"
+						startIcon={<SquareIcon fontSize="small" sx={{ color: fillColor.hex }} />}
+						size="small"
+						aria-label="draw-toolbar-quick-action-fill"
+						disableElevation
+						onClick={() => {
+							const selectedObject = window.graphic.getSelectObjectList()[0];
+							if (!selectedObject) {
+								return toastShow({
+									type: "warning",
+									title: "색상을 바꿀 도형이 없음",
+									message: "도형을 선택해주세요",
+								});
+							}
+							setOpenFillColorPicker(true);
+						}}
+					>
+						<Tooltip title="빠른액션 - 칠 색상바꾸기">
+							<div>칠 색상</div>
+						</Tooltip>
+					</ItemButton>
+					<ItemButton
+						color="inherit"
+						sx={{ width: 66 }}
+						variant="contained"
+						startIcon={<HorizontalRuleIcon fontSize="small" sx={{ color: lineColor.hex }} />}
+						size="small"
+						aria-label="draw-toolbar-quick-action-line-fill"
+						disableElevation
+						onClick={() => {
+							const selectedObject = window.graphic.getSelectObjectList()[0];
+							if (!selectedObject) {
+								return toastShow({
+									type: "warning",
+									title: "선 색상을 바꿀 도형이 없음",
+									message: "도형을 선택해주세요",
+								});
+							}
+							setOpenLineColorPicker(true);
+						}}
+					>
+						<Tooltip title="빠른액션 - 선 색상바꾸기">
+							<div>선 색상</div>
+						</Tooltip>
+					</ItemButton>
+					<ItemButton
+						color="inherit"
+						sx={{ width: 66 }}
+						variant="contained"
+						size="small"
+						aria-label="draw-toolbar-quick-action-line-width"
+						disableElevation
+						onClick={(event) => {
+							const selectedObject = window.graphic.getSelectObjectList()[0];
+							if (!selectedObject) {
+								return toastShow({
+									type: "warning",
+									title: "선 굵기를 바꿀 도형이 없음",
+									message: "도형을 선택해주세요",
+								});
+							}
+							setLineWidthEl(event.currentTarget);
+						}}
+					>
+						<Tooltip title="빠른액션 - 선 색상바꾸기">
+							<div>선 굵기 {lineWidth}</div>
+						</Tooltip>
+					</ItemButton>
 				</ButtonGroup>
 			</ButtonsWrapper>
-			{/* <YesNoSelectionModal
-				open={confirmModalOpen}
-				setOpen={() => setConfirmModalOpen(false)}
-				onYes={() => window.graphic.getSelectGraphicBoard().destroy()}
-				onNo={() => setConfirmModalOpen(false)}
-				title="지도 상의 모든 도형 삭제"
-				question="그려진 모든 도형을 삭제하시겠어요?"
-			/> */}
+			<BaseColorPicker
+				openColorPicker={openFillColorPicker}
+				setOpenColorPicker={() => setOpenFillColorPicker(false)}
+				color={fillColor}
+				onColorChange={changeFillColor}
+			/>
+			<BaseColorPicker
+				openColorPicker={openLineColorPicker}
+				setOpenColorPicker={() => setOpenLineColorPicker(false)}
+				color={lineColor}
+				onColorChange={changeLineColor}
+			/>
+			<Popover
+				id="line-width"
+				open={Boolean(lineWidthEl)}
+				anchorEl={lineWidthEl}
+				onClose={() => setLineWidthEl(null)}
+				anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+			>
+				<Slider
+					valueLabelDisplay="auto"
+					size="small"
+					sx={{ width: 200, height: 4, mt: 3, ml: 1, mr: 1, mb: 0.4 }}
+					min={0}
+					max={10}
+					marks
+					defaultValue={favColor.lw}
+					onChange={changeLineWidth}
+				/>
+			</Popover>
 		</>
 	);
 };

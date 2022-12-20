@@ -451,6 +451,8 @@ export interface IGraphicObject {
 		text: string;
 		trackerRotate: any[];
 		type: IFeatureType;
+		setCoordinate: (position: number[][]) => void;
+		getCenter: () => void;
 	};
 	_rotateCtrlPt: number[];
 	_selectObjectManager: ISelectObjectManager;

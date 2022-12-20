@@ -35,6 +35,7 @@ import FeatureLayerHandler from "../../modules/map/layer/FeatureLayerHandler";
 import useRightClickStore from "../../stores/useRightClickStore";
 import FeatureRightClickHandler from "../../modules/map/layer/FeatureRightClickHandler";
 import DrawerPanelSubToolbar from "./DrawerPanelSubToolbar";
+import useGraphicFeatureColorStore from "../../stores/useGraphicFeatureColorStore";
 
 /**
  * 툴바에 그릴 도형의 이름과 타이틀을 정의할 수 있도록 도움을 주는 인터페이스
@@ -164,6 +165,7 @@ const DrawPanelToolbar = () => {
 	// 선택된 토글 버튼의 value 값이 무엇인지 파악하고, 그 값을 유지시켜 툴바 내에서 하이라이트를 줌
 	const [alignment, setAlignment] = useState("");
 	const { isFullScreenOpen } = useFullScreenStore();
+	const { favColor } = useGraphicFeatureColorStore();
 
 	// 선택된 토글버튼에 강조주기
 	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
@@ -262,6 +264,7 @@ const DrawPanelToolbar = () => {
 								onClick={() => {
 									ShapesOnToolbarShaper({
 										tid: shape.value,
+										favColor,
 									});
 								}}
 							>

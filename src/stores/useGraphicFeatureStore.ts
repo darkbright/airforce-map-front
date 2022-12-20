@@ -3,7 +3,7 @@ import { IGraphicObject } from "../types/d2/Graphic";
 
 interface GraphicFeatureStore {
 	features: IGraphicObject[] | null;
-	setFeatures: (features: IGraphicObject[]) => void;
+	setFeatures: (features: IGraphicObject[] | null) => void;
 }
 
 /**
@@ -12,7 +12,7 @@ interface GraphicFeatureStore {
  */
 const useGraphicFeatureStore = create<GraphicFeatureStore>((set) => ({
 	features: null,
-	setFeatures: (features: IGraphicObject[]) => set({ features }),
+	setFeatures: (features: IGraphicObject[] | null) => set({ features }),
 }));
 
 export default useGraphicFeatureStore;
