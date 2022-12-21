@@ -47,7 +47,7 @@ const MeasureDistanceDetailModal = ({ open, setOpen }: MeasureDistanceDetailModa
 		<>
 			<BaseModal open={open} setOpen={setOpen}>
 				<BaseBlockTitleBox
-					title="거리 측정 옵셥"
+					title="거리 측정 옵션"
 					subtitle="거리 측정에 표시할 내용들을 설정합니다."
 				/>
 				<ShortAlert

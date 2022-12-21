@@ -11,6 +11,7 @@ import { EventManager } from "./eventManager";
 import { Graphic } from "./Graphic";
 import { MapLayerManager } from "./MapLayerManager";
 import { PostComposeCtrl } from "./PostComposeCtrl";
+import { RadiusCircle } from "./RadiusCircle";
 import { SpatialMath } from "./SpatialMath";
 import { TerrainAnalysisManager } from "./TerrainAnalysisManager";
 
@@ -44,6 +45,7 @@ declare global {
 		CoordManager: any;
 		distance: Distance;
 		area: Area;
+		radiusCircle: RadiusCircle;
 		TerrainAnalysisManager: TerrainAnalysisManager;
 		D2: {
 			Core: {

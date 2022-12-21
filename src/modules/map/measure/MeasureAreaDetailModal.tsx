@@ -30,7 +30,7 @@ const MeasureAreaDetailModal = ({ open, setOpen }: MeasureDistanceDetailModalPro
 		<>
 			<BaseModal open={open} setOpen={setOpen}>
 				<BaseBlockTitleBox
-					title="면적 측정 옵셥"
+					title="면적 측정 옵션"
 					subtitle="면적 측정에 표시할 내용들을 설정합니다."
 				/>
 				<ShortAlert

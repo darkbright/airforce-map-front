@@ -5,10 +5,12 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import { measureDistance } from "../../libs/d2/mapSettings/measurement/measureDistance";
 import { measureExtent } from "../../libs/d2/mapSettings/measurement/measureExtent";
 import ClearIcon from "@mui/icons-material/Clear";
-
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import MeasureDistanceDetailModal from "../../modules/map/measure/MeasureDistanceDetailModal";
 import { useState } from "react";
 import MeasureAreaDetailModal from "../../modules/map/measure/MeasureAreaDetailModal";
+import { measureRadius } from "../../libs/d2/mapSettings/measurement/measureRadius";
+import MeasureRadiusDetailModal from "../../modules/map/measure/MeasureRadiusDetailModal";
 
 /**
  * 측정과 관련된 동작들을 보여주는 Div로, MapToolbar에서 측정 버튼을 누르면 나온디
@@ -20,6 +22,8 @@ const MeasurePanelToolbar = () => {
 	const [showDistanceDetail, setShowDistanceDetail] = useState(false);
 	// 버튼 더블 클릭 시 면적 세부 설정이 가능한 모양을 보여줌
 	const [showExtentDetail, setShowExtentDetail] = useState(false);
+	// 버튼 더블 클릭 시 동심원 세부 설정이 가능한 모양을 보여줌
+	const [showRadiusDetail, setShowRadiusDetail] = useState(false);
 
 	return (
 		<>
@@ -74,6 +78,21 @@ const MeasurePanelToolbar = () => {
 						</ItemButton>
 						<ItemButton
 							color="inherit"
+							startIcon={<RadioButtonCheckedIcon fontSize="small" />}
+							onClick={() =>
+								measureRadius({
+									endRadius: window.radiusCircle.endRadius,
+									interval: window.radiusCircle.interval,
+								})
+							}
+							onDoubleClick={() => setShowRadiusDetail(true)}
+						>
+							<Tooltip title="더블 클릭 시 상세 옵션 패널이 열림">
+								<div>동심원 측정</div>
+							</Tooltip>
+						</ItemButton>
+						<ItemButton
+							color="inherit"
 							onClick={() => {
 								window.eventManager.setMapMode("default");
 							}}
@@ -103,6 +122,12 @@ const MeasurePanelToolbar = () => {
 				<MeasureAreaDetailModal
 					open={showExtentDetail}
 					setOpen={() => setShowExtentDetail(false)}
+				/>
+			)}
+			{showRadiusDetail && (
+				<MeasureRadiusDetailModal
+					open={showRadiusDetail}
+					setOpen={() => setShowRadiusDetail(false)}
 				/>
 			)}
 		</>
