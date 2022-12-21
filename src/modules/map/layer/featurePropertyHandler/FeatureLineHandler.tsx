@@ -38,6 +38,13 @@ import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler"
 import FeaturePatternHandler from "./\bcomponents/FeaturePatternHandler";
 import FeatureGradientTypeHandler from "./\bcomponents/FeatureGradientTypeHandler";
 import { toastShow } from "../../../../components/alert/ToastMessage";
+import {
+	changeFeatureLineOpacity,
+	changeFeatureLinePatternColor,
+	changeFeatureLinePatternOpacity,
+	changeFeatureLinePatternType,
+	changeFeatureLineType,
+} from "../../../../libs/d2/mapSettings/draw/changeFeatureStyle";
 
 interface FeatureLineHandlerProps {
 	// 리액트 상태 관리용
@@ -88,8 +95,6 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
 
-	// 만약 도형이 점(Point)라면 점 속성 추가
-
 	// 선의 채움 종류 설정
 	// simple, pattern, gradient
 	const [alignment, setAlignment] = useState<IFeatureFillType | null>(initialFillType.type);
@@ -101,9 +106,7 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.line.fill.type = newAlignment;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureLineType(obj, newAlignment);
 			}
 		});
 	};
@@ -121,9 +124,7 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.line.color[3] = opacityNumber;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureLineOpacity(obj, opacityNumber);
 			}
 		});
 		setLineOpacity(newValue as number);
@@ -140,9 +141,7 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.line.fill.pattern = event.target.value as IPatternType;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureLinePatternType(obj, event.target.value);
 			}
 		});
 	};
@@ -159,9 +158,7 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.line.fill.patternColor[0] = graphicUtil.hex2rgb(color.hex);
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureLinePatternColor(obj, "bg", color);
 			}
 		});
 	};
@@ -177,9 +174,7 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.line.fill.patternColor[0][3] = opacityNumber;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureLinePatternOpacity(obj, "bg", opacityNumber);
 			}
 		});
 		setPatternBgOpacity(newValue as number);
@@ -197,14 +192,12 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.line.fill.patternColor[1] = graphicUtil.hex2rgb(color.hex);
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureLinePatternColor(obj, "fg", color);
 			}
 		});
 	};
 
-	// 생성된 선이 패턴일 때, 패턴의 배경 불투명도 설정
+	// 생성된 선이 패턴일 때, 패턴의 전경 불투명도 설정
 	const [patternFgOpacity, setPatternFgOpacity] = useState(
 		initialFillType.patternColor[1][3] * 100,
 	);
@@ -215,9 +208,7 @@ const FeatureLineHandler = ({ feature, objectList, foundFeature }: FeatureLineHa
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.line.fill.patternColor[1][3] = opacityNumber;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureLinePatternOpacity(obj, "fg", opacityNumber);
 			}
 		});
 		setPatternFgOpacity(newValue as number);

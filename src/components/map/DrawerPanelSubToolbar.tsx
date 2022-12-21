@@ -12,6 +12,12 @@ import { IGraphicUtil } from "../../types/d2/Core/IGraphicUtil";
 import D2MapModule from "../../libs/d2/D2MapModule";
 import { BaseColorPicker } from "../colorPicker/BaseColorPicker";
 import { useState } from "react";
+import {
+	changeFeatureFillColor,
+	changeFeatureLineColor,
+	changeFeatureLineWidth,
+} from "../../libs/d2/mapSettings/draw/changeFeatureStyle";
+import { getFeatureObjectList } from "../../libs/d2/mapSettings/draw/getFeatureObjectList";
 
 interface DrawerPaenlSubToolbarProps {
 	openDrawPanel: boolean;
@@ -42,9 +48,16 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 		const selectedObject = window.graphic.getSelectObjectList()[0];
 		setFillColor(color);
 		setFavColor({ ...favColor, fc: graphicUtil.hex2rgb(color.hex) });
-		selectedObject._style.fill.color = graphicUtil.hex2rgb(color.hex);
-		selectedObject.updateStyle(true);
-		window.graphic.getSelectGraphicBoard().undoRedoSave();
+		if (selectedObject._prop.type === "group") {
+			const { deGroupedList } = getFeatureObjectList();
+			deGroupedList.map((obj) => {
+				if (obj._parent._prop.guid === selectedObject._prop.guid) {
+					changeFeatureFillColor(obj, color);
+				}
+			});
+		} else {
+			changeFeatureFillColor(selectedObject, color);
+		}
 	};
 
 	/**
@@ -56,9 +69,16 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 		const selectedObject = window.graphic.getSelectObjectList()[0];
 		setLineColor(color);
 		setFavColor({ ...favColor, lc: graphicUtil.hex2rgb(color.hex) });
-		selectedObject._style.line.color = graphicUtil.hex2rgb(color.hex);
-		selectedObject.updateStyle(true);
-		window.graphic.getSelectGraphicBoard().undoRedoSave();
+		if (selectedObject._prop.type === "group") {
+			const { deGroupedList } = getFeatureObjectList();
+			deGroupedList.map((obj) => {
+				if (obj._parent._prop.guid === selectedObject._prop.guid) {
+					changeFeatureLineColor(obj, color);
+				}
+			});
+		} else {
+			changeFeatureLineColor(selectedObject, color);
+		}
 	};
 
 	/**
@@ -70,9 +90,16 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 		const selectedObject = window.graphic.getSelectObjectList()[0];
 		setLineWidth(newValue as number);
 		setFavColor({ ...favColor, lw: newValue as number });
-		selectedObject._style.line.width = newValue as number;
-		selectedObject.updateStyle(true);
-		window.graphic.getSelectGraphicBoard().undoRedoSave();
+		if (selectedObject._prop.type === "group") {
+			const { deGroupedList } = getFeatureObjectList();
+			deGroupedList.map((obj) => {
+				if (obj._parent._prop.guid === selectedObject._prop.guid) {
+					changeFeatureLineWidth(obj, newValue);
+				}
+			});
+		} else {
+			changeFeatureLineWidth(selectedObject, newValue);
+		}
 	};
 
 	return (

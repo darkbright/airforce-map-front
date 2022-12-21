@@ -94,7 +94,8 @@ export interface Graphic {
 	/**
 	 * - 맵에서 도형을 클릭하면, 그 도형의 property가 배열에 담기게 되며, 보통 1개 선택 시 1개가 담김.
 	 * - 따라서 클릭을 통한 1개의 도형이 리스트에 담기면 0번째 내용을 선택했다고 봐주면 됨.
-	 * - 만약 ctrl 키를 이용하여 두 개를 선택하면 두개의 오브젝트가 배열로 담김
+	 * - 만약 ctrl/shift 키를 이용하여 두 개를 선택하면 두개의 오브젝트가 배열로 담김
+	 * - 단, 이 형태로 objectList를 가져오는 경우, 그룹인 경우 속성이 "group"인 1개의 feature를 가져오게 됨.
 	 */
 	getSelectObjectList: () => IGraphicObject[];
 	/**

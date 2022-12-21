@@ -26,6 +26,14 @@ import { toastShow } from "../../../../components/alert/ToastMessage";
 import FeatureGradientTypeHandler from "./\bcomponents/FeatureGradientTypeHandler";
 import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
 import TextInput from "../../../../components/form/TextInput";
+import {
+	changeFeatureFillColor,
+	changeFeatureFillOpacity,
+	changeFeatureFillType,
+	changeFeaturePatternColor,
+	changeFeaturePatternOpacity,
+	changeFeaturePatternType,
+} from "../../../../libs/d2/mapSettings/draw/changeFeatureStyle";
 
 interface FeatureFillHandlerProps {
 	// 리액트 상태 관리용
@@ -70,16 +78,12 @@ const FeatureFillHandler = ({
 
 	const onFillTypeChange = (event: MouseEvent<HTMLElement>, newAlignment: IFeatureFillType) => {
 		setAlignment(newAlignment);
-		// 신규 값으로 바뀌면 fill의 type(IFeatureFillType - 단색이냐, 그라디언트냐 )도 그에 맞추어 변경됨.
-
 		objectList.map((obj) => {
 			if (
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.type = newAlignment;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureFillType(obj, newAlignment);
 			}
 		});
 	};
@@ -93,9 +97,7 @@ const FeatureFillHandler = ({
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.color = graphicUtil.hex2rgb(color.hex);
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureFillColor(obj, color);
 			}
 		});
 	};
@@ -110,9 +112,7 @@ const FeatureFillHandler = ({
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.color[3] = opacityNumber;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeatureFillOpacity(obj, opacityNumber);
 			}
 		});
 		setFillOpacity(newValue as number);
@@ -131,9 +131,7 @@ const FeatureFillHandler = ({
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.pattern = event.target.value as IPatternType;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeaturePatternType(obj, event.target.value);
 			}
 		});
 	};
@@ -150,9 +148,7 @@ const FeatureFillHandler = ({
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.patternColor[0] = graphicUtil.hex2rgb(color.hex);
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeaturePatternColor(obj, "bg", color);
 			}
 		});
 	};
@@ -166,9 +162,7 @@ const FeatureFillHandler = ({
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.patternColor[0][3] = opacityNumber;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeaturePatternOpacity(obj, "bg", opacityNumber);
 			}
 		});
 		setPatternBgOpacity(newValue as number);
@@ -186,14 +180,12 @@ const FeatureFillHandler = ({
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.patternColor[1] = graphicUtil.hex2rgb(color.hex);
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeaturePatternColor(obj, "fg", color);
 			}
 		});
 	};
 
-	// 생성된 도형이 패턴일 때, 패턴의 배경 불투명도 설정
+	// 생성된 도형이 패턴일 때, 패턴의 전경 불투명도 설정
 	const [patternFgOpacity, setPatternFgOpacity] = useState(initialPatternColor[1][3] * 100);
 	const handlePatternFgOpacity = (event: Event, newValue: number | number[]) => {
 		const opacityNumber = Number(((newValue as number) / 100).toFixed(1));
@@ -202,9 +194,7 @@ const FeatureFillHandler = ({
 				foundFeature!._prop.guid === obj._prop.guid ||
 				(obj._parent && obj._parent._prop.guid === foundFeature._prop.guid)
 			) {
-				obj._style.fill.patternColor[1][3] = opacityNumber;
-				obj.updateStyle(true);
-				window.graphic.getSelectGraphicBoard().undoRedoSave();
+				changeFeaturePatternOpacity(obj, "fg", opacityNumber);
 			}
 		});
 		setPatternFgOpacity(newValue as number);
