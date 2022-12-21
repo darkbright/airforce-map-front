@@ -11,6 +11,10 @@ import { useState } from "react";
 import MeasureAreaDetailModal from "../../modules/map/measure/MeasureAreaDetailModal";
 import { measureRadius } from "../../libs/d2/mapSettings/measurement/measureRadius";
 import MeasureRadiusDetailModal from "../../modules/map/measure/MeasureRadiusDetailModal";
+import LeaderboardIcon from "@mui/icons-material/Leaderboard";
+import RadarIcon from "@mui/icons-material/Radar";
+import { measureRadar } from "../../libs/d2/mapSettings/measurement/measureRadar";
+import MeasureRadarDetailModal from "../../modules/map/measure/MeasureRadarDetailModal";
 
 /**
  * 측정과 관련된 동작들을 보여주는 Div로, MapToolbar에서 측정 버튼을 누르면 나온디
@@ -24,6 +28,8 @@ const MeasurePanelToolbar = () => {
 	const [showExtentDetail, setShowExtentDetail] = useState(false);
 	// 버튼 더블 클릭 시 동심원 세부 설정이 가능한 모양을 보여줌
 	const [showRadiusDetail, setShowRadiusDetail] = useState(false);
+	// 버튼 더블 클릭 시 레이더 세부 설정이 가능한 모양을 보여줌
+	const [showRadarDetail, setShowRadarDetail] = useState(false);
 
 	return (
 		<>
@@ -93,6 +99,38 @@ const MeasurePanelToolbar = () => {
 						</ItemButton>
 						<ItemButton
 							color="inherit"
+							startIcon={<LeaderboardIcon fontSize="small" />}
+							onClick={() => {
+								// 이 기능은 뭔가 이상하게 작동됨.
+								// 맵서버 terrain 관련 내용과 관련한 resource가 부족하다고도 뜸
+								// 내부망에서도 그러면 주석 처리하는걸로
+								window.eventManager.setMapMode("terrainAnalysis");
+								window.crossSection.createCrossSection();
+							}}
+						>
+							<Tooltip title="단면을 그으면 단면 그래프가 생성됨">
+								<div>단면 분석</div>
+							</Tooltip>
+						</ItemButton>
+						<ItemButton
+							color="inherit"
+							startIcon={<RadarIcon fontSize="small" />}
+							onClick={() => {
+								measureRadar({
+									startAngle: window.radar.startAngle,
+									endAngle: window.radar.endAngle,
+									outerRadius: window.radar.outerRadius,
+									interval: window.radar.interval,
+								});
+							}}
+							onDoubleClick={() => setShowRadarDetail(true)}
+						>
+							<Tooltip title="단면을 그으면 단면 그래프가 생성됨">
+								<div>레이더 측정</div>
+							</Tooltip>
+						</ItemButton>
+						<ItemButton
+							color="inherit"
 							onClick={() => {
 								window.eventManager.setMapMode("default");
 							}}
@@ -129,6 +167,9 @@ const MeasurePanelToolbar = () => {
 					open={showRadiusDetail}
 					setOpen={() => setShowRadiusDetail(false)}
 				/>
+			)}
+			{showRadarDetail && (
+				<MeasureRadarDetailModal open={showRadarDetail} setOpen={() => setShowRadarDetail(false)} />
 			)}
 		</>
 	);

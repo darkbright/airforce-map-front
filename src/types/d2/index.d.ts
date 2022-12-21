@@ -4,6 +4,7 @@ import { CoordManager } from "./Core/CoordManager";
 import { IGraphicObjectProp } from "./Core/IGraphicObjectProp";
 import { IGraphicObjectStyle } from "./Core/IGraphicObjectStyle";
 import { IGraphicUtil } from "./Core/IGraphicUtil";
+import { CrossSection } from "./CrossSection";
 import { d2Constants } from "./d2Constants";
 import { d2MapManager } from "./d2MapManager";
 import { Distance } from "./distance";
@@ -11,6 +12,7 @@ import { EventManager } from "./eventManager";
 import { Graphic } from "./Graphic";
 import { MapLayerManager } from "./MapLayerManager";
 import { PostComposeCtrl } from "./PostComposeCtrl";
+import { Radar } from "./Radar";
 import { RadiusCircle } from "./RadiusCircle";
 import { SpatialMath } from "./SpatialMath";
 import { TerrainAnalysisManager } from "./TerrainAnalysisManager";
@@ -46,6 +48,8 @@ declare global {
 		distance: Distance;
 		area: Area;
 		radiusCircle: RadiusCircle;
+		crossSection: CrossSection;
+		radar: Radar;
 		TerrainAnalysisManager: TerrainAnalysisManager;
 		D2: {
 			Core: {

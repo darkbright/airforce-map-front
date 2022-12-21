@@ -19,7 +19,6 @@ interface MeasureRadiusDetailModalProps {
  * @returns {JSX.Element} modal
  */
 const MeasureRadiusDetailModal = ({ open, setOpen }: MeasureRadiusDetailModalProps) => {
-	console.log(window.radiusCircle);
 	const [endRadius, setEndRadius] = useState(window.radiusCircle.endRadius);
 	const [interval, setInterval] = useState(window.radiusCircle.interval);
 
@@ -35,8 +34,6 @@ const MeasureRadiusDetailModal = ({ open, setOpen }: MeasureRadiusDetailModalPro
 			endRadius,
 			interval,
 		});
-		window.eventManager.setMapMode("terrainAnalysis");
-		console.log(window.radiusCircle);
 		setOpen(false);
 	};
 
@@ -67,7 +64,7 @@ const MeasureRadiusDetailModal = ({ open, setOpen }: MeasureRadiusDetailModalPro
 				</div>
 			</FormGroup>
 			<FormGroup sx={{ mt: 2, mb: 3 }}>
-				<FormLabel id="end-radius">간격</FormLabel>
+				<FormLabel id="interval">간격</FormLabel>
 				<Typography variant="subtitle2" sx={{ opacity: 0.9 }}>
 					표시할 동심원의 내부 원 간 거리(간격)을 m 단위로 설정해주세요
 				</Typography>
