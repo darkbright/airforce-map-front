@@ -17,6 +17,7 @@ import {
 	SimpleTableCellText,
 	SimpleTableCircleCellByColor,
 } from "../components/dataGrid/simpleTable/SimpleTableCellDisplay";
+import useFavoriteSymbolStore from "../stores/useFavoriteSymbolStore";
 
 interface StyledTabProps {
 	label: string;
@@ -42,6 +43,8 @@ const TabSample = () => {
 	// 	[window.map],
 	// );
 
+	const { favSymbol } = useFavoriteSymbolStore();
+
 	const setupMapSymbols = (data: OpenLayersStandardDataTypes, layerName: string) => {
 		// 여기에 원래대로 window.map && data(api에서 받아서 isFetched 받은 형식으로 if문 넣어주셔야 해요)
 		if (window.map && data) {
@@ -50,6 +53,7 @@ const TabSample = () => {
 			setupVectorsOnPage({
 				data,
 				layerName: layerName,
+				favSymbol,
 			});
 			setRightClickEnabled(true);
 

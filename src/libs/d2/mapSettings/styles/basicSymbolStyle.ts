@@ -1,4 +1,5 @@
-import { baseSymbol } from "../../../../assets/symbols/basicSymbols";
+import { notApplicableSymbol } from "../../../../assets/symbols/basicSymbols";
+import { symbolListByCoord } from "../../../../data/constants/symbolListByCoord";
 import { BasicSymbolColorType, milColorHandler } from "../../../../utils/milColorHandler";
 import D2MapModule from "../../D2MapModule";
 import { basicTextStyle, defaultFeatureLabelTextSize } from "./symbolStyle";
@@ -15,15 +16,18 @@ const { ol } = D2MapModule;
 export const basicSymbolStyle = function (feature: any) {
 	const iconColor: BasicSymbolColorType = feature.get("color");
 	const convertedColor = milColorHandler(iconColor);
+	const symbol = symbolListByCoord.find((sym) => sym.baseCoord === feature.values_.originLonlat);
 
 	const pointStyle = new ol.style.Style({
 		image: new ol.style.Icon({
 			opacity: 1,
 			color: convertedColor,
-			src: "data:image/svg+xml;utf8," + encodeURIComponent(baseSymbol),
+			src:
+				"data:image/svg+xml;utf8," + encodeURIComponent(symbol?.basicSymbol || notApplicableSymbol),
 			scale: 0.5,
 			offset: [0, 0],
 			anchor: [0.1, 0.4],
+			rotation: symbol?.rotation,
 		}),
 	});
 

@@ -2,10 +2,8 @@ import { basicPointStyle, basicTextStyle, defaultFeatureLabelTextSize } from "./
 
 /**
  * 지도 Feature로 뿌리는 기본 간략부호 형태
- *
  * API Call로 받아온 데이터를 기본 심볼인 작은 동그라미 형태로 표출해 줌
- * @param {BasicSymbolShape} BasicSymbolShape
- * @returns ol.Circle Object
+ * @param feature
  */
 export const simplifiedSymbolStyle = function (feature: any) {
 	const pointStyle = basicPointStyle(feature, 10, 1);

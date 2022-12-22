@@ -39,7 +39,7 @@ const useGraphicFeatureColorStore = create<GraphicFeatureColorStore>((set) => ({
 			  },
 	setFavColor: (favColor: GraphicFeaturefavColorProps) =>
 		set(() => {
-			localStorage.setItem("favePages", JSON.stringify(favColor));
+			localStorage.setItem("fc", JSON.stringify(favColor));
 			return { favColor };
 		}),
 }));

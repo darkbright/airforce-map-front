@@ -2,10 +2,14 @@ import { toastShow } from "../../../../components/alert/ToastMessage";
 import { OpenLayersStandardDataTypes } from "../../../../types/openlayers";
 import D2MapModule from "../../D2MapModule";
 import { simplifiedSymbolStyle } from "../styles/simplifiedSymbolStyle";
+import { basicSymbolStyle } from "../styles/basicSymbolStyle";
+import { MapSymbolType } from "../../../../types/army/symbolType";
+import { defaultMilitarySymbolStyle } from "../styles/militarySymbolStyle";
 
 interface SetupVectorsOnPageType {
 	data: OpenLayersStandardDataTypes;
 	layerName: string;
+	favSymbol: MapSymbolType;
 }
 
 /**
@@ -21,8 +25,19 @@ interface SetupVectorsOnPageType {
  * @param SetupVectorsOnPageType SetupVectorsOnPageType
  * @returns ol.layer
  */
-export const setupVectorsOnPage = ({ data, layerName }: SetupVectorsOnPageType) => {
+export const setupVectorsOnPage = ({ data, layerName, favSymbol }: SetupVectorsOnPageType) => {
 	const { ol } = D2MapModule;
+	const symbolType = () => {
+		if (favSymbol === "basic") {
+			return basicSymbolStyle;
+		}
+		if (favSymbol === "simplified") {
+			return simplifiedSymbolStyle;
+		}
+		if (favSymbol === "military") {
+			return defaultMilitarySymbolStyle;
+		}
+	};
 
 	try {
 		window.map.getLayers().forEach((element: any) => {
@@ -39,7 +54,7 @@ export const setupVectorsOnPage = ({ data, layerName }: SetupVectorsOnPageType) 
 				features: new ol.format.GeoJSON().readFeatures(data),
 			}),
 			zIndex: 500, //(지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
-			style: simplifiedSymbolStyle,
+			style: symbolType(),
 		});
 		return window.map.addLayer(olLayers);
 	} catch (error) {

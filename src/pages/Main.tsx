@@ -17,6 +17,7 @@ import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnP
 import { findFeatures } from "../libs/d2/mapSettings/interactions/findFeatures";
 import RadarChartBox from "../components/chart/RadarChartBox";
 import useRightClickStore from "../stores/useRightClickStore";
+import useFavoriteSymbolStore from "../stores/useFavoriteSymbolStore";
 
 /**
  * 메인 페이지 (프로토타입 샘플)
@@ -41,6 +42,8 @@ const Main = () => {
 	const [prototypeIdData, setPrototypeIdData] = useState<PrototypeByIdType[] | null>(null);
 	const { data: idData, refetch } = usePrototypeById(selectedId);
 
+	const { favSymbol } = useFavoriteSymbolStore();
+
 	// 맵에 좌표 데이터 로딩
 	useEffect(() => {
 		if (window.map && isPrototypeFetched) {
@@ -49,6 +52,7 @@ const Main = () => {
 			setupVectorsOnPage({
 				data: prototypeData!,
 				layerName: "prototype-layer",
+				favSymbol,
 			});
 			setRightClickEnabled(true);
 

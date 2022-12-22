@@ -13,6 +13,7 @@ import TableHelperText, { PercentTypeElement } from "../components/dataGrid/Tabl
 import MapDataTableWrapper from "../components/map/MapDataTableWrapper";
 import { setupVectorsOnPage } from "../libs/d2/mapSettings/pages/setupVectorsOnPage";
 import { useWhateverAll } from "../query/whatever";
+import useFavoriteSymbolStore from "../stores/useFavoriteSymbolStore";
 import useRightClickStore from "../stores/useRightClickStore";
 import useThemeStore from "../stores/useThemeStore";
 import { theme } from "../styles/theme";
@@ -31,12 +32,15 @@ const Whatever = () => {
 	const { isDark } = useThemeStore();
 	const tableLineColor = `1px solid ${theme(isDark).palette.divider}`;
 
+	const { favSymbol } = useFavoriteSymbolStore();
+
 	useEffect(() => {
 		if (isWhateverDataFetched) {
 			setMapData(whateverData && whateverData.features!);
 			setupVectorsOnPage({
 				data: whateverData!,
 				layerName: "whatever-layer",
+				favSymbol,
 			});
 			setRightClickEnabled(true);
 		}

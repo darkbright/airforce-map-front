@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuth } from "../../stores/useAuth";
+import UserSettings from "../settings/UserSettings";
 
 interface TapNavProfileProps {
 	title: string;
@@ -23,6 +24,8 @@ const TopNavProfile = ({ title, display }: TapNavProfileProps) => {
 	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorOpen(event.currentTarget);
 	};
+
+	const [userSettingOpen, setUserSettingOpen] = useState(false);
 
 	const { authUser } = useAuth();
 
@@ -55,7 +58,12 @@ const TopNavProfile = ({ title, display }: TapNavProfileProps) => {
 					<Typography variant="subtitle2">비밀등급: 쉿! 🤐</Typography>
 				</UserInfoPanel>
 				<Divider sx={{ mt: 1, mb: 1 }} />
-				<MenuItem onClick={handleClose}>
+				<MenuItem
+					onClick={() => {
+						setAnchorOpen(null);
+						setUserSettingOpen(true);
+					}}
+				>
 					<ListItemIcon>
 						<Settings fontSize="small" />
 					</ListItemIcon>
@@ -68,6 +76,9 @@ const TopNavProfile = ({ title, display }: TapNavProfileProps) => {
 					로그아웃
 				</MenuItem>
 			</Menu>
+			{userSettingOpen && (
+				<UserSettings open={userSettingOpen} setOpen={() => setUserSettingOpen(false)} />
+			)}
 		</div>
 	);
 };

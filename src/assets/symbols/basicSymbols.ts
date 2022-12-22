@@ -12,7 +12,7 @@
 // 따라서 개별 부호들을 렌더링할 때 database에서 받은 색상코드 값(utils/milColorHandler에 정의됨)을 가지고 그 하얀 색상을 바꿔주는 식으로 표출되겠음.
 
 /**
- * 기본부호 중 기지를 나타내는 부호로 동그라미에 가로 줄 모양 (토성모양) 🪐 으로 생김
+ * 기본부호 중 기지를 나타내는 부호로 동그라미에 가로 줄 모양 (토성모양) 🪐 으로 생김 (기지가 동그라미고 활주로가 그 중간에 네모난 금이라고 함)
  */
 export const baseSymbol = `
 <svg version="1.1" width="100" height="100"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -35,7 +35,7 @@ export const rocketSymbol = `
 `;
 
 /**
- * 기본심볼 중 위성 수신기 모양 📡
+ * 기본심볼 중 위성 수신기 모양  📡
  */
 export const satelliteDishSymbol = `
 <svg version="1.1" width="100" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"

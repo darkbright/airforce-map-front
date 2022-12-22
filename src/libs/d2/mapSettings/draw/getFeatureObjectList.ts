@@ -14,8 +14,11 @@ interface ObjectListValues {
  * - deGroupedList: groupedList는 도형이 그룹인 경우 그룹 내에 속한 n개 이상의 세부 도형의 속성을 변경할 수 없으므로, group이 없었더라면 일렬로 펼쳐졌을 도형들을 볼 수 있게 해줌. 따라서 그룹 내에 속하는 개별 도형들의 속성을 변경할 때에는 deGroupedList를 사용해야 함.
  */
 export const getFeatureObjectList = (): ObjectListValues => {
+	// 선택된 board, 즉 선택된 Layer를 확인하고
 	const board = window.graphic.getSelectGraphicBoard();
+	// 선택된 board(layer) 내에 들어있는 도형이나 군대부호같은 각종 feature(or object)들의 리스트 중 그룹으로 묶인게 있다면 그룹을 1개의 feature로 간주하고 가져옴
 	const groupedList = board.getParentObjectList();
+	// 선택된 board(layer) 내에 들어있는 도형이나 군대부호같은 각종 feature(or object)들의 리스트들을 그룹이 아닌 상태로 불러옴.
 	const deGroupedList = board.getObjectList();
 
 	return { board, groupedList, deGroupedList };

@@ -1,5 +1,9 @@
+import { symbolListByCoord } from "../../../../data/constants/symbolListByCoord";
 import { MilSymbolImageType } from "../../../../types/d2/MilSymbolObjectOptions";
 import D2MapModule from "../../D2MapModule";
+import { getMilSymbolImage } from "../milSymbols/getMilSymbolImage";
+import { getMilSymbolType } from "../milSymbols/getMilSymbolType";
+import { basicTextStyle, defaultFeatureLabelTextSize } from "./symbolStyle";
 
 const { ol } = D2MapModule;
 
@@ -19,4 +23,21 @@ export const militarySymbolStyle = (symbol: MilSymbolImageType) => {
 	});
 
 	return symbolStyle;
+};
+
+export const defaultMilitarySymbolStyle = function (feature: any) {
+	const symbol = symbolListByCoord.find((sym) => sym.baseCoord === feature.values_.originLonlat);
+	const textStyle = basicTextStyle(feature, defaultFeatureLabelTextSize);
+
+	const matchedSymbol = symbol?.milSymbol || "SFZ*------*****";
+
+	const isSymbolType1 = getMilSymbolType(matchedSymbol) === 1;
+	if (isSymbolType1) {
+		const symbolImage = getMilSymbolImage(matchedSymbol);
+		if (symbolImage) {
+			const symbolStyle = militarySymbolStyle(symbolImage);
+
+			feature.setStyle([symbolStyle, textStyle]);
+		}
+	}
 };

@@ -2,6 +2,7 @@ import { Box, styled, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import BaseModal from "../../../../components/modal/BaseModal";
 import TabPanel from "../../../../components/tab/TabPanel";
+import { getFeatureObjectList } from "../../../../libs/d2/mapSettings/draw/getFeatureObjectList";
 import { mergedGroupProps, typesOfShape } from "../../../../libs/d2/mapSettings/draw/TypesOfShapes";
 import { IGraphicObject } from "../../../../types/d2/Graphic";
 import FeatureArrowHandler from "./FeatureArrowHandler";
@@ -49,12 +50,8 @@ const FeaturePropertyHandlerModal = ({
 	const typeOfFeature = typesOfShape.find((shape) => shape.id === feature._prop.type)!;
 	const { isPoint, hasLine, hasFill, hasArrow, hasText, hasOthers } = typeOfFeature;
 
-	// 선택된 board, 즉 선택된 Layer를 확인하고
-	const board = window.graphic.getSelectGraphicBoard();
-	// 선택된 board(layer) 내에 들어있는 도형이나 군대부호같은 각종 feature(or object)들의 리스트들을 불러옴.
-	const objectList = board.getObjectList();
-	// foundFeature는 group의 속성을 가지고 있는 상태로 들고 다녀야 함
-	const parentObjectList = board.getParentObjectList();
+	const { groupedList: parentObjectList, deGroupedList: objectList } = getFeatureObjectList();
+
 	const foundFeature =
 		parentObjectList.find((obj) => obj._prop.guid === feature?._prop?.guid) ?? null;
 
