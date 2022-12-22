@@ -10,10 +10,12 @@ import { d2MapManager } from "./d2MapManager";
 import { Distance } from "./distance";
 import { EventManager } from "./eventManager";
 import { Graphic } from "./Graphic";
+import { HeightBillboard } from "./HeightBillboard";
 import { MapLayerManager } from "./MapLayerManager";
 import { PostComposeCtrl } from "./PostComposeCtrl";
 import { Radar } from "./Radar";
 import { RadiusCircle } from "./RadiusCircle";
+import { SlopeDistance } from "./SlopeDistance";
 import { SpatialMath } from "./SpatialMath";
 import { TerrainAnalysisManager } from "./TerrainAnalysisManager";
 
@@ -50,6 +52,8 @@ declare global {
 		radiusCircle: RadiusCircle;
 		crossSection: CrossSection;
 		radar: Radar;
+		heightBillboard: HeightBillboard;
+		slopeDistance: SlopeDistance;
 		TerrainAnalysisManager: TerrainAnalysisManager;
 		D2: {
 			Core: {

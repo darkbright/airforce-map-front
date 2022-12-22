@@ -98,10 +98,10 @@ const MapLayer = () => {
 export default MapLayer;
 
 const Root = styled("div")(() => ({
-	width: "80%",
+	width: "60%",
 }));
 
 const ItemWrapper = styled("div")(() => ({
-	width: "30%",
+	width: "50%",
 	marginTop: 40,
 }));

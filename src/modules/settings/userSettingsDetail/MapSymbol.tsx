@@ -4,7 +4,6 @@ import BasicSymbolRunwayIcon from "../../../assets/icons/BasicSymbolRunwayIcon";
 import CircleIcon from "../../../assets/icons/shapes/CircleIcon";
 import MilSymbolIcon from "../../../assets/icons/shapes/MilSymbolIcon";
 import ShortAlert from "../../../components/alert/ShortAlert";
-import BaseButton from "../../../components/button/BaseButton";
 import useFavoriteSymbolStore from "../../../stores/useFavoriteSymbolStore";
 import { MapSymbolType } from "../../../types/army/symbolType";
 
@@ -63,10 +62,6 @@ const MapSymbol = () => {
 					</Typography>
 				</ToggleButton>
 			</ToggleButtonGroup>
-
-			<div>
-				<BaseButton type="submit" disabled title="업데이트" />
-			</div>
 		</Root>
 	);
 };
@@ -74,5 +69,5 @@ const MapSymbol = () => {
 export default MapSymbol;
 
 const Root = styled("div")(() => ({
-	width: "80%",
+	width: "70%",
 }));

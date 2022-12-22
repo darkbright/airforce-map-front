@@ -307,5 +307,4 @@ const ItemButton = styled(Button)(({ theme }) => ({
 	"&:hover": {
 		background: theme.palette.background.paper,
 	},
-	minWidth: 30,
 }));

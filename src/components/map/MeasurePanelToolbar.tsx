@@ -15,6 +15,11 @@ import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import RadarIcon from "@mui/icons-material/Radar";
 import { measureRadar } from "../../libs/d2/mapSettings/measurement/measureRadar";
 import MeasureRadarDetailModal from "../../modules/map/measure/MeasureRadarDetailModal";
+import ExpandIcon from "@mui/icons-material/Expand";
+import { measureHeight } from "../../libs/d2/mapSettings/measurement/measureHeight";
+import KeyboardOptionKeyIcon from "@mui/icons-material/KeyboardOptionKey";
+import { measureSlope } from "../../libs/d2/mapSettings/measurement/measureSlope";
+import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 
 /**
  * 측정과 관련된 동작들을 보여주는 Div로, MapToolbar에서 측정 버튼을 누르면 나온디
@@ -65,7 +70,7 @@ const MeasurePanelToolbar = () => {
 							onDoubleClick={() => setShowDistanceDetail(true)}
 						>
 							<Tooltip title="더블 클릭 시 상세 옵션 패널이 열림">
-								<div>거리 측정</div>
+								<div>거리</div>
 							</Tooltip>
 						</ItemButton>
 						<ItemButton
@@ -79,7 +84,7 @@ const MeasurePanelToolbar = () => {
 							onDoubleClick={() => setShowExtentDetail(true)}
 						>
 							<Tooltip title="더블 클릭 시 상세 옵션 패널이 열림">
-								<div>면적 측정</div>
+								<div>면적</div>
 							</Tooltip>
 						</ItemButton>
 						<ItemButton
@@ -94,7 +99,7 @@ const MeasurePanelToolbar = () => {
 							onDoubleClick={() => setShowRadiusDetail(true)}
 						>
 							<Tooltip title="더블 클릭 시 상세 옵션 패널이 열림">
-								<div>동심원 측정</div>
+								<div>동심원</div>
 							</Tooltip>
 						</ItemButton>
 						<ItemButton
@@ -109,7 +114,7 @@ const MeasurePanelToolbar = () => {
 							}}
 						>
 							<Tooltip title="단면을 그으면 단면 그래프가 생성됨">
-								<div>단면 분석</div>
+								<div>단면</div>
 							</Tooltip>
 						</ItemButton>
 						<ItemButton
@@ -125,17 +130,47 @@ const MeasurePanelToolbar = () => {
 							}}
 							onDoubleClick={() => setShowRadarDetail(true)}
 						>
-							<Tooltip title="단면을 그으면 단면 그래프가 생성됨">
-								<div>레이더 측정</div>
+							<Tooltip title="더블 클릭 시 상세 옵션 패널이 열림">
+								<div>레이더</div>
 							</Tooltip>
 						</ItemButton>
 						<ItemButton
 							color="inherit"
+							startIcon={<KeyboardOptionKeyIcon fontSize="small" />}
+							onClick={() => measureSlope()}
+						>
+							<Tooltip title="기복(Slope) 측정">
+								<div>기복</div>
+							</Tooltip>
+						</ItemButton>
+						<ItemButton
+							color="inherit"
+							startIcon={<ExpandIcon fontSize="small" />}
+							onClick={() => measureHeight()}
+						>
+							<Tooltip title="지도위 지점을 누르면 고도가 표시됨">
+								<div>고도</div>
+							</Tooltip>
+						</ItemButton>
+					</ButtonGroup>
+					<ButtonGroup
+						size="small"
+						variant="contained"
+						color="inherit"
+						aria-label="measurement button handle group"
+						disableElevation
+						sx={{ opacity: 0.85, ml: 1 }}
+					>
+						<ItemButton
+							color="inherit"
+							startIcon={<IndeterminateCheckBoxIcon fontSize="small" />}
 							onClick={() => {
 								window.eventManager.setMapMode("default");
 							}}
 						>
-							측정모드 종료
+							<Tooltip title="측정모드 마우스 + 버튼이 종료되고 일반 맵모드로 전환됨 ">
+								<div>측정종료</div>
+							</Tooltip>
 						</ItemButton>
 						<ItemButton
 							color="inherit"
@@ -145,7 +180,9 @@ const MeasurePanelToolbar = () => {
 								window.eventManager.setMapMode("default");
 							}}
 						>
-							초기화
+							<Tooltip title="현재 지도 상의 모든 측정값들을 지움">
+								<div>초기화</div>
+							</Tooltip>
 						</ItemButton>
 					</ButtonGroup>
 				</ButtonsWrapper>
