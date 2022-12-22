@@ -37,7 +37,7 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 	const { GraphicUtil } = D2MapModule;
 
 	const graphicUtil: IGraphicUtil = GraphicUtil;
-	const { favColor, setFavColor } = useGraphicFeatureColorStore();
+	const { favColor } = useGraphicFeatureColorStore();
 
 	/**
 	 * 칠 색상 변경
@@ -47,7 +47,6 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 	const changeFillColor = (color: Color) => {
 		const selectedObject = window.graphic.getSelectObjectList()[0];
 		setFillColor(color);
-		setFavColor({ ...favColor, fc: graphicUtil.hex2rgb(color.hex) });
 		if (selectedObject._prop.type === "group") {
 			const { deGroupedList } = getFeatureObjectList();
 			deGroupedList.map((obj) => {
@@ -68,7 +67,6 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 	const changeLineColor = (color: Color) => {
 		const selectedObject = window.graphic.getSelectObjectList()[0];
 		setLineColor(color);
-		setFavColor({ ...favColor, lc: graphicUtil.hex2rgb(color.hex) });
 		if (selectedObject._prop.type === "group") {
 			const { deGroupedList } = getFeatureObjectList();
 			deGroupedList.map((obj) => {
@@ -89,7 +87,6 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 	const changeLineWidth = (event: Event, newValue: number | number[]) => {
 		const selectedObject = window.graphic.getSelectObjectList()[0];
 		setLineWidth(newValue as number);
-		setFavColor({ ...favColor, lw: newValue as number });
 		if (selectedObject._prop.type === "group") {
 			const { deGroupedList } = getFeatureObjectList();
 			deGroupedList.map((obj) => {

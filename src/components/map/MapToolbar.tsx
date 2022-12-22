@@ -75,7 +75,7 @@ const MapToolbar = ({ showMVTLayerControl, setShowMVTLayerControl }: MapToolbarP
 					position: "absolute",
 					top: isFullScreenOpen === "f" ? "0.8em" : "8.3em",
 					left: isFullScreenOpen === "f" ? "0.8em" : "16em",
-					zIndex: 1500,
+					zIndex: 1200,
 				}}
 			>
 				<ToggleButtonGroup

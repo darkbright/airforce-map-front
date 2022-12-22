@@ -4,6 +4,7 @@ import { forwardRef, ReactElement, Ref, SyntheticEvent, useState } from "react";
 import BaseBlockTitleBox from "../../components/box/textBox/BaseBlockTitleBox";
 import CloseButton from "../../components/button/CloseButton";
 import TabPanel from "../../components/tab/TabPanel";
+import MapLayer from "./userSettingsDetail/MapLayer";
 import MapSymbol from "./userSettingsDetail/MapSymbol";
 import UserInfo from "./userSettingsDetail/UserInfo";
 
@@ -44,7 +45,7 @@ const UserSettings = ({ open, setOpen }: UserSettingsProps) => {
 
 	return (
 		<Dialog
-			sx={{ zIndex: 5000 }}
+			sx={{ zIndex: 1300 }}
 			fullScreen
 			open={open}
 			onClose={setOpen}
@@ -90,7 +91,9 @@ const UserSettings = ({ open, setOpen }: UserSettingsProps) => {
 						</TabPanelRoot>
 					</TabPanel>
 					<TabPanel value={tabValue} index={2}>
-						<TabPanelRoot>123</TabPanelRoot>
+						<TabPanelRoot>
+							<MapLayer />
+						</TabPanelRoot>
 					</TabPanel>
 				</Box>
 			</Root>
