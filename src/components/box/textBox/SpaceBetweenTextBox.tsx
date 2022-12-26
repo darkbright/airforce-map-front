@@ -6,6 +6,23 @@ interface SpaceBetweenTextBoxProps {
 	children: ReactNode;
 	marginBottom?: number;
 	childrenWidth?: string;
+	variant?:
+		| "body1"
+		| "button"
+		| "caption"
+		| "h1"
+		| "h2"
+		| "h3"
+		| "h4"
+		| "h5"
+		| "h6"
+		| "inherit"
+		| "subtitle1"
+		| "subtitle2"
+		| "body2"
+		| "overline"
+		| undefined;
+	fontSize?: number;
 }
 
 /**
@@ -20,11 +37,13 @@ const SpaceBetweenTextBox = ({
 	children,
 	marginBottom = 0,
 	childrenWidth = "",
+	variant = "body1",
+	fontSize = 12,
 }: SpaceBetweenTextBoxProps) => {
 	return (
 		<Root style={{ marginBottom }}>
-			<Typography variant="body1">{title}</Typography>
-			<div style={{ width: childrenWidth }}>{children}</div>
+			<Typography variant={variant}>{title}</Typography>
+			<div style={{ width: childrenWidth, fontSize }}>{children}</div>
 		</Root>
 	);
 };

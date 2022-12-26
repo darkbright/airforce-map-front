@@ -3,6 +3,10 @@ import useFullScreenStore from "../stores/useFullScreenStore";
 import StatusBox from "../modules/widget/StatusBox";
 import ShortReportStatusBox from "../components/widget/ShortReportStatusBox";
 import TodayBox from "../components/widget/TodayBox";
+import SampleBarChartBox from "../components/chart/SampleBarChartBox";
+import WeatherBox from "../components/widget/WeatherBox";
+import SamplePercentAreaChartBox from "../components/chart/SamplePercentAreaChartBox";
+import DataTab from "../components/widget/DataTab";
 
 /**
  * 메인 페이지 (프로토타입 샘플)
@@ -67,12 +71,26 @@ const Main = () => {
 							/>
 						</Grid>
 					</Grid>
+					<Grid container spacing={2}>
+						<Grid item xs={12}>
+							<SampleBarChartBox />
+						</Grid>
+					</Grid>
+					<Grid container spacing={2}>
+						<Grid item xs={6}>
+							<SamplePercentAreaChartBox />
+						</Grid>
+						<Grid item xs={6}>
+							<DataTab />
+						</Grid>
+					</Grid>
 				</Grid>
 				<Grid item xs={2}>
 					<TodayBox />
 					<StatusBox severity="danger" title="진돗개" desc="왕왕 50%" />
 					<StatusBox severity="normal" title="공역" desc="crystal clear" />
 					<StatusBox severity="warn" title="서버" desc="35% Operation Rate " />
+					<WeatherBox />
 				</Grid>
 			</Grid>
 		</div>

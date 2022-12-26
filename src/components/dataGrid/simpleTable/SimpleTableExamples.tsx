@@ -35,6 +35,18 @@ export const ProgressTable = () => {
 			name: "시설병력",
 			percent: 0,
 		},
+		{
+			name: "아무거나",
+			percent: 15,
+		},
+		{
+			name: "어드벤처",
+			percent: 28,
+		},
+		{
+			name: "닌텐도",
+			percent: 40,
+		},
 	];
 
 	return (
