@@ -193,8 +193,8 @@ const FeatureRightClickHandler = ({
 						</MenuItem>
 						{feature?._prop.type === "milSymbol" && (
 							<MenuItem
-								onClick={() => {
-									console.log("여기서 군대심볼");
+								onClick={(e) => {
+									console.log(e);
 								}}
 							>
 								<ListItemText>군대부호 속성</ListItemText>

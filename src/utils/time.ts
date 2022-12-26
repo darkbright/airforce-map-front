@@ -13,6 +13,15 @@ export const dateOnlyFormat = (date: ConfigType) => {
 /**
  * 데이트 변환
  * @param {ConfigType} ConfigType 각종 Data 표기 형식
+ * @returns "YYYY년 MM월 DD일 (요일)"
+ */
+export const dateAndWeekDayFormat = (date: ConfigType) => {
+	return dayjs(date).format("YYYY년 MM월 DD일 (ddd)");
+};
+
+/**
+ * 데이트 변환
+ * @param {ConfigType} ConfigType 각종 Data 표기 형식
  * @returns "YYYY-MM-DD"
  */
 export const dateOnlyDashFormat = (date: ConfigType) => {

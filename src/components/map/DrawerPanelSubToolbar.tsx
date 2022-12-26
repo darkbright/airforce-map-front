@@ -285,7 +285,7 @@ const DrawerPanelSubToolbar = ({ openDrawPanel, setOpenDrawPanel }: DrawerPaenlS
 					min={0}
 					max={10}
 					marks
-					value={favColor.lw}
+					value={lineWidth}
 					onChange={changeLineWidth}
 				/>
 			</Popover>

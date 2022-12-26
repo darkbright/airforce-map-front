@@ -19,7 +19,7 @@ import ExpandIcon from "@mui/icons-material/Expand";
 import { measureHeight } from "../../libs/d2/mapSettings/measurement/measureHeight";
 import KeyboardOptionKeyIcon from "@mui/icons-material/KeyboardOptionKey";
 import { measureSlope } from "../../libs/d2/mapSettings/measurement/measureSlope";
-import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
+// import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 
 /**
  * 측정과 관련된 동작들을 보여주는 Div로, MapToolbar에서 측정 버튼을 누르면 나온디
@@ -153,6 +153,7 @@ const MeasurePanelToolbar = () => {
 							</Tooltip>
 						</ItemButton>
 					</ButtonGroup>
+
 					<ButtonGroup
 						size="small"
 						variant="contained"
@@ -161,7 +162,8 @@ const MeasurePanelToolbar = () => {
 						disableElevation
 						sx={{ opacity: 0.85, ml: 1 }}
 					>
-						<ItemButton
+						{/* 이거 생각해보니 툴바 맨 왼쪽 화살표가 그 기능을 하고 있어서 일단 주석처리 */}
+						{/* <ItemButton
 							color="inherit"
 							startIcon={<IndeterminateCheckBoxIcon fontSize="small" />}
 							onClick={() => {
@@ -171,7 +173,7 @@ const MeasurePanelToolbar = () => {
 							<Tooltip title="측정모드 마우스 + 버튼이 종료되고 일반 맵모드로 전환됨 ">
 								<div>측정종료</div>
 							</Tooltip>
-						</ItemButton>
+						</ItemButton> */}
 						<ItemButton
 							color="inherit"
 							startIcon={<ClearIcon fontSize="small" />}

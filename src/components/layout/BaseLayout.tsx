@@ -1,5 +1,6 @@
 import { Outlet, matchPath, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { flattenedMenu, menu } from "../../data/constants/menu";
 import useFullScreenStore from "../../stores/useFullScreenStore";
 import useThemeStore from "../../stores/useThemeStore";
 import BaseMap from "../map/BaseMap";
@@ -29,8 +30,14 @@ const BaseLayout = () => {
 	 * 지도 재로딩 시 (새로고침 등) 자원의 소모가 크므로 최대한 지도를 재로딩하지 않는 것이 바람직.
 	 * Context가 아닌 Router에서 처리하는 이유는 d2Map이 Window변수에 박제되도록 설계되어 있어, 중첩으로 Context를 만들 이유가 없기 때문임.
 	 */
-	const { pathname } = useLocation();
-	const match = matchPath("/random/*", pathname);
+	const location = useLocation();
+	const splitedRoute = location.pathname.split("/").slice(1);
+
+	const foundRoute = splitedRoute.map((route) =>
+		flattenedMenu(menu).find((menu) => menu.path === route),
+	);
+	const isMapOnPage = foundRoute[foundRoute.length - 1]?.isMapPage;
+
 	const { isDark } = useThemeStore();
 
 	const { isFullScreenOpen } = useFullScreenStore();
@@ -51,9 +58,13 @@ const BaseLayout = () => {
 				<LeftMenuBar visibility={isFullScreenOpen === "f" ? "hidden" : "visible"} />
 				<div style={{ width: "100%", height: "100vh" }}>
 					<BreadCrumbBar display={isFullScreenOpen === "f" ? "none" : "block"} />
-					<BaseMap show={match ? false : true}>
+					{isMapOnPage ? (
+						<BaseMap show>
+							<Outlet />
+						</BaseMap>
+					) : (
 						<Outlet />
-					</BaseMap>
+					)}
 				</div>
 				{/* <WidgetBar /> */}
 			</div>

@@ -81,6 +81,7 @@ const Wrapper = styled("div")(() => ({
 	position: "absolute",
 	zIndex: 1000,
 	transition: "width ease-out 0.2s",
+	// overflowY: "scroll",
 }));
 
 const ShrinkBtn = styled("div")(() => ({

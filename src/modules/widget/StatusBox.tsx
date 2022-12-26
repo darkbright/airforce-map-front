@@ -1,11 +1,14 @@
 import { styled, Typography } from "@mui/material";
 import StatusChip from "../../components/chip/StatusChip";
+import useThemeStore from "../../stores/useThemeStore";
+import { theme } from "../../styles/theme";
 import { SeverityType } from "../../types/army/statusType";
 
 interface StatusBoxProps {
 	title: string;
 	severity: SeverityType;
 	desc: string;
+	bgDefault?: boolean;
 }
 
 /**
@@ -15,9 +18,17 @@ interface StatusBoxProps {
  * @returns {JSX.Element} JSX Element(div)
  */
 
-const StatusBox = ({ title, desc, severity }: StatusBoxProps) => {
+const StatusBox = ({ title, desc, severity, bgDefault }: StatusBoxProps) => {
+	const { isDark } = useThemeStore();
+
 	return (
-		<Root>
+		<Root
+			style={{
+				backgroundColor: bgDefault
+					? theme(isDark).palette.background.default
+					: theme(isDark).palette.background.paper,
+			}}
+		>
 			<Header>
 				<Typography gutterBottom variant="body1" sx={{ fontWeight: 600 }}>
 					{title}
@@ -33,8 +44,7 @@ const StatusBox = ({ title, desc, severity }: StatusBoxProps) => {
 
 export default StatusBox;
 
-const Root = styled("div")(({ theme }) => ({
-	backgroundColor: theme.palette.background.default,
+const Root = styled("div")(() => ({
 	borderRadius: 6,
 	padding: 14,
 	display: "flex",

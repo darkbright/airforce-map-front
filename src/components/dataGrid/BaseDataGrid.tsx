@@ -60,7 +60,7 @@ const BaseDataGrid = ({ showToolbar = true }: BaseDataGridProps) => {
 	};
 
 	// width는 상위 Layout에서 지도 모듈과 나란히 할지 말지 등을 고려하여 재구축
-	const [containerWidth, setContainerWidth] = useState(1100 + 10);
+	const [containerWidth, setContainerWidth] = useState(1120);
 	const [checkToSaveOpen, setCheckToSaveOpen] = useState(false);
 	const [tableSettingOpen, setTableSettingOpen] = useState(false);
 	const [headerSettingOpen, setHeaderSettingOpen] = useState(false);
