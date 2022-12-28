@@ -21,4 +21,5 @@ export interface EventManager {
 	 * 지도의 현재 모드를 설정함. (특정 모드가 되면 특정 이벤트를 위한 마우스가 활성화됨). 특정 이벤트를 위한 지도의 모드를 종료시키려면 mapMode를 default로 변경
 	 */
 	setMapMode: (mode: MapMode) => void;
+	setCursor: (cursor: "default" | "move" | "crosshair") => void;
 }

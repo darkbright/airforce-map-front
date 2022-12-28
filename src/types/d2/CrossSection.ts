@@ -17,4 +17,5 @@ export interface CrossSection {
 	 * 단면 분석 차트 생성
 	 */
 	createCrossSection: () => void;
+	destroy: () => void;
 }

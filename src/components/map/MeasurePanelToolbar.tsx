@@ -7,7 +7,7 @@ import { measureExtent } from "../../libs/d2/mapSettings/measurement/measureExte
 import ClearIcon from "@mui/icons-material/Clear";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import MeasureDistanceDetailModal from "../../modules/map/measure/MeasureDistanceDetailModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MeasureAreaDetailModal from "../../modules/map/measure/MeasureAreaDetailModal";
 import { measureRadius } from "../../libs/d2/mapSettings/measurement/measureRadius";
 import MeasureRadiusDetailModal from "../../modules/map/measure/MeasureRadiusDetailModal";
@@ -35,6 +35,20 @@ const MeasurePanelToolbar = () => {
 	const [showRadiusDetail, setShowRadiusDetail] = useState(false);
 	// 버튼 더블 클릭 시 레이더 세부 설정이 가능한 모양을 보여줌
 	const [showRadarDetail, setShowRadarDetail] = useState(false);
+
+	/**
+	 * cross(단면) 차트가 떴을 때 x표시로 지우기 버튼이 작동하지 않는데, 그것이 d2라이브러리에 html이 들어가 있는데, 함수로 빼주질 않아서 그러함.
+	 * 해당 태그를 찾고 아래와 같이 선택해줄 수 밖에 없음..
+	 */
+	useEffect(() => {
+		document.addEventListener("click", function (event: any) {
+			if (event.target.matches(".d2map_selected-cs-close")) {
+				window.crossSection.destroy();
+				window.eventManager.setMapMode("default");
+				window.eventManager.setCursor("default");
+			}
+		});
+	}, [document]);
 
 	return (
 		<>
