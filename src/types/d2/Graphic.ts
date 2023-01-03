@@ -391,6 +391,10 @@ export interface IGraphicFeature {
 	graphicObj: IGraphicObject;
 }
 
+/**
+ * 도형 객체
+ * ms가 붙으면 군대부호 관련임
+ */
 export interface IGraphicObject {
 	_edit: {
 		bound: {
@@ -427,6 +431,30 @@ export interface IGraphicObject {
 		guid: string;
 		links: any;
 		lock: boolean;
+		msAffiliation: any;
+		msFontRatio: number;
+		msKey: any;
+		msLineRatio: number;
+		msOldStyle: any;
+		msOriginKey: any;
+		msSize: number;
+		msStatus: any;
+		msTextJSON: any;
+		msType: string;
+		msUseDefineColor: boolean;
+		options: {
+			SIDC: string;
+			/**
+			 * 수중기뢰인 경우 frame 초기값이 false
+			 */
+			fill: boolean;
+			frame: boolean;
+			/**
+			 * 수중기뢰인 경우 frame 초기값이 false
+			 */
+			size: number;
+			strokeWidth: number;
+		};
 		name: string;
 		/**
 		 * lineType은 도형의 속성이 arc일 때에만 나타남

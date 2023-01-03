@@ -12,6 +12,7 @@ import { EventManager } from "./eventManager";
 import { Graphic } from "./Graphic";
 import { HeightBillboard } from "./HeightBillboard";
 import { MapLayerManager } from "./MapLayerManager";
+import { MilSymbol } from "./milSymbol";
 import { PostComposeCtrl } from "./PostComposeCtrl";
 import { Radar } from "./Radar";
 import { RadiusCircle } from "./RadiusCircle";
@@ -37,7 +38,7 @@ declare global {
 		CKEDITOR_BASEPATH: string;
 		map: any;
 		D2MapManager: d2MapManager;
-		MilSymbol: any;
+		MilSymbol: MilSymbol;
 		mapLayerManager: MapLayerManager;
 		graphic: Graphic;
 		postComposeCtrl: PostComposeCtrl;
