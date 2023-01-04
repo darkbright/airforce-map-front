@@ -29,7 +29,21 @@ export const getMilSymbolImage = (symbolName: string): MilSymbolImageType | unde
 
 	const options: MilSymbolObjectOptions = {
 		SIDC: symbolName,
+		addSymbolOnly: false,
 		size: 25,
+		frame: true,
+		strokeWidth: 4,
+		fill: true,
+		fillOpacity: 1,
+		areaOfUncertainty: "",
+		civilianColor: false,
+		deadReckoningTrailer: "",
+		icon: true,
+		infoFields: false,
+		installation: false,
+		operationalConditionPoint: 0,
+		showCombatEffectivenessLabel: true,
+		speedLeaderTrailer: "",
 	};
 
 	symbol.setOptions(options);

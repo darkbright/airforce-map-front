@@ -194,13 +194,6 @@ const FeatureRightClickHandler = ({
 						{feature?._prop.type === "milSymbol" && (
 							<MenuItem
 								onClick={() => {
-									// 현재 알 수가 없는 부분임. 창만 로드하는데 까지 했음
-									const block = document.getElementById("d2map_ms_prop_container");
-									block!.style.display = "flex";
-									block!.style.zIndex = "8000";
-									const block1 = document.getElementById("d2map_ms_prop_container_ex");
-									block1!.style.display = "flex";
-									block1!.style.zIndex = "8000";
 									const selectedObject = window.graphic.getSelectObjectList()[0];
 									console.log("selectedObject", selectedObject);
 									if (
@@ -208,7 +201,15 @@ const FeatureRightClickHandler = ({
 											selectedObject,
 										)
 									) {
-										window.MilSymbol.getMilSymbolPropertiesObject().initMilsymbolPropData();
+										window.MilSymbol.getMilSymbolPropertiesObject().setMSStyle(
+											selectedObject._prop.msOriginKey,
+										);
+										const block = document.getElementById("d2map_ms_prop_container");
+										block!.style.display = "flex";
+										block!.style.zIndex = "8000";
+										// const block1 = document.getElementById("d2map_ms_prop_container_ex");
+										// block1!.style.display = "flex";
+										// block1!.style.zIndex = "8000";
 									}
 								}}
 							>

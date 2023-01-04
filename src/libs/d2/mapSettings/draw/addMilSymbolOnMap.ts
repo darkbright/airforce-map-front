@@ -1,4 +1,5 @@
 import { toastShow } from "../../../../components/alert/ToastMessage";
+import { IGraphicObject } from "../../../../types/d2/Graphic";
 import { MilSymbolObjectOptions } from "../../../../types/d2/MilSymbolObjectOptions";
 import D2MapModule from "../../D2MapModule";
 import { getMilSymbolType } from "../milSymbols/getMilSymbolType";
@@ -24,13 +25,27 @@ export const addMilSymbolOnMap = ({ cd }: AddMilSymbolOnMapProps) => {
 
 	const milSymbolType = getMilSymbolType(cd);
 
+	const aff = "F";
+	const SIDC = cd.substring(0, 1) + aff + cd.substring(2, 15);
+
 	// 점형 객체의 기본 옵션
 	const symbolOptions: MilSymbolObjectOptions = {
-		SIDC: cd,
+		SIDC,
+		addSymbolOnly: false,
 		size: 7,
 		frame: true,
 		strokeWidth: 4,
 		fill: true,
+		fillOpacity: 1,
+		areaOfUncertainty: "",
+		civilianColor: false,
+		deadReckoningTrailer: "",
+		icon: true,
+		infoFields: false,
+		installation: false,
+		operationalConditionPoint: 0,
+		showCombatEffectivenessLabel: true,
+		speedLeaderTrailer: "",
 	};
 
 	switch (milSymbolType) {
@@ -45,18 +60,21 @@ export const addMilSymbolOnMap = ({ cd }: AddMilSymbolOnMapProps) => {
 		}
 		case 1: {
 			// 기본부호, 전술기호
-			const tacticalSymbol = new GraphicObjectProp("milSymbol");
+			const tacticalSymbol: IGraphicObject["_prop"] = new GraphicObjectProp("milSymbol");
 			tacticalSymbol.options = symbolOptions;
 			tacticalSymbol.msType = "msPoint";
+			tacticalSymbol.msKey = cd;
+			tacticalSymbol.msOriginKey = cd;
 
 			return graphic.createMode(tacticalSymbol);
 		}
 		case 2: {
 			// 기본부호, 전술기호인듯
-			const tacticalSymbol = new GraphicObjectProp("milSymbol");
+			const tacticalSymbol: IGraphicObject["_prop"] = new GraphicObjectProp("milSymbol");
 			tacticalSymbol.options = symbolOptions;
 			tacticalSymbol.msType = "msPoint";
-
+			tacticalSymbol.msKey = cd;
+			tacticalSymbol.msOriginKey = cd;
 			return graphic.createMode(tacticalSymbol);
 		}
 		case 3: {

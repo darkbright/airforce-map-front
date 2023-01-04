@@ -335,11 +335,11 @@ export interface MilSymbolObjectOptions {
 	/**
 	 * 외형부호 표시 여부
 	 */
-	frame?: boolean;
+	frame: boolean;
 	/**
 	 * 외형채움 표시 여부
 	 */
-	fill?: boolean;
+	fill: boolean;
 	/**
 	 * 민간부호 채움색 설정
 	 */
@@ -381,7 +381,7 @@ export interface MilSymbolObjectOptions {
 	/**
 	 * 선 두께
 	 */
-	strokeWidth?: number;
+	strokeWidth: number;
 	/**
 	 * 수식정보 색상(평가등급코드, 전투력, 적군표시, IFF/SIF을 제외한 나머지에 적용, RGB 혹은 RGBA)
 	 */
@@ -403,6 +403,7 @@ export interface MilSymbolObjectOptions {
 	 * 예시: addSymbol : "GMOMP---****X"
 	 */
 	addSymbol?: string;
+	addSymbolOnly: boolean;
 	/**
 	 * 고유명칭 T
 	 */
@@ -548,7 +549,7 @@ export interface MilSymbolObjectOptions {
 	 *
 	 * 불확정영역 표시(direction 혹은 ellipse 혹은 rectangle로 설정)
 	 */
-	areaOfUncertainty?: "direction" | "ellipse" | "rectangle";
+	areaOfUncertainty?: "direction" | "ellipse" | "rectangle" | "";
 	/**
 	 * 불확정영역 길이
 	 */
@@ -602,7 +603,7 @@ export interface MilSymbolObjectOptions {
 	 *
 	 * AI : 선위의 추측선 표시(circle 혹은 line로 설정)
 	 */
-	deadReckoningTrailer?: "circle" | "line";
+	deadReckoningTrailer?: "circle" | "line" | "";
 	/**
 	 * 선위의 추측선 표시 반경
 	 */
@@ -636,7 +637,7 @@ export interface MilSymbolObjectOptions {
 	 *
 	 * 속도선 표시(SpeedLeader로 설정) AJ
 	 */
-	speedLeaderTrailer?: "SpeedLeader";
+	speedLeaderTrailer?: "SpeedLeader" | "";
 	/**
 	 * 속도선 표시 이동방향
 	 */
