@@ -9,6 +9,9 @@ export interface MilSymbol {
 	getMilitarySymbol: () => any;
 	translateTree: () => void;
 	showTranslateBtn: (show: boolean) => void;
+	/**
+	 * 군대부호 상세보기 클릭 시 뜨는 언어를 설정하는 부분으로 localStorage에 "lang"이 "ko"로 설정되어 있어야 한글로 보임
+	 */
 	translateMilsymbolProperties: () => void;
 	getMilsymbolName: () => any;
 	/**

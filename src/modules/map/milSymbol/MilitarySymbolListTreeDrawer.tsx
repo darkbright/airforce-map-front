@@ -18,7 +18,11 @@ export interface ModifiedMilSymboListType extends MilSymbolTreeListType {
 	modifiedName: string;
 	symbolImage: string;
 }
-
+/**
+ * 툴바에서 그리기를 클릭하고 맨 오른쪽 군대부호를 클릭하게 되면 나오게 되는 Drawer로 군대부호를 찾는 행위를 함
+ * @param  MilitarySymbolListTreeDrawerProps MilitarySymbolListTreeDrawerProps
+ * @returns {JSX.Element} drawer
+ */
 const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeDrawerProps) => {
 	const [selectedMilSymbol, setSelectedMilSymbol] = useState<ModifiedMilSymboListType | null>(null);
 	const [tabValue, setTabValue] = useState(0);
@@ -30,10 +34,46 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 		}
 	};
 
+	/**
+	 * 군대부호 속성창 언어 변경
+	 */
+	const handleMilSymbolLang = () => {
+		document.querySelector("#d2map_translate-container")!.addEventListener("click", function () {
+			localStorage.getItem("lang") === "ko"
+				? localStorage.setItem("lang", "en")
+				: localStorage.setItem("lang", "ko");
+			// getlang(localStorage.getItem('lang'));
+
+			// const milSymbolTree = TreeView.getTreeObject("d2map_tree-container");
+			// milSymbolTree.setOptions("name", localStorage.getItem("lang") === "ko" ? "name" : "eName");
+			// milSymbolTree.reload();
+
+			// const iconMSTree = TreeView.getTreeObject("d2map_msSIDCTree");
+			// iconMSTree.setOptions("name", localStorage.getItem("lang") === "ko" ? "name" : "eName");
+			// iconMSTree.reload();
+
+			// window.MilSymbol.loadMilsymbolTree();
+			// window.MilSymbol.translateTree();
+			window.MilSymbol.translateMilsymbolProperties(); //*군대부호 속성창 다시 불러오기
+		});
+	};
+
 	return (
 		<Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
 			<Box role="milSymbolTree" sx={{ width: 500, padding: "10% 5%" }}>
 				<BaseBlockTitleBox title="군대부호 찾기" subtitle="군대부호를 찾아주세요" />
+				<div style={{ display: "flex", justifyContent: "flex-end" }}>
+					<div
+						className="d2map_translate-btn"
+						id="d2map_translate-container"
+						onClick={handleMilSymbolLang}
+					>
+						<input type="checkbox" className="d2map_translate-chk" style={{ width: "100%" }} />
+						<div className="d2map_translate-knobs"></div>
+						<div className="d2map_translate-layer"></div>
+					</div>
+				</div>
+
 				<Tabs
 					value={tabValue}
 					onChange={(e, v) => setTabValue(v)}

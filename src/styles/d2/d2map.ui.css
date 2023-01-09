@@ -312,7 +312,7 @@ progress::-moz-progress-value {
 	top: 10px;
 	right: 10px;
 	position: absolute;
-	background-image: url("https://cdn.icon-icons.com/icons2/1674/PNG/512/close_111152.png");
+	background-image: url("../d2/img/close_btn.png");
 	width: 10px;
 	height: 10px;
 }

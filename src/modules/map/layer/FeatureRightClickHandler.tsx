@@ -46,6 +46,16 @@ const FeatureRightClickHandler = ({
 
 	const [openPropertyModal, setOpenPropertyModal] = useState(false);
 
+	// d2 map 군대부호 상세 정보창 닫기 handling
+	useEffect(() => {
+		document.addEventListener("click", function (event: any) {
+			if (event.target.matches(".d2map_popup-close-btn")) {
+				const block = document.getElementById("d2map_ms_prop_container");
+				block!.style.display = "none";
+			}
+		});
+	}, [document]);
+
 	return (
 		// 스타일링: 윈도우 너비 높이를 계산하고, 현재 feature의 position을 잡아서 만약 feature가 화면 너무 아래쪽이나 우측이나 그렇게 됐을 때 메뉴가 나오는 방향을 설정해주도록 함
 		<>

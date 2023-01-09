@@ -328,7 +328,10 @@ const DrawPanelToolbar = () => {
 
 			<MilitarySymbolListTreeDrawer
 				open={symbolListOpen}
-				setOpen={() => setSymbolListOpen(false)}
+				setOpen={() => {
+					window.MilSymbol.showTranslateBtn(true);
+					setSymbolListOpen(false);
+				}}
 			/>
 			<FeatureLayerHandler show={showLayerHandler} setShow={() => setShowLayerHandler(false)} />
 			<FeatureRightClickHandler
