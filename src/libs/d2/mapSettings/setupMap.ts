@@ -13,7 +13,6 @@ import { addMapLayer } from "./addLayers/addMapLayer";
 import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../data/constants/baseCoord";
 import { loadMVTLayerTree } from "./mvtLayerHandling/MVTLayerTree";
 import { GraphicCursor } from "../../../types/d2/Graphic";
-import { setLocalStorage } from "../../../stores/localStorageSetting";
 
 /**
  * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴
@@ -82,10 +81,6 @@ export default async () => {
 		D2MS_IMAGE: urlInfo.d2ms,
 		D2MS_PROPERTY: urlInfo.d2ms_property,
 	};
-
-	// 군대부호와 관련된 D2 생성 ui 및 개별 군대부호 properties를 표현하는 언어를 영어로 할지 한글로 할지 설정하는 부분
-	// 여기서는 모두 한글로 표현하겠음
-	setLocalStorage("lang", "ko");
 
 	// 군대부호 모듈 및 미리보기 트리 생성
 	window.MilSymbol = MilSymbol;
