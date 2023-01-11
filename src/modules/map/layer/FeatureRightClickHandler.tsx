@@ -46,12 +46,38 @@ const FeatureRightClickHandler = ({
 
 	const [openPropertyModal, setOpenPropertyModal] = useState(false);
 
-	// d2 map 군대부호 상세 정보창 닫기 handling
 	useEffect(() => {
-		document.addEventListener("click", function (event: any) {
-			if (event.target.matches(".d2map_popup-close-btn")) {
+		document.addEventListener("click", function (event: Event) {
+			const target = event.target as HTMLElement;
+			// d2 map 군대부호 상세 정보창 닫기 handling
+			if (target.matches(".d2map_popup-close-btn")) {
 				const block = document.getElementById("d2map_ms_prop_container");
 				block!.style.display = "none";
+			}
+			// 군대부호 속성정보 탭 스위칭 (본 프로젝트에 html이 없고 d2map.min.js 에 담겨있어 이렇게 처리할 수 밖에 없음)
+			if (target.matches(".d2map_tab-controller li")) {
+				const tabName = target.getAttribute("data-tab");
+				if (target.parentNode) {
+					for (const sibling of target.parentNode.children!) {
+						console.log("sibling", sibling);
+						if (sibling !== target) {
+							sibling.classList.remove("d2map_selected");
+						} else {
+							sibling.classList.add("d2map_selected");
+						}
+						const baseBlock: any = document.getElementsByClassName("d2map_basic-content")[0];
+						const extensionBlock: any =
+							document.getElementsByClassName("d2map_extension-content")[0];
+
+						if (tabName === "extension-content") {
+							baseBlock.style.display = "none";
+							extensionBlock!.style.display = "block";
+						} else {
+							baseBlock.style.display = "block";
+							extensionBlock!.style.display = "none";
+						}
+					}
+				}
 			}
 		});
 	}, [document]);
@@ -205,7 +231,6 @@ const FeatureRightClickHandler = ({
 							<MenuItem
 								onClick={() => {
 									const selectedObject = window.graphic.getSelectObjectList()[0];
-									console.log("selectedObject", selectedObject);
 									if (
 										window.MilSymbol.getMilSymbolPropertiesObject().activateMilSymbolPopup(
 											selectedObject,
@@ -220,6 +245,7 @@ const FeatureRightClickHandler = ({
 										// const block1 = document.getElementById("d2map_ms_prop_container_ex");
 										// block1!.style.display = "flex";
 										// block1!.style.zIndex = "8000";
+										setShow(false);
 									}
 								}}
 							>

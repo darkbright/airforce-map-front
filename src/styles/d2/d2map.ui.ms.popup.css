@@ -13,7 +13,20 @@
 #d2map_ms-prop-edit-text-size,
 #d2map_ms-prop-edit-text-opacity,
 #d2map_ms-prop-edit-text-strokeWidth {
-	width: 120px;
+	width: 140px;
+	font-size: 11.5px;
+	padding: 4.2px 5px;
+	border: 1px;
+	border-radius: 4px;
+}
+
+#d2map_ms-prop-edit-select-affiliation,
+#d2map_ms-prop-edit-select-operationalConditionPoint,
+#d2map_ms-prop-edit-select-status,
+#d2map_ms-prop-edit-text-size,
+#d2map_ms-prop-edit-text-opacity,
+#d2map_ms-prop-edit-text-strokeWidth:focus-visible {
+	outline-color: #00c8ff;
 }
 
 #d2map_ms-prop-edit-chk-displayicon,
@@ -44,6 +57,7 @@
 
 .d2map_extension-content {
 	display: none;
+	padding: 5px;
 }
 
 #d2map_extension-content-table {
@@ -58,7 +72,15 @@
 }
 
 #d2map_ms-prop-edit-text-combatEffectiveness {
-	width: 80px;
+	width: 140px;
+	font-size: 11.5px;
+	padding: 4.2px 5px;
+	border: 1px;
+	border-radius: 4px;
+}
+
+#d2map_ms-prop-edit-text-combatEffectiveness:focus-visible {
+	outline-color: #00c8ff;
 }
 
 /* 기본군대부호 AH-tab */

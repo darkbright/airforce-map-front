@@ -10,7 +10,7 @@ body,
 body {
 	overflow: hidden;
 	color: #eee;
-	font-family: "Malgun Gothic";
+	font-family: "Noto Sans KR";
 }
 .d2map_map:-webkit-full-screen {
 	height: 100%;
@@ -357,13 +357,13 @@ progress::-moz-progress-value {
 
 .d2map_tab-controller li {
 	/* width: 47px; 이전 스타일 */
-	width: 61px;
-	min-height: 20px;
+	width: 80px;
+	min-height: 22px;
 	box-sizing: content-box;
 	line-height: 20px;
-	font-size: 12px;
+	font-size: 11px;
 	text-align: center;
-	background: #202020;
+	background: #37474f5c;
 	border-bottom: none;
 	list-style: none;
 	cursor: pointer;
@@ -371,13 +371,13 @@ progress::-moz-progress-value {
 }
 
 .d2map_tab-controller li.d2map_selected {
-	background: #3d3d3d;
+	background: #37474f;
 }
 
 .d2map_popup-btns a {
 	text-align: center;
 	text-decoration: none;
-	font: normal 11px "Malgun Gothic";
+	font: normal 11px "Noto Sans KR";
 	color: white;
 	padding: 5px;
 	margin: 3px 0px 3px 5px;
@@ -443,7 +443,7 @@ progress::-moz-progress-value {
 	/* transform: translate(100%, 0); */
 	transform: none;
 	/*추가 시작*/
-	font-family: "Malgun Gothic", "lucida grande", tahoma, verdana, arial, sans-serif;
+	font-family: "Noto Sans KR", "lucida grande", tahoma, verdana, arial, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
 	opacity: 0.7;
@@ -604,7 +604,7 @@ button.d2map_selected-cs-close:active {
 	/* transform: translate(100%, 0); */
 	transform: none;
 	/*추가 시작*/
-	font-family: "Malgun Gothic", "lucida grande", tahoma, verdana, arial, sans-serif;
+	font-family: "Noto Sans KR", "lucida grande", tahoma, verdana, arial, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
 	opacity: 0.7;
@@ -661,7 +661,7 @@ button.d2map_selected-ms-close:active {
 
 .d2map_selected-ms-table-title {
 	height: 30px;
-	font-family: "Malgun Gothic", "lucida grande", tahoma, verdana, arial, sans-serif;
+	font-family: "Noto Sans KR", "lucida grande", tahoma, verdana, arial, sans-serif;
 	/* font-family: DotumChe; */
 	font-size: 13px;
 	/* padding: 4px 10px; */
@@ -675,7 +675,7 @@ button.d2map_selected-ms-close:active {
 
 .d2map_selected-ms-list {
 	max-height: 273px;
-	font-family: "Malgun Gothic", "lucida grande", tahoma, verdana, arial, sans-serif;
+	font-family: "Noto Sans KR", "lucida grande", tahoma, verdana, arial, sans-serif;
 	/* font-family: DotumChe; */
 	border-bottom-left-radius: 7px;
 	border-bottom-right-radius: 7px;
@@ -1046,14 +1046,14 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 	top: 49px;
 	left: 0px;
 	bottom: auto;
-	font: normal 13px "Malgun Gothic";
+	font: normal 11.5px "Noto Sans KR";
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 	/* display: -webkit-flex;
 	display: flex; */
 	display: none;
-	background: #333;
+	background: #263238;
 	color: #ffffff;
 	z-index: 100;
 	border-radius: 5px;
@@ -1064,6 +1064,37 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 .d2map_ms_prop_container * {
 	box-sizing: border-box;
 }
+
+#d2map_extension-content-table input[type="text" i] {
+	border: 1px;
+	width: 147px;
+	font-size: 11px;
+	padding: 4px 5px;
+	border-radius: 4px;
+}
+
+#d2map_extension-content-table input:focus-visible {
+	outline-color: #00c8ff;
+}
+
+#d2map_extension-content-table select:focus-visible {
+	outline-color: #00c8ff;
+}
+
+#d2map_extension-content-table select {
+	border: 1px;
+	width: 147px;
+	font-size: 11px;
+	padding: 4px 5px;
+	border-radius: 4px;
+}
+
+.d2map_quantity {
+	font-size: 11.5px;
+	padding: 5px;
+	border: 1px;
+}
+
 .d2map_ms_prop_container .d2map_header {
 	width: 100%;
 }
@@ -1095,9 +1126,9 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 .d2map_ms_prop_container .d2map_header {
 	position: relative;
 	overflow: auto;
-	border-bottom: 1px solid #4d4d4d;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+	border-bottom: 1px solid #263238;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 }
 .d2map_ms_prop_container .d2map_title {
 	display: block;
@@ -1105,9 +1136,9 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 	line-height: 30px;
 	text-align: center;
 	position: relative;
-	font-size: 15px;
+	font-size: 12px;
 	font-weight: bold;
-	box-shadow: 0 0 15px 3px #222 inset;
+	box-shadow: 0 0 15px 3px #263238 inset;
 }
 .d2map_ms_prop_container .d2map_ms-prop-edit-close {
 	display: block;
@@ -1160,6 +1191,7 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 }
 .d2map_ms_prop_container table {
 	width: 100%;
+	padding: 5px;
 	border-collapse: collapse;
 }
 .d2map_ms_prop_container td {
@@ -1219,7 +1251,7 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 	width: 100%;
 	text-align: center;
 	text-decoration: none;
-	font: normal 13px "Malgun Gothic";
+	font: normal 13px "Noto Sans KR";
 	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 	/* border: 1px solid #787878; */
 	border-radius: 3px;
@@ -1231,12 +1263,13 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 	cursor: pointer;
 }
 .d2map_ms_prop_container .d2map_sidc_span {
-	color: #faa236;
+	color: #e6ee9c;
 	font-weight: bold;
 }
 .d2map_sidc_div {
+	margin-top: 30px;
 	text-align: center;
-	font-size: 15px;
+	font-size: 14px;
 }
 @media (max-width: 830px) {
 	.d2map_ms_prop_container {
