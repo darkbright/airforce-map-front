@@ -42,8 +42,22 @@ export interface MilSymbolProperties {
 	_msMaxSize: number;
 	_prop: any;
 	initialize: () => void;
+	/**
+	 * 이게 정확하게 뭘하느건지 모르겟음. 확인 필요
+	 * @returns
+	 */
 	initMilsymbolPropData: () => void;
 	popupStyleSetTacticalSymbol: () => void;
+	/**
+	 * 현재 object가 군대부호인지 확인함. 만약 군대부호(MSPointObject, MSPolylineObject, MSCPointCircleObject)라면 true 아니면 false
+	 * @param IGraphicObject
+	 * @returns boolean
+	 */
 	activateMilSymbolPopup: (obj: IGraphicObject) => boolean;
+	/**
+	 * 현재 군대부호의 종류에 따라 (선형인지 점형인지 등) 군대부호 속성정보의 어떠한 내용을 담을 것인지 판단하여 그 팝업창 ui를 보여주는 함수임.
+	 * @param cd 군대부호 심볼 부호 (예: selectedObject._prop.msOriginKey)
+	 * @returns void
+	 */
 	setMSStyle: (cd: string) => void;
 }

@@ -1,10 +1,15 @@
 #d2map_ms_prop_modal {
-	font: normal 13px "Malgun Gothic";
+	font: normal 12px "Noto Sans KR";
 	box-sizing: border-box;
 }
 
 #d2map_basic-content-table {
 	border-collapse: separate;
+}
+
+#d2map_basic-content-table input:focus-visible {
+	background-color: rgba(0, 200, 255, 0.1);
+	outline-width: 0;
 }
 
 #d2map_ms-prop-edit-select-affiliation,
@@ -18,15 +23,6 @@
 	padding: 4.2px 5px;
 	border: 1px;
 	border-radius: 4px;
-}
-
-#d2map_ms-prop-edit-select-affiliation,
-#d2map_ms-prop-edit-select-operationalConditionPoint,
-#d2map_ms-prop-edit-select-status,
-#d2map_ms-prop-edit-text-size,
-#d2map_ms-prop-edit-text-opacity,
-#d2map_ms-prop-edit-text-strokeWidth:focus-visible {
-	outline-color: #00c8ff;
 }
 
 #d2map_ms-prop-edit-chk-displayicon,
@@ -79,17 +75,13 @@
 	border-radius: 4px;
 }
 
-#d2map_ms-prop-edit-text-combatEffectiveness:focus-visible {
-	outline-color: #00c8ff;
-}
-
 /* 기본군대부호 AH-tab */
 .d2map_ms-prop-edit-bottom-forAH nav,
 .d2map_ms-prop-edit-bottom-forAI nav,
 .d2map_ms-prop-edit-bottom-forAJ nav {
 	display: flex;
 	position: relative;
-	background-color: #333;
+	background-color: #37474f5c;
 }
 
 #d2map_AH-confirm-btn,
@@ -124,7 +116,7 @@
 .d2map_AH-tab-content {
 	min-height: 165px;
 	line-height: normal;
-	background-color: #333;
+	background-color: #263238;
 	padding: 15px;
 	display: none;
 }
@@ -173,7 +165,7 @@
 
 .d2map_AI-tab-content {
 	line-height: normal;
-	background-color: #333;
+	background-color: #263238;
 	padding: 15px;
 	display: none;
 }
@@ -222,7 +214,7 @@
 .d2map_AJ-tab-content {
 	min-height: 165px;
 	line-height: normal;
-	background-color: #333;
+	background-color: #263238;
 	padding: 15px;
 	display: none;
 }
@@ -264,12 +256,11 @@
 /* 기본군대부호 AH, AI, AJ 속성 창 */
 .d2map_popup-modal {
 	height: auto;
-	background: #333;
 	position: absolute;
 	padding: 0;
 	opacity: 0;
 	pointer-events: none;
-	box-shadow: 0 0 15px 3px #222 inset;
+	background: #263238;
 	z-index: 1011;
 	border-radius: 5px;
 }
@@ -289,7 +280,7 @@
 	margin: 0;
 	color: #edffff;
 	font-size: small;
-	background-image: url(https://cdn.icon-icons.com/icons2/1674/PNG/512/close_111152.png);
+	background-image: url("../d2/img/close_btn.png");
 	cursor: pointer;
 }
 
@@ -298,17 +289,29 @@
 }
 
 .d2map_popup-modal input {
-	width: 80px;
+	width: 90px;
+	border: 1px;
+	font-size: 11px;
+	padding: 4px 5px;
+	border-radius: 4px;
+}
+
+.d2map_popup-modal input:focus-visible {
+	background-color: rgba(0, 200, 255, 0.15);
+	outline-width: 0;
 }
 
 .d2map_popup-modal input[type="color"] {
 	background: rgba(0, 0, 0, 0.1);
 	border: none;
+	width: 30px;
+	height: 30px;
 }
 
 .d2map_popup-modal.is-visible {
-	opacity: 0.7;
+	opacity: 0.95;
 	pointer-events: auto;
+	z-index: 1501;
 }
 
 .d2map_popup-modal__close {

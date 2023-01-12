@@ -48,18 +48,19 @@ const FeatureRightClickHandler = ({
 
 	useEffect(() => {
 		document.addEventListener("click", function (event: Event) {
-			const target = event.target as HTMLElement;
-			// d2 map 군대부호 상세 정보창 닫기 handling
+			const target = event.target as any;
+			// d2 map 군대부호 상세 정보창 닫기 handling (총 4가지의 타입이 있고 모두 popup-close-btn으로 닫기를 핸들링함)
 			if (target.matches(".d2map_popup-close-btn")) {
-				const block = document.getElementById("d2map_ms_prop_container");
-				block!.style.display = "none";
+				const block: any = document.getElementsByClassName("d2map_ui-popup");
+				for (let i = 0; i < block.length; i++) {
+					block[i]!.style.display = "none";
+				}
 			}
 			// 군대부호 속성정보 탭 스위칭 (본 프로젝트에 html이 없고 d2map.min.js 에 담겨있어 이렇게 처리할 수 밖에 없음)
 			if (target.matches(".d2map_tab-controller li")) {
 				const tabName = target.getAttribute("data-tab");
 				if (target.parentNode) {
 					for (const sibling of target.parentNode.children!) {
-						console.log("sibling", sibling);
 						if (sibling !== target) {
 							sibling.classList.remove("d2map_selected");
 						} else {
@@ -231,6 +232,7 @@ const FeatureRightClickHandler = ({
 							<MenuItem
 								onClick={() => {
 									const selectedObject = window.graphic.getSelectObjectList()[0];
+
 									if (
 										window.MilSymbol.getMilSymbolPropertiesObject().activateMilSymbolPopup(
 											selectedObject,
@@ -239,12 +241,10 @@ const FeatureRightClickHandler = ({
 										window.MilSymbol.getMilSymbolPropertiesObject().setMSStyle(
 											selectedObject._prop.msOriginKey,
 										);
+
 										const block = document.getElementById("d2map_ms_prop_container");
-										block!.style.display = "flex";
-										block!.style.zIndex = "8000";
-										// const block1 = document.getElementById("d2map_ms_prop_container_ex");
-										// block1!.style.display = "flex";
-										// block1!.style.zIndex = "8000";
+										block!.style.zIndex = "1500";
+										block!.style.background = "#263238";
 										setShow(false);
 									}
 								}}
