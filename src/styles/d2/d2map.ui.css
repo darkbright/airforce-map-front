@@ -1301,6 +1301,7 @@ div#d2map_ms-prop-edit-img-container::-webkit-scrollbar-corner { display: none; 
 
 #d2map_ms_prop_container_nonpoint {
 	width: 350px;
+	z-index: 1500;
 }
 
 #d2map_ms_prop_container_nonpoint .d2map_sidc-content input[type="text"] {

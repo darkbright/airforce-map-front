@@ -6,6 +6,7 @@ import { Draggable } from "react-beautiful-dnd";
 import FeaturePropertyHandlerModal from "./featurePropertyHandler/FeaturePropertyHandlerModal";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import { showMilSymbolPopup } from "../../../libs/d2/mapSettings/milSymbols/milSymbolPropertiesPopup/showMilSymbolPopup";
 
 interface SingleFeatureBoxProps {
 	feature: IGraphicObject;
@@ -126,9 +127,26 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 				>
 					삭제
 				</MenuItem>
-				<MenuItem dense onClick={() => console.log("dfs")}>
-					아이템 복사
-				</MenuItem>
+				{foundFeature._prop.type === "milSymbol" && (
+					<MenuItem
+						dense
+						onClick={() => {
+							objectList.map((obj) => {
+								if (foundFeature!._prop.guid === obj._prop.guid) {
+									// 전체 graphic 객체 내 ObjectManager라고 하는 것의 _objectList를 모두 지워줌
+									window.graphic._selectObjectManager.clear();
+									// 거기에 선택한 obj를 추가함
+									window.graphic._selectObjectManager.add(foundFeature);
+									window.graphic._selectObjectManager.selectObject();
+
+									showMilSymbolPopup();
+								}
+							});
+						}}
+					>
+						군대부호 속성
+					</MenuItem>
+				)}
 			</Menu>
 			<FeaturePropertyHandlerModal
 				open={propertyModalOpen}

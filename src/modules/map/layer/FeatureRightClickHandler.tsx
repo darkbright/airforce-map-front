@@ -1,5 +1,7 @@
 import { Divider, ListItemText, MenuItem, MenuList, styled, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { handleMilSymbolPopupTabs } from "../../../libs/d2/mapSettings/milSymbols/milSymbolPropertiesPopup/handleMilSymbolPopupTabs";
+import { showMilSymbolPopup } from "../../../libs/d2/mapSettings/milSymbols/milSymbolPropertiesPopup/showMilSymbolPopup";
 import useGraphicFeatureStore from "../../../stores/useGraphicFeatureStore";
 import { IGraphicObject } from "../../../types/d2/Graphic";
 import FeaturePropertyHandlerModal from "./featurePropertyHandler/FeaturePropertyHandlerModal";
@@ -46,40 +48,10 @@ const FeatureRightClickHandler = ({
 
 	const [openPropertyModal, setOpenPropertyModal] = useState(false);
 
+	// d2 군대부호 상세설정 팝업 핸들링
 	useEffect(() => {
 		document.addEventListener("click", function (event: Event) {
-			const target = event.target as any;
-			// d2 map 군대부호 상세 정보창 닫기 handling (총 4가지의 타입이 있고 모두 popup-close-btn으로 닫기를 핸들링함)
-			if (target.matches(".d2map_popup-close-btn")) {
-				const block: any = document.getElementsByClassName("d2map_ui-popup");
-				for (let i = 0; i < block.length; i++) {
-					block[i]!.style.display = "none";
-				}
-			}
-			// 군대부호 속성정보 탭 스위칭 (본 프로젝트에 html이 없고 d2map.min.js 에 담겨있어 이렇게 처리할 수 밖에 없음)
-			if (target.matches(".d2map_tab-controller li")) {
-				const tabName = target.getAttribute("data-tab");
-				if (target.parentNode) {
-					for (const sibling of target.parentNode.children!) {
-						if (sibling !== target) {
-							sibling.classList.remove("d2map_selected");
-						} else {
-							sibling.classList.add("d2map_selected");
-						}
-						const baseBlock: any = document.getElementsByClassName("d2map_basic-content")[0];
-						const extensionBlock: any =
-							document.getElementsByClassName("d2map_extension-content")[0];
-
-						if (tabName === "extension-content") {
-							baseBlock.style.display = "none";
-							extensionBlock!.style.display = "block";
-						} else {
-							baseBlock.style.display = "block";
-							extensionBlock!.style.display = "none";
-						}
-					}
-				}
-			}
+			handleMilSymbolPopupTabs(event);
 		});
 	}, [document]);
 
@@ -231,22 +203,8 @@ const FeatureRightClickHandler = ({
 						{feature?._prop.type === "milSymbol" && (
 							<MenuItem
 								onClick={() => {
-									const selectedObject = window.graphic.getSelectObjectList()[0];
-
-									if (
-										window.MilSymbol.getMilSymbolPropertiesObject().activateMilSymbolPopup(
-											selectedObject,
-										)
-									) {
-										window.MilSymbol.getMilSymbolPropertiesObject().setMSStyle(
-											selectedObject._prop.msOriginKey,
-										);
-
-										const block = document.getElementById("d2map_ms_prop_container");
-										block!.style.zIndex = "1500";
-										block!.style.background = "#263238";
-										setShow(false);
-									}
+									showMilSymbolPopup();
+									setShow(false);
 								}}
 							>
 								<ListItemText>군대부호 속성</ListItemText>
