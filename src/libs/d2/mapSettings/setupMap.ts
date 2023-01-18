@@ -13,6 +13,7 @@ import { addMapLayer } from "./addLayers/addMapLayer";
 import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../data/constants/baseCoord";
 import { loadMVTLayerTree } from "./mvtLayerHandling/MVTLayerTree";
 import { GraphicCursor } from "../../../types/d2/Graphic";
+import { initTextEditorPopupUI } from "./textEditor/initTextEditorPopupUI";
 
 /**
  * 최초 맵 객체를 init하면서, 각종 default Controls(풀스크린, 줌버튼, 마우스포지션)을 입혀주고,  최초 맵 객체 형성과 관련된 D2에서 만든 함수들을 init 시킴
@@ -85,9 +86,9 @@ export default async () => {
 	// 군대부호 모듈 윈도우에 배치
 	window.MilSymbol = MilSymbol;
 	// 군대부호 트리 생성 (현재는 본 프로젝트에서 직접 구축한 트리 사용 중)
-	window.MilSymbol.loadMilsymbolTree();
-	// 군대부호 속성의 데이터 설정
-	window.MilSymbol.getMilSymbolPropertiesObject().initMilsymbolPropData();
+	//window.MilSymbol.loadMilsymbolTree();
+	// // 군대부호 속성의 데이터 설정
+	// window.MilSymbol.getMilSymbolPropertiesObject().initMilsymbolPropData();
 
 	// 레이어 관리 모듈 생성
 	// 해당 레이어매니저가 생성됨으로써 벡터맵의 각종 속성들을 사용할 수 있음 (벡터 맵 내 각종 요소를 보여주기 끄기, 기본 색상 값 등)
@@ -121,9 +122,5 @@ export default async () => {
 
 	loadMVTLayerTree();
 
-	// 투명도 feature 중 text 관련 핸들링
-	// TO_BE_CHECKED
-	// window.CKEDITOR_BASEPATH = "src/libs/d2/d2editor";
-	// const textEditorUI = new TextEditorPopupUI();
-	// console.log("textEditorUI", textEditorUI);
+	initTextEditorPopupUI();
 };

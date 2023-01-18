@@ -143,7 +143,11 @@ export const ShapesOnToolbarShaper = ({ tid, favColor }: ShapesOnToolBarShaperPr
 		 */
 		case "text": {
 			const objProp: IGraphicObjectProp = new GraphicObjectProp("textEditor");
-			graphic.createMode(objProp);
+			const objStyle: IGraphicObjectStyle = new GraphicObjectStyle();
+			objStyle.fill.color = [255, 255, 255, 1];
+			objStyle.line.color = [0, 0, 0, 1];
+			objStyle.line.width = 1;
+			graphic.createMode(objProp, objStyle);
 			break;
 		}
 		/**

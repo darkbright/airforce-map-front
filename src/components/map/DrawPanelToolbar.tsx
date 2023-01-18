@@ -329,6 +329,8 @@ const DrawPanelToolbar = () => {
 			<MilitarySymbolListTreeDrawer
 				open={symbolListOpen}
 				setOpen={() => {
+					window.MilSymbol.loadMilsymbolTree();
+
 					window.MilSymbol.showTranslateBtn(true);
 					setSymbolListOpen(false);
 				}}

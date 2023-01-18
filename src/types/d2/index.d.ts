@@ -4,6 +4,8 @@ import { CoordManager } from "./Core/CoordManager";
 import { IGraphicObjectProp } from "./Core/IGraphicObjectProp";
 import { IGraphicObjectStyle } from "./Core/IGraphicObjectStyle";
 import { IGraphicUtil } from "./Core/IGraphicUtil";
+import { ITextEditorPopupUI } from "./Core/ITextEditorPopupUI";
+import { ICKEditorUI } from "./Core/ICkEditorUI";
 import { CrossSection } from "./CrossSection";
 import { d2Constants } from "./d2Constants";
 import { d2MapManager } from "./d2MapManager";
@@ -34,6 +36,7 @@ declare global {
 
 		// d2Core를 통해 생성된 객체
 		Coordinate: any;
+		CKEDITOR: any;
 		D2_CONSTANTS: d2Constants;
 		CKEDITOR_BASEPATH: string;
 		map: any;
@@ -75,6 +78,7 @@ declare global {
 				 * 고도 서비스 초기화, 그리드 객체 초기화 측정기능 및 지형분석 초기화 등 지도 서비스를 위한 클랙스를 초기화함
 				 */
 				Coordinate: any;
+				CKEditorUI: typeof ICKEditorUI;
 				/**
 				 * 한국군 표준군대부호(MND-STD-2525C) 처리를 위한 기본클래스로 기본부호인 전술기호(Tactical Symbol)와 전술도식(Tactical Grapphic) 정형 부호를 표출하는 전용 클래스
 				 */
@@ -92,6 +96,7 @@ declare global {
 				MapLayerManager: any;
 				MilSymbol: any;
 				SpatialOperator: any;
+				TextEditorPopupUI: ITextEditorPopupUI;
 				Tracker: any;
 				ol: {
 					AssertionError: any;

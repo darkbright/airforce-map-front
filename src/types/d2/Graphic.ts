@@ -177,6 +177,7 @@ export interface Graphic {
 	 * 선택된 그래픽 객체의 선택 해제
 	 */
 	unSelect: () => void;
+	layerMessage: (message: string, board: IGraphicBoard) => void;
 }
 
 /**
@@ -428,6 +429,8 @@ export interface IGraphicObject {
 		};
 		createTime: string;
 		editTime: string;
+		editorScale: string;
+		editorInfo: string;
 		guid: string;
 		links: any;
 		lock: boolean;
@@ -509,6 +512,11 @@ export interface IGraphicObject {
 	_visiblity: boolean;
 	getGUID: () => string;
 	/**
+	 * 텍스트 에디터 안에 써넣은 값의 html 값
+	 * @returns htmled string
+	 */
+	getEditorInfo: () => string;
+	/**
 	 * ol feature 반환
 	 */
 	getFeature: () => any;
@@ -522,6 +530,7 @@ export interface IGraphicObject {
 	getVisible: () => boolean;
 	getZIndex: () => number;
 	setZIndex: (index: number) => void;
+	getScale: () => number;
 	getScaleLimit: () => boolean;
 	/**
 	 * 축척 제한 설정
@@ -537,6 +546,7 @@ export interface IGraphicObject {
 	 * 회전 각도 설정
 	 */
 	setRotate: (angle: number) => void;
+	setBaseZoomLevel: (zoomLevel: number) => void;
 	/**
 	 * 내부적으로 setFeatureStyle을 하는거같은데, 이걸로 바꾸든지 해야댐
 	 */
@@ -554,11 +564,24 @@ export interface IGraphicObject {
 	 */
 	setLock: (lock: boolean) => void;
 	getLock: () => boolean;
+	getWidth: () => number;
+	getHeight: () => number;
 	setScreenMode: (mode: boolean) => void;
 	getScreenMode: () => boolean;
 	getCreateTime: () => string;
 	getEditTime: () => string;
 	updateFeature: () => void;
+	destroy: () => void;
+	/**
+	 * 텍스트 에디터에서 객체의 수정 스타일을 제거함
+	 */
+	destroyTextEditFeature: () => void;
+	setEditorInfo: (data: string) => void;
+	updateEditorInfo: () => void;
+	/**
+	 * 객체 수정스타일을 도시?
+	 */
+	showTextEditFeature: () => void;
 }
 
 /**
@@ -824,7 +847,8 @@ export type IFeatureType =
 	| "regularPolygon"
 	| "ellipse"
 	| "arc"
-	| "text"
+	| "textEditor"
+	| "table"
 	| "milSymbol"
 	| "image"
 	| "group";

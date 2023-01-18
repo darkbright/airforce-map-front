@@ -12,8 +12,16 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>상황도 System</title>
-    <script src="%PUBLIC_URL%/lib/d2map.min.js"></script>
- 
+    
+    <script>
+      window.CKEDITOR_BASEPATH = '%PUBLIC_URL%/lib/d2editor/';
+      let encoding = document.characterSet;
+      if (encoding !== "UTF-8") encoding = "UTF-8";
+  </script>
+    <script src="%PUBLIC_URL%/lib/d2map.min.js" charset=`${encoding}`></script>
+    <script src="%PUBLIC_URL%/lib/d2editor/config.js" charset=`${encoding}` ></script>
+    <script src="%PUBLIC_URL%/lib/d2editor/lang/ko.js" charset=`${encoding}` ></script>
+
   </head>
   <body>
    

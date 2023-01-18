@@ -89,7 +89,7 @@ const BaseMap = ({ show = true, children }: BaseMapProps) => {
 				{rightClickEnabled && <RightClickFeatureBox />}
 				<div id="d2map_popup-text-editor-popup" className="d2map_popuplayer">
 					<div className="d2map-popup-container">
-						<div id="d2map_popup-text-editor" contentEditable={true} />
+						<div id="d2map_popup-text-editor" contentEditable={true}></div>
 					</div>
 				</div>
 			</div>

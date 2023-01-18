@@ -108,7 +108,7 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 				>
 					속성 변경
 				</MenuItem>
-				<MenuItem
+				{/* <MenuItem
 					dense
 					onClick={() => {
 						objectList.map((obj) => {
@@ -126,7 +126,7 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 					}}
 				>
 					삭제
-				</MenuItem>
+				</MenuItem> */}
 				{foundFeature._prop.type === "milSymbol" && (
 					<MenuItem
 						dense

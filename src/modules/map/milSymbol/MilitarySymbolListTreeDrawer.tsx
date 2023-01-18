@@ -77,22 +77,42 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 				해당 블록의 존재는 반드시 있어야 하나, 해당 버튼의 토글을 보여줄 필요가 없는 것으로 하여 처리 하겠음. 
 				한/영 전환 시 d2의 jquery element의 속성 변경이 react에서 제대로 일어나지 않기 때문 */}
 				<div style={{ display: "flex", justifyContent: "flex-end" }}>
-					<div
-						className="d2map_translate-btn"
-						id="d2map_translate-container"
-						style={{ display: "none" }}
-					>
-						<input
-							type="checkbox"
-							className="d2map_translate-chk"
-							// onChange={(e) => handleMilSymbolLang(e)}
-							// checked={langChecked}
-							ref={langCheckedRef}
-						/>
-						<div className="d2map_translate-knobs"></div>
-						<div className="d2map_translate-layer"></div>
+					<div id="popup-milsymbol">
+						<div
+							className="d2map_translate-btn"
+							id="d2map_translate-container"
+							style={{ display: "none" }}
+						>
+							<input
+								type="checkbox"
+								className="d2map_translate-chk"
+								// onChange={(e) => handleMilSymbolLang(e)}
+								// checked={langChecked}
+								ref={langCheckedRef}
+							/>
+							<div className="d2map_translate-knobs"></div>
+							<div className="d2map_translate-layer"></div>
+						</div>
+						{/* 아래부분은 d2map_popupGraphicMSProperty className이 없으면 loadMilsymbolTree에서 에러를 뱉어 작동하지 않아 넣어둔 것임.. */}
+						<div style={{ display: "none" }}>
+							{/* <div
+								id="d2map_ms_prop_container"
+								className="d2map_ms_prop_container d2map_ui-popup ui-draggable ui-draggable-handle"
+							></div> */}
+							<div id="d2map_tree-container" className="d2map_tree-container">
+								<ul id="d2map_milsymbolTree" className="d2map_ztree"></ul>
+							</div>
+							<ul className="graphic-contextmenu">
+								<li>
+									<a href="#d2map_popup-graphic-msstyle" className="d2map_popupGraphicMSProperty">
+										군대부호 속성
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
+				{/* 바로 위 주석친 부분부터 바로 여기 부분까지 절대 삭제하지 말 것 */}
 
 				<Tabs
 					value={tabValue}
@@ -117,14 +137,6 @@ const MilitarySymbolListTreeDrawer = ({ open, setOpen }: MilitarySymbolListTreeD
 				<TabPanel value={tabValue} index={1}>
 					<Root>
 						<MilitarySymbolTreeTab onSelectSymbol={handleSymbolToBeInMap} />
-						{/* d2에서 만든거 - 현재 필요없음 */}
-						{/* <div
-					id="d2map_milsymbolTree"
-					className="d2map_ztree"
-					onClick={() => window.MilSymbol.loadMilsymbolTree()}
-				>
-					ddd
-				</div> */}
 					</Root>
 				</TabPanel>
 			</Box>

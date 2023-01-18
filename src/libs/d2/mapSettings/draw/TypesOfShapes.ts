@@ -133,6 +133,17 @@ export const typesOfShape: TypesOfShapeProp[] = [
 		isRectangle: false,
 	},
 	{
+		id: "textEditor",
+		hasLine: false,
+		hasFill: false,
+		hasText: false,
+		hasOthers: true,
+		hasArrow: false,
+		isPoint: false,
+		isArc: false,
+		isRectangle: false,
+	},
+	{
 		id: "group",
 		hasLine: true,
 		hasFill: true,

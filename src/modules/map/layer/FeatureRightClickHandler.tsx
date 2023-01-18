@@ -2,6 +2,7 @@ import { Divider, ListItemText, MenuItem, MenuList, styled, Typography } from "@
 import { useEffect, useState } from "react";
 import { handleMilSymbolPopupTabs } from "../../../libs/d2/mapSettings/milSymbols/milSymbolPropertiesPopup/handleMilSymbolPopupTabs";
 import { showMilSymbolPopup } from "../../../libs/d2/mapSettings/milSymbols/milSymbolPropertiesPopup/showMilSymbolPopup";
+
 import useGraphicFeatureStore from "../../../stores/useGraphicFeatureStore";
 import { IGraphicObject } from "../../../types/d2/Graphic";
 import FeaturePropertyHandlerModal from "./featurePropertyHandler/FeaturePropertyHandlerModal";
@@ -191,6 +192,16 @@ const FeatureRightClickHandler = ({
 							}}
 						>
 							<ListItemText>뒤로 보내기</ListItemText>
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								const board = window.graphic.getSelectGraphicBoard();
+								const objList = board.getParentObjectList();
+								console.log("objList", objList);
+								// 나중에 할 부ㅜㅂㄴ
+							}}
+						>
+							<ListItemText>에디터</ListItemText>
 						</MenuItem>
 						<MenuItem
 							onClick={() => {
