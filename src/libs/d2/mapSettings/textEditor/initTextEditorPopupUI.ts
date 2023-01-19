@@ -7,6 +7,7 @@ import { blockBubbling, isAllowedKeys, throttle } from "./textEditorHelperFuncti
 import { toastShow } from "../../../../components/alert/ToastMessage";
 import { openPopup } from "./openPopup";
 import { setEditorStyle } from "./editorStyle";
+import { closeTextEditor } from "./closeTextEditor";
 
 const { CKEditorUI, GraphicUtil } = D2MapModule;
 const graphicUtil: IGraphicUtil = GraphicUtil;
@@ -18,13 +19,12 @@ const MAX_TEXT_LENGTH = 10000;
 
 export const initTextEditorPopupUI = () => {
 	const ckEditorUI: typeof ICKEditorUI = CKEditorUI;
-	const selectedObject: IGraphicObject | undefined = undefined;
+	const selectedObject = window.graphic.getSelectObjectList()[0];
 
 	// window.CKEDITOR_BASEPATH = process.env.PUBLIC_URL + "/libs/d2editor/";
 
 	const ckeUI = new ckEditorUI("d2map_popup-text-editor");
 	const ckeditorObject = ckeUI.getInstance();
-	console.log("ck", ckeditorObject);
 
 	const editorElement = document.querySelector("#d2map_popup-text-editor") as any;
 	if (selectedObject) {
@@ -40,11 +40,12 @@ export const initTextEditorPopupUI = () => {
 	document.addEventListener("mousedown", function (e: any) {
 		const popupElement = document.getElementById("d2map_popup-text-editor");
 		const isPopupElem = popupElement?.contains(e.target);
-		// 이거 작동안함
-		// const isCKEElem = e.target.classList.indexOf("cke_") >= 0;
+		console.log("isPopupElem", isPopupElem);
+		/// const isCKEElem = e.target.className.indexOf("cke_") >= 0;
 
 		// if (!(isPopupElem || isCKEElem)) closeTextEditor(selectedObject, ckeditorObject, ckeUI);
-		if (!isPopupElem) closeTextEditor(selectedObject, ckeditorObject, ckeUI);
+		const objList = window.graphic.getSelectObjectList();
+		if (isPopupElem === false) closeTextEditor(objList[0], ckeditorObject, ckeUI);
 	});
 
 	/**
@@ -81,13 +82,15 @@ export const initTextEditorPopupUI = () => {
 	});
 
 	window.onresize = throttle(function () {
-		closeTextEditor(selectedObject, ckeditorObject, ckeUI);
+		const objList = window.graphic.getSelectObjectList();
+		closeTextEditor(objList[0], ckeditorObject, ckeUI);
 	});
 
 	window.map.getTargetElement().addEventListener(
 		"wheel",
 		throttle(function () {
-			closeTextEditor(selectedObject, ckeditorObject, ckeUI);
+			const objList = window.graphic.getSelectObjectList();
+			closeTextEditor(objList[0], ckeditorObject, ckeUI);
 		}),
 	);
 
@@ -104,7 +107,8 @@ export const initTextEditorPopupUI = () => {
 	// 글 상자의 툴바를 lock/unlock 하는 버튼에 대한 이벤트
 	document.body.addEventListener("click", (e: Event) => {
 		const target = e.target as HTMLElement;
-		console.log("target", target);
+		console.log("target", target.className);
+
 		// if (!target.classList.contains("cke_button__unlock_icon")) return;
 
 		const objList = window.graphic.getSelectObjectList();
@@ -118,7 +122,6 @@ export const initTextEditorPopupUI = () => {
 				: "unlock";
 
 		if (objList.length > 0) {
-			console.log("1");
 			objList[0]._style.fill.color = graphicUtil.hex2rgb(backgroundColor);
 			objList[0]._style.line.color = graphicUtil.hex2rgb(borderColor);
 			objList[0]._style.line.width = Number(borderWidth.split("px")[0]);
@@ -127,69 +130,10 @@ export const initTextEditorPopupUI = () => {
 			const data = ckeditorObject.getData();
 			objList[0]._prop.editorInfo = data;
 			objList[0].updateEditorInfo();
-			console.log(objList[0]);
 
 			openEditor(objList[0], ckeUI, ckeditorObject);
 		}
 	});
-};
-
-export const closeTextEditor = (
-	selectedObject: IGraphicObject | undefined,
-	ckeditorObject: IEditor,
-	ckeUI: ICKEditorUIMethod,
-) => {
-	if (selectedObject === undefined) return;
-
-	const popupElement = document.querySelector("#d2map_popup-text-editor-popup") as HTMLElement;
-	const editorElement = document.querySelector("#d2map_popup-text-editor") as HTMLElement;
-
-	if (popupElement.style.display === "none") return;
-
-	selectedObject._showTracker = true;
-	selectedObject.destroyTextEditFeature();
-
-	const foundCkeEditor = document.querySelector(`#${ckeditorObject.name}`) as HTMLElement;
-	const { backgroundColor, borderColor, borderWidth, backgroundImage } = foundCkeEditor.style;
-
-	if (selectedObject._prop.type === "textEditor") {
-		selectedObject._style.fill.color = graphicUtil.hex2rgb(backgroundColor);
-		selectedObject._style.line.color = graphicUtil.hex2rgb(borderColor);
-		selectedObject._style.line.width = Number(borderWidth.split("px")[0]);
-		selectedObject._prop.editorScale =
-			backgroundImage.split(".png")[0].split("/").pop() || "unlock";
-	}
-
-	const data = ckeditorObject.getData();
-
-	if (selectedObject._prop.type === "table") {
-		// updateObjectSize();
-		if (data === "") {
-			selectedObject.destroy();
-			window.graphic._selectGraphicBoard.sortZIndex();
-			window.graphic.layerMessage("SelectedObjectRemove", window.graphic._selectGraphicBoard);
-		}
-		selectedObject = undefined;
-		ckeUI.unsetSelectObject();
-
-		return false;
-	}
-
-	selectedObject.setEditorInfo(data);
-
-	popupElement.style.display = "none";
-	editorElement.blur();
-
-	window.graphic._selectObjectManager.clear();
-	window.graphic._selectObjectManager.add(selectedObject);
-	window.graphic._selectObjectManager.selectObject(false);
-
-	//selectedObject 해제
-	selectedObject = undefined;
-	foundCkeEditor.style.background = "#fff";
-	foundCkeEditor.style.border = "1px solid #000000";
-
-	window.graphic.getSelectGraphicBoard().undoRedoSave();
 };
 
 export const openEditor = (
@@ -277,8 +221,8 @@ export const openTextEditor = (
 	//         .style.backgroundImage.split("?")[1]
 	//     }`;
 
-	// object.showTextEditFeature();
-	// window.graphic._selectObjectManager.clearTracker();
+	object.showTextEditFeature();
+	window.graphic._selectObjectManager.clearTracker();
 };
 
 // export const openTableEditor = (object: IGraphicObject) => {
