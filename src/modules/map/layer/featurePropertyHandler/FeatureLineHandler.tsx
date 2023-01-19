@@ -33,10 +33,10 @@ import DensityLargeIcon from "@mui/icons-material/DensityLarge";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import DensitySmallIcon from "@mui/icons-material/DensitySmall";
 import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
-import FeatureFillTypeHandler from "./\bcomponents/FeatureFillTypeHandler";
-import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler";
-import FeaturePatternHandler from "./\bcomponents/FeaturePatternHandler";
-import FeatureGradientTypeHandler from "./\bcomponents/FeatureGradientTypeHandler";
+import FeatureFillTypeHandler from "./components/FeatureFillTypeHandler";
+import FeatureSimpleColorHandler from "./components/FeatureSimpleColorHandler";
+import FeaturePatternHandler from "./components/FeaturePatternHandler";
+import FeatureGradientTypeHandler from "./components/FeatureGradientTypeHandler";
 import { toastShow } from "../../../../components/alert/ToastMessage";
 import {
 	changeFeatureLineOpacity,

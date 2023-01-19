@@ -19,11 +19,11 @@ import {
 	IGraphicObject,
 	IPatternType,
 } from "../../../../types/d2/Graphic";
-import FeaturePatternHandler from "./\bcomponents/FeaturePatternHandler";
-import FeatureFillTypeHandler from "./\bcomponents/FeatureFillTypeHandler";
-import FeatureSimpleColorHandler from "./\bcomponents/FeatureSimpleColorHandler";
+import FeaturePatternHandler from "./components/FeaturePatternHandler";
+import FeatureFillTypeHandler from "./components/FeatureFillTypeHandler";
+import FeatureSimpleColorHandler from "./components/FeatureSimpleColorHandler";
 import { toastShow } from "../../../../components/alert/ToastMessage";
-import FeatureGradientTypeHandler from "./\bcomponents/FeatureGradientTypeHandler";
+import FeatureGradientTypeHandler from "./components/FeatureGradientTypeHandler";
 import SpaceBetweenTextBox from "../../../../components/box/textBox/SpaceBetweenTextBox";
 import TextInput from "../../../../components/form/TextInput";
 import {
