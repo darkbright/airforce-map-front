@@ -122,5 +122,5 @@ export default async () => {
 
 	loadMVTLayerTree();
 
-	initTextEditorPopupUI();
+	// initTextEditorPopupUI();
 };

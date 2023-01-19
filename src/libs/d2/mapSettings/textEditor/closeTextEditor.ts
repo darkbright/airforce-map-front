@@ -42,7 +42,6 @@ export const closeTextEditor = (
 	}
 
 	const data = ckeditorObject.getData();
-	console.log("data", data);
 
 	if (selectedObject._prop.type === "table") {
 		// updateObjectSize();

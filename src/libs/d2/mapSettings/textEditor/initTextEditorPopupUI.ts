@@ -121,7 +121,7 @@ export const initTextEditorPopupUI = () => {
 				? "lock"
 				: "unlock";
 
-		if (objList.length > 0) {
+		if (objList.length > 0 && objList[0]._prop.type === "textEditor") {
 			objList[0]._style.fill.color = graphicUtil.hex2rgb(backgroundColor);
 			objList[0]._style.line.color = graphicUtil.hex2rgb(borderColor);
 			objList[0]._style.line.width = Number(borderWidth.split("px")[0]);

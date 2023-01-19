@@ -40,7 +40,7 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 	const objectList = board.getObjectList();
 	// 그 중에서 현재 선택된 object가 무엇인지를 찾아야함.
 
-	const foundFeature = objectList.find((obj) => obj._prop.guid === feature._prop.guid)!;
+	const foundFeature = objectList.find((obj) => obj._prop.guid === feature._prop.guid) || null;
 
 	return (
 		<>
@@ -127,7 +127,7 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 				>
 					삭제
 				</MenuItem> */}
-				{foundFeature._prop.type === "milSymbol" && (
+				{foundFeature?._prop.type === "milSymbol" && (
 					<MenuItem
 						dense
 						onClick={() => {
