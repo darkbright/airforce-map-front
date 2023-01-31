@@ -108,11 +108,11 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 				>
 					속성 변경
 				</MenuItem>
-				{/* <MenuItem
+				<MenuItem
 					dense
 					onClick={() => {
 						objectList.map((obj) => {
-							if (foundFeature!._prop.guid === obj._prop.guid) {
+							if (foundFeature?._prop.guid === obj._prop.guid) {
 								// 전체 graphic 객체 내 ObjectManager라고 하는 것의 _objectList를 모두 지워줌
 								window.graphic._selectObjectManager.clear();
 								// 거기에 선택한 obj를 추가함
@@ -126,7 +126,7 @@ const SingleFeatureBox = ({ feature, parentVisibility, index }: SingleFeatureBox
 					}}
 				>
 					삭제
-				</MenuItem> */}
+				</MenuItem>
 				{foundFeature?._prop.type === "milSymbol" && (
 					<MenuItem
 						dense

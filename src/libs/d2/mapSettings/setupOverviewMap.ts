@@ -6,7 +6,6 @@ import urlInfo from "./urlInfo";
  */
 
 export default async () => {
-	const URL_HEADER = process.env.REACT_APP_MAP_SERVER_URL;
 	const { ol } = D2MapModule;
 
 	/**

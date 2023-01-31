@@ -59,6 +59,11 @@ declare global {
 		heightBillboard: HeightBillboard;
 		slopeDistance: SlopeDistance;
 		TerrainAnalysisManager: TerrainAnalysisManager;
+		/**
+		 * 텍스트 에디터 사용 시 저장된 lock/unlock icon 이미지 path
+		 * 디투는 내부적으로 경로를 확정시키는데, 그 경로가 리액트 프로젝트와 맞지 않으므로 참고만 할 것
+		 */
+		lockPluginPath: string;
 		D2: {
 			Core: {
 				/**
@@ -88,6 +93,7 @@ declare global {
 				GraphicObjectProp: IGraphicObjectProp;
 				GraphicObjectStyle: IGraphicObjectStyle;
 				GraphicPopUpUI: any;
+				GraphicLayerUI: any;
 				GraphicUtil: IGraphicUtil;
 				Grid: any;
 				MSTacticalLineGraphics: any;

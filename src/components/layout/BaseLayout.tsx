@@ -1,4 +1,4 @@
-import { Outlet, matchPath, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { flattenedMenu, menu } from "../../data/constants/menu";
 import useFullScreenStore from "../../stores/useFullScreenStore";

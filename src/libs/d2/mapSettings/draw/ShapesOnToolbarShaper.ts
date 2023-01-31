@@ -148,6 +148,8 @@ export const ShapesOnToolbarShaper = ({ tid, favColor }: ShapesOnToolBarShaperPr
 			objStyle.line.color = [0, 0, 0, 1];
 			objStyle.line.width = 1;
 			graphic.createMode(objProp, objStyle);
+			// messagecallback
+
 			break;
 		}
 		/**

@@ -1,8 +1,15 @@
 import { ICKEditorUIMethod } from "../../../../types/d2/Core/ICkEditorUI";
 import { IEditor } from "../../../../types/d2/Core/ITextEditorPopupUI";
 import { IGraphicObject } from "../../../../types/d2/Graphic";
-import { openEditor } from "./initTextEditorPopupUI";
+import { openEditorPerType } from "./openEditorPerType";
 
+/**
+ * 지도 상 툴바 그리기에서 text 버튼 클릭 시 나타나게 되는 에디터의 지도 상 위치를 선정함
+ * @param object IGraphicObject
+ * @param ckeUI ICKEditorUIMethod
+ * @param ckeditorObject IEditor
+ * @returns false | undefined
+ */
 export const openPopup = (
 	object: IGraphicObject,
 	ckeUI: ICKEditorUIMethod,
@@ -46,7 +53,7 @@ export const openPopup = (
 				duration: 500,
 			},
 			function () {
-				openEditor(object, ckeUI, ckeditorObject);
+				openEditorPerType(object, ckeUI, ckeditorObject);
 			},
 		);
 	}

@@ -27,7 +27,14 @@ export interface Graphic {
 	_selectorLayer: any;
 	_selectorSource: any;
 	_stdXSDManager: any;
-	_styleCallback: any;
+	/**
+	 * 그래픽 객체의 스타일 상태 변경 알림 - 뭔지 잘 모르겠음
+	 * @param type message name
+	 * @param param1 object
+	 * @param param2 object
+	 * @param param3 object
+	 */
+	_styleCallback: (type: string, param1?: any, param2?: any, param3?: any) => void;
 	_trackerLayer: any;
 	_trackerLineLayer: any;
 	_trackerLineSource: any;
@@ -547,6 +554,7 @@ export interface IGraphicObject {
 	 */
 	setRotate: (angle: number) => void;
 	setBaseZoomLevel: (zoomLevel: number) => void;
+	updateBound: () => void;
 	/**
 	 * 내부적으로 setFeatureStyle을 하는거같은데, 이걸로 바꾸든지 해야댐
 	 */

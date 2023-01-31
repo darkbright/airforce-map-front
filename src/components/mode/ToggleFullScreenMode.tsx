@@ -2,9 +2,6 @@ import { IconButton, Tooltip } from "@mui/material";
 import useFullScreenStore from "../../stores/useFullScreenStore";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
-import D2MapModule from "../../libs/d2/D2MapModule";
-
-const { ol } = D2MapModule;
 
 /**
  * 화면의 풀스크린 형태(지도로 모두 채움)을 결정하는 토글

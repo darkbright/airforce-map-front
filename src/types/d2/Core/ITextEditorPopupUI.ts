@@ -41,7 +41,7 @@ export interface IEditor {
 	};
 	dataProcessor: any;
 	element: {
-		$: string;
+		$: any;
 		getName: () => string;
 		elementMode: number;
 		enterMode: number;

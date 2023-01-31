@@ -29,6 +29,7 @@ export const setEditorStyle = ({
 }: EditorStyleProps) => {
 	const scale = selectedObject.getScale();
 
+	editorElement.style.color = "rgb(0, 0, 0)";
 	editorElement.style.transform = `scale(${scale})`;
 	editorElement.style.transformOrigin = "left top";
 
@@ -42,7 +43,7 @@ export const setEditorStyle = ({
 		editorElement.style.height = "auto";
 		editorElement.style.display = "inline-block";
 	} else if (selectedObject._prop.type === "textEditor") {
-		editorElement.style.width = `${width / scale}px`;
+		editorElement.style.width = `${(width / scale) * 2}px`;
 		editorElement.style.height = `${height / scale}px`;
 		editorElement.style.display = "block";
 	}
