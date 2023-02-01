@@ -1,9 +1,12 @@
 import { Divider, ListItemText, MenuItem, MenuList, styled, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import D2MapModule from "../../../libs/d2/D2MapModule";
 import { handleMilSymbolPopupTabs } from "../../../libs/d2/mapSettings/milSymbols/milSymbolPropertiesPopup/handleMilSymbolPopupTabs";
 import { showMilSymbolPopup } from "../../../libs/d2/mapSettings/milSymbols/milSymbolPropertiesPopup/showMilSymbolPopup";
+import { openTextEditor } from "../../../libs/d2/mapSettings/textEditor/openTextEditor";
 
 import useGraphicFeatureStore from "../../../stores/useGraphicFeatureStore";
+import { ICKEditorUI } from "../../../types/d2/Core/ICkEditorUI";
 import { IGraphicObject } from "../../../types/d2/Graphic";
 import FeaturePropertyHandlerModal from "./featurePropertyHandler/FeaturePropertyHandlerModal";
 
@@ -13,6 +16,8 @@ interface FeatureRightclickHandlerProps {
 	positionX: number;
 	positionY: number;
 }
+
+const { CKEditorUI } = D2MapModule;
 
 /**
  * 그래픽 (투명도)에서 도형을 우클릭하여 각종 행위들을 컨트롤 할 수 있도록 하는 Popover
@@ -71,6 +76,20 @@ const FeatureRightClickHandler = ({
 					}}
 				>
 					<MenuList dense>
+						{feature?._prop.type === "textEditor" && (
+							<MenuItem
+								onClick={() => {
+									const selectedObject = window.graphic.getSelectObjectList()[0];
+									const ckEditorUI: typeof ICKEditorUI = CKEditorUI;
+									const ckeUI = new ckEditorUI("d2map_popup-text-editor");
+									const ckeditorObject = ckeUI.getInstance();
+									openTextEditor(selectedObject, ckeUI, ckeditorObject);
+									setShow(false);
+								}}
+							>
+								<ListItemText>텍스트 편집</ListItemText>
+							</MenuItem>
+						)}
 						<MenuItem
 							onClick={async () => {
 								window.graphic.copyObject();

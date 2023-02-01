@@ -41,7 +41,6 @@ export const closeEditor = (
 	const { backgroundColor, borderColor, borderWidth, backgroundImage } = foundCkeEditor.style;
 
 	if (editorType === "textEditor") {
-		console.log("popupElement", popupElement.style.display);
 		selectedObject._style.fill.color = graphicUtil.hex2rgb(backgroundColor);
 		selectedObject._style.line.color = graphicUtil.hex2rgb(borderColor);
 		selectedObject._style.line.width = Number(borderWidth.split("px")[0]);
@@ -66,7 +65,6 @@ export const closeEditor = (
 	selectedObject.setEditorInfo(data);
 
 	popupElement.style.display = "none";
-	console.log("popup on close", popupElement.style.display);
 	editorElement.blur();
 
 	window.graphic._selectObjectManager.clear();

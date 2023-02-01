@@ -1,4 +1,5 @@
 import { FeatureFontFamilies } from "../../data/constants/featureFontFamilyList";
+import { ILayerMessage } from "./layerMessage";
 
 /**
  * 투명도 관련 모든 속성으로, 레이어 설정 및 feature 값들을 저장 관리 수정 등 모든 것을 관할함
@@ -16,7 +17,7 @@ export interface Graphic {
 		shift: boolean;
 		ctrl: boolean;
 	};
-	_layerCallback: any;
+	_layerCallback: (type: ILayerMessage, param1?: IGraphicBoard, param2?: IGraphicObject) => void;
 	_map: any;
 	_mapScale: number;
 	_mode: string;

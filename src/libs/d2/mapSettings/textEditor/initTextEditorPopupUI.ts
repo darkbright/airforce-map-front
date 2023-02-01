@@ -5,7 +5,7 @@ import { blockBubbling, isAllowedKeys, throttle } from "./textEditorHelperFuncti
 import { toastShow } from "../../../../components/alert/ToastMessage";
 import { closeEditor } from "./closeEditor";
 import { openEditorPerType } from "./openEditorPerType";
-import { IGraphicObject } from "../../../../types/d2/Graphic";
+import { IGraphicBoard, IGraphicObject } from "../../../../types/d2/Graphic";
 import { ILayerMessage } from "../../../../types/d2/layerMessage";
 import { openTextEditor } from "./openTextEditor";
 import { openTableEditor } from "./openTableEditor";
@@ -37,12 +37,18 @@ export const initTextEditorPopupUI = () => {
 		};
 	}
 
-	const layerCallback = (type: ILayerMessage, param1?: any, param2?: IGraphicObject) => {
+	/**
+	 * d2 기능으로 해당 기능에 대한 명확한 설명은 없으나 레이어콜백이 없는 경우 텍스트 에디터를 생성하지 못함
+	 * @param type ILayerMessage
+	 * @param param1 IGraphicBoard
+	 * @param param2 IGraphicObject
+	 */
+	const layerCallback = (type: ILayerMessage, param1?: IGraphicBoard, param2?: IGraphicObject) => {
 		switch (type) {
-			case "SelectedObjectToDClick": {
-				window.graphic._styleCallback("popupStyleOpen", param2);
-				break;
-			}
+			// case "SelectedObjectToDClick": {
+			// 	window.graphic._styleCallback("popupStyleOpen", param2);
+			// 	break;
+			// }
 			case "CreateObjectDone": {
 				const objList = window.graphic.getSelectObjectList();
 				selectedObject = objList[0];
@@ -79,8 +85,6 @@ export const initTextEditorPopupUI = () => {
 	});
 
 	document.addEventListener("keydown", function (event: KeyboardEvent) {
-		console.log("event", event);
-		console.log("keydown");
 		const objList = window.graphic.getSelectObjectList();
 		if (objList.length !== 1) return false;
 		if (event.keyCode === 113 || event.code === "F2")
