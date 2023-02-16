@@ -1,5 +1,5 @@
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState, ReactNode, Fragment } from "react";
 import MenuIconWrapper from "../../components/icon/MenuIconWrapper";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -13,13 +13,15 @@ interface IconMenuItemProps {
 	closeOpenedMenu: boolean;
 	id: string; // 영어아이디
 	name: string; // 한글이름
-	subMenu: {
-		id: string;
-		name: string;
-		type: string;
-		subMenu?: { id: string; name: string; type: string }[];
-	}[];
+	subMenu: SubMenuProps[];
 	color: string;
+}
+
+interface SubMenuProps {
+	id: string;
+	name: string;
+	type: string;
+	subMenu?: SubMenuProps[];
 }
 
 /**
@@ -83,12 +85,25 @@ const IconMenuItem = ({
 								</RouteStyleHandler>
 							)}
 							{menu.subMenu?.map((submenu) => (
-								<RouteStyleHandler key={submenu.id} to={`${id}/${menu.id}/${submenu.id}`}>
-									<ListItemButton dense>
-										<CircleIcon sx={{ fontSize: ".5rem", margin: "0px 16px", opacity: 0.2 }} />
-										<ListItemText primary={submenu.name} />
-									</ListItemButton>
-								</RouteStyleHandler>
+								<Fragment key={submenu.id}>
+									<RouteStyleHandler to={`${id}/${menu.id}/${submenu.id}`}>
+										<ListItemButton dense>
+											<CircleIcon sx={{ fontSize: ".5rem", margin: "0px 16px", opacity: 0.2 }} />
+											<ListItemText primary={submenu.name} />
+										</ListItemButton>
+									</RouteStyleHandler>
+									{submenu.subMenu?.map((subsub) => (
+										<RouteStyleHandler
+											key={subsub.id}
+											to={`${id}/${menu.id}/${submenu.id}/${subsub.id}`}
+										>
+											<ListItemButton dense>
+												<CircleIcon sx={{ fontSize: ".5rem", margin: "0px 16px", opacity: 0.2 }} />
+												<ListItemText primary={subsub.name} />
+											</ListItemButton>
+										</RouteStyleHandler>
+									))}
+								</Fragment>
 							))}
 						</div>
 					))}

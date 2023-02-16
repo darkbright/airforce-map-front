@@ -214,16 +214,6 @@ const FeatureRightClickHandler = ({
 						</MenuItem>
 						<MenuItem
 							onClick={() => {
-								const board = window.graphic.getSelectGraphicBoard();
-								const objList = board.getParentObjectList();
-								console.log("objList", objList);
-								// 나중에 할 부ㅜㅂㄴ
-							}}
-						>
-							<ListItemText>에디터</ListItemText>
-						</MenuItem>
-						<MenuItem
-							onClick={() => {
 								setShow(false);
 								setOpenPropertyModal(true);
 							}}

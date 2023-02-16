@@ -37,6 +37,7 @@ export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTy
 		// 매칭되는 심볼을 symbolListByCoord 내의 DB에서 받은 좌표값으로 찾음
 		const symbol = symbolListByCoord.find((sym) => sym.baseCoord === properties.originLonlat);
 		console.log("symbol", symbol);
+		console.log(feature);
 		if (type === "simplified") {
 			const symbolStyle = basicPointStyle(feature, 10, 1);
 			feature.setStyle([symbolStyle, textStyle]);
@@ -55,7 +56,7 @@ export const changeSymbolTypeOnScreen = ({ mousePosition, type }: ChangeSymbolTy
 
 			const isSymbolType1 = getMilSymbolType(matchedSymbol) === 1;
 			if (isSymbolType1) {
-				const symbolImage = getMilSymbolImage(matchedSymbol);
+				const symbolImage = getMilSymbolImage(matchedSymbol, feature);
 				if (symbolImage) {
 					const symbolStyle = militarySymbolStyle(symbolImage);
 
