@@ -33,7 +33,7 @@ export const defaultMilitarySymbolStyle = function (feature: any) {
 
 	const isSymbolType1 = getMilSymbolType(matchedSymbol) === 1;
 	if (isSymbolType1) {
-		const symbolImage = getMilSymbolImage(matchedSymbol);
+		const symbolImage = getMilSymbolImage(matchedSymbol, feature);
 		if (symbolImage) {
 			const symbolStyle = militarySymbolStyle(symbolImage);
 
