@@ -11,7 +11,9 @@ const MapSymbol = () => {
 	const { favSymbol, setFavSymbol } = useFavoriteSymbolStore();
 
 	const changeFavSymbol = (event: MouseEvent<HTMLElement>, newAlignment: MapSymbolType) => {
-		setFavSymbol(newAlignment);
+		if (newAlignment !== null) {
+			setFavSymbol(newAlignment);
+		}
 	};
 
 	return (
