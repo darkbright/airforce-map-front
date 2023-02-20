@@ -31,6 +31,9 @@
 		"react/react-in-jsx-scope": "off",
 		"react/jsx-uses-react": "off",
 		"@typescript-eslint/no-explicit-any": "off",
-		"@typescript-eslint/no-non-null-assertion": "off"
-	}
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"eqeqeq": "error",
+		"no-unused-vars": "error"
+	},
+	"ignorePatterns": ["src/libs/d2", "src/types/d2"]
 }

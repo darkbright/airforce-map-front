@@ -16,3 +16,13 @@ src/lib/d2/
 **/.svn
 **/.hg
 **/node_modules
+
+public
+docs
+
+src/libs/d2
+src/types/d2
+src/styles/d2
+
+reportWebVitals.ts
+typedoc.json
