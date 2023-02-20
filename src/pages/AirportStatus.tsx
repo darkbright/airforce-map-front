@@ -20,13 +20,14 @@ import useRightClickStore from "../stores/useRightClickStore";
 import useFavoriteSymbolStore from "../stores/useFavoriteSymbolStore";
 import { ProgressTable } from "../components/dataGrid/simpleTable/SimpleTableExamples";
 import StatusBox from "../modules/widget/StatusBox";
+import { ICoordManager } from "../types/d2/Core/CoordManager";
 
 /**
  * 메인 페이지 (프로토타입 샘플)
  * @returns JSX.Element(Page)
  */
 const Main = () => {
-	const { CoordManager } = D2MapModule;
+	const { CoordManager }: { CoordManager: ICoordManager } = D2MapModule;
 	const [openTable, setOpenTable] = useState(true);
 
 	const { setRightClickEnabled } = useRightClickStore();
@@ -82,7 +83,9 @@ const Main = () => {
 	const onClickFeatureOnMap = useCallback(
 		(event: any) => {
 			const feature = findFeatures(event);
-			if (feature) {
+			const mode = window.eventManager.getMapMode();
+			if (feature && mode === "default") {
+				console.log("mode", mode);
 				const { id, name } = feature.getProperties();
 				setSelectedId(id);
 				setSelectedName(name);

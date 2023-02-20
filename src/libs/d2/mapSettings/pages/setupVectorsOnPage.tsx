@@ -5,6 +5,8 @@ import { simplifiedSymbolStyle } from "../styles/simplifiedSymbolStyle";
 import { basicSymbolStyle } from "../styles/basicSymbolStyle";
 import { MapSymbolType } from "../../../../types/army/symbolType";
 import { defaultMilitarySymbolStyle } from "../styles/militarySymbolStyle";
+import { ICoordManager } from "../../../../types/d2/Core/CoordManager";
+import { KOREA_CENTER_LAT, KOREA_CENTER_LON } from "../../../../data/constants/baseCoord";
 
 interface SetupVectorsOnPageType {
 	data: OpenLayersStandardDataTypes;
@@ -26,7 +28,8 @@ interface SetupVectorsOnPageType {
  * @returns ol.layer
  */
 export const setupVectorsOnPage = ({ data, layerName, favSymbol }: SetupVectorsOnPageType) => {
-	const { ol } = D2MapModule;
+	const { ol, CoordManager }: { ol: any; CoordManager: ICoordManager } = D2MapModule;
+
 	const symbolType = () => {
 		if (favSymbol === "basic") {
 			return basicSymbolStyle;
@@ -56,6 +59,10 @@ export const setupVectorsOnPage = ({ data, layerName, favSymbol }: SetupVectorsO
 			zIndex: 500, //(지도 0 ~ 99, 투명도 300 ~ 499의 인덱스를 사용한다.)
 			style: symbolType(),
 		});
+
+		// 페이지 이동 시 지도의 중심을 대한민국의 중심 좌표로 이동시킴
+		CoordManager.setGeoAnimatedMoveCenter(KOREA_CENTER_LON, KOREA_CENTER_LAT, 3);
+
 		return window.map.addLayer(olLayers);
 	} catch (error) {
 		return toastShow({

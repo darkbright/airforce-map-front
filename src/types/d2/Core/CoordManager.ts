@@ -1,7 +1,7 @@
 /**
  * 위경도의 각종 형식을 변환하거나 리턴해주는 클래스
  */
-export interface CoordManager {
+export interface ICoordManager {
 	/**
 	 * DMS(도분초) 형식을 일반 위경도로 변환
 	 */

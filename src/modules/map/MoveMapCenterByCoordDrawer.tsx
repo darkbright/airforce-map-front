@@ -17,8 +17,9 @@ import TextButton from "../../components/button/TextButton";
 import BaseButton from "../../components/button/BaseButton";
 import D2MapModule from "../../libs/d2/D2MapModule";
 import { mgrsBandRegex, mgrsSquareIdRegex } from "../../utils/regex";
+import { ICoordManager } from "../../types/d2/Core/CoordManager";
 
-const { CoordManager } = D2MapModule;
+const { CoordManager }: { CoordManager: ICoordManager } = D2MapModule;
 
 interface MoveMapCenterByCoordDrawerProps {
 	open: boolean;

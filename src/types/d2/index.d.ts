@@ -1,6 +1,6 @@
 import { Area } from "./Area";
 import { ClipboardOptions } from "./ClipboardOptions";
-import { CoordManager } from "./Core/CoordManager";
+import { ICoordManager } from "./Core/CoordManager";
 import { IGraphicObjectProp } from "./Core/IGraphicObjectProp";
 import { IGraphicObjectStyle } from "./Core/IGraphicObjectStyle";
 import { IGraphicUtil } from "./Core/IGraphicUtil";
@@ -78,7 +78,7 @@ declare global {
 				/**
 				 * 다양한 좌표계 변환 및 지도 중심 이동 등 좌표계 관련 기능 처리 Class
 				 */
-				CoordManager: CoordManager;
+				CoordManager: ICoordManager;
 				/**
 				 * 고도 서비스 초기화, 그리드 객체 초기화 측정기능 및 지형분석 초기화 등 지도 서비스를 위한 클랙스를 초기화함
 				 */

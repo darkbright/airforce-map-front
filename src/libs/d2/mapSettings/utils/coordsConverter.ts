@@ -1,6 +1,6 @@
-import { MGRSType, UTMType } from "../../../../types/d2/Core/CoordManager";
+import { ICoordManager, MGRSType, UTMType } from "../../../../types/d2/Core/CoordManager";
 import D2MapModule from "../../D2MapModule";
-const { CoordManager } = D2MapModule;
+const { CoordManager }: { CoordManager: ICoordManager } = D2MapModule;
 
 /**
  * 일반 LonLat 좌표를 dms, utm, mgrs, geoRef, gars의 형식으로 리턴하는 인터페이스
