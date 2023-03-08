@@ -15,7 +15,10 @@
 		"isolatedModules": true,
 		"downlevelIteration": true,
 		"noEmit": true,
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"strictPropertyInitialization": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "public"]
