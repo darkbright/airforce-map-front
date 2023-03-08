@@ -27,7 +27,7 @@
 		"hangul-js": "^0.2.6",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.1.2",
-		"material-react-table": "^1.5.9",
+		"material-react-table": "^1.8.4",
 		"react": "^18.1.0",
 		"react-beautiful-dnd": "^13.1.0",
 		"react-color-palette": "^6.2.0",
